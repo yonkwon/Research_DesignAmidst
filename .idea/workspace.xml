@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Remove environmental turbulence &amp; Code reformat" />
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/HPBaseline/Computation.java&#10;#&#9;src/main/java/HPBaseline/Decomposition.java&#10;#&#9;src/main/java/HPBaseline/Main.java&#10;#&#9;src/main/java/HPBaseline/MatWriter.java&#10;#&#9;src/main/java/HPBaseline/Scenario.java">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,6 +31,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -84,13 +89,22 @@
       <option name="project" value="LOCAL" />
       <updated>1693270399121</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/HPBaseline/Computation.java&#10;#&#9;src/main/java/HPBaseline/Decomposition.java&#10;#&#9;src/main/java/HPBaseline/Main.java&#10;#&#9;src/main/java/HPBaseline/MatWriter.java&#10;#&#9;src/main/java/HPBaseline/Scenario.java">
+      <option name="closed" value="true" />
+      <created>1693270606242</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1693270606242</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="[Fix] Code reformat" />
     <MESSAGE value="[Fix] Remove environmental turbulence" />
     <MESSAGE value="[Fix] Remove environmental turbulence &amp; Code reformat" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Remove environmental turbulence &amp; Code reformat" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/HPBaseline/Computation.java&#10;#&#9;src/main/java/HPBaseline/Decomposition.java&#10;#&#9;src/main/java/HPBaseline/Main.java&#10;#&#9;src/main/java/HPBaseline/MatWriter.java&#10;#&#9;src/main/java/HPBaseline/Scenario.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/HPBaseline/Computation.java&#10;#&#9;src/main/java/HPBaseline/Decomposition.java&#10;#&#9;src/main/java/HPBaseline/Main.java&#10;#&#9;src/main/java/HPBaseline/MatWriter.java&#10;#&#9;src/main/java/HPBaseline/Scenario.java" />
   </component>
 </project>
