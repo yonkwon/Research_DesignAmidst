@@ -14,7 +14,7 @@ import org.apache.commons.math3.distribution.BetaDistribution;
 import org.apache.commons.math3.random.MersenneTwister;
 import org.apache.commons.math3.random.RandomGenerator;
 
-class ADComputation {
+class Computation {
 
   ExecutorService workStealingPool;
   RandomGenerator r;
@@ -22,130 +22,125 @@ class ADComputation {
   AtomicDouble[] performanceByBetaAVG;
   AtomicDouble[] performanceByBetaSTD;
 
-  AtomicDouble[][][][][][] performanceAVGAtomic;
-  AtomicDouble[][][][][][] performanceSTDAtomic;
-  AtomicDouble[][][][][][] performance12AVGAtomic;
-  AtomicDouble[][][][][][] performance12STDAtomic;
-  AtomicDouble[][][][][][] performance23AVGAtomic;
-  AtomicDouble[][][][][][] performance23STDAtomic;
-  AtomicDouble[][][][][][] performance13AVGAtomic;
-  AtomicDouble[][][][][][] performance13STDAtomic;
+  AtomicDouble[][][][][] performanceAVGAtomic;
+  AtomicDouble[][][][][] performanceSTDAtomic;
+  AtomicDouble[][][][][] performance12AVGAtomic;
+  AtomicDouble[][][][][] performance12STDAtomic;
+  AtomicDouble[][][][][] performance23AVGAtomic;
+  AtomicDouble[][][][][] performance23STDAtomic;
+  AtomicDouble[][][][][] performance13AVGAtomic;
+  AtomicDouble[][][][][] performance13STDAtomic;
 
-  AtomicDouble[][][][][][] disagreementAVGAtomic;
-  AtomicDouble[][][][][][] disagreementSTDAtomic;
-  AtomicDouble[][][][][][] disagreement12AVGAtomic;
-  AtomicDouble[][][][][][] disagreement12STDAtomic;
-  AtomicDouble[][][][][][] disagreement23AVGAtomic;
-  AtomicDouble[][][][][][] disagreement23STDAtomic;
-  AtomicDouble[][][][][][] disagreement13AVGAtomic;
-  AtomicDouble[][][][][][] disagreement13STDAtomic;
+  AtomicDouble[][][][][] disagreementAVGAtomic;
+  AtomicDouble[][][][][] disagreementSTDAtomic;
+  AtomicDouble[][][][][] disagreement12AVGAtomic;
+  AtomicDouble[][][][][] disagreement12STDAtomic;
+  AtomicDouble[][][][][] disagreement23AVGAtomic;
+  AtomicDouble[][][][][] disagreement23STDAtomic;
+  AtomicDouble[][][][][] disagreement13AVGAtomic;
+  AtomicDouble[][][][][] disagreement13STDAtomic;
 
-  AtomicDouble[][][][][][] dissimilarityAVGAtomic;
-  AtomicDouble[][][][][][] dissimilaritySTDAtomic;
-  AtomicDouble[][][][][][] dissimilarity12AVGAtomic;
-  AtomicDouble[][][][][][] dissimilarity12STDAtomic;
-  AtomicDouble[][][][][][] dissimilarity23AVGAtomic;
-  AtomicDouble[][][][][][] dissimilarity23STDAtomic;
-  AtomicDouble[][][][][][] dissimilarity13AVGAtomic;
-  AtomicDouble[][][][][][] dissimilarity13STDAtomic;
+  AtomicDouble[][][][][] dissimilarityAVGAtomic;
+  AtomicDouble[][][][][] dissimilaritySTDAtomic;
+  AtomicDouble[][][][][] dissimilarity12AVGAtomic;
+  AtomicDouble[][][][][] dissimilarity12STDAtomic;
+  AtomicDouble[][][][][] dissimilarity23AVGAtomic;
+  AtomicDouble[][][][][] dissimilarity23STDAtomic;
+  AtomicDouble[][][][][] dissimilarity13AVGAtomic;
+  AtomicDouble[][][][][] dissimilarity13STDAtomic;
 
-  AtomicDouble[][][][][][] clusteringAVGAtomic;
-  AtomicDouble[][][][][][] clusteringSTDAtomic;
-  AtomicDouble[][][][][][] clustering12AVGAtomic;
-  AtomicDouble[][][][][][] clustering12STDAtomic;
-  AtomicDouble[][][][][][] clustering23AVGAtomic;
-  AtomicDouble[][][][][][] clustering23STDAtomic;
-  AtomicDouble[][][][][][] clustering13AVGAtomic;
-  AtomicDouble[][][][][][] clustering13STDAtomic;
+  AtomicDouble[][][][][] clusteringAVGAtomic;
+  AtomicDouble[][][][][] clusteringSTDAtomic;
+  AtomicDouble[][][][][] clustering12AVGAtomic;
+  AtomicDouble[][][][][] clustering12STDAtomic;
+  AtomicDouble[][][][][] clustering23AVGAtomic;
+  AtomicDouble[][][][][] clustering23STDAtomic;
+  AtomicDouble[][][][][] clustering13AVGAtomic;
+  AtomicDouble[][][][][] clustering13STDAtomic;
 
-  AtomicDouble[][][][][][] satisfactionAVGAtomic;
-  AtomicDouble[][][][][][] satisfactionSTDAtomic;
-  AtomicDouble[][][][][][] rewiringAVGAtomic;
-  AtomicDouble[][][][][][] rewiringSTDAtomic;
+  AtomicDouble[][][][][] satisfactionAVGAtomic;
+  AtomicDouble[][][][][] satisfactionSTDAtomic;
+  AtomicDouble[][][][][] rewiringAVGAtomic;
+  AtomicDouble[][][][][] rewiringSTDAtomic;
 
-  AtomicDouble[][][][][][] sampleBetaAVGAtomic;
-  AtomicDouble[][][][][][] sampleBetaSTDAtomic;
+  AtomicDouble[][][][][] sampleBetaAVGAtomic;
+  AtomicDouble[][][][][] sampleBetaSTDAtomic;
 
   // Results in double arrays
-  double[][][][][][] performanceAVG;
-  double[][][][][][] performanceSTD;
-  double[][][][][][] performance12AVG;
-  double[][][][][][] performance12STD;
-  double[][][][][][] performance23AVG;
-  double[][][][][][] performance23STD;
-  double[][][][][][] performance13AVG;
-  double[][][][][][] performance13STD;
+  double[][][][][] performanceAVG;
+  double[][][][][] performanceSTD;
+  double[][][][][] performance12AVG;
+  double[][][][][] performance12STD;
+  double[][][][][] performance23AVG;
+  double[][][][][] performance23STD;
+  double[][][][][] performance13AVG;
+  double[][][][][] performance13STD;
 
-  double[][][][][][] disagreementAVG;
-  double[][][][][][] disagreementSTD;
-  double[][][][][][] disagreement12AVG;
-  double[][][][][][] disagreement12STD;
-  double[][][][][][] disagreement23AVG;
-  double[][][][][][] disagreement23STD;
-  double[][][][][][] disagreement13AVG;
-  double[][][][][][] disagreement13STD;
+  double[][][][][] disagreementAVG;
+  double[][][][][] disagreementSTD;
+  double[][][][][] disagreement12AVG;
+  double[][][][][] disagreement12STD;
+  double[][][][][] disagreement23AVG;
+  double[][][][][] disagreement23STD;
+  double[][][][][] disagreement13AVG;
+  double[][][][][] disagreement13STD;
 
-  double[][][][][][] dissimilarityAVG;
-  double[][][][][][] dissimilaritySTD;
-  double[][][][][][] dissimilarity12AVG;
-  double[][][][][][] dissimilarity12STD;
-  double[][][][][][] dissimilarity23AVG;
-  double[][][][][][] dissimilarity23STD;
-  double[][][][][][] dissimilarity13AVG;
-  double[][][][][][] dissimilarity13STD;
+  double[][][][][] dissimilarityAVG;
+  double[][][][][] dissimilaritySTD;
+  double[][][][][] dissimilarity12AVG;
+  double[][][][][] dissimilarity12STD;
+  double[][][][][] dissimilarity23AVG;
+  double[][][][][] dissimilarity23STD;
+  double[][][][][] dissimilarity13AVG;
+  double[][][][][] dissimilarity13STD;
 
-  double[][][][][][] clusteringAVG;
-  double[][][][][][] clusteringSTD;
-  double[][][][][][] clustering12AVG;
-  double[][][][][][] clustering12STD;
-  double[][][][][][] clustering23AVG;
-  double[][][][][][] clustering23STD;
-  double[][][][][][] clustering13AVG;
-  double[][][][][][] clustering13STD;
+  double[][][][][] clusteringAVG;
+  double[][][][][] clusteringSTD;
+  double[][][][][] clustering12AVG;
+  double[][][][][] clustering12STD;
+  double[][][][][] clustering23AVG;
+  double[][][][][] clustering23STD;
+  double[][][][][] clustering13AVG;
+  double[][][][][] clustering13STD;
 
-  double[][][][][][] satisfactionAVG;
-  double[][][][][][] satisfactionSTD;
-  double[][][][][][] rewiringAVG;
-  double[][][][][][] rewiringSTD;
+  double[][][][][] satisfactionAVG;
+  double[][][][][] satisfactionSTD;
+  double[][][][][] rewiringAVG;
+  double[][][][][] rewiringSTD;
 
-  double[][][][][][] sampleBetaAVG;
-  double[][][][][][] sampleBetaSTD;
+  double[][][][][] sampleBetaAVG;
+  double[][][][][] sampleBetaSTD;
 
   ProgressBar bb;
   ProgressBar pb;
 
-  ADComputation() {
+  Computation() {
     workStealingPool = Executors.newWorkStealingPool();
     r = new MersenneTwister();
   }
 
   public void printNetwork() {
     try {
-      Files.createDirectories(Paths.get(ADMain.PATH_CSV));
+      Files.createDirectories(Paths.get(Main.PATH_CSV));
     } catch (IOException e) {
       e.printStackTrace();
     }
 
-    for (int h = 0; h < ADMain.GRANULARITY_H; h++) {
-      for (int b = 0; b < ADMain.GRANULARITY_BETA; b++) {
-        for (int e = 0; e < ADMain.GRANULARITY_E; e++) {
-          for (int a = 0; a < ADMain.GRANULARITY_A; a++) {
-            double homophily = ADMain.H[h];
-            double beta = ADMain.BETA[b];
-            double enforcement = ADMain.E[e];
-            double assortativity = ADMain.A[a];
-            String fileName =
-                ADMain.RUN_ID + "_" +
-                    "h" + homophily +
-                    "_b" + beta +
-                    "_e" + enforcement +
-                    "_a" + assortativity;
-            ADScenario sc = new ADScenario(h, beta, enforcement, assortativity, 0, 0);
-            sc.printCSV(ADMain.PATH_CSV + fileName + "_t0");
-            for (int t = 0; t < ADMain.TIME; t++) {
+    for (int h = 0; h < Main.LENGTH_H; h++) {
+      for (int b = 0; b < Main.LENGTH_BETA; b++) {
+        for (int e = 0; e < Main.LENGTH_E; e++) {
+          for (int a = 0; a < Main.LENGTH_A; a++) {
+            double homophily = Main.H[h];
+            double beta = Main.BETA[b];
+            double enforcement = Main.E[e];
+            double assortativity = Main.A[a];
+            String fileName = Main.RUN_ID + "_" + "h" + homophily + "_b" + beta + "_e" + enforcement + "_a" + assortativity;
+            Scenario sc = new Scenario(h, beta, enforcement, assortativity);
+            sc.printCSV(Main.PATH_CSV + fileName + "_t0");
+            for (int t = 0; t < Main.TIME; t++) {
               sc.stepForward();
             }
-            sc.printCSV(ADMain.PATH_CSV + fileName + "_t" + ADMain.TIME);
+            sc.printCSV(Main.PATH_CSV + fileName + "_t" + Main.TIME);
             System.out.println("Network Printed: " + fileName);
           }
         }
@@ -154,16 +149,16 @@ class ADComputation {
   }
 
   public void setAndPrintOptimalBeta() {
-    bb = new ProgressBar("Optimal Beta ", ADMain.ITERATION_BETA);
+    bb = new ProgressBar("Optimal Beta ", Main.ITERATION_BETA);
     //EtaSpace
-    performanceByBetaAVG = new AtomicDouble[ADMain.GRANULARITY_BETA_CANDIDATE];
-    performanceByBetaSTD = new AtomicDouble[ADMain.GRANULARITY_BETA_CANDIDATE];
-    for (int b = 0; b < ADMain.GRANULARITY_BETA_CANDIDATE; b++) {
+    performanceByBetaAVG = new AtomicDouble[Main.GRANULARITY_BETA_CANDIDATE];
+    performanceByBetaSTD = new AtomicDouble[Main.GRANULARITY_BETA_CANDIDATE];
+    for (int b = 0; b < Main.GRANULARITY_BETA_CANDIDATE; b++) {
       performanceByBetaAVG[b] = new AtomicDouble();
       performanceByBetaSTD[b] = new AtomicDouble();
     }
     //Iteration
-    for (int iteration = 0; iteration < ADMain.ITERATION_BETA; iteration++) {
+    for (int iteration = 0; iteration < Main.ITERATION_BETA; iteration++) {
       OptimalBetaWrapper OptimalEtaWrap = new OptimalBetaWrapper();
       workStealingPool.execute(OptimalEtaWrap);
     }
@@ -175,20 +170,20 @@ class ADComputation {
     }
     //Choose Optimal
     double optimalPerformance = Double.MIN_VALUE;
-    for (int b = 0; b < ADMain.GRANULARITY_BETA_CANDIDATE; b++) {
-      double performanceNowAvg = performanceByBetaAVG[b].get() / (double) ADMain.ITERATION_BETA;
-      double performanceNowStd = performanceByBetaSTD[b].get() / (double) ADMain.ITERATION_BETA;
+    for (int b = 0; b < Main.GRANULARITY_BETA_CANDIDATE; b++) {
+      double performanceNowAvg = performanceByBetaAVG[b].get() / (double) Main.ITERATION_BETA;
+      double performanceNowStd = performanceByBetaSTD[b].get() / (double) Main.ITERATION_BETA;
       performanceNowStd = performanceNowStd - pow(performanceNowAvg, 2);
       performanceByBetaAVG[b].set(performanceNowAvg);
       performanceByBetaSTD[b].set(performanceNowStd);
       if (performanceNowAvg > optimalPerformance) {
         optimalPerformance = performanceNowAvg;
-        ADMain.OPTIMAL_BETA = ADMain.BETA_CANDIDATE[b];
-        ADMain.OPTIMAL_BETA_LEFT = 1D - ADMain.OPTIMAL_BETA;
+        Main.OPTIMAL_BETA = Main.BETA_CANDIDATE[b];
+        Main.OPTIMAL_BETA_LEFT = 1D - Main.OPTIMAL_BETA;
       }
     }
-    System.out.println("Optimal Beta Set at " + ADMain.OPTIMAL_BETA);
-    System.out.println("              Among " + Arrays.toString(ADMain.BETA_CANDIDATE));
+    System.out.println("Optimal Beta Set at " + Main.OPTIMAL_BETA);
+    System.out.println("              Among " + Arrays.toString(Main.BETA_CANDIDATE));
     System.out.println("              For   " + Arrays.toString(performanceByBetaAVG));
     System.out.println("              STD   " + Arrays.toString(performanceByBetaSTD));
   }
@@ -200,7 +195,7 @@ class ADComputation {
 
     @Override
     public void run() {
-      for (int b = 0; b < ADMain.GRANULARITY_BETA_CANDIDATE; b++) {
+      for (int b = 0; b < Main.GRANULARITY_BETA_CANDIDATE; b++) {
         new BetaRun(b);
       }
       bb.stepNext();
@@ -215,12 +210,12 @@ class ADComputation {
     BetaRun(int betaIndex) {
       focalPerformanceByBeta = performanceByBetaAVG[betaIndex];
       focalPerformanceByBetaSq = performanceByBetaSTD[betaIndex];
-      run(ADMain.BETA_CANDIDATE[betaIndex]);
+      run(Main.BETA_CANDIDATE[betaIndex]);
     }
 
     private void run(double beta) {
-      ADScenario sc = new ADScenario(0, beta, 1, 0, 0, 0);
-      for (int t = 0; t < ADMain.TIME; t++) {
+      Scenario sc = new Scenario(0, beta, 1, 0);
+      for (int t = 0; t < Main.TIME; t++) {
         sc.stepForward();
       }
       sc.setOutcome();
@@ -233,107 +228,105 @@ class ADComputation {
   }
 
   public void doExperiment() {
-    pb = new ProgressBar("Full Experiment: Computation", ADMain.ITERATION);
+    pb = new ProgressBar("Full Experiment: Computation", Main.ITERATION);
     setResultSpace();
     runFullExperiment();
     averageFullExperiment();
   }
 
   private void setResultSpace() {
-    performanceAVGAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    performanceSTDAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    performance12AVGAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    performance12STDAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    performance23AVGAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    performance23STDAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    performance13AVGAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    performance13STDAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
+    performanceAVGAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    performanceSTDAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    performance12AVGAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    performance12STDAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    performance23AVGAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    performance23STDAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    performance13AVGAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    performance13STDAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
 
-    disagreementAVGAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    disagreementSTDAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    disagreement12AVGAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    disagreement12STDAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    disagreement23AVGAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    disagreement23STDAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    disagreement13AVGAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    disagreement13STDAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
+    disagreementAVGAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    disagreementSTDAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    disagreement12AVGAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    disagreement12STDAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    disagreement23AVGAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    disagreement23STDAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    disagreement13AVGAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    disagreement13STDAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
 
-    dissimilarityAVGAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    dissimilaritySTDAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    dissimilarity12AVGAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    dissimilarity12STDAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    dissimilarity23AVGAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    dissimilarity23STDAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    dissimilarity13AVGAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    dissimilarity13STDAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
+    dissimilarityAVGAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    dissimilaritySTDAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    dissimilarity12AVGAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    dissimilarity12STDAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    dissimilarity23AVGAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    dissimilarity23STDAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    dissimilarity13AVGAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    dissimilarity13STDAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
 
-    clusteringAVGAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    clusteringSTDAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    clustering12AVGAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    clustering12STDAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    clustering23AVGAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    clustering23STDAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    clustering13AVGAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    clustering13STDAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
+    clusteringAVGAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    clusteringSTDAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    clustering12AVGAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    clustering12STDAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    clustering23AVGAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    clustering23STDAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    clustering13AVGAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    clustering13STDAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
 
-    satisfactionAVGAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    satisfactionSTDAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    rewiringAVGAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    rewiringSTDAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
+    satisfactionAVGAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    satisfactionSTDAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    rewiringAVGAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    rewiringSTDAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
 
-    sampleBetaAVGAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    sampleBetaSTDAtomic = new AtomicDouble[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
+    sampleBetaAVGAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    sampleBetaSTDAtomic = new AtomicDouble[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
 
-    for (int h = 0; h < ADMain.GRANULARITY_H; h++) {
-      for (int th = 0; th < ADMain.GRANULARITY_THETA; th++) {
-        for (int e = 0; e < ADMain.GRANULARITY_E; e++) {
-          for (int a = 0; a < ADMain.GRANULARITY_A; a++) {
-            for (int tb = 0; tb < ADMain.GRANULARITY_TURBULENCE_SCHEDULE; tb++) {
-              for (int t = 0; t < ADMain.TIME; t++) {
-                performanceAVGAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                performanceSTDAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                performance12AVGAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                performance12STDAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                performance23AVGAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                performance23STDAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                performance13AVGAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                performance13STDAtomic[h][th][e][a][tb][t] = new AtomicDouble();
+    for (int h = 0; h < Main.LENGTH_H; h++) {
+      for (int th = 0; th < Main.GRANULARITY_THETA; th++) {
+        for (int e = 0; e < Main.LENGTH_E; e++) {
+          for (int a = 0; a < Main.LENGTH_A; a++) {
+            for (int t = 0; t < Main.TIME; t++) {
+              performanceAVGAtomic[h][th][e][a][t] = new AtomicDouble();
+              performanceSTDAtomic[h][th][e][a][t] = new AtomicDouble();
+              performance12AVGAtomic[h][th][e][a][t] = new AtomicDouble();
+              performance12STDAtomic[h][th][e][a][t] = new AtomicDouble();
+              performance23AVGAtomic[h][th][e][a][t] = new AtomicDouble();
+              performance23STDAtomic[h][th][e][a][t] = new AtomicDouble();
+              performance13AVGAtomic[h][th][e][a][t] = new AtomicDouble();
+              performance13STDAtomic[h][th][e][a][t] = new AtomicDouble();
 
-                disagreementAVGAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                disagreementSTDAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                disagreement12AVGAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                disagreement12STDAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                disagreement23AVGAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                disagreement23STDAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                disagreement13AVGAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                disagreement13STDAtomic[h][th][e][a][tb][t] = new AtomicDouble();
+              disagreementAVGAtomic[h][th][e][a][t] = new AtomicDouble();
+              disagreementSTDAtomic[h][th][e][a][t] = new AtomicDouble();
+              disagreement12AVGAtomic[h][th][e][a][t] = new AtomicDouble();
+              disagreement12STDAtomic[h][th][e][a][t] = new AtomicDouble();
+              disagreement23AVGAtomic[h][th][e][a][t] = new AtomicDouble();
+              disagreement23STDAtomic[h][th][e][a][t] = new AtomicDouble();
+              disagreement13AVGAtomic[h][th][e][a][t] = new AtomicDouble();
+              disagreement13STDAtomic[h][th][e][a][t] = new AtomicDouble();
 
-                dissimilarityAVGAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                dissimilaritySTDAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                dissimilarity12AVGAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                dissimilarity12STDAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                dissimilarity23AVGAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                dissimilarity23STDAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                dissimilarity13AVGAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                dissimilarity13STDAtomic[h][th][e][a][tb][t] = new AtomicDouble();
+              dissimilarityAVGAtomic[h][th][e][a][t] = new AtomicDouble();
+              dissimilaritySTDAtomic[h][th][e][a][t] = new AtomicDouble();
+              dissimilarity12AVGAtomic[h][th][e][a][t] = new AtomicDouble();
+              dissimilarity12STDAtomic[h][th][e][a][t] = new AtomicDouble();
+              dissimilarity23AVGAtomic[h][th][e][a][t] = new AtomicDouble();
+              dissimilarity23STDAtomic[h][th][e][a][t] = new AtomicDouble();
+              dissimilarity13AVGAtomic[h][th][e][a][t] = new AtomicDouble();
+              dissimilarity13STDAtomic[h][th][e][a][t] = new AtomicDouble();
 
-                clusteringAVGAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                clusteringSTDAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                clustering12AVGAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                clustering12STDAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                clustering23AVGAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                clustering23STDAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                clustering13AVGAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                clustering13STDAtomic[h][th][e][a][tb][t] = new AtomicDouble();
+              clusteringAVGAtomic[h][th][e][a][t] = new AtomicDouble();
+              clusteringSTDAtomic[h][th][e][a][t] = new AtomicDouble();
+              clustering12AVGAtomic[h][th][e][a][t] = new AtomicDouble();
+              clustering12STDAtomic[h][th][e][a][t] = new AtomicDouble();
+              clustering23AVGAtomic[h][th][e][a][t] = new AtomicDouble();
+              clustering23STDAtomic[h][th][e][a][t] = new AtomicDouble();
+              clustering13AVGAtomic[h][th][e][a][t] = new AtomicDouble();
+              clustering13STDAtomic[h][th][e][a][t] = new AtomicDouble();
 
-                satisfactionAVGAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                satisfactionSTDAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                rewiringAVGAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                rewiringSTDAtomic[h][th][e][a][tb][t] = new AtomicDouble();
+              satisfactionAVGAtomic[h][th][e][a][t] = new AtomicDouble();
+              satisfactionSTDAtomic[h][th][e][a][t] = new AtomicDouble();
+              rewiringAVGAtomic[h][th][e][a][t] = new AtomicDouble();
+              rewiringSTDAtomic[h][th][e][a][t] = new AtomicDouble();
 
-                sampleBetaAVGAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-                sampleBetaSTDAtomic[h][th][e][a][tb][t] = new AtomicDouble();
-              }
+              sampleBetaAVGAtomic[h][th][e][a][t] = new AtomicDouble();
+              sampleBetaSTDAtomic[h][th][e][a][t] = new AtomicDouble();
             }
           }
         }
@@ -341,53 +334,53 @@ class ADComputation {
     }
 
     // Results in double arrays
-    performanceAVG = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    performanceSTD = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    performance12AVG = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    performance12STD = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    performance23AVG = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    performance23STD = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    performance13AVG = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    performance13STD = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
+    performanceAVG = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    performanceSTD = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    performance12AVG = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    performance12STD = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    performance23AVG = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    performance23STD = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    performance13AVG = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    performance13STD = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
 
-    disagreementAVG = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    disagreementSTD = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    disagreement12AVG = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    disagreement12STD = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    disagreement23AVG = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    disagreement23STD = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    disagreement13AVG = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    disagreement13STD = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
+    disagreementAVG = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    disagreementSTD = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    disagreement12AVG = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    disagreement12STD = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    disagreement23AVG = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    disagreement23STD = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    disagreement13AVG = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    disagreement13STD = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
 
-    dissimilarityAVG = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    dissimilaritySTD = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    dissimilarity12AVG = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    dissimilarity12STD = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    dissimilarity23AVG = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    dissimilarity23STD = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    dissimilarity13AVG = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    dissimilarity13STD = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
+    dissimilarityAVG = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    dissimilaritySTD = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    dissimilarity12AVG = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    dissimilarity12STD = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    dissimilarity23AVG = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    dissimilarity23STD = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    dissimilarity13AVG = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    dissimilarity13STD = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
 
-    clusteringAVG = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    clusteringSTD = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    clustering12AVG = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    clustering12STD = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    clustering23AVG = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    clustering23STD = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    clustering13AVG = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    clustering13STD = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
+    clusteringAVG = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    clusteringSTD = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    clustering12AVG = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    clustering12STD = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    clustering23AVG = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    clustering23STD = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    clustering13AVG = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    clustering13STD = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
 
-    satisfactionAVG = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    satisfactionSTD = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    rewiringAVG = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    rewiringSTD = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
+    satisfactionAVG = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    satisfactionSTD = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    rewiringAVG = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    rewiringSTD = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
 
-    sampleBetaAVG = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
-    sampleBetaSTD = new double[ADMain.GRANULARITY_H][ADMain.GRANULARITY_THETA][ADMain.GRANULARITY_E][ADMain.GRANULARITY_A][ADMain.GRANULARITY_TURBULENCE_SCHEDULE][ADMain.TIME];
+    sampleBetaAVG = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
+    sampleBetaSTD = new double[Main.LENGTH_H][Main.GRANULARITY_THETA][Main.LENGTH_E][Main.LENGTH_A][Main.TIME];
   }
 
   private void runFullExperiment() {
-    for (int iteration = 0; iteration < ADMain.ITERATION; iteration++) {
+    for (int iteration = 0; iteration < Main.ITERATION; iteration++) {
       experimentWrapper experimentWrap = new experimentWrapper();
       workStealingPool.execute(experimentWrap);
     }
@@ -406,13 +399,11 @@ class ADComputation {
 
     @Override
     public void run() {
-      for (int h = 0; h < ADMain.GRANULARITY_H; h++) {
-        for (int th = 0; th < ADMain.GRANULARITY_THETA; th++) {
-          for (int e = 0; e < ADMain.GRANULARITY_E; e++) {
-            for (int a = 0; a < ADMain.GRANULARITY_A; a++) {
-              for (int tb = 0; tb < ADMain.GRANULARITY_TURBULENCE_SCHEDULE; tb++) {
-                new ThetaRun(h, th, e, a, tb);
-              }
+      for (int h = 0; h < Main.LENGTH_H; h++) {
+        for (int th = 0; th < Main.GRANULARITY_THETA; th++) {
+          for (int e = 0; e < Main.LENGTH_E; e++) {
+            for (int a = 0; a < Main.LENGTH_A; a++) {
+              new ThetaRun(h, th, e, a);
             }
           }
         }
@@ -422,173 +413,86 @@ class ADComputation {
   }
 
   private void averageFullExperiment() {
-    for (int h = 0; h < ADMain.GRANULARITY_H; h++) {
-      for (int th = 0; th < ADMain.GRANULARITY_THETA; th++) {
-        for (int e = 0; e < ADMain.GRANULARITY_E; e++) {
-          for (int a = 0; a < ADMain.GRANULARITY_A; a++) {
-            for (int tb = 0; tb < ADMain.GRANULARITY_TURBULENCE_SCHEDULE; tb++) {
-              for (int t = 0; t < ADMain.TIME; t++) {
-                performanceAVG[h][th][e][a][tb][t] =
-                    performanceAVGAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                performanceSTD[h][th][e][a][tb][t] =
-                    performanceSTDAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                performanceSTD[h][th][e][a][tb][t] = pow(
-                    performanceSTD[h][th][e][a][tb][t] - pow(performanceAVG[h][th][e][a][tb][t], 2),
-                    .5);
+    for (int h = 0; h < Main.LENGTH_H; h++) {
+      for (int th = 0; th < Main.GRANULARITY_THETA; th++) {
+        for (int e = 0; e < Main.LENGTH_E; e++) {
+          for (int a = 0; a < Main.LENGTH_A; a++) {
+            for (int t = 0; t < Main.TIME; t++) {
+              performanceAVG[h][th][e][a][t] = performanceAVGAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              performanceSTD[h][th][e][a][t] = performanceSTDAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              performanceSTD[h][th][e][a][t] = pow(performanceSTD[h][th][e][a][t] - pow(performanceAVG[h][th][e][a][t], 2), .5);
 
-                performance12AVG[h][th][e][a][tb][t] =
-                    performance12AVGAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                performance12STD[h][th][e][a][tb][t] =
-                    performance12STDAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                performance12STD[h][th][e][a][tb][t] = pow(
-                    performance12STD[h][th][e][a][tb][t] - pow(performance12AVG[h][th][e][a][tb][t],
-                        2),
-                    .5);
+              performance12AVG[h][th][e][a][t] = performance12AVGAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              performance12STD[h][th][e][a][t] = performance12STDAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              performance12STD[h][th][e][a][t] = pow(performance12STD[h][th][e][a][t] - pow(performance12AVG[h][th][e][a][t], 2), .5);
 
-                performance23AVG[h][th][e][a][tb][t] =
-                    performance23AVGAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                performance23STD[h][th][e][a][tb][t] =
-                    performance23STDAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                performance23STD[h][th][e][a][tb][t] = pow(
-                    performance23STD[h][th][e][a][tb][t] - pow(performance23AVG[h][th][e][a][tb][t],
-                        2),
-                    .5);
+              performance23AVG[h][th][e][a][t] = performance23AVGAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              performance23STD[h][th][e][a][t] = performance23STDAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              performance23STD[h][th][e][a][t] = pow(performance23STD[h][th][e][a][t] - pow(performance23AVG[h][th][e][a][t], 2), .5);
 
-                performance13AVG[h][th][e][a][tb][t] =
-                    performance13AVGAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                performance13STD[h][th][e][a][tb][t] =
-                    performance13STDAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                performance13STD[h][th][e][a][tb][t] = pow(
-                    performance13STD[h][th][e][a][tb][t] - pow(performance13AVG[h][th][e][a][tb][t],
-                        2),
-                    .5);
+              performance13AVG[h][th][e][a][t] = performance13AVGAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              performance13STD[h][th][e][a][t] = performance13STDAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              performance13STD[h][th][e][a][t] = pow(performance13STD[h][th][e][a][t] - pow(performance13AVG[h][th][e][a][t], 2), .5);
 
-                disagreementAVG[h][th][e][a][tb][t] =
-                    disagreementAVGAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                disagreementSTD[h][th][e][a][tb][t] =
-                    disagreementSTDAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                disagreementSTD[h][th][e][a][tb][t] = pow(
-                    disagreementSTD[h][th][e][a][tb][t] - pow(disagreementAVG[h][th][e][a][tb][t],
-                        2), .5);
+              disagreementAVG[h][th][e][a][t] = disagreementAVGAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              disagreementSTD[h][th][e][a][t] = disagreementSTDAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              disagreementSTD[h][th][e][a][t] = pow(disagreementSTD[h][th][e][a][t] - pow(disagreementAVG[h][th][e][a][t], 2), .5);
 
-                disagreement12AVG[h][th][e][a][tb][t] =
-                    disagreement12AVGAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                disagreement12STD[h][th][e][a][tb][t] =
-                    disagreement12STDAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                disagreement12STD[h][th][e][a][tb][t] = pow(
-                    disagreement12STD[h][th][e][a][tb][t] - pow(
-                        disagreement12AVG[h][th][e][a][tb][t], 2),
-                    .5);
+              disagreement12AVG[h][th][e][a][t] = disagreement12AVGAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              disagreement12STD[h][th][e][a][t] = disagreement12STDAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              disagreement12STD[h][th][e][a][t] = pow(disagreement12STD[h][th][e][a][t] - pow(disagreement12AVG[h][th][e][a][t], 2), .5);
 
-                disagreement23AVG[h][th][e][a][tb][t] =
-                    disagreement23AVGAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                disagreement23STD[h][th][e][a][tb][t] =
-                    disagreement23STDAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                disagreement23STD[h][th][e][a][tb][t] = pow(
-                    disagreement23STD[h][th][e][a][tb][t] - pow(
-                        disagreement23AVG[h][th][e][a][tb][t], 2),
-                    .5);
+              disagreement23AVG[h][th][e][a][t] = disagreement23AVGAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              disagreement23STD[h][th][e][a][t] = disagreement23STDAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              disagreement23STD[h][th][e][a][t] = pow(disagreement23STD[h][th][e][a][t] - pow(disagreement23AVG[h][th][e][a][t], 2), .5);
 
-                disagreement13AVG[h][th][e][a][tb][t] =
-                    disagreement13AVGAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                disagreement13STD[h][th][e][a][tb][t] =
-                    disagreement13STDAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                disagreement13STD[h][th][e][a][tb][t] = pow(
-                    disagreement13STD[h][th][e][a][tb][t] - pow(
-                        disagreement13AVG[h][th][e][a][tb][t], 2),
-                    .5);
+              disagreement13AVG[h][th][e][a][t] = disagreement13AVGAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              disagreement13STD[h][th][e][a][t] = disagreement13STDAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              disagreement13STD[h][th][e][a][t] = pow(disagreement13STD[h][th][e][a][t] - pow(disagreement13AVG[h][th][e][a][t], 2), .5);
 
-                dissimilarityAVG[h][th][e][a][tb][t] =
-                    dissimilarityAVGAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                dissimilaritySTD[h][th][e][a][tb][t] =
-                    dissimilaritySTDAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                dissimilaritySTD[h][th][e][a][tb][t] = pow(
-                    dissimilaritySTD[h][th][e][a][tb][t] - pow(dissimilarityAVG[h][th][e][a][tb][t],
-                        2),
-                    .5);
+              dissimilarityAVG[h][th][e][a][t] = dissimilarityAVGAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              dissimilaritySTD[h][th][e][a][t] = dissimilaritySTDAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              dissimilaritySTD[h][th][e][a][t] = pow(dissimilaritySTD[h][th][e][a][t] - pow(dissimilarityAVG[h][th][e][a][t], 2), .5);
 
-                dissimilarity12AVG[h][th][e][a][tb][t] =
-                    dissimilarity12AVGAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                dissimilarity12STD[h][th][e][a][tb][t] =
-                    dissimilarity12STDAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                dissimilarity12STD[h][th][e][a][tb][t] = pow(
-                    dissimilarity12STD[h][th][e][a][tb][t] - pow(
-                        dissimilarity12AVG[h][th][e][a][tb][t], 2),
-                    .5);
+              dissimilarity12AVG[h][th][e][a][t] = dissimilarity12AVGAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              dissimilarity12STD[h][th][e][a][t] = dissimilarity12STDAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              dissimilarity12STD[h][th][e][a][t] = pow(dissimilarity12STD[h][th][e][a][t] - pow(dissimilarity12AVG[h][th][e][a][t], 2), .5);
 
-                dissimilarity23AVG[h][th][e][a][tb][t] =
-                    dissimilarity23AVGAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                dissimilarity23STD[h][th][e][a][tb][t] =
-                    dissimilarity23STDAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                dissimilarity23STD[h][th][e][a][tb][t] = pow(
-                    dissimilarity23STD[h][th][e][a][tb][t] - pow(
-                        dissimilarity23AVG[h][th][e][a][tb][t], 2),
-                    .5);
+              dissimilarity23AVG[h][th][e][a][t] = dissimilarity23AVGAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              dissimilarity23STD[h][th][e][a][t] = dissimilarity23STDAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              dissimilarity23STD[h][th][e][a][t] = pow(dissimilarity23STD[h][th][e][a][t] - pow(dissimilarity23AVG[h][th][e][a][t], 2), .5);
 
-                dissimilarity13AVG[h][th][e][a][tb][t] =
-                    dissimilarity13AVGAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                dissimilarity13STD[h][th][e][a][tb][t] =
-                    dissimilarity13STDAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                dissimilarity13STD[h][th][e][a][tb][t] = pow(
-                    dissimilarity13STD[h][th][e][a][tb][t] - pow(
-                        dissimilarity13AVG[h][th][e][a][tb][t], 2),
-                    .5);
+              dissimilarity13AVG[h][th][e][a][t] = dissimilarity13AVGAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              dissimilarity13STD[h][th][e][a][t] = dissimilarity13STDAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              dissimilarity13STD[h][th][e][a][t] = pow(dissimilarity13STD[h][th][e][a][t] - pow(dissimilarity13AVG[h][th][e][a][t], 2), .5);
 
-                clusteringAVG[h][th][e][a][tb][t] =
-                    clusteringAVGAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                clusteringSTD[h][th][e][a][tb][t] =
-                    clusteringSTDAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                clusteringSTD[h][th][e][a][tb][t] = pow(
-                    clusteringSTD[h][th][e][a][tb][t] - pow(clusteringAVG[h][th][e][a][tb][t], 2),
-                    .5);
+              clusteringAVG[h][th][e][a][t] = clusteringAVGAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              clusteringSTD[h][th][e][a][t] = clusteringSTDAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              clusteringSTD[h][th][e][a][t] = pow(clusteringSTD[h][th][e][a][t] - pow(clusteringAVG[h][th][e][a][t], 2), .5);
 
-                clustering12AVG[h][th][e][a][tb][t] =
-                    clustering12AVGAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                clustering12STD[h][th][e][a][tb][t] =
-                    clustering12STDAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                clustering12STD[h][th][e][a][tb][t] = pow(
-                    clustering12STD[h][th][e][a][tb][t] - pow(clustering12AVG[h][th][e][a][tb][t],
-                        2), .5);
+              clustering12AVG[h][th][e][a][t] = clustering12AVGAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              clustering12STD[h][th][e][a][t] = clustering12STDAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              clustering12STD[h][th][e][a][t] = pow(clustering12STD[h][th][e][a][t] - pow(clustering12AVG[h][th][e][a][t], 2), .5);
 
-                clustering23AVG[h][th][e][a][tb][t] =
-                    clustering23AVGAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                clustering23STD[h][th][e][a][tb][t] =
-                    clustering23STDAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                clustering23STD[h][th][e][a][tb][t] = pow(
-                    clustering23STD[h][th][e][a][tb][t] - pow(clustering23AVG[h][th][e][a][tb][t],
-                        2), .5);
+              clustering23AVG[h][th][e][a][t] = clustering23AVGAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              clustering23STD[h][th][e][a][t] = clustering23STDAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              clustering23STD[h][th][e][a][t] = pow(clustering23STD[h][th][e][a][t] - pow(clustering23AVG[h][th][e][a][t], 2), .5);
 
-                clustering13AVG[h][th][e][a][tb][t] =
-                    clustering13AVGAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                clustering13STD[h][th][e][a][tb][t] =
-                    clustering13STDAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                clustering13STD[h][th][e][a][tb][t] = pow(
-                    clustering13STD[h][th][e][a][tb][t] - pow(clustering13AVG[h][th][e][a][tb][t],
-                        2), .5);
+              clustering13AVG[h][th][e][a][t] = clustering13AVGAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              clustering13STD[h][th][e][a][t] = clustering13STDAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              clustering13STD[h][th][e][a][t] = pow(clustering13STD[h][th][e][a][t] - pow(clustering13AVG[h][th][e][a][t], 2), .5);
 
-                satisfactionAVG[h][th][e][a][tb][t] =
-                    satisfactionAVGAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                satisfactionSTD[h][th][e][a][tb][t] =
-                    satisfactionSTDAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                satisfactionSTD[h][th][e][a][tb][t] = pow(
-                    satisfactionSTD[h][th][e][a][tb][t] - pow(satisfactionAVG[h][th][e][a][tb][t],
-                        2), .5);
+              satisfactionAVG[h][th][e][a][t] = satisfactionAVGAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              satisfactionSTD[h][th][e][a][t] = satisfactionSTDAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              satisfactionSTD[h][th][e][a][t] = pow(satisfactionSTD[h][th][e][a][t] - pow(satisfactionAVG[h][th][e][a][t], 2), .5);
 
-                rewiringAVG[h][th][e][a][tb][t] =
-                    rewiringAVGAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                rewiringSTD[h][th][e][a][tb][t] =
-                    rewiringSTDAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                rewiringSTD[h][th][e][a][tb][t] = pow(
-                    rewiringSTD[h][th][e][a][tb][t] - pow(rewiringAVG[h][th][e][a][tb][t], 2), .5);
+              rewiringAVG[h][th][e][a][t] = rewiringAVGAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              rewiringSTD[h][th][e][a][t] = rewiringSTDAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              rewiringSTD[h][th][e][a][t] = pow(rewiringSTD[h][th][e][a][t] - pow(rewiringAVG[h][th][e][a][t], 2), .5);
 
-                sampleBetaAVG[h][th][e][a][tb][t] =
-                    sampleBetaAVGAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                sampleBetaSTD[h][th][e][a][tb][t] =
-                    sampleBetaSTDAtomic[h][th][e][a][tb][t].get() / ADMain.ITERATION;
-                sampleBetaSTD[h][th][e][a][tb][t] = pow(
-                    sampleBetaSTD[h][th][e][a][tb][t] - pow(sampleBetaAVG[h][th][e][a][tb][t], 2),
-                    .5);
-              }
+              sampleBetaAVG[h][th][e][a][t] = sampleBetaAVGAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              sampleBetaSTD[h][th][e][a][t] = sampleBetaSTDAtomic[h][th][e][a][t].get() / Main.ITERATION;
+              sampleBetaSTD[h][th][e][a][t] = pow(sampleBetaSTD[h][th][e][a][t] - pow(sampleBetaAVG[h][th][e][a][t], 2), .5);
             }
           }
         }
@@ -608,7 +512,6 @@ class ADComputation {
     double theta;
     double enforcement;
     double assortativity;
-    ADMain.TurbulenceSchedule turbulenceSchedule;
 
     AtomicDouble[] performanceAVGAtomicPart; // Pure result
     AtomicDouble[] performanceSTDAtomicPart; // Pure result
@@ -655,17 +558,15 @@ class ADComputation {
     AtomicDouble[] sampleBetaAVGAtomicPart;
     AtomicDouble[] sampleBetaSTDAtomicPart;
 
-    ThetaRun(int hIndex, int thetaIndex, int eIndex, int aIndex, int turbulenceScheduleIndex) {
+    ThetaRun(int hIndex, int thetaIndex, int eIndex, int aIndex) {
       this.hIndex = hIndex;
       this.thetaIndex = thetaIndex;
       this.eIndex = eIndex;
-      this.turbulenceScheduleIndex = turbulenceScheduleIndex;
 
-      h = ADMain.H[hIndex];
-      theta = ADMain.THETA[thetaIndex];
-      enforcement = ADMain.E[eIndex];
-      assortativity = ADMain.A[aIndex];
-      turbulenceSchedule = ADMain.TURBULENCE_SCHEDULE[turbulenceScheduleIndex];
+      h = Main.H[hIndex];
+      theta = Main.THETA[thetaIndex];
+      enforcement = Main.E[eIndex];
+      assortativity = Main.A[aIndex];
 
       initializeResultSpace();
       sampleBeta();
@@ -673,93 +574,70 @@ class ADComputation {
     }
 
     private void initializeResultSpace() {
-      performanceAVGAtomicPart = performanceAVGAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      performanceSTDAtomicPart = performanceSTDAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      performance12AVGAtomicPart = performance12AVGAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      performance12STDAtomicPart = performance12STDAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      performance23AVGAtomicPart = performance23AVGAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      performance23STDAtomicPart = performance23STDAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      performance13AVGAtomicPart = performance13AVGAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      performance13STDAtomicPart = performance13STDAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
+      performanceAVGAtomicPart = performanceAVGAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      performanceSTDAtomicPart = performanceSTDAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      performance12AVGAtomicPart = performance12AVGAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      performance12STDAtomicPart = performance12STDAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      performance23AVGAtomicPart = performance23AVGAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      performance23STDAtomicPart = performance23STDAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      performance13AVGAtomicPart = performance13AVGAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      performance13STDAtomicPart = performance13STDAtomic[hIndex][thetaIndex][eIndex][aIndex];
 
-      disagreementAVGAtomicPart = disagreementAVGAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      disagreementSTDAtomicPart = disagreementSTDAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      disagreement12AVGAtomicPart = disagreement12AVGAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      disagreement12STDAtomicPart = disagreement12STDAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      disagreement23AVGAtomicPart = disagreement23AVGAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      disagreement23STDAtomicPart = disagreement23STDAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      disagreement13AVGAtomicPart = disagreement13AVGAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      disagreement13STDAtomicPart = disagreement13STDAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
+      disagreementAVGAtomicPart = disagreementAVGAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      disagreementSTDAtomicPart = disagreementSTDAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      disagreement12AVGAtomicPart = disagreement12AVGAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      disagreement12STDAtomicPart = disagreement12STDAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      disagreement23AVGAtomicPart = disagreement23AVGAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      disagreement23STDAtomicPart = disagreement23STDAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      disagreement13AVGAtomicPart = disagreement13AVGAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      disagreement13STDAtomicPart = disagreement13STDAtomic[hIndex][thetaIndex][eIndex][aIndex];
 
-      dissimilarityAVGAtomicPart = dissimilarityAVGAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      dissimilaritySTDAtomicPart = dissimilaritySTDAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      dissimilarity12AVGAtomicPart = dissimilarity12AVGAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      dissimilarity12STDAtomicPart = dissimilarity12STDAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      dissimilarity23AVGAtomicPart = dissimilarity23AVGAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      dissimilarity23STDAtomicPart = dissimilarity23STDAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      dissimilarity13AVGAtomicPart = dissimilarity13AVGAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      dissimilarity13STDAtomicPart = dissimilarity13STDAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
+      dissimilarityAVGAtomicPart = dissimilarityAVGAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      dissimilaritySTDAtomicPart = dissimilaritySTDAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      dissimilarity12AVGAtomicPart = dissimilarity12AVGAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      dissimilarity12STDAtomicPart = dissimilarity12STDAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      dissimilarity23AVGAtomicPart = dissimilarity23AVGAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      dissimilarity23STDAtomicPart = dissimilarity23STDAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      dissimilarity13AVGAtomicPart = dissimilarity13AVGAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      dissimilarity13STDAtomicPart = dissimilarity13STDAtomic[hIndex][thetaIndex][eIndex][aIndex];
 
-      clusteringAVGAtomicPart = clusteringAVGAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      clusteringSTDAtomicPart = clusteringSTDAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      clustering12AVGAtomicPart = clustering12AVGAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      clustering12STDAtomicPart = clustering12STDAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      clustering23AVGAtomicPart = clustering23AVGAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      clustering23STDAtomicPart = clustering23STDAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      clustering13AVGAtomicPart = clustering13AVGAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      clustering13STDAtomicPart = clustering13STDAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
+      clusteringAVGAtomicPart = clusteringAVGAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      clusteringSTDAtomicPart = clusteringSTDAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      clustering12AVGAtomicPart = clustering12AVGAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      clustering12STDAtomicPart = clustering12STDAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      clustering23AVGAtomicPart = clustering23AVGAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      clustering23STDAtomicPart = clustering23STDAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      clustering13AVGAtomicPart = clustering13AVGAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      clustering13STDAtomicPart = clustering13STDAtomic[hIndex][thetaIndex][eIndex][aIndex];
 
-      satisfactionAVGAtomicPart = satisfactionAVGAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      satisfactionSTDAtomicPart = satisfactionSTDAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
+      satisfactionAVGAtomicPart = satisfactionAVGAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      satisfactionSTDAtomicPart = satisfactionSTDAtomic[hIndex][thetaIndex][eIndex][aIndex];
 
-      rewiringAVGAtomicPart = rewiringAVGAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      rewiringSTDAtomicPart = rewiringSTDAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
+      rewiringAVGAtomicPart = rewiringAVGAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      rewiringSTDAtomicPart = rewiringSTDAtomic[hIndex][thetaIndex][eIndex][aIndex];
 
-      sampleBetaAVGAtomicPart = sampleBetaAVGAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
-      sampleBetaSTDAtomicPart = sampleBetaSTDAtomic[hIndex][thetaIndex][eIndex][aIndex][turbulenceScheduleIndex];
+      sampleBetaAVGAtomicPart = sampleBetaAVGAtomic[hIndex][thetaIndex][eIndex][aIndex];
+      sampleBetaSTDAtomicPart = sampleBetaSTDAtomic[hIndex][thetaIndex][eIndex][aIndex];
     }
 
     private double sampleBeta() {
       double beta;
       if (r.nextBoolean()) {
         //Left to the beta^*
-        beta = new BetaDistribution(1, theta).sample()
-            * ADMain.OPTIMAL_BETA; // 220130 Fix: /Opt to *Opt
+        beta = new BetaDistribution(1, theta).sample() * Main.OPTIMAL_BETA; // 220130 Fix: /Opt to *Opt
       } else {
         //Right from the beta^*
-        beta = ADMain.OPTIMAL_BETA + new BetaDistribution(theta, 1).sample()
-            * ADMain.OPTIMAL_BETA_LEFT; // 220130 Fix: /Opt to *Opt
+        beta = Main.OPTIMAL_BETA + new BetaDistribution(theta, 1).sample() * Main.OPTIMAL_BETA_LEFT; // 220130 Fix: /Opt to *Opt
       }
       return beta;
-//      double b = 1D/tan(theta*PI/2D)-(3* MTMain.OPTIMAL_BETA - pow(MTMain.OPTIMAL_BETA *(MTMain.OPTIMAL_BETA + 8), .5))/(2* MTMain.OPTIMAL_BETA);
-//      double a = (MTMain.OPTIMAL_BETA +2* MTMain.OPTIMAL_BETA *b+pow(MTMain.OPTIMAL_BETA * MTMain.OPTIMAL_BETA +4* MTMain.OPTIMAL_BETA *b*b-2* MTMain.OPTIMAL_BETA +1, .5)-1)/(2*(1- MTMain.OPTIMAL_BETA));
-//      return pow(new BetaDistribution(a, b).sample(),2); //210218
     }
 
     private void run() {
-      ADScenario src = new ADScenario(
-          h, sampleBeta(), enforcement, assortativity,
-          turbulenceSchedule.turbulenceStrengthValue,
-          turbulenceSchedule.turbulenceStrengthDependence
-      );
-      ADScenario nr = src.getClone(false, false);
-      ADScenario rr = src.getClone(true, true);
+      Scenario src = new Scenario(h, sampleBeta(), enforcement, assortativity);
+      Scenario nr = src.getClone(false, false);
+      Scenario rr = src.getClone(true, true);
 
-      int nextTurbulenceAtIndex = 0;
-      int nextTurbulenceAt = turbulenceSchedule.turbulenceAt[nextTurbulenceAtIndex];
-      for (int t = 0; t < ADMain.TIME; t++) {
-        if (t == nextTurbulenceAt) {
-          src.shakeReality();
-          nr.copyRealityOf(src);
-          rr.copyRealityOf(src);
-          if (nextTurbulenceAtIndex < turbulenceSchedule.nTurbulence) {
-            nextTurbulenceAt = turbulenceSchedule.turbulenceAt[nextTurbulenceAtIndex++];
-          } else {
-            nextTurbulenceAtIndex = -1;
-            nextTurbulenceAt = -1;
-          }
-        }
-
+      for (int t = 0; t < Main.TIME; t++) {
         synchronized (this) {
           performanceAVGAtomicPart[t].addAndGet(src.performanceAvg);
           performanceSTDAtomicPart[t].addAndGet(pow(src.performanceAvg, 2));
@@ -818,11 +696,9 @@ class ADComputation {
         src.stepForward();
         nr.stepForward();
         rr.stepForward(src.numRewiring);
-
         src.setOutcome();
         nr.setOutcome();
         rr.setOutcome();
-
         synchronized (this) {
           rewiringAVGAtomicPart[t].addAndGet(src.numRewiring);
           rewiringSTDAtomicPart[t].addAndGet(pow(src.numRewiring, 2));

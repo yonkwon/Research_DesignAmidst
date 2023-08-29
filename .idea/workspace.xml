@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="" />
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Remove environmental turbulence">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HPBaseline/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPBaseline/Computation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HPBaseline/Decomposition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPBaseline/Decomposition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HPBaseline/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPBaseline/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HPBaseline/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPBaseline/MatWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HPBaseline/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPBaseline/Scenario.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +21,18 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -29,11 +48,24 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master"
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Yongha/Dropbox/Research/HomophilyAndDesign/src/main/java/HPBaseline",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.sourceCode"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Yongha\Dropbox\Research\HomophilyAndDesign\src\main\java\HPBaseline" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -43,6 +75,19 @@
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
     </task>
+    <task id="LOCAL-00001" summary="[Fix] Remove environmental turbulence">
+      <option name="closed" value="true" />
+      <created>1693269739390</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1693269739390</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="[Fix] Remove environmental turbulence" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Remove environmental turbulence" />
   </component>
 </project>
