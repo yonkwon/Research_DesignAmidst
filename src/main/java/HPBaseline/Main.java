@@ -33,7 +33,7 @@ public class Main {
   static final double N_DYAD = N * (N - 1) / 2D;
   static final double M_N_DYAD = M * N_DYAD;
 
-  //  static double[] THETA = {.01, .125, .25, .375, .5, .625, .75, .875, .99};
+//  static final double[] THETA = {.01, .125, .25, .375, .5, .625, .75, .875, .99};
   static final double[] THETA = {.0001, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375, 0.5, 0.5625, 0.625, 0.6875, 0.75, 0.8125, 0.875, 0.9375, .9999};
 //  static final double[] THETA = {.0001, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375, 0.5, .75, .9999};
   static final int GRANULARITY_THETA = THETA.length;
@@ -47,8 +47,8 @@ public class Main {
 
 
 //  static final double[] BETA = {0, 1};
-//  static double[] BETA = {0, .25, .5, .75, 1.0};
-//  static double[] BETA = {0, .125, .25, .375, .5, .625, .75, .875, 1.0};
+//  static final double[] BETA = {0, .25, .5, .75, 1.0};
+//  static final double[] BETA = {0, .125, .25, .375, .5, .625, .75, .875, 1.0};
   static final double[] BETA = {0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375, 0.5, 0.5625, 0.625, 0.6875, 0.75, 0.8125, 0.875, 0.9375, 1};
   static final int LENGTH_BETA = BETA.length;
 
@@ -70,7 +70,7 @@ public class Main {
 
   static final int[] RESULT_KEY_VALUE_DECOMPOSITION = {LENGTH_H, LENGTH_BETA, LENGTH_E, LENGTH_A, TIME};
 
-  static String RUN_ID = "HP230721AssortativeDistribution";
+  static String RUN_ID = "HPBaseline";
   static String FILENAME = RUN_ID + (EXPERIMENT_IS_DECOMPOSITION ?
       //Decomposed
       "Dec_I" + ITERATION + "T" + TIME + "N" + N_OF_UNIT + "X" + N_IN_UNIT + "L" + L + "W" + WEIGHT_ON_CHARACTERISTIC + "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE + "H" + LENGTH_H + "Be" + GRANULARITY_THETA + "(Opt" + "" + (GET_OPTIMAL_BETA ? "Calc"
@@ -80,7 +80,7 @@ public class Main {
   static String PATH_CSV = new File(".").getAbsolutePath() + "\\" + FILENAME + "\\";
 
   public static void main(String[] args) {
-    System.out.println("Homophily w Assortative Distribution (230721)");
+    System.out.println("Homophily: Baseline");
     System.out.println("Target File: " + RUN_ID);
 
     if (GET_GRAPH) {
