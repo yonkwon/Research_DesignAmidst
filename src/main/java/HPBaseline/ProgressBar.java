@@ -1,4 +1,4 @@
-package HP230721AssortativeDistribution;
+package HPBaseline;
 
 public class ProgressBar {
 

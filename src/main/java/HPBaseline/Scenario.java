@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import org.apache.commons.math3.random.MersenneTwister;
 import org.apache.commons.math3.random.RandomGenerator;
 
-public class ADScenario {
+public class Scenario {
 
   RandomGenerator r;
 
@@ -21,9 +21,6 @@ public class ADScenario {
   double beta;                    //Beta
   double enforcement;             //E
   double assortativity; //A
-
-  double turbulenceStrengthValue;
-  double turbulenceStrengthDependence;
 
   boolean[] reality;
   int[] realityBundleID;
@@ -50,10 +47,10 @@ public class ADScenario {
   double clusteringCoefficient;
   double satisfactionRate;
 
-  ADScenario(double h, double beta, double enforcement, double assortativity, double turbulenceStrengthValue, double turbulenceStrengthDependence) {
+  Scenario(double h, double beta, double enforcement, double assortativity) {
     r = new MersenneTwister();
-    focalIndexArray = new int[ADMain.N];
-    for (int n = 0; n < ADMain.N; n++) {
+    focalIndexArray = new int[Main.N];
+    for (int n = 0; n < Main.N; n++) {
       focalIndexArray[n] = n;
     }
     targetIndexArray = focalIndexArray.clone();
@@ -63,33 +60,30 @@ public class ADScenario {
     this.enforcement = enforcement;
     this.assortativity = assortativity;
 
-    this.turbulenceStrengthValue = turbulenceStrengthValue;
-    this.turbulenceStrengthDependence = turbulenceStrengthDependence;
-
     isRewiring = true;
     isRandomRewiring = false;
 
     initialize();
   }
 
-  public ADScenario getClone(){
-    ADScenario clone = new ADScenario(this.homophily, this.beta, this.enforcement, this.assortativity, this.turbulenceStrengthValue, this.turbulenceStrengthDependence);
+  public Scenario getClone(){
+    Scenario clone = new Scenario(this.homophily, this.beta, this.enforcement, this.assortativity);
 
     clone.reality = this.reality.clone();
     clone.realityBundleID = this.realityBundleID.clone();
-    clone.beliefOf = new boolean[ADMain.N][];
-    clone.typeOf = new boolean[ADMain.N][];
-    performance = this.performance;
+    clone.beliefOf = new boolean[Main.N][];
+    clone.typeOf = new boolean[Main.N][];
+    clone.performance = this.performance;
 
-    clone.networkEnforced = new boolean[ADMain.N][];
-    clone.networkFlexible = new boolean[ADMain.N][];
-    clone.network = new boolean[ADMain.N][];
+    clone.networkEnforced = new boolean[Main.N][];
+    clone.networkFlexible = new boolean[Main.N][];
+    clone.network = new boolean[Main.N][];
 
     clone.degreeEnforced = this.degreeEnforced.clone();
     clone.degreeFlexible = this.degreeFlexible.clone();
     clone.degree = this.degree.clone();
 
-    clone.differenceOf = new double[ADMain.N][];
+    clone.differenceOf = new double[Main.N][];
     clone.differenceSum = this.differenceSum.clone();
     clone.satisfied = this.satisfied.clone();
 
@@ -99,7 +93,7 @@ public class ADScenario {
     clone.dissimilarityAvg = this.dissimilarityAvg;
     clone.satisfactionRate = this.satisfactionRate;
 
-    for(int focal = 0; focal < ADMain.N; focal++){
+    for(int focal = 0; focal < Main.N; focal++){
       clone.beliefOf[focal] = this.beliefOf[focal].clone();
       clone.typeOf[focal] = this.typeOf[focal].clone();
 
@@ -113,8 +107,8 @@ public class ADScenario {
     return clone;
   }
 
-  public ADScenario getClone(boolean isRewiring, boolean isRandomRewiring){
-    ADScenario clone = getClone();
+  public Scenario getClone(boolean isRewiring, boolean isRandomRewiring){
+    Scenario clone = getClone();
     clone.setNetworkParams(isRewiring, isRandomRewiring);
     return clone;
   }
@@ -124,7 +118,7 @@ public class ADScenario {
     this.isRandomRewiring = isRandomRewiring;
   }
 
-  public void copyRealityOf(ADScenario src) {
+  public void copyRealityOf(Scenario src) {
     reality = src.reality.clone();
     realityBundleID = src.realityBundleID.clone();
   }
@@ -136,25 +130,25 @@ public class ADScenario {
   }
 
   private void initializeNetwork() {
-    networkEnforced = new boolean[ADMain.N][ADMain.N];
-    networkFlexible = new boolean[ADMain.N][ADMain.N];
-    network = new boolean[ADMain.N][ADMain.N];
+    networkEnforced = new boolean[Main.N][Main.N];
+    networkFlexible = new boolean[Main.N][Main.N];
+    network = new boolean[Main.N][Main.N];
 
-    degreeEnforced = new int[ADMain.N];
-    degreeFlexible = new int[ADMain.N];
-    degree = new int[ADMain.N];
-    isInUnit = new int[ADMain.N];
+    degreeEnforced = new int[Main.N];
+    degreeFlexible = new int[Main.N];
+    degree = new int[Main.N];
+    isInUnit = new int[Main.N];
 
     //All-channel within each unit
-    for (int unitID = 0; unitID < ADMain.N_OF_UNIT; unitID++) {
-      for (int focal = 0; focal < ADMain.N_IN_UNIT; focal++) {
-        int focalNow = unitID * ADMain.N_IN_UNIT + focal;
+    for (int unitID = 0; unitID < Main.N_OF_UNIT; unitID++) {
+      for (int focal = 0; focal < Main.N_IN_UNIT; focal++) {
+        int focalNow = unitID * Main.N_IN_UNIT + focal;
         isInUnit[focalNow] = unitID;
-        for (int target = focal; target < ADMain.N_IN_UNIT; target++) {
+        for (int target = focal; target < Main.N_IN_UNIT; target++) {
           if (focal == target) {
             continue;
           }
-          int targetNow = unitID * ADMain.N_IN_UNIT + target;
+          int targetNow = unitID * Main.N_IN_UNIT + target;
           network[focalNow][targetNow] = true;
           network[targetNow][focalNow] = true;
           degree[focalNow]++;
@@ -165,10 +159,10 @@ public class ADScenario {
 
     //Limited spanning between unit
     //This does not change the difference the degree
-    for (int unitID = 0; unitID < ADMain.N_OF_UNIT; unitID++) {
-      int toBeCut = unitID * ADMain.N_IN_UNIT; // First one in each unit
+    for (int unitID = 0; unitID < Main.N_OF_UNIT; unitID++) {
+      int toBeCut = unitID * Main.N_IN_UNIT; // First one in each unit
       int toRewire = toBeCut + 1; // Second one in each unit
-      int toBeRewired = (toBeCut + ADMain.N_IN_UNIT) % ADMain.N; //First one in the next unit
+      int toBeRewired = (toBeCut + Main.N_IN_UNIT) % Main.N; //First one in the next unit
       network[toRewire][toBeCut] = false;
       network[toBeCut][toRewire] = false;
       network[toRewire][toBeRewired] = true;
@@ -184,8 +178,8 @@ public class ADScenario {
     shuffleFisherYates(focalIndexArray);
     for (int focal : focalIndexArray) {
       int focalUnitID = isInUnit[focal];
-      int inUnitLast = (focalUnitID + 1) * ADMain.N_IN_UNIT;
-      for (int targetInUnit = focalUnitID * ADMain.N_IN_UNIT; targetInUnit < inUnitLast;
+      int inUnitLast = (focalUnitID + 1) * Main.N_IN_UNIT;
+      for (int targetInUnit = focalUnitID * Main.N_IN_UNIT; targetInUnit < inUnitLast;
           targetInUnit++) { // 210218
         if (network[focal][targetInUnit] && degree[targetInUnit] > 1
             && r.nextDouble() < beta) { //@210222 02:16
@@ -209,8 +203,8 @@ public class ADScenario {
     //Tie Enforcement
     //210212 Fix: At Least One Enforced Tie
     //210216 Fix: Rollback
-    for (int focal = 0; focal < ADMain.N; focal++) {
-      for (int target = focal; target < ADMain.N; target++) {
+    for (int focal = 0; focal < Main.N; focal++) {
+      for (int target = focal; target < Main.N; target++) {
         if (network[focal][target]) {
 //            if (degreeEnforced[focal] == 0 || degreeEnforced[target] == 0 || r.nextDouble() < gamma ) { //210212, 210222
           if (r.nextDouble() < enforcement) { // This choice has little effect on the result
@@ -232,67 +226,51 @@ public class ADScenario {
   }
 
   private void initializeEntity() {
-    reality = new boolean[ADMain.M];
-    realityBundleID = new int[ADMain.M];
-    typeOf = new boolean[ADMain.N][ADMain.L];
-    beliefOf = new boolean[ADMain.N][ADMain.M];
+    reality = new boolean[Main.M];
+    realityBundleID = new int[Main.M];
+    typeOf = new boolean[Main.N][Main.L];
+    beliefOf = new boolean[Main.N][Main.M];
 
-    for (int bundle = 0; bundle < ADMain.M_OF_BUNDLE; bundle++) {
-      int baseIndex = bundle * ADMain.M_IN_BUNDLE;
-      int endIndex = (bundle + 1) * ADMain.M_IN_BUNDLE;
+    for (int bundle = 0; bundle < Main.M_OF_BUNDLE; bundle++) {
+      int baseIndex = bundle * Main.M_IN_BUNDLE;
+      int endIndex = (bundle + 1) * Main.M_IN_BUNDLE;
       for (int m = baseIndex; m < endIndex; m++) {
         reality[m] = r.nextBoolean();
         realityBundleID[m] = bundle;
       }
     }
 
-    boolean[][] typeOfUnit = new boolean[ADMain.N_OF_UNIT][ADMain.L];
-    for(int unit = 0; unit < ADMain.N_OF_UNIT; unit ++){
-      for( int l = 0; l < ADMain.L; l ++ ){
+    boolean[][] typeOfUnit = new boolean[Main.N_OF_UNIT][Main.L];
+    for(int unit = 0; unit < Main.N_OF_UNIT; unit ++){
+      for( int l = 0; l < Main.L; l ++ ){
         typeOfUnit[unit][l] = r.nextBoolean();
       }
     }
 
-    for (int focal = 0; focal < ADMain.N; focal++) {
-      for (int l = 0; l < ADMain.L; l++) {
+    for (int focal = 0; focal < Main.N; focal++) {
+      for (int l = 0; l < Main.L; l++) {
         if( r.nextDouble() < assortativity ){
           typeOf[focal][l] = typeOfUnit[isInUnit[focal]][l];
         }else {
           typeOf[focal][l] = r.nextBoolean();
         }
       }
-      for (int m = 0; m < ADMain.M; m++) {
+      for (int m = 0; m < Main.M; m++) {
         beliefOf[focal][m] = r.nextBoolean();
       }
     }
   }
 
   private void initializeOutcome() {
-    performance = new int[ADMain.N];
+    performance = new int[Main.N];
 
-    differenceOf = new double[ADMain.N][ADMain.N];
-    differenceSum = new double[ADMain.N];
-    satisfied = new boolean[ADMain.N];
+    differenceOf = new double[Main.N][Main.N];
+    differenceSum = new double[Main.N];
+    satisfied = new boolean[Main.N];
 
     setPerformance();
     setSatisfied();
     setOutcome();
-  }
-
-  public void shakeReality() {
-    for (int m = 0; m < ADMain.M; m++) {
-      if (r.nextDouble() < turbulenceStrengthValue) {
-        reality[m] = !reality[m];
-      }
-      if (r.nextDouble() < turbulenceStrengthDependence) {
-        int changeSeed = r.nextInt(ADMain.M_OF_BUNDLE - 1);
-        if (changeSeed >= realityBundleID[m]) {
-          realityBundleID[m] = changeSeed + 1;
-        } else {
-          realityBundleID[m] = changeSeed;
-        }
-      }
-    }
   }
 
   void stepForward() {
@@ -323,17 +301,17 @@ public class ADScenario {
     dissimilarityAvg = 0;
     satisfactionRate = 0;
     clusteringCoefficient = 0;
-    for (int focal = 0; focal < ADMain.N; focal++) {
+    for (int focal = 0; focal < Main.N; focal++) {
       performanceAvg += performance[focal];
       satisfactionRate += satisfied[focal] ? 1 : 0;
-      for (int target = focal; target < ADMain.N; target++) {
+      for (int target = focal; target < Main.N; target++) {
         if (network[focal][target]) {
-          for (int l = 0; l < ADMain.L; l++) {
+          for (int l = 0; l < Main.L; l++) {
             if (typeOf[focal][l] != typeOf[target][l]) {
               dissimilarityAvg++;
             }
           }
-          for (int m = 0; m < ADMain.M; m++) {
+          for (int m = 0; m < Main.M; m++) {
             if (beliefOf[focal][m] != beliefOf[target][m]) {
               disagreementAvg++;
             }
@@ -368,8 +346,8 @@ public class ADScenario {
     // Very inefficient; solving the 'all pairs short path' problem as n-iteration of 'single source short path' problem.
     // https://youtu.be/0XgVhsMOcQM
     double distanceInverseSum = 0;
-    for (int source = 0; source < ADMain.N; source++) {
-      int[] distanceFromSource = new int[ADMain.N];
+    for (int source = 0; source < Main.N; source++) {
+      int[] distanceFromSource = new int[Main.N];
       Arrays.fill(distanceFromSource, -1);
       distanceFromSource[source] = 0;
 
@@ -378,7 +356,7 @@ public class ADScenario {
 
       while (!queue.isEmpty()) {
         int focal = queue.poll();
-        for (int target = 0; target < ADMain.N; target++) {
+        for (int target = 0; target < Main.N; target++) {
           if (network[focal][target]) {
             if (distanceFromSource[target] == -1) {
               distanceFromSource[target] = distanceFromSource[focal] + 1;
@@ -390,18 +368,18 @@ public class ADScenario {
       }
     }
 
-    clusteringCoefficient = (double) distanceInverseSum / (double) (ADMain.N * (ADMain.N - 1));
+    clusteringCoefficient = (double) distanceInverseSum / (double) (Main.N * (Main.N - 1));
 
-    performanceAvg /= ADMain.M_N;
-    disagreementAvg /= ADMain.M_N_DYAD;
-    dissimilarityAvg /= ADMain.L * ADMain.DENSITY;
-    satisfactionRate /= ADMain.N;
+    performanceAvg /= Main.M_N;
+    disagreementAvg /= Main.M_N_DYAD;
+    dissimilarityAvg /= Main.L * Main.DENSITY;
+    satisfactionRate /= Main.N;
   }
 
   void doEvaluateNeighbor() {
-    differenceSum = new double[ADMain.N];
-    for (int focal = 0; focal < ADMain.N; focal++) {
-      for (int target = focal; target < ADMain.N; target++) {
+    differenceSum = new double[Main.N];
+    for (int focal = 0; focal < Main.N; focal++) {
+      for (int target = focal; target < Main.N; target++) {
         if (network[focal][target]) {
           //The target is a neighbor of the focal (Implying they are not the same)
           double differenceNow = getAbsoluteDifference(focal, target);
@@ -412,7 +390,7 @@ public class ADScenario {
         }
       }
     }
-    for (int focal = 0; focal < ADMain.N; focal++) {
+    for (int focal = 0; focal < Main.N; focal++) {
       satisfied[focal] = differenceSum[focal] / degree[focal] <= 1 - homophily;
     }
   }
@@ -423,7 +401,7 @@ public class ADScenario {
 
   void doRewiring() {
     numRewiring = 0;
-    boolean[] hasNewTie = new boolean[ADMain.N];
+    boolean[] hasNewTie = new boolean[Main.N];
     shuffleFisherYates(focalIndexArray);
     for (int focal : focalIndexArray) {
       //Only dissatisfied individuals initiate rewiring
@@ -434,7 +412,7 @@ public class ADScenario {
       //Selection of a target to cut out among informal others
       int farthestFlexibleNeighborIndex = -1;
       double farthestFlexibleNeighborDifference = Double.MIN_VALUE;
-      for (int target = 0; target < ADMain.N; target++) {
+      for (int target = 0; target < Main.N; target++) {
         if (degree[target] == 1) {
           continue;
         } //FIX: 210222 No Isolation
@@ -463,7 +441,7 @@ public class ADScenario {
         if (differenceNow < farthestFlexibleNeighborDifference) {
           //Added in 201217: Mutual agreement!//
           double differenceAvgOfTarget = 0;
-          for (int n = 0; n < ADMain.N; n++) {
+          for (int n = 0; n < Main.N; n++) {
             differenceAvgOfTarget += getAbsoluteDifference(target, n);
           }
           differenceAvgOfTarget /= degree[target];
@@ -505,7 +483,7 @@ public class ADScenario {
   void doRewiring(int numRewiring) {
     //Random rewiring
     int numRewiringLeft = numRewiring;
-    boolean[] hasNewTie = new boolean[ADMain.N];
+    boolean[] hasNewTie = new boolean[Main.N];
     shuffleFisherYates(focalIndexArray);
     for (int focal : focalIndexArray) {
       if (numRewiringLeft == 0) {
@@ -555,18 +533,18 @@ public class ADScenario {
   }
 
   void doLearning() {
-    boolean[][] beliefOfUpdated = new boolean[ADMain.N][ADMain.M];
-    for (int focal = 0; focal < ADMain.N; focal++) {
-      int[] majorityOpinion = new int[ADMain.M];
-      for (int target = 0; target < ADMain.N; target++) {
+    boolean[][] beliefOfUpdated = new boolean[Main.N][Main.M];
+    for (int focal = 0; focal < Main.N; focal++) {
+      int[] majorityOpinion = new int[Main.M];
+      for (int target = 0; target < Main.N; target++) {
         if (network[focal][target] && performance[target] > performance[focal]) {
-          for (int m = 0; m < ADMain.M; m++) {
+          for (int m = 0; m < Main.M; m++) {
             majorityOpinion[m] += beliefOf[target][m] ? 1 : -1;
           }
         }
       }
-      for (int m = 0; m < ADMain.M; m++) {
-        if (r.nextDouble() < ADMain.P_LEARNING) {
+      for (int m = 0; m < Main.M; m++) {
+        if (r.nextDouble() < Main.P_LEARNING) {
           if (majorityOpinion[m] > 0) {
             beliefOfUpdated[focal][m] = true;
           } else if (majorityOpinion[m] < 0) {
@@ -580,7 +558,7 @@ public class ADScenario {
       }
     }
     beliefOf = beliefOfUpdated;
-    for (int focal = 0; focal < ADMain.N; focal++) {
+    for (int focal = 0; focal < Main.N; focal++) {
       setPerformance(focal);
     }
   }
@@ -589,25 +567,25 @@ public class ADScenario {
     double difference;
     int differenceCharacteristic = 0;
     int differenceBelief = 0;
-    if (ADMain.WEIGHT_ON_CHARACTERISTIC > 0D) {
-      for (int l = 0; l < ADMain.L; l++) {
+    if (Main.WEIGHT_ON_CHARACTERISTIC > 0D) {
+      for (int l = 0; l < Main.L; l++) {
         if (typeOf[focal][l] != typeOf[target][l]) {
           differenceCharacteristic++;
         }
       }
     }
-    if (ADMain.WEIGHT_ON_BELIEF > 0D) {
-      for (int m = 0; m < ADMain.M; m++) {
+    if (Main.WEIGHT_ON_BELIEF > 0D) {
+      for (int m = 0; m < Main.M; m++) {
         if (beliefOf[focal][m] != beliefOf[target][m]) {
           differenceBelief++;
         }
       }
     }
     difference
-        = ADMain.WEIGHT_ON_CHARACTERISTIC > 0 ?
-        ADMain.WEIGHT_ON_CHARACTERISTIC * differenceCharacteristic / (double) ADMain.L : 0
-        + ADMain.WEIGHT_ON_BELIEF > 0 ? ADMain.WEIGHT_ON_BELIEF * differenceBelief
-        / (double) ADMain.M : 0;
+        = Main.WEIGHT_ON_CHARACTERISTIC > 0 ?
+        Main.WEIGHT_ON_CHARACTERISTIC * differenceCharacteristic / (double) Main.L : 0
+        + Main.WEIGHT_ON_BELIEF > 0 ? Main.WEIGHT_ON_BELIEF * differenceBelief
+        / (double) Main.M : 0;
 
     return difference;
   }
@@ -616,10 +594,10 @@ public class ADScenario {
     //VERRY WEIRD... COPY FROM ALTRUISM MODEL AND TEST
     int performanceNow = 0;
     boolean[] beliefOfFocal = beliefOf[focal];
-    for (int bundle = 0; bundle < ADMain.M_OF_BUNDLE; bundle++) {
+    for (int bundle = 0; bundle < Main.M_OF_BUNDLE; bundle++) {
       int countMInBundle = 0;
       boolean matchAll = true;
-      for (int m = 0; m < ADMain.M; m++) {
+      for (int m = 0; m < Main.M; m++) {
         if (realityBundleID[m] == bundle) {
           countMInBundle++;
           if (beliefOfFocal[m] != reality[m]) {
@@ -640,7 +618,7 @@ public class ADScenario {
   }
 
   void setPerformance() {
-    for (int focal = 0; focal < ADMain.N; focal++) {
+    for (int focal = 0; focal < Main.N; focal++) {
       setPerformance(focal);
     }
   }
@@ -653,7 +631,7 @@ public class ADScenario {
       csvWriter.append(",");
       csvWriter.append("TARGET");
       csvWriter.append(",");
-      for (int l = 0; l < ADMain.L; l++) {
+      for (int l = 0; l < Main.L; l++) {
         csvWriter.append("SOURCE_TYPE" + l);
         csvWriter.append(",");
       }
@@ -665,8 +643,8 @@ public class ADScenario {
       csvWriter.append("\n");
 
       //Edge
-      for (int focal = 0; focal < ADMain.N; focal++) {
-        for (int target = focal; target < ADMain.N; target++) {
+      for (int focal = 0; focal < Main.N; focal++) {
+        for (int target = focal; target < Main.N; target++) {
           if (focal == target) {
             continue;
           }
@@ -680,7 +658,7 @@ public class ADScenario {
             csvWriter.append(",");
 
 //            csvWriter.append("SOURCE_TYPE");
-            for (int l = 0; l < ADMain.L; l++) {
+            for (int l = 0; l < Main.L; l++) {
               csvWriter.append(typeOf[focal][l] ? "true" : "false");
               csvWriter.append(",");
             }
@@ -694,14 +672,14 @@ public class ADScenario {
             csvWriter.append(",");
 
 //            csvWriter.append("L");
-            csvWriter.append(Integer.toString(ADMain.L));
+            csvWriter.append(Integer.toString(Main.L));
             csvWriter.append("\n");
           }
         }
       }
 
       //Individual
-      for (int focal = 0; focal < ADMain.N; focal++) {
+      for (int focal = 0; focal < Main.N; focal++) {
 //        csvWriter.append("SOURCE");
         csvWriter.append(Integer.toString(focal));
         csvWriter.append(",");
@@ -710,7 +688,7 @@ public class ADScenario {
         csvWriter.append(",");
 
 //        csvWriter.append("SOURCE_TYPE");
-        for (int l = 0; l < ADMain.L; l++) {
+        for (int l = 0; l < Main.L; l++) {
           csvWriter.append(typeOf[focal][l] ? "true" : "false");
           csvWriter.append(",");
         }
@@ -723,7 +701,7 @@ public class ADScenario {
         csvWriter.append(",");
 
 //        csvWriter.append("L");
-        csvWriter.append(Integer.toString(ADMain.L));
+        csvWriter.append(Integer.toString(Main.L));
         csvWriter.append("\n");
       }
 
@@ -735,7 +713,7 @@ public class ADScenario {
   }
 
   void shuffleFisherYates(int[] nArray) {
-    for (int i = ADMain.N - 1; i > 0; i--) {
+    for (int i = Main.N - 1; i > 0; i--) {
       int j = r.nextInt(i + 1);
       int temp = nArray[i];
       nArray[i] = nArray[j];

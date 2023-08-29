@@ -2,7 +2,7 @@ package HPBaseline;
 
 import java.io.File;
 
-public class ADMain {
+public class Main {
 
   /*
     Version: 230721 Assortative Distribution
@@ -40,35 +40,6 @@ public class ADMain {
 //  static final int M_IN_BUNDLE = 1;
   static final int M = M_OF_BUNDLE * M_IN_BUNDLE;
 
-  static final class TurbulenceSchedule {
-
-    int[] turbulenceAt;
-    int nTurbulence;
-    int maxTurbulenceAtIndex;
-    double turbulenceStrengthValue;
-    double turbulenceStrengthDependence;
-
-    TurbulenceSchedule(
-        int[] turbulenceAt,
-        double turbulenceStrengthValue,
-        double turbulenceStrengthDependence
-    ) {
-      this.turbulenceAt = turbulenceAt;
-      nTurbulence = turbulenceAt.length;
-      maxTurbulenceAtIndex = nTurbulence - 1;
-      this.turbulenceStrengthValue = turbulenceStrengthValue;
-      this.turbulenceStrengthDependence = turbulenceStrengthDependence;
-    }
-  }
-
-  static TurbulenceSchedule NULL_TURBULENCE_SCHEUDLE = new TurbulenceSchedule(new int[]{}, 0, 0);
-  static TurbulenceSchedule[] TURBULENCE_SCHEDULE;
-
-  static int[][] turbulence_at = {{0}};
-  static double[] turbulence_strength_value = {0};
-  static double[] turbulence_strength_dependence = {0};
-
-  static int GRANULARITY_TURBULENCE_SCHEDULE = turbulence_at.length;
   static final double M_N = M * N;
   static final double N_DYAD = N * (N - 1) / 2D;
   static final double M_N_DYAD = M * N_DYAD;
@@ -102,30 +73,28 @@ public class ADMain {
       0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375,
       0.5, 0.5625, 0.625, 0.6875, 0.75, 0.8125, 0.875, 0.9375, 1
   };
-  static final int GRANULARITY_BETA = BETA.length;
+  static final int LENGTH_BETA = BETA.length;
 
 //  static final double[] E = {.25};
   static final double[] E = {0, .25};
-  static final int GRANULARITY_E = E.length;
+  static final int LENGTH_E = E.length;
 
   static final double[] A = {0, .25, .5, .75, 1};
 //  static final double[] A = {1};
-  static final int GRANULARITY_A = A.length;
+  static final int LENGTH_A = A.length;
 
   static final double[] H = {0, 1};
 //  static final double[] H = {0, .25, .5, .75, 1};
-  static final int GRANULARITY_H = H.length;
+  static final int LENGTH_H = H.length;
 
   static final double P_LEARNING = .25;
 
   static final int[] RESULT_KEY_VALUE = {
-      GRANULARITY_H, GRANULARITY_THETA, GRANULARITY_E, GRANULARITY_A,
-      GRANULARITY_TURBULENCE_SCHEDULE, TIME
+      LENGTH_H, GRANULARITY_THETA, LENGTH_E, LENGTH_A, TIME
   };
 
   static final int[] RESULT_KEY_VALUE_DECOMPOSITION = {
-      GRANULARITY_H, GRANULARITY_BETA, GRANULARITY_E, GRANULARITY_A,
-      GRANULARITY_TURBULENCE_SCHEDULE, TIME
+      LENGTH_H, LENGTH_BETA, LENGTH_E, LENGTH_A, TIME
   };
 
   static String RUN_ID = "HP230721AssortativeDistribution";
@@ -138,11 +107,10 @@ public class ADMain {
               + "L" + L
               + "W" + WEIGHT_ON_CHARACTERISTIC
               + "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE
-              + "H" + GRANULARITY_H
+              + "H" + LENGTH_H
               + "Be" + GRANULARITY_THETA + "(Opt" + "" + (GET_OPTIMAL_BETA ? "Calc" : "Set") + ")"
-              + "E" + GRANULARITY_E
-              + "A" + GRANULARITY_A
-              + "Turb" + GRANULARITY_TURBULENCE_SCHEDULE
+              + "E" + LENGTH_E
+              + "A" + LENGTH_A
               + "P" + P_LEARNING :
           //Not Decomposed
           "Com_I" + ITERATION
@@ -151,11 +119,10 @@ public class ADMain {
               + "L" + L
               + "W" + WEIGHT_ON_CHARACTERISTIC
               + "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE
-              + "H" + GRANULARITY_H
-              + "Et" + GRANULARITY_BETA
-              + "E" + GRANULARITY_E
-              + "A" + GRANULARITY_A
-              + "Turb" + GRANULARITY_TURBULENCE_SCHEDULE
+              + "H" + LENGTH_H
+              + "Et" + LENGTH_BETA
+              + "E" + LENGTH_E
+              + "A" + LENGTH_A
               + "P" + P_LEARNING
       );
   static String PATH_CSV = new File(".").getAbsolutePath() + "\\" + FILENAME + "\\";
@@ -163,17 +130,16 @@ public class ADMain {
   public static void main(String[] args) {
     System.out.println("Homophily w Assortative Distribution (230721)");
     System.out.println("Target File: " + RUN_ID);
-    fillTurbulenceSchedule();
 
     if (GET_GRAPH) {
       setFileName();
-      ADComputation c = new ADComputation();
+      Computation c = new Computation();
       c.printNetwork();
       System.exit(0);
     }
 
     if (GET_OPTIMAL_BETA) {
-      ADComputation c = new ADComputation();
+      Computation c = new Computation();
       c.setAndPrintOptimalBeta();
       System.gc();
     } else {
@@ -182,26 +148,18 @@ public class ADMain {
 
     if (DO_EXPERIMENT) {
       if (EXPERIMENT_IS_DECOMPOSITION) {
-        ADDecomposition d = new ADDecomposition();
+        Decomposition d = new Decomposition();
         d.doExperiment();
         setFileName();
-        new ADMatWriter(d);
+        new MatWriter(d);
       } else {
-        ADComputation c = new ADComputation();
+        Computation c = new Computation();
         c.doExperiment();
         setFileName();
-        new ADMatWriter(c);
+        new MatWriter(c);
       }
     }
     System.out.println("Finished: " + FILENAME);
-  }
-
-  private static void fillTurbulenceSchedule() {
-    TURBULENCE_SCHEDULE = new TurbulenceSchedule[GRANULARITY_TURBULENCE_SCHEDULE];
-    for (int i = 0; i < GRANULARITY_TURBULENCE_SCHEDULE; i++) {
-      TURBULENCE_SCHEDULE[i] = new TurbulenceSchedule(turbulence_at[i],
-          turbulence_strength_value[i], turbulence_strength_dependence[i]);
-    }
   }
 
   private static void setFileName() {
@@ -214,12 +172,11 @@ public class ADMain {
                 + "L" + L
                 + "W" + WEIGHT_ON_CHARACTERISTIC
                 + "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE
-                + "H" + GRANULARITY_H
+                + "H" + LENGTH_H
                 + "Th" + GRANULARITY_THETA + "(Opt" + OPTIMAL_BETA + (GET_OPTIMAL_BETA ? "Calc"
                 : "Set") + ")"
-                + "E" + GRANULARITY_E
-                + "A" + GRANULARITY_A
-                + "Turb" + GRANULARITY_TURBULENCE_SCHEDULE
+                + "E" + LENGTH_E
+                + "A" + LENGTH_A
                 + "P" + P_LEARNING :
             //Not Decomposed
             "Com_I" + ITERATION
@@ -228,11 +185,10 @@ public class ADMain {
                 + "L" + L
                 + "W" + WEIGHT_ON_CHARACTERISTIC
                 + "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE
-                + "H" + GRANULARITY_H
-                + "B" + GRANULARITY_BETA
-                + "E" + GRANULARITY_E
-                + "A" + GRANULARITY_A
-                + "Turb" + GRANULARITY_TURBULENCE_SCHEDULE
+                + "H" + LENGTH_H
+                + "B" + LENGTH_BETA
+                + "E" + LENGTH_E
+                + "A" + LENGTH_A
                 + "P" + P_LEARNING
         );
     PATH_CSV = new File(".").getAbsolutePath() + "\\" + FILENAME + "\\";

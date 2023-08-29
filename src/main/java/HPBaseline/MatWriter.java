@@ -7,60 +7,60 @@ import us.hebi.matlab.mat.format.Mat5;
 import us.hebi.matlab.mat.types.Matrix;
 import us.hebi.matlab.mat.types.Sinks;
 
-class ADMatWriter {
+class MatWriter {
 
-  ADMatWriter(ADComputation c) {
-    Matrix matrixPerformanceAVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixPerformanceSTD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixPerformance12AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixPerformance12STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixPerformance23AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixPerformance23STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixPerformance13AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixPerformance13STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
+  MatWriter(Computation c) {
+    Matrix matrixPerformanceAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixPerformanceSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixPerformance12AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixPerformance12STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixPerformance23AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixPerformance23STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixPerformance13AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixPerformance13STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
-    Matrix matrixDisagreementAVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixDisagreementSTD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixDisagreement12AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixDisagreement12STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixDisagreement23AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixDisagreement23STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixDisagreement13AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixDisagreement13STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
+    Matrix matrixDisagreementAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDisagreementSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDisagreement12AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDisagreement12STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDisagreement23AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDisagreement23STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDisagreement13AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDisagreement13STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
-    Matrix matrixDissimilarityAVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixDissimilaritySTD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixDissimilarity12AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixDissimilarity12STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixDissimilarity23AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixDissimilarity23STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixDissimilarity13AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixDissimilarity13STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
+    Matrix matrixDissimilarityAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDissimilaritySTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDissimilarity12AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDissimilarity12STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDissimilarity23AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDissimilarity23STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDissimilarity13AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDissimilarity13STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
-    Matrix matrixClusteringAVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixClusteringSTD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixClustering12AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixClustering12STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixClustering23AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixClustering23STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixClustering13AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixClustering13STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
+    Matrix matrixClusteringAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClusteringSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClustering12AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClustering12STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClustering23AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClustering23STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClustering13AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClustering13STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
-    Matrix matrixSatisfactionAVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixSatisfactionSTD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
+    Matrix matrixSatisfactionAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixSatisfactionSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
-    Matrix matrixRewiringAVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixRewiringSTD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
+    Matrix matrixRewiringAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixRewiringSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
-    Matrix matrixBetaSampledAVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
-    Matrix matrixBetaSampledSTD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE);
+    Matrix matrixBetaSampledAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixBetaSampledSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
-    for (int h = 0; h < ADMain.GRANULARITY_H; h++) {
-      for (int th = 0; th < ADMain.GRANULARITY_THETA; th++) {
-        for (int e = 0; e < ADMain.GRANULARITY_E; e++) {
-          for (int a = 0; a < ADMain.GRANULARITY_A; a++) {
-            for (int tb = 0; tb < ADMain.GRANULARITY_TURBULENCE_SCHEDULE; tb++) {
-              for (int t = 0; t < ADMain.TIME; t++) {
+    for (int h = 0; h < Main.LENGTH_H; h++) {
+      for (int th = 0; th < Main.GRANULARITY_THETA; th++) {
+        for (int e = 0; e < Main.LENGTH_E; e++) {
+          for (int a = 0; a < Main.LENGTH_A; a++) {
+            for (int tb = 0; tb < Main.LENGTH_TURBULENCE_SCHEDULE; tb++) {
+              for (int t = 0; t < Main.TIME; t++) {
                 int[] indices = {h, th, e, a, tb, t};
                 matrixPerformanceAVG.setDouble(indices, c.performanceAVG[h][th][e][a][tb][t]);
                 matrixPerformanceSTD.setDouble(indices, c.performanceSTD[h][th][e][a][tb][t]);
@@ -113,67 +113,67 @@ class ADMatWriter {
       }
     }
 
-    Matrix matrixArrayH = Mat5.newMatrix(new int[]{1, ADMain.GRANULARITY_H});
-    Matrix matrixArrayTheta = Mat5.newMatrix(new int[]{1, ADMain.GRANULARITY_THETA});
-    Matrix matrixArrayBeta = Mat5.newMatrix(new int[]{1, ADMain.GRANULARITY_BETA});
-    Matrix matrixArrayBetaCandidate = Mat5.newMatrix(new int[]{1, ADMain.GRANULARITY_BETA_CANDIDATE});
-    Matrix matrixArrayE = Mat5.newMatrix(new int[]{1, ADMain.GRANULARITY_E});
-    Matrix matrixArrayA = Mat5.newMatrix(new int[]{1, ADMain.GRANULARITY_A});
+    Matrix matrixArrayH = Mat5.newMatrix(new int[]{1, Main.LENGTH_H});
+    Matrix matrixArrayTheta = Mat5.newMatrix(new int[]{1, Main.GRANULARITY_THETA});
+    Matrix matrixArrayBeta = Mat5.newMatrix(new int[]{1, Main.LENGTH_BETA});
+    Matrix matrixArrayBetaCandidate = Mat5.newMatrix(new int[]{1, Main.GRANULARITY_BETA_CANDIDATE});
+    Matrix matrixArrayE = Mat5.newMatrix(new int[]{1, Main.LENGTH_E});
+    Matrix matrixArrayA = Mat5.newMatrix(new int[]{1, Main.LENGTH_A});
 
-    IntStream.range(0, ADMain.GRANULARITY_H).forEach(i -> matrixArrayH.setDouble(new int[] {0, i}, ADMain.H[i]));
-    IntStream.range(0, ADMain.GRANULARITY_THETA).forEach(i -> matrixArrayTheta.setDouble(new int[] {0, i}, ADMain.THETA[i]));
-    IntStream.range(0, ADMain.GRANULARITY_BETA).forEach(i -> matrixArrayBeta.setDouble(new int[] {0, i}, ADMain.BETA[i]));
-    IntStream.range(0, ADMain.GRANULARITY_BETA_CANDIDATE).forEach(i -> matrixArrayBetaCandidate.setDouble(new int[] {0, i}, ADMain.BETA_CANDIDATE[i]));
-    IntStream.range(0, ADMain.GRANULARITY_E).forEach(i -> matrixArrayE.setDouble(new int[] {0, i}, ADMain.E[i]));
-    IntStream.range(0, ADMain.GRANULARITY_A).forEach(i -> matrixArrayA.setDouble(new int[] {0, i}, ADMain.A[i]));
+    IntStream.range(0, Main.LENGTH_H).forEach(i -> matrixArrayH.setDouble(new int[] {0, i}, Main.H[i]));
+    IntStream.range(0, Main.GRANULARITY_THETA).forEach(i -> matrixArrayTheta.setDouble(new int[] {0, i}, Main.THETA[i]));
+    IntStream.range(0, Main.LENGTH_BETA).forEach(i -> matrixArrayBeta.setDouble(new int[] {0, i}, Main.BETA[i]));
+    IntStream.range(0, Main.GRANULARITY_BETA_CANDIDATE).forEach(i -> matrixArrayBetaCandidate.setDouble(new int[] {0, i}, Main.BETA_CANDIDATE[i]));
+    IntStream.range(0, Main.LENGTH_E).forEach(i -> matrixArrayE.setDouble(new int[] {0, i}, Main.E[i]));
+    IntStream.range(0, Main.LENGTH_A).forEach(i -> matrixArrayA.setDouble(new int[] {0, i}, Main.A[i]));
 
     int maxLengthTurbulenceAt = Integer.MIN_VALUE;
-    for (int i = 0; i < ADMain.GRANULARITY_TURBULENCE_SCHEDULE; i++) {
-      if (ADMain.TURBULENCE_SCHEDULE[i].nTurbulence > maxLengthTurbulenceAt) {
-        maxLengthTurbulenceAt = ADMain.TURBULENCE_SCHEDULE[i].nTurbulence;
+    for (int i = 0; i < Main.LENGTH_TURBULENCE_SCHEDULE; i++) {
+      if (Main.TURBULENCE_SCHEDULE[i].nTurbulence > maxLengthTurbulenceAt) {
+        maxLengthTurbulenceAt = Main.TURBULENCE_SCHEDULE[i].nTurbulence;
       }
     }
-    Matrix matrixArrayTurbulenceAt = Mat5.newMatrix(new int[]{ADMain.GRANULARITY_TURBULENCE_SCHEDULE, maxLengthTurbulenceAt});
-    Matrix matrixArrayTurbulenceStrengthValue = Mat5.newMatrix(new int[]{1, ADMain.GRANULARITY_TURBULENCE_SCHEDULE});
-    Matrix matrixArrayTurbulenceStrengthDependence = Mat5.newMatrix(new int[]{1, ADMain.GRANULARITY_TURBULENCE_SCHEDULE});
+    Matrix matrixArrayTurbulenceAt = Mat5.newMatrix(new int[]{Main.LENGTH_TURBULENCE_SCHEDULE, maxLengthTurbulenceAt});
+    Matrix matrixArrayTurbulenceStrengthValue = Mat5.newMatrix(new int[]{1, Main.LENGTH_TURBULENCE_SCHEDULE});
+    Matrix matrixArrayTurbulenceStrengthDependence = Mat5.newMatrix(new int[]{1, Main.LENGTH_TURBULENCE_SCHEDULE});
 
-    IntStream.range(0, ADMain.GRANULARITY_TURBULENCE_SCHEDULE).
-        forEach(i -> matrixArrayTurbulenceStrengthValue.setDouble(new int[] {0, i}, ADMain.TURBULENCE_SCHEDULE[i].turbulenceStrengthValue));
-    IntStream.range(0, ADMain.GRANULARITY_TURBULENCE_SCHEDULE).
-        forEach(i -> matrixArrayTurbulenceStrengthDependence.setDouble(new int[] {0, i}, ADMain.TURBULENCE_SCHEDULE[i].turbulenceStrengthDependence));
+    IntStream.range(0, Main.LENGTH_TURBULENCE_SCHEDULE).
+        forEach(i -> matrixArrayTurbulenceStrengthValue.setDouble(new int[] {0, i}, Main.TURBULENCE_SCHEDULE[i].turbulenceStrengthValue));
+    IntStream.range(0, Main.LENGTH_TURBULENCE_SCHEDULE).
+        forEach(i -> matrixArrayTurbulenceStrengthDependence.setDouble(new int[] {0, i}, Main.TURBULENCE_SCHEDULE[i].turbulenceStrengthDependence));
 
-    for (int i = 0; i < ADMain.GRANULARITY_TURBULENCE_SCHEDULE; i++) {
-      int nTurbulenceOfThisScheudle = ADMain.TURBULENCE_SCHEDULE[i].nTurbulence;
+    for (int i = 0; i < Main.LENGTH_TURBULENCE_SCHEDULE; i++) {
+      int nTurbulenceOfThisScheudle = Main.TURBULENCE_SCHEDULE[i].nTurbulence;
       for (int j = 0; j < nTurbulenceOfThisScheudle; j++) {
         matrixArrayTurbulenceAt.setDouble(new int[]{i, j},
-            ADMain.TURBULENCE_SCHEDULE[i].turbulenceAt[j]);
+            Main.TURBULENCE_SCHEDULE[i].turbulenceAt[j]);
       }
     }
 
     try {
       Mat5.newMatFile()
           .addArray("para_is_decomposed",
-              Mat5.newScalar(ADMain.EXPERIMENT_IS_DECOMPOSITION ? 1 : 0))
-          .addArray("para_w", Mat5.newScalar(ADMain.WEIGHT_ON_CHARACTERISTIC))
-          .addArray("para_iteration", Mat5.newScalar(ADMain.ITERATION))
-          .addArray("para_iteration_beta", Mat5.newScalar(ADMain.ITERATION_BETA))
-          .addArray("para_time", Mat5.newScalar(ADMain.TIME))
-          .addArray("para_n", Mat5.newScalar(ADMain.N))
-          .addArray("para_n_of_unit", Mat5.newScalar(ADMain.N_OF_UNIT))
-          .addArray("para_n_in_unit", Mat5.newScalar(ADMain.N_IN_UNIT))
-          .addArray("para_l", Mat5.newScalar(ADMain.L))
-          .addArray("para_m", Mat5.newScalar(ADMain.M))
-          .addArray("para_m_of_bundle", Mat5.newScalar(ADMain.M_OF_BUNDLE))
-          .addArray("para_m_in_bundle", Mat5.newScalar(ADMain.M_IN_BUNDLE))
+              Mat5.newScalar(Main.EXPERIMENT_IS_DECOMPOSITION ? 1 : 0))
+          .addArray("para_w", Mat5.newScalar(Main.WEIGHT_ON_CHARACTERISTIC))
+          .addArray("para_iteration", Mat5.newScalar(Main.ITERATION))
+          .addArray("para_iteration_beta", Mat5.newScalar(Main.ITERATION_BETA))
+          .addArray("para_time", Mat5.newScalar(Main.TIME))
+          .addArray("para_n", Mat5.newScalar(Main.N))
+          .addArray("para_n_of_unit", Mat5.newScalar(Main.N_OF_UNIT))
+          .addArray("para_n_in_unit", Mat5.newScalar(Main.N_IN_UNIT))
+          .addArray("para_l", Mat5.newScalar(Main.L))
+          .addArray("para_m", Mat5.newScalar(Main.M))
+          .addArray("para_m_of_bundle", Mat5.newScalar(Main.M_OF_BUNDLE))
+          .addArray("para_m_in_bundle", Mat5.newScalar(Main.M_IN_BUNDLE))
 
-          .addArray("para_g_h", Mat5.newScalar(ADMain.GRANULARITY_H))
-          .addArray("para_g_theta", Mat5.newScalar(ADMain.GRANULARITY_THETA))
-          .addArray("para_g_beta", Mat5.newScalar(ADMain.GRANULARITY_BETA))
-          .addArray("para_g_beta_cand", Mat5.newScalar(ADMain.GRANULARITY_BETA_CANDIDATE))
-          .addArray("para_o_beta", Mat5.newScalar(ADMain.OPTIMAL_BETA))
-          .addArray("para_o_beta_set_by_user", Mat5.newScalar(ADMain.GET_OPTIMAL_BETA ? 1 : 0))
-          .addArray("para_g_e", Mat5.newScalar(ADMain.GRANULARITY_E))
-          .addArray("para_p_learning", Mat5.newScalar(ADMain.P_LEARNING))
+          .addArray("para_g_h", Mat5.newScalar(Main.LENGTH_H))
+          .addArray("para_g_theta", Mat5.newScalar(Main.GRANULARITY_THETA))
+          .addArray("para_g_beta", Mat5.newScalar(Main.LENGTH_BETA))
+          .addArray("para_g_beta_cand", Mat5.newScalar(Main.GRANULARITY_BETA_CANDIDATE))
+          .addArray("para_o_beta", Mat5.newScalar(Main.OPTIMAL_BETA))
+          .addArray("para_o_beta_set_by_user", Mat5.newScalar(Main.GET_OPTIMAL_BETA ? 1 : 0))
+          .addArray("para_g_e", Mat5.newScalar(Main.LENGTH_E))
+          .addArray("para_p_learning", Mat5.newScalar(Main.P_LEARNING))
 
           .addArray("para_a_h", matrixArrayH)
           .addArray("para_a_theta", matrixArrayTheta)
@@ -181,7 +181,7 @@ class ADMatWriter {
           .addArray("para_a_beta", matrixArrayBeta)
           .addArray("para_a_e", matrixArrayE)
 
-          .addArray("para_g_turb", Mat5.newScalar(ADMain.GRANULARITY_TURBULENCE_SCHEDULE))
+          .addArray("para_g_turb", Mat5.newScalar(Main.LENGTH_TURBULENCE_SCHEDULE))
           .addArray("para_a_turb_at", matrixArrayTurbulenceAt)
           .addArray("para_a_turb_value", matrixArrayTurbulenceStrengthValue)
           .addArray("para_a_turb_dependence", matrixArrayTurbulenceStrengthDependence)
@@ -230,9 +230,9 @@ class ADMatWriter {
           .addArray("r_seta_avg", matrixBetaSampledAVG)
           .addArray("r_seta_std", matrixBetaSampledSTD)
           .addArray("perf_seconds",
-              Mat5.newScalar((System.currentTimeMillis() - ADMain.TIC) / 1000))
+              Mat5.newScalar((System.currentTimeMillis() - Main.TIC) / 1000))
 
-          .writeTo(Sinks.newStreamingFile(new File(ADMain.FILENAME + ".mat")));
+          .writeTo(Sinks.newStreamingFile(new File(Main.FILENAME + ".mat")));
 
       System.out.println("File Printed");
     } catch (IOException e) {
@@ -240,58 +240,58 @@ class ADMatWriter {
     }
   }
 
-  ADMatWriter(ADDecomposition d) {
-    Matrix matrixPerformanceAVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixPerformanceSTD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixPerformance12AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixPerformance12STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixPerformance23AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixPerformance23STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixPerformance13AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixPerformance13STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
+  MatWriter(Decomposition d) {
+    Matrix matrixPerformanceAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixPerformanceSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixPerformance12AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixPerformance12STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixPerformance23AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixPerformance23STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixPerformance13AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixPerformance13STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
 
-    Matrix matrixDisagreementAVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixDisagreementSTD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixDisagreement12AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixDisagreement12STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixDisagreement23AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixDisagreement23STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixDisagreement13AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixDisagreement13STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixDisagreementAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixDisagreementSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixDisagreement12AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixDisagreement12STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixDisagreement23AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixDisagreement23STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixDisagreement13AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixDisagreement13STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
 
-    Matrix matrixDissimilarityAVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixDissimilaritySTD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixDissimilarity12AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixDissimilarity12STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixDissimilarity23AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixDissimilarity23STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixDissimilarity13AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixDissimilarity13STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixDissimilarityAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixDissimilaritySTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixDissimilarity12AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixDissimilarity12STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixDissimilarity23AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixDissimilarity23STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixDissimilarity13AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixDissimilarity13STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
 
-    Matrix matrixClusteringAVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixClusteringSTD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixClustering12AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixClustering12STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixClustering23AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixClustering23STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixClustering13AVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixClustering13STD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixClusteringAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixClusteringSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixClustering12AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixClustering12STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixClustering23AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixClustering23STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixClustering13AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixClustering13STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
 
-    Matrix matrixSatisfactionAVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixSatisfactionSTD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixSatisfactionAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixSatisfactionSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
 
-    Matrix matrixRewiringAVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixRewiringSTD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixRewiringAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixRewiringSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
 
-    Matrix matrixBetaSampledAVG = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
-    Matrix matrixBetaSampledSTD = Mat5.newMatrix(ADMain.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixBetaSampledAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
+    Matrix matrixBetaSampledSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_DECOMPOSITION);
 
-    for (int h = 0; h < ADMain.GRANULARITY_H; h++) {
-      for (int b = 0; b < ADMain.GRANULARITY_BETA; b++) {
-        for (int e = 0; e < ADMain.GRANULARITY_E; e++) {
-          for (int a = 0; a < ADMain.GRANULARITY_A; a++) {
-            for (int tb = 0; tb < ADMain.GRANULARITY_TURBULENCE_SCHEDULE; tb++) {
-              for (int t = 0; t < ADMain.TIME; t++) {
+    for (int h = 0; h < Main.LENGTH_H; h++) {
+      for (int b = 0; b < Main.LENGTH_BETA; b++) {
+        for (int e = 0; e < Main.LENGTH_E; e++) {
+          for (int a = 0; a < Main.LENGTH_A; a++) {
+            for (int tb = 0; tb < Main.LENGTH_TURBULENCE_SCHEDULE; tb++) {
+              for (int t = 0; t < Main.TIME; t++) {
                 int[] indices = {h, b, e, a, tb, t};
                 matrixPerformanceAVG.setDouble(indices, d.performanceAVG[h][b][e][a][tb][t]);
                 matrixPerformanceSTD.setDouble(indices, d.performanceSTD[h][b][e][a][tb][t]);
@@ -345,69 +345,69 @@ class ADMatWriter {
     }
 
 
-    Matrix matrixArrayH = Mat5.newMatrix(new int[]{1, ADMain.GRANULARITY_H});
-    Matrix matrixArrayBeta = Mat5.newMatrix(new int[]{1, ADMain.GRANULARITY_BETA});
-    Matrix matrixArrayE = Mat5.newMatrix(new int[]{1, ADMain.GRANULARITY_E});
-    Matrix matrixArrayA = Mat5.newMatrix(new int[]{1, ADMain.GRANULARITY_A});
+    Matrix matrixArrayH = Mat5.newMatrix(new int[]{1, Main.LENGTH_H});
+    Matrix matrixArrayBeta = Mat5.newMatrix(new int[]{1, Main.LENGTH_BETA});
+    Matrix matrixArrayE = Mat5.newMatrix(new int[]{1, Main.LENGTH_E});
+    Matrix matrixArrayA = Mat5.newMatrix(new int[]{1, Main.LENGTH_A});
 
-    IntStream.range(0, ADMain.GRANULARITY_H).forEach(i -> matrixArrayH.setDouble(new int[] {0, i}, ADMain.H[i]));
-    IntStream.range(0, ADMain.GRANULARITY_BETA).forEach(i -> matrixArrayBeta.setDouble(new int[] {0, i}, ADMain.BETA[i]));
-    IntStream.range(0, ADMain.GRANULARITY_E).forEach(i -> matrixArrayE.setDouble(new int[] {0, i}, ADMain.E[i]));
-    IntStream.range(0, ADMain.GRANULARITY_A).forEach(i -> matrixArrayA.setDouble(new int[] {0, i}, ADMain.A[i]));
+    IntStream.range(0, Main.LENGTH_H).forEach(i -> matrixArrayH.setDouble(new int[] {0, i}, Main.H[i]));
+    IntStream.range(0, Main.LENGTH_BETA).forEach(i -> matrixArrayBeta.setDouble(new int[] {0, i}, Main.BETA[i]));
+    IntStream.range(0, Main.LENGTH_E).forEach(i -> matrixArrayE.setDouble(new int[] {0, i}, Main.E[i]));
+    IntStream.range(0, Main.LENGTH_A).forEach(i -> matrixArrayA.setDouble(new int[] {0, i}, Main.A[i]));
 
     int maxLengthTurbulenceAt = Integer.MIN_VALUE;
-    for (int i = 0; i < ADMain.GRANULARITY_TURBULENCE_SCHEDULE; i++) {
-      if (ADMain.TURBULENCE_SCHEDULE[i].nTurbulence > maxLengthTurbulenceAt) {
-        maxLengthTurbulenceAt = ADMain.TURBULENCE_SCHEDULE[i].nTurbulence;
+    for (int i = 0; i < Main.LENGTH_TURBULENCE_SCHEDULE; i++) {
+      if (Main.TURBULENCE_SCHEDULE[i].nTurbulence > maxLengthTurbulenceAt) {
+        maxLengthTurbulenceAt = Main.TURBULENCE_SCHEDULE[i].nTurbulence;
       }
     }
-    Matrix matrixArrayTurbulenceAt = Mat5.newMatrix(new int[]{ADMain.GRANULARITY_TURBULENCE_SCHEDULE, maxLengthTurbulenceAt});
-    Matrix matrixArrayTurbulenceStrengthValue = Mat5.newMatrix(new int[]{1, ADMain.GRANULARITY_TURBULENCE_SCHEDULE});
-    Matrix matrixArrayTurbulenceStrengthDependence = Mat5.newMatrix(new int[]{1, ADMain.GRANULARITY_TURBULENCE_SCHEDULE});
+    Matrix matrixArrayTurbulenceAt = Mat5.newMatrix(new int[]{Main.LENGTH_TURBULENCE_SCHEDULE, maxLengthTurbulenceAt});
+    Matrix matrixArrayTurbulenceStrengthValue = Mat5.newMatrix(new int[]{1, Main.LENGTH_TURBULENCE_SCHEDULE});
+    Matrix matrixArrayTurbulenceStrengthDependence = Mat5.newMatrix(new int[]{1, Main.LENGTH_TURBULENCE_SCHEDULE});
 
-    IntStream.range(0, ADMain.GRANULARITY_TURBULENCE_SCHEDULE).
-        forEach(i -> matrixArrayTurbulenceStrengthValue.setDouble(new int[] {0, i}, ADMain.TURBULENCE_SCHEDULE[i].turbulenceStrengthValue));
-    IntStream.range(0, ADMain.GRANULARITY_TURBULENCE_SCHEDULE).
-        forEach(i -> matrixArrayTurbulenceStrengthDependence.setDouble(new int[] {0, i}, ADMain.TURBULENCE_SCHEDULE[i].turbulenceStrengthDependence));
+    IntStream.range(0, Main.LENGTH_TURBULENCE_SCHEDULE).
+        forEach(i -> matrixArrayTurbulenceStrengthValue.setDouble(new int[] {0, i}, Main.TURBULENCE_SCHEDULE[i].turbulenceStrengthValue));
+    IntStream.range(0, Main.LENGTH_TURBULENCE_SCHEDULE).
+        forEach(i -> matrixArrayTurbulenceStrengthDependence.setDouble(new int[] {0, i}, Main.TURBULENCE_SCHEDULE[i].turbulenceStrengthDependence));
 
-    for (int i = 0; i < ADMain.GRANULARITY_TURBULENCE_SCHEDULE; i++) {
-      int nTurbulenceOfThisScheudle = ADMain.TURBULENCE_SCHEDULE[i].nTurbulence;
+    for (int i = 0; i < Main.LENGTH_TURBULENCE_SCHEDULE; i++) {
+      int nTurbulenceOfThisScheudle = Main.TURBULENCE_SCHEDULE[i].nTurbulence;
       for (int j = 0; j < nTurbulenceOfThisScheudle; j++) {
         matrixArrayTurbulenceAt.setDouble(new int[]{i, j},
-            ADMain.TURBULENCE_SCHEDULE[i].turbulenceAt[j]);
+            Main.TURBULENCE_SCHEDULE[i].turbulenceAt[j]);
       }
     }
 
     try {
       Mat5.newMatFile()
-          .addArray("para_is_decomposed",Mat5.newScalar(ADMain.EXPERIMENT_IS_DECOMPOSITION ? 1 : 0))
-          .addArray("para_w", Mat5.newScalar(ADMain.WEIGHT_ON_CHARACTERISTIC))
-          .addArray("para_iteration", Mat5.newScalar(ADMain.ITERATION))
-          .addArray("para_iteration_beta", Mat5.newScalar(ADMain.ITERATION_BETA))
-          .addArray("para_time", Mat5.newScalar(ADMain.TIME))
-          .addArray("para_n", Mat5.newScalar(ADMain.N))
-          .addArray("para_n_of_unit", Mat5.newScalar(ADMain.N_OF_UNIT))
-          .addArray("para_n_in_unit", Mat5.newScalar(ADMain.N_IN_UNIT))
-          .addArray("para_l", Mat5.newScalar(ADMain.L))
-          .addArray("para_m", Mat5.newScalar(ADMain.M))
-          .addArray("para_m_of_bundle", Mat5.newScalar(ADMain.M_OF_BUNDLE))
-          .addArray("para_m_in_bundle", Mat5.newScalar(ADMain.M_IN_BUNDLE))
+          .addArray("para_is_decomposed",Mat5.newScalar(Main.EXPERIMENT_IS_DECOMPOSITION ? 1 : 0))
+          .addArray("para_w", Mat5.newScalar(Main.WEIGHT_ON_CHARACTERISTIC))
+          .addArray("para_iteration", Mat5.newScalar(Main.ITERATION))
+          .addArray("para_iteration_beta", Mat5.newScalar(Main.ITERATION_BETA))
+          .addArray("para_time", Mat5.newScalar(Main.TIME))
+          .addArray("para_n", Mat5.newScalar(Main.N))
+          .addArray("para_n_of_unit", Mat5.newScalar(Main.N_OF_UNIT))
+          .addArray("para_n_in_unit", Mat5.newScalar(Main.N_IN_UNIT))
+          .addArray("para_l", Mat5.newScalar(Main.L))
+          .addArray("para_m", Mat5.newScalar(Main.M))
+          .addArray("para_m_of_bundle", Mat5.newScalar(Main.M_OF_BUNDLE))
+          .addArray("para_m_in_bundle", Mat5.newScalar(Main.M_IN_BUNDLE))
 
-          .addArray("para_g_h", Mat5.newScalar(ADMain.GRANULARITY_H))
-          .addArray("para_g_beta", Mat5.newScalar(ADMain.GRANULARITY_BETA))
-          .addArray("para_g_e", Mat5.newScalar(ADMain.GRANULARITY_E))
-          .addArray("para_g_a", Mat5.newScalar(ADMain.GRANULARITY_A))
-          .addArray("para_g_beta_cand", Mat5.newScalar(ADMain.GRANULARITY_BETA_CANDIDATE))
-          .addArray("para_o_beta", Mat5.newScalar(ADMain.OPTIMAL_BETA))
-          .addArray("para_o_beta_set_by_user", Mat5.newScalar(ADMain.GET_OPTIMAL_BETA ? 1 : 0))
-          .addArray("para_p_learning", Mat5.newScalar(ADMain.P_LEARNING))
+          .addArray("para_g_h", Mat5.newScalar(Main.LENGTH_H))
+          .addArray("para_g_beta", Mat5.newScalar(Main.LENGTH_BETA))
+          .addArray("para_g_e", Mat5.newScalar(Main.LENGTH_E))
+          .addArray("para_g_a", Mat5.newScalar(Main.LENGTH_A))
+          .addArray("para_g_beta_cand", Mat5.newScalar(Main.GRANULARITY_BETA_CANDIDATE))
+          .addArray("para_o_beta", Mat5.newScalar(Main.OPTIMAL_BETA))
+          .addArray("para_o_beta_set_by_user", Mat5.newScalar(Main.GET_OPTIMAL_BETA ? 1 : 0))
+          .addArray("para_p_learning", Mat5.newScalar(Main.P_LEARNING))
 
           .addArray("para_a_h", matrixArrayH)
           .addArray("para_a_beta", matrixArrayBeta)
           .addArray("para_a_e", matrixArrayE)
           .addArray("para_a_a", matrixArrayA)
 
-          .addArray("para_g_turb", Mat5.newScalar(ADMain.GRANULARITY_TURBULENCE_SCHEDULE))
+          .addArray("para_g_turb", Mat5.newScalar(Main.LENGTH_TURBULENCE_SCHEDULE))
           .addArray("para_a_turb_at", matrixArrayTurbulenceAt)
           .addArray("para_a_turb_value", matrixArrayTurbulenceStrengthValue)
           .addArray("para_a_turb_dependence", matrixArrayTurbulenceStrengthDependence)
@@ -456,9 +456,9 @@ class ADMatWriter {
           .addArray("r_seta_avg", matrixBetaSampledAVG)
           .addArray("r_seta_std", matrixBetaSampledSTD)
           .addArray("perf_seconds",
-              Mat5.newScalar((System.currentTimeMillis() - ADMain.TIC) / 1000))
+              Mat5.newScalar((System.currentTimeMillis() - Main.TIC) / 1000))
 
-          .writeTo(Sinks.newStreamingFile(new File(ADMain.FILENAME + ".mat")));
+          .writeTo(Sinks.newStreamingFile(new File(Main.FILENAME + ".mat")));
 
       System.out.println("File Printed");
     } catch (IOException e) {
