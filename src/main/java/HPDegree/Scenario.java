@@ -34,6 +34,7 @@ public class Scenario {
   boolean[][] networkEnforced;
   boolean[][] networkFlexible;
   boolean[][] network;
+  boolean[][] observationStructure;
   int[] isInUnit;
   int[] degreeEnforced;
   int[] degreeFlexible;
@@ -217,6 +218,8 @@ public class Scenario {
         }
       }
     }
+
+    setObservationStructure();
   }
 
   private void initializeEntity() {
@@ -273,6 +276,7 @@ public class Scenario {
     //Step 2. Rewiring ... among dissatisfied individuals
     if (isRewiring) {
       doRewiring();
+      setObservationStructure();
     }
     //Step 3. Learning
     doLearning();
@@ -284,6 +288,7 @@ public class Scenario {
     //Step 2. Rewiring ... among dissatisfied individuals
     if (isRewiring) {
       doRewiring(numRewiring);
+      setObservationStructure();
     }
     //Step 3. Learning
     doLearning();
@@ -372,6 +377,27 @@ public class Scenario {
     doEvaluateNeighbor();
   }
 
+  void setObservationStructure() {
+    observationStructure = new boolean[Main.N][];
+    for (int focal = 0; focal < Main.N; focal++) {
+      observationStructure[focal] = network[focal].clone();
+    }
+    for (int d = 1; d < observationScope; d++) {
+      for (int focal = 0; focal < Main.N; focal++) {
+        for (int contact = 0; contact < Main.N; contact++) {
+          if (observationStructure[focal][contact]) {
+            for (int target = 0; target < Main.N; target++) {
+              if (network[contact][target]) {
+                observationStructure[focal][target] = true;
+              }
+            }
+          }
+        }
+        observationStructure[focal][focal] = false;
+      }
+    }
+  }
+
   void doRewiring() {
     numRewiring = 0;
     boolean[] hasNewTie = new boolean[Main.N];
@@ -381,23 +407,21 @@ public class Scenario {
       if (satisfied[focal] || hasNewTie[focal]) {
         continue;
       }
-//        if( r.nextDouble() < AGMain.R_LEFT ) { continue; } // 210222 // 210718 NOT WORKING
-      //Selection of a target to cut out among informal others
-      int farthestFlexibleNeighborIndex = -1;
-      double farthestFlexibleNeighborDifference = Double.MIN_VALUE;
+      int farthestDitchableNeighborIndex = -1;
+      double farthestDitchableNeighborDifference = Double.MIN_VALUE;
       for (int target = 0; target < Main.N; target++) {
         if (degree[target] == 1) {
           continue;
         } //FIX: 210222 No Isolation
         if (networkFlexible[focal][target]) {
           double differenceNow = getAbsoluteDifference(focal, target);
-          if (differenceNow > farthestFlexibleNeighborDifference) {
-            farthestFlexibleNeighborIndex = target;
-            farthestFlexibleNeighborDifference = differenceNow;
+          if (differenceNow > farthestDitchableNeighborDifference) {
+            farthestDitchableNeighborIndex = target;
+            farthestDitchableNeighborDifference = differenceNow;
           }
         }
       }
-      if (farthestFlexibleNeighborIndex == -1) {
+      if (farthestDitchableNeighborIndex == -1) {
         continue;
       }
       //Selection of a target to connect to among strangers
@@ -406,12 +430,13 @@ public class Scenario {
         if (satisfied[target] || // If the target is already satisfied
             hasNewTie[target] || // If the target already has a new tie
             network[focal][target] || // If the target is already a neighbor of the focal
-            focal == target // If the target is focal
+            !observationStructure[focal][target] || // If the target is outside the observation structure
+            focal == target // If the target is focal herself
         ) {
           continue;
         }
         double differenceNow = getAbsoluteDifference(focal, target);
-        if (differenceNow < farthestFlexibleNeighborDifference) {
+        if (differenceNow < farthestDitchableNeighborDifference) {
           //Added in 201217: Mutual agreement!//
           double differenceAvgOfTarget = 0;
           for (int n = 0; n < Main.N; n++) {
@@ -426,14 +451,14 @@ public class Scenario {
           hasNewTie[focal] = true;
           hasNewTie[target] = true;
           //Breaking the tie with the farthest informal neighbor
-          networkFlexible[focal][farthestFlexibleNeighborIndex] = false;
-          networkFlexible[farthestFlexibleNeighborIndex][focal] = false;
-          network[focal][farthestFlexibleNeighborIndex] = false;
-          network[farthestFlexibleNeighborIndex][focal] = false;
-          degreeFlexible[farthestFlexibleNeighborIndex]--;
-          degree[farthestFlexibleNeighborIndex]--;
-          differenceSum[focal] -= farthestFlexibleNeighborDifference;
-          differenceSum[farthestFlexibleNeighborIndex] -= farthestFlexibleNeighborDifference;
+          networkFlexible[focal][farthestDitchableNeighborIndex] = false;
+          networkFlexible[farthestDitchableNeighborIndex][focal] = false;
+          network[focal][farthestDitchableNeighborIndex] = false;
+          network[farthestDitchableNeighborIndex][focal] = false;
+          degreeFlexible[farthestDitchableNeighborIndex]--;
+          degree[farthestDitchableNeighborIndex]--;
+          differenceSum[focal] -= farthestDitchableNeighborDifference;
+          differenceSum[farthestDitchableNeighborIndex] -= farthestDitchableNeighborDifference;
           //Building a new tie with the target
           networkFlexible[focal][target] = true;
           networkFlexible[target][focal] = true;
@@ -470,7 +495,7 @@ public class Scenario {
       for (int target : targetIndexArray) {
         if (degree[target] == 1) {
           continue;
-        } //FIX: 210222 No Isolation
+        }
         if (networkFlexible[focal][target]) {
           target2Cut = target;
           break;
@@ -480,8 +505,14 @@ public class Scenario {
         continue;
       }
       shuffleFisherYates(targetIndexArray);
-      for (int target2See : targetIndexArray) {
-        if (hasNewTie[target2See] || network[focal][target2See]) {
+      for (int target : targetIndexArray) {
+        if (hasNewTie[target] || // If the target already has a new tie
+            network[focal][target] || // If the target is already a neighbor of the focal
+            //@@@ WE MAY NEED TO REVISIT THE THEORETICAL VALIDITY OF THIS LINE
+            !observationStructure[focal][target] || // If the target is outside the observation structure
+            //@@@
+            focal == target // If the target is focal herself
+        ) {
           continue;
         }
         network[focal][target2Cut] = false;
@@ -489,15 +520,15 @@ public class Scenario {
         networkFlexible[focal][target2Cut] = false;
         networkFlexible[target2Cut][focal] = false;
 
-        network[focal][target2See] = true;
-        network[target2See][focal] = true;
-        networkFlexible[focal][target2See] = true;
-        networkFlexible[target2See][focal] = true;
+        network[focal][target] = true;
+        network[target][focal] = true;
+        networkFlexible[focal][target] = true;
+        networkFlexible[target][focal] = true;
 
         degree[target2Cut]--;
         degreeFlexible[target2Cut]--;
-        degree[target2See]++;
-        degreeFlexible[target2See]++;
+        degree[target]++;
+        degreeFlexible[target]++;
 
         numRewiringLeft--;
         break;
