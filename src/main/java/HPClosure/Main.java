@@ -74,7 +74,6 @@ public class Main {
   static String PATH_CSV = new File(".").getAbsolutePath() + "\\" + FILENAME + "\\";
 
   public static void main(String[] args) {
-    System.out.println("Closure: Baseline");
     System.out.println("Target File: " + RUN_ID);
 
     if (GET_GRAPH) {
