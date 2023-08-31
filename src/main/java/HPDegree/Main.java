@@ -12,7 +12,7 @@ public class Main {
   static final double WEIGHT_ON_CHARACTERISTIC = 1D;
   static final double WEIGHT_ON_BELIEF = 1D - WEIGHT_ON_CHARACTERISTIC;
 
-  static final int ITERATION = 10_000;
+  static final int ITERATION = 1_000;
   static final int TIME = 500 + 1;
 
 //  static final int N_OF_UNIT = 5;
