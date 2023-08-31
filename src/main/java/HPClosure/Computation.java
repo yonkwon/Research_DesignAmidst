@@ -206,7 +206,7 @@ class Computation {
   }
 
   public void doExperiment() {
-    pb = new ProgressBar("Full Experiment: Computation", Main.ITERATION);
+    pb = new ProgressBar(Main.RUN_ID + ": Composition", Main.ITERATION);
     setResultSpace();
     runFullExperiment();
     averageFullExperiment();

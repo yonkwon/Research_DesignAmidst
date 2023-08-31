@@ -5,15 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Add] A variant: HPClosure">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/HPClosure/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPClosure/Computation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/HPClosure/Decomposition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPClosure/Decomposition.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/HPClosure/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPClosure/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPClosure/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPClosure/MatWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPClosure/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPClosure/Scenario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HPDegree/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPDegree/Computation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HPDegree/Decomposition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPDegree/Decomposition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HPDegree/ProgressBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPDegree/ProgressBar.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +76,26 @@
       <recent name="C:\Users\Yongha\Dropbox\Research\HomophilyAndDesign\src\main\java\HPDegree" />
       <recent name="C:\Users\Yongha\Dropbox\Research\HomophilyAndDesign\src\main\java\HPBaseline" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="HPClosure.Main" />
+      <module name="HomophilyAndDesign.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="HPClosure.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -184,7 +202,23 @@
       <option name="project" value="LOCAL" />
       <updated>1693279463668</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="[Add] A variant: HPClosure">
+      <option name="closed" value="true" />
+      <created>1693515186944</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1693515186944</updated>
+    </task>
+    <task id="LOCAL-00014" summary="[Add] A variant: HPClosure">
+      <option name="closed" value="true" />
+      <created>1693515197415</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1693515197415</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

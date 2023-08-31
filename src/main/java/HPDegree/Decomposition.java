@@ -12,7 +12,7 @@ public class Decomposition extends Computation {
   }
 
   public void doExperiment() {
-    pb = new ProgressBar("Full Experiment: Decomposition", Main.ITERATION);
+    pb = new ProgressBar(Main.RUN_ID + ": Decomposition", Main.ITERATION);
     setResultSpace();
     runFullExperiment();
     averageFullExperiment();
