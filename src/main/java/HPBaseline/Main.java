@@ -32,6 +32,7 @@ public class Main {
   static final double M_N = M * N;
   static final double N_DYAD = N * (N - 1) / 2D;
   static final double M_N_DYAD = M * N_DYAD;
+  static final double NUM_TRIPLET = (double) (N * (N - 1) * (N - 2)) / 6D;
 
 //  static final double[] THETA = {.01, .125, .25, .375, .5, .625, .75, .875, .99};
   static final double[] THETA = {.0001, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375, 0.5, 0.5625, 0.625, 0.6875, 0.75, 0.8125, 0.875, 0.9375, .9999};

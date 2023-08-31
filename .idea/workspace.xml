@@ -6,11 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="Trivial Fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPBaseline/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPBaseline/Computation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPBaseline/Decomposition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPBaseline/Decomposition.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/HPBaseline/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPBaseline/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HPBaseline/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPBaseline/Scenario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/HPClosure/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPClosure/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/HPDegree/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPDegree/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HPDegree/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPDegree/Scenario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -247,7 +247,15 @@
       <option name="project" value="LOCAL" />
       <updated>1693515707399</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Trivial Fixes">
+      <option name="closed" value="true" />
+      <created>1693515885882</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1693515885882</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

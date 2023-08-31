@@ -310,34 +310,31 @@ public class Scenario {
       }
     }
 
-    // Average Efficiency
-    // https://en.wikipedia.org/wiki/Efficiency_(network_science)
-    // Very inefficient; solving the 'all pairs short path' problem as n-iteration of 'single source short path' problem.
-    // https://youtu.be/0XgVhsMOcQM
-    double distanceInverseSum = 0;
-    for (int source = 0; source < Main.N; source++) {
-      int[] distanceFromSource = new int[Main.N];
-      Arrays.fill(distanceFromSource, -1);
-      distanceFromSource[source] = 0;
 
-      LinkedList<Integer> queue = new LinkedList<Integer>();
-      queue.add(source);
-
-      while (!queue.isEmpty()) {
-        int focal = queue.poll();
-        for (int target = 0; target < Main.N; target++) {
-          if (network[focal][target]) {
-            if (distanceFromSource[target] == -1) {
-              distanceFromSource[target] = distanceFromSource[focal] + 1;
-              distanceInverseSum += 1D / distanceFromSource[target];
-              queue.add(target);
-            }
+    // Global Clustering Coefficient
+    // https://en.wikipedia.org/wiki/Clustering_coefficient#Global_clustering_coefficient
+    for( int ind1 : focalIndexArray ){
+      for( int ind2 : targetIndexArray ){
+        if( ind1 == ind2 ||
+            !network[ind1][ind2]
+        ){
+          continue;
+        }
+        for( int ind3 = 0; ind3 < Main.N; ind3 ++ ){
+          if( ind1 == ind3 ||
+              ind2 == ind3 ||
+              !network[ind1][ind3] ||
+              !network[ind2][ind3]
+          ){
+            continue;
           }
+          //ind 1, 2, 3 are different and form a closed triplet
+          clusteringCoefficient ++;
         }
       }
     }
 
-    clusteringCoefficient = (double) distanceInverseSum / (double) (Main.N * (Main.N - 1));
+    clusteringCoefficient /= Main.NUM_TRIPLET;
 
     performanceAvg /= Main.M_N;
     disagreementAvg /= Main.M_N_DYAD;
