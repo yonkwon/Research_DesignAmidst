@@ -17,15 +17,13 @@ public class Scenario {
   int[] focalIndexArray;
   int[] targetIndexArray;
 
-  double homophily;     //H
+  double closure;     //H
   double beta;          //Beta
   double enforcement;   //E
-  double assortativity; //A
 
   boolean[] reality;
   int[] realityBundleID;
   boolean[][] beliefOf;
-  boolean[][] typeOf;
 
   int[] performance;
 
@@ -36,18 +34,14 @@ public class Scenario {
   int[] degreeEnforced;
   int[] degreeFlexible;
   int[] degree;
-  double[][] differenceOf;
-  double[] differenceSum;
-  boolean[] satisfied;
 
   int numRewiring;
   double performanceAvg;
   double disagreementAvg;
-  double dissimilarityAvg;
+  double closureCoefficient;
   double clusteringCoefficient;
-  double satisfactionRate;
 
-  Scenario(double h, double beta, double enforcement, double assortativity) {
+  Scenario(double c, double beta, double enforcement) {
     r = new MersenneTwister();
     focalIndexArray = new int[Main.N];
     for (int n = 0; n < Main.N; n++) {
@@ -55,10 +49,9 @@ public class Scenario {
     }
     targetIndexArray = focalIndexArray.clone();
 
-    this.homophily = h;
+    this.closure = c;
     this.beta = beta;
     this.enforcement = enforcement;
-    this.assortativity = assortativity;
 
     isRewiring = true;
     isRandomRewiring = false;
@@ -67,11 +60,10 @@ public class Scenario {
   }
 
   public Scenario getClone() {
-    Scenario clone = new Scenario(this.homophily, this.beta, this.enforcement, this.assortativity);
+    Scenario clone = new Scenario(this.closure, this.beta, this.enforcement);
 
     clone.copyRealityOf(this);
     clone.beliefOf = new boolean[Main.N][];
-    clone.typeOf = new boolean[Main.N][];
     clone.performance = this.performance;
 
     clone.networkEnforced = new boolean[Main.N][];
@@ -81,26 +73,16 @@ public class Scenario {
     clone.degreeEnforced = this.degreeEnforced.clone();
     clone.degreeFlexible = this.degreeFlexible.clone();
     clone.degree = this.degree.clone();
-
-    clone.differenceOf = new double[Main.N][];
-    clone.differenceSum = this.differenceSum.clone();
-    clone.satisfied = this.satisfied.clone();
-
     clone.numRewiring = this.numRewiring;
     clone.performanceAvg = this.performanceAvg;
     clone.disagreementAvg = this.disagreementAvg;
-    clone.dissimilarityAvg = this.dissimilarityAvg;
-    clone.satisfactionRate = this.satisfactionRate;
 
     for (int focal = 0; focal < Main.N; focal++) {
       clone.beliefOf[focal] = this.beliefOf[focal].clone();
-      clone.typeOf[focal] = this.typeOf[focal].clone();
 
       clone.networkEnforced[focal] = this.networkEnforced[focal].clone();
       clone.networkFlexible[focal] = this.networkFlexible[focal].clone();
       clone.network[focal] = this.network[focal].clone();
-
-      clone.differenceOf[focal] = this.differenceOf[focal].clone();
     }
 
     return clone;
@@ -218,7 +200,6 @@ public class Scenario {
   private void initializeEntity() {
     reality = new boolean[Main.M];
     realityBundleID = new int[Main.M];
-    typeOf = new boolean[Main.N][Main.L];
     beliefOf = new boolean[Main.N][Main.M];
 
     for (int bundle = 0; bundle < Main.M_OF_BUNDLE; bundle++) {
@@ -230,21 +211,7 @@ public class Scenario {
       }
     }
 
-    boolean[][] typeOfUnit = new boolean[Main.N_OF_UNIT][Main.L];
-    for (int unit = 0; unit < Main.N_OF_UNIT; unit++) {
-      for (int l = 0; l < Main.L; l++) {
-        typeOfUnit[unit][l] = r.nextBoolean();
-      }
-    }
-
     for (int focal = 0; focal < Main.N; focal++) {
-      for (int l = 0; l < Main.L; l++) {
-        if (r.nextDouble() < assortativity) {
-          typeOf[focal][l] = typeOfUnit[isInUnit[focal]][l];
-        } else {
-          typeOf[focal][l] = r.nextBoolean();
-        }
-      }
       for (int m = 0; m < Main.M; m++) {
         beliefOf[focal][m] = r.nextBoolean();
       }
@@ -253,54 +220,36 @@ public class Scenario {
 
   private void initializeOutcome() {
     performance = new int[Main.N];
-
-    differenceOf = new double[Main.N][Main.N];
-    differenceSum = new double[Main.N];
-    satisfied = new boolean[Main.N];
-
     setPerformance();
-    setSatisfied();
     setOutcome();
   }
 
   void stepForward() {
-    //Step 1. Evaluate Neighbor
-    doEvaluateNeighbor();
-    //Step 2. Rewiring ... among dissatisfied individuals
+    //Step 1. Rewiring ... among dissatisfied individuals
     if (isRewiring) {
       doRewiring();
     }
-    //Step 3. Learning
+    //Step 2. Learning
     doLearning();
   }
 
   void stepForward(int numRewiring) {
-    //Step 1. Evaluate Neighbor
-    doEvaluateNeighbor();
-    //Step 2. Rewiring ... among dissatisfied individuals
+    //Step 1. Rewiring ... among dissatisfied individuals
     if (isRewiring) {
       doRewiring(numRewiring);
     }
-    //Step 3. Learning
+    //Step 2. Learning
     doLearning();
   }
 
   void setOutcome() {
     performanceAvg = 0;
     disagreementAvg = 0;
-    dissimilarityAvg = 0;
-    satisfactionRate = 0;
     clusteringCoefficient = 0;
     for (int focal = 0; focal < Main.N; focal++) {
       performanceAvg += performance[focal];
-      satisfactionRate += satisfied[focal] ? 1 : 0;
       for (int target = focal; target < Main.N; target++) {
         if (network[focal][target]) {
-          for (int l = 0; l < Main.L; l++) {
-            if (typeOf[focal][l] != typeOf[target][l]) {
-              dissimilarityAvg++;
-            }
-          }
           for (int m = 0; m < Main.M; m++) {
             if (beliefOf[focal][m] != beliefOf[target][m]) {
               disagreementAvg++;
@@ -310,62 +259,32 @@ public class Scenario {
       }
     }
 
-    // Average Efficiency
-    // https://en.wikipedia.org/wiki/Efficiency_(network_science)
-    // Very inefficient; solving the 'all pairs short path' problem as n-iteration of 'single source short path' problem.
-    // https://youtu.be/0XgVhsMOcQM
-    double distanceInverseSum = 0;
-    for (int source = 0; source < Main.N; source++) {
-      int[] distanceFromSource = new int[Main.N];
-      Arrays.fill(distanceFromSource, -1);
-      distanceFromSource[source] = 0;
-
-      LinkedList<Integer> queue = new LinkedList<Integer>();
-      queue.add(source);
-
-      while (!queue.isEmpty()) {
-        int focal = queue.poll();
-        for (int target = 0; target < Main.N; target++) {
-          if (network[focal][target]) {
-            if (distanceFromSource[target] == -1) {
-              distanceFromSource[target] = distanceFromSource[focal] + 1;
-              distanceInverseSum += 1D / distanceFromSource[target];
-              queue.add(target);
-            }
+    // Global Clustering Coefficient
+    // https://en.wikipedia.org/wiki/Clustering_coefficient#Global_clustering_coefficient
+    for( int ind1 : focalIndexArray ){
+      for( int ind2 : targetIndexArray ){
+        if( ind1 == ind2 ||
+            !network[ind1][ind2]
+        ){
+          continue;
+        }
+        for( int ind3 = 0; ind3 < Main.N; ind3 ++ ){
+          if( ind1 == ind3 ||
+              ind2 == ind3 ||
+              !network[ind1][ind3] ||
+              !network[ind2][ind3]
+          ){
+            continue;
           }
+          //ind 1, 2, 3 are different and form a closed triplet
+          clusteringCoefficient ++;
         }
       }
     }
 
-    clusteringCoefficient = (double) distanceInverseSum / (double) (Main.N * (Main.N - 1));
-
+    clusteringCoefficient /= Main.NUM_TRIPLET;
     performanceAvg /= Main.M_N;
     disagreementAvg /= Main.M_N_DYAD;
-    dissimilarityAvg /= Main.L * Main.DENSITY;
-    satisfactionRate /= Main.N;
-  }
-
-  void doEvaluateNeighbor() {
-    differenceSum = new double[Main.N];
-    for (int focal = 0; focal < Main.N; focal++) {
-      for (int target = focal; target < Main.N; target++) {
-        if (network[focal][target]) {
-          //The target is a neighbor of the focal (Implying they are not the same)
-          double differenceNow = getAbsoluteDifference(focal, target);
-          differenceOf[focal][target] = differenceNow;
-          differenceOf[target][focal] = differenceNow;
-          differenceSum[focal] += differenceNow;
-          differenceSum[target] += differenceNow;
-        }
-      }
-    }
-    for (int focal = 0; focal < Main.N; focal++) {
-      satisfied[focal] = differenceSum[focal] / degree[focal] <= 1 - homophily;
-    }
-  }
-
-  void setSatisfied() {
-    doEvaluateNeighbor();
   }
 
   void doRewiring() {
@@ -374,62 +293,45 @@ public class Scenario {
     shuffleFisherYates(focalIndexArray);
     for (int focal : focalIndexArray) {
       //Only dissatisfied individuals initiate rewiring
-      if (satisfied[focal] || hasNewTie[focal]) {
+      if (hasNewTie[focal] || degreeFlexible[focal] == 0) {
         continue;
       }
-//        if( r.nextDouble() < AGMain.R_LEFT ) { continue; } // 210222 // 210718 NOT WORKING
       //Selection of a target to cut out among informal others
-      int farthestFlexibleNeighborIndex = -1;
-      double farthestFlexibleNeighborDifference = Double.MIN_VALUE;
-      for (int target = 0; target < Main.N; target++) {
+      int target2Cut = -1;
+      int target2CutNumSharedContact = Integer.MAX_VALUE;
+      shuffleFisherYates(targetIndexArray);
+      for (int target : targetIndexArray) {
         if (degree[target] == 1) {
           continue;
-        } //FIX: 210222 No Isolation
+        }
         if (networkFlexible[focal][target]) {
-          double differenceNow = getAbsoluteDifference(focal, target);
-          if (differenceNow > farthestFlexibleNeighborDifference) {
-            farthestFlexibleNeighborIndex = target;
-            farthestFlexibleNeighborDifference = differenceNow;
+          int numSharedContact = getNumSharedContactBetween(focal, target);
+          if (numSharedContact < target2CutNumSharedContact) {
+            target2CutNumSharedContact = numSharedContact;
+            target2Cut = target;
           }
         }
-      }
-      if (farthestFlexibleNeighborIndex == -1) {
-        continue;
       }
       //Selection of a target to connect to among strangers
       shuffleFisherYates(targetIndexArray);
       for (int target : targetIndexArray) {
-        if (satisfied[target] || // If the target is already satisfied
-            hasNewTie[target] || // If the target already has a new tie
+        if (hasNewTie[target] || // If the target already has a new tie
             network[focal][target] || // If the target is already a neighbor of the focal
             focal == target // If the target is focal
         ) {
           continue;
         }
-        double differenceNow = getAbsoluteDifference(focal, target);
-        if (differenceNow < farthestFlexibleNeighborDifference) {
-          //Added in 201217: Mutual agreement!//
-          double differenceAvgOfTarget = 0;
-          for (int n = 0; n < Main.N; n++) {
-            differenceAvgOfTarget += getAbsoluteDifference(target, n);
-          }
-          differenceAvgOfTarget /= degree[target];
-          if (differenceNow > differenceAvgOfTarget) {
-            continue;
-          }
-          //Added in 201217: Mutual agreement!//
+        if( target2CutNumSharedContact > getNumSharedContactBetween(focal, target)){
           numRewiring++;
           hasNewTie[focal] = true;
           hasNewTie[target] = true;
           //Breaking the tie with the farthest informal neighbor
-          networkFlexible[focal][farthestFlexibleNeighborIndex] = false;
-          networkFlexible[farthestFlexibleNeighborIndex][focal] = false;
-          network[focal][farthestFlexibleNeighborIndex] = false;
-          network[farthestFlexibleNeighborIndex][focal] = false;
-          degreeFlexible[farthestFlexibleNeighborIndex]--;
-          degree[farthestFlexibleNeighborIndex]--;
-          differenceSum[focal] -= farthestFlexibleNeighborDifference;
-          differenceSum[farthestFlexibleNeighborIndex] -= farthestFlexibleNeighborDifference;
+          networkFlexible[focal][target2Cut] = false;
+          networkFlexible[target2Cut][focal] = false;
+          network[focal][target2Cut] = false;
+          network[target2Cut][focal] = false;
+          degreeFlexible[target2Cut]--;
+          degree[target2Cut]--;
           //Building a new tie with the target
           networkFlexible[focal][target] = true;
           networkFlexible[target][focal] = true;
@@ -437,11 +339,6 @@ public class Scenario {
           network[target][focal] = true;
           degreeFlexible[target]++;
           degree[target]++;
-          differenceSum[focal] += differenceNow;
-          differenceSum[target] += differenceNow;
-          //Satisfaction check; No consequence on the remaining rewiring process
-          satisfied[focal] = differenceSum[focal] / degree[focal] <= 1 - homophily;
-          satisfied[target] = differenceSum[target] / degree[target] <= 1 - homophily;
           //Occurs at most once for each individual
           break;
         }
@@ -480,25 +377,41 @@ public class Scenario {
         if (hasNewTie[target2See] || network[focal][target2See]) {
           continue;
         }
+        numRewiring++;
+        hasNewTie[focal] = true;
+        hasNewTie[target2See] = true;
+        //Breaking the tie with the farthest informal neighbor
         network[focal][target2Cut] = false;
         network[target2Cut][focal] = false;
         networkFlexible[focal][target2Cut] = false;
         networkFlexible[target2Cut][focal] = false;
-
+        degreeFlexible[target2Cut]--;
+        degree[target2Cut]--;
+        //Building a new tie with the target
         network[focal][target2See] = true;
         network[target2See][focal] = true;
         networkFlexible[focal][target2See] = true;
         networkFlexible[target2See][focal] = true;
-
-        degree[target2Cut]--;
-        degreeFlexible[target2Cut]--;
-        degree[target2See]++;
         degreeFlexible[target2See]++;
-
+        degree[target2See]++;
         numRewiringLeft--;
+        //Occurs at most once for each individual
         break;
       }
     }
+  }
+
+  int getNumSharedContactBetween(int focal, int target) {
+    int numSharedContact = 0;
+    for (int contact : focalIndexArray) {
+      if (focal == contact || target == contact) {
+        continue;
+      }
+      if (network[focal][contact] && network[target][contact]) {
+        numSharedContact++;
+      }
+    }
+    return numSharedContact;
   }
 
   void doLearning() {
@@ -530,29 +443,6 @@ public class Scenario {
     for (int focal = 0; focal < Main.N; focal++) {
       setPerformance(focal);
     }
-  }
-
-  double getAbsoluteDifference(int focal, int target) {
-    double difference;
-    int differenceCharacteristic = 0;
-    int differenceBelief = 0;
-    if (Main.WEIGHT_ON_CHARACTERISTIC > 0D) {
-      for (int l = 0; l < Main.L; l++) {
-        if (typeOf[focal][l] != typeOf[target][l]) {
-          differenceCharacteristic++;
-        }
-      }
-    }
-    if (Main.WEIGHT_ON_BELIEF > 0D) {
-      for (int m = 0; m < Main.M; m++) {
-        if (beliefOf[focal][m] != beliefOf[target][m]) {
-          differenceBelief++;
-        }
-      }
-    }
-    difference = Main.WEIGHT_ON_CHARACTERISTIC > 0 ? Main.WEIGHT_ON_CHARACTERISTIC * differenceCharacteristic / (double) Main.L : 0 + Main.WEIGHT_ON_BELIEF > 0 ? Main.WEIGHT_ON_BELIEF * differenceBelief / (double) Main.M : 0;
-
-    return difference;
   }
 
   int getPerformance(int focal) {
@@ -596,15 +486,9 @@ public class Scenario {
       csvWriter.append(",");
       csvWriter.append("TARGET");
       csvWriter.append(",");
-      for (int l = 0; l < Main.L; l++) {
-        csvWriter.append("SOURCE_TYPE" + l);
-        csvWriter.append(",");
-      }
       csvWriter.append("SOURCE_UNIT");
       csvWriter.append(",");
       csvWriter.append("TIE_ENFORCED");
-      csvWriter.append(",");
-      csvWriter.append("L");
       csvWriter.append("\n");
 
       //Edge
@@ -622,22 +506,12 @@ public class Scenario {
             csvWriter.append(Integer.toString(target));
             csvWriter.append(",");
 
-//            csvWriter.append("SOURCE_TYPE");
-            for (int l = 0; l < Main.L; l++) {
-              csvWriter.append(typeOf[focal][l] ? "true" : "false");
-              csvWriter.append(",");
-            }
-
 //            csvWriter.append("SOURCE_UNIT");
             csvWriter.append(Integer.toString(isInUnit[focal]));
             csvWriter.append(",");
 
 //            csvWriter.append("TIE_ENFORCED");
             csvWriter.append(Boolean.toString(networkEnforced[focal][target]));
-            csvWriter.append(",");
-
-//            csvWriter.append("L");
-            csvWriter.append(Integer.toString(Main.L));
             csvWriter.append("\n");
           }
         }
@@ -652,21 +526,11 @@ public class Scenario {
 //        csvWriter.append("TARGET");
         csvWriter.append(",");
 
-//        csvWriter.append("SOURCE_TYPE");
-        for (int l = 0; l < Main.L; l++) {
-          csvWriter.append(typeOf[focal][l] ? "true" : "false");
-          csvWriter.append(",");
-        }
-
 //        csvWriter.append("SOURCE_UNIT");
         csvWriter.append(Integer.toString(isInUnit[focal]));
         csvWriter.append(",");
 
 //        csvWriter.append("TIE_ENFORCED");
-        csvWriter.append(",");
-
-//        csvWriter.append("L");
-        csvWriter.append(Integer.toString(Main.L));
         csvWriter.append("\n");
       }
 

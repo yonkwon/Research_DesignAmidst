@@ -1,6 +1,6 @@
 # Homophily And Organizational Design
 Model and analysis for the "homophily paper" (Kwon, Posen, & Piezunka (working))
 
-* HPBaseline: The baseline model
+* HPBaseline: A baseline model
   * HPDegree: A variant of the baseline model limiting individuals' scope of rewiring
-  * HPClosure: A variant of the baseline model where individuals rewire by closure (not homophily)
+* HPClosure: A baseline model where individuals rewire to increase network closure (homophily based on shared acquaintances)
