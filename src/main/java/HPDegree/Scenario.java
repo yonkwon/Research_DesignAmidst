@@ -388,8 +388,10 @@ public class Scenario {
             }
           }
         }
-        observationStructure[focal][focal] = false;
       }
+    }
+    for( int focal : focalIndexArray ){
+      observationStructure[focal][focal] = false;
     }
   }
 
@@ -402,6 +404,7 @@ public class Scenario {
       if (satisfied[focal] || hasNewTie[focal]) {
         continue;
       }
+
       int farthestDitchableNeighborIndex = -1;
       double farthestDitchableNeighborDifference = Double.MIN_VALUE;
       for (int target = 0; target < Main.N; target++) {

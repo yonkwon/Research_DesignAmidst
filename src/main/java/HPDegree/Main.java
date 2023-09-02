@@ -24,9 +24,9 @@ public class Main {
   static final int N = N_OF_UNIT * N_IN_UNIT;
   static final int DENSITY = N_OF_UNIT * N_IN_UNIT * (N_IN_UNIT - 1) / 2;
 
-  static final int OBSERVATION_SCOPE = 2; // >= 2
+  static final int OBSERVATION_SCOPE = 3; // >= 2
 
-  static final int L = 3; // Fixed param
+  static final int L = 1; // Fixed param
   static final int M_OF_BUNDLE = 20;
   static final int M_IN_BUNDLE = 5;
   static final int M = M_OF_BUNDLE * M_IN_BUNDLE;
@@ -119,11 +119,35 @@ public class Main {
   private static void setFileName() {
     FILENAME = RUN_ID + (EXPERIMENT_IS_DECOMPOSITION ?
         //Decomposed
-        "Dec_I" + ITERATION + "T" + TIME + "N" + N_OF_UNIT + "X" + N_IN_UNIT + "L" + L + "W" + WEIGHT_ON_CHARACTERISTIC + "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE + "H" + LENGTH_H + "Th" + GRANULARITY_THETA + "(Opt" + OPTIMAL_BETA + (GET_OPTIMAL_BETA
-            ? "Calc" : "Set") + ")" + "E" + LENGTH_E + "A" + LENGTH_A + "P" + P_LEARNING :
+        "Dec_I" + ITERATION +
+            "O" + OBSERVATION_SCOPE +
+            "T" + TIME +
+            "N" + N_OF_UNIT +
+            "X" + N_IN_UNIT +
+            "L" + L +
+            "W" + WEIGHT_ON_CHARACTERISTIC +
+            "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE +
+            "H" + LENGTH_H +
+            "Th" + GRANULARITY_THETA +
+            "(Opt" + OPTIMAL_BETA + (GET_OPTIMAL_BETA? "Calc" : "Set") + ")" +
+            "E" + LENGTH_E +
+            "A" + LENGTH_A +
+            "P" + P_LEARNING :
         //Not Decomposed
-        "Com_I" + ITERATION + "T" + TIME + "N" + N_OF_UNIT + "X" + N_IN_UNIT + "L" + L + "W" + WEIGHT_ON_CHARACTERISTIC + "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE + "H" + LENGTH_H + "B" + LENGTH_BETA + "E" + LENGTH_E + "A" + LENGTH_A + "P"
-            + P_LEARNING);
+        "Com_I" + ITERATION +
+            "O" + OBSERVATION_SCOPE +
+            "T" + TIME +
+            "N" + N_OF_UNIT +
+            "X" + N_IN_UNIT +
+            "L" + L +
+            "W" + WEIGHT_ON_CHARACTERISTIC +
+            "M" + M_OF_BUNDLE +
+            "X" + M_IN_BUNDLE +
+            "H" + LENGTH_H +
+            "B" + LENGTH_BETA +
+            "E" + LENGTH_E +
+            "A" + LENGTH_A +
+            "P" + P_LEARNING);
     PATH_CSV = new File(".").getAbsolutePath() + "\\" + FILENAME + "\\";
   }
 }

@@ -24,7 +24,7 @@ public class Main {
   static final int N = N_OF_UNIT * N_IN_UNIT;
   static final int DENSITY = N_OF_UNIT * N_IN_UNIT * (N_IN_UNIT - 1) / 2;
 
-  static final int L = 3; // Fixed param
+  static final int L = 1; // Fixed param
   static final int M_OF_BUNDLE = 20;
   static final int M_IN_BUNDLE = 5;
   static final int M = M_OF_BUNDLE * M_IN_BUNDLE;
