@@ -110,11 +110,28 @@ public class Main {
   private static void setFileName() {
     FILENAME = RUN_ID + (EXPERIMENT_IS_DECOMPOSITION ?
         //Decomposed
-        "Dec_I" + ITERATION + "T" + TIME + "N" + N_OF_UNIT + "X" + N_IN_UNIT + "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE + "H" + LENGTH_C + "Th" + GRANULARITY_THETA + "(Opt" + OPTIMAL_BETA + (GET_OPTIMAL_BETA
-            ? "Calc" : "Set") + ")" + "E" + LENGTH_E + "P" + P_LEARNING :
+        "Dec_I" + ITERATION +
+            "T" + TIME +
+            "N" + N_OF_UNIT +
+            "X" + N_IN_UNIT +
+            "M" + M_OF_BUNDLE +
+            "X" + M_IN_BUNDLE +
+            "H" + LENGTH_C +
+            "Th" + GRANULARITY_THETA +
+            "(Opt" + OPTIMAL_BETA + (GET_OPTIMAL_BETA? "Calc" : "Set") + ")" +
+            "E" + LENGTH_E +
+            "P" + P_LEARNING :
         //Not Decomposed
-        "Com_I" + ITERATION + "T" + TIME + "N" + N_OF_UNIT + "X" + N_IN_UNIT + "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE + "H" + LENGTH_C + "B" + LENGTH_BETA + "E" + LENGTH_E + "P"
-            + P_LEARNING);
+        "Com_I" + ITERATION +
+            "T" + TIME +
+            "N" + N_OF_UNIT +
+            "X" + N_IN_UNIT +
+            "M" + M_OF_BUNDLE +
+            "X" + M_IN_BUNDLE +
+            "H" + LENGTH_C +
+            "B" + LENGTH_BETA +
+            "E" + LENGTH_E +
+            "P" + P_LEARNING);
     PATH_CSV = new File(".").getAbsolutePath() + "\\" + FILENAME + "\\";
   }
 }
