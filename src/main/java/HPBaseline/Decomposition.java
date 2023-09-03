@@ -3,6 +3,7 @@ package HPBaseline;
 import static org.apache.commons.math3.util.FastMath.pow;
 
 import com.google.common.util.concurrent.AtomicDouble;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 public class Decomposition extends Computation {
@@ -288,7 +289,6 @@ public class Decomposition extends Computation {
     int betaIndex;
     int eIndex;
     int aIndex;
-    int turbulenceScheduleIndex;
 
     double h;
     double beta;
@@ -421,6 +421,11 @@ public class Decomposition extends Computation {
           double performance13 = src.performanceAvg - nr.performanceAvg;
           performance13AVGAtomicPart[t].addAndGet(performance13);
           performance13STDAtomicPart[t].addAndGet(pow(performance13, 2));
+
+          System.out.println(t+":\t"+src.performanceAvg+"\t"+rr.performanceAvg+"\t"+nr.performanceAvg);
+          System.out.println("S"+Arrays.toString(src.performance));
+          System.out.println("r"+Arrays.toString(nr.performance));
+          System.out.println("n"+Arrays.toString(rr.performance));
 
           disagreementAVGAtomicPart[t].addAndGet(src.disagreementAvg);
           disagreementSTDAtomicPart[t].addAndGet(pow(src.disagreementAvg, 2));

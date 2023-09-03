@@ -74,7 +74,7 @@ public class Scenario {
   public Scenario getClone() {
     Scenario clone = new Scenario(this.homophily, this.beta, this.enforcement, this.assortativity);
 
-    clone.copyRealityOf(this);
+    clone.reality = this.reality.clone(); //230902 Fix
     clone.beliefOf = new boolean[Main.N][];
     clone.typeOf = new boolean[Main.N][];
     clone.performance = this.performance;

@@ -62,7 +62,7 @@ public class Scenario {
   public Scenario getClone() {
     Scenario clone = new Scenario(this.closure, this.beta, this.enforcement);
 
-    clone.copyRealityOf(this);
+    clone.reality = this.reality.clone(); //230902 Fix
     clone.beliefOf = new boolean[Main.N][];
     clone.performance = this.performance;
 

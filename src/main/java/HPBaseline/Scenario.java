@@ -11,8 +11,8 @@ public class Scenario {
 
   RandomGenerator r;
 
-  boolean isRewiring = false;
-  boolean isRandomRewiring = false;
+  boolean isRewiring;
+  boolean isRandomRewiring;
 
   int[] focalIndexArray;
   int[] targetIndexArray;
@@ -48,6 +48,7 @@ public class Scenario {
   double satisfactionRate;
 
   Scenario(double h, double beta, double enforcement, double assortativity) {
+
     r = new MersenneTwister();
     focalIndexArray = new int[Main.N];
     for (int n = 0; n < Main.N; n++) {
@@ -69,10 +70,10 @@ public class Scenario {
   public Scenario getClone() {
     Scenario clone = new Scenario(this.homophily, this.beta, this.enforcement, this.assortativity);
 
-    clone.copyRealityOf(this);
+    clone.reality = this.reality.clone(); //230902 Fix
     clone.beliefOf = new boolean[Main.N][];
     clone.typeOf = new boolean[Main.N][];
-    clone.performance = this.performance;
+    clone.performance = this.performance.clone();
 
     clone.networkEnforced = new boolean[Main.N][];
     clone.networkFlexible = new boolean[Main.N][];
@@ -374,14 +375,13 @@ public class Scenario {
       if (satisfied[focal] || hasNewTie[focal]) {
         continue;
       }
-//        if( r.nextDouble() < AGMain.R_LEFT ) { continue; } // 210222 // 210718 NOT WORKING
       //Selection of a target to cut out among informal others
       int farthestFlexibleNeighborIndex = -1;
       double farthestFlexibleNeighborDifference = Double.MIN_VALUE;
       for (int target = 0; target < Main.N; target++) {
         if (degree[target] == 1) {
           continue;
-        } //FIX: 210222 No Isolation
+        }
         if (networkFlexible[focal][target]) {
           double differenceNow = getAbsoluteDifference(focal, target);
           if (differenceNow > farthestFlexibleNeighborDifference) {
@@ -405,7 +405,6 @@ public class Scenario {
         }
         double differenceNow = getAbsoluteDifference(focal, target);
         if (differenceNow < farthestFlexibleNeighborDifference) {
-          //Added in 201217: Mutual agreement!//
           double differenceAvgOfTarget = 0;
           for (int n = 0; n < Main.N; n++) {
             differenceAvgOfTarget += getAbsoluteDifference(target, n);
@@ -414,7 +413,6 @@ public class Scenario {
           if (differenceNow > differenceAvgOfTarget) {
             continue;
           }
-          //Added in 201217: Mutual agreement!//
           numRewiring++;
           hasNewTie[focal] = true;
           hasNewTie[target] = true;
@@ -524,9 +522,7 @@ public class Scenario {
       }
     }
     beliefOf = beliefOfUpdated;
-    for (int focal = 0; focal < Main.N; focal++) {
-      setPerformance(focal);
-    }
+    setPerformance();
   }
 
   double getAbsoluteDifference(int focal, int target) {
@@ -547,7 +543,8 @@ public class Scenario {
         }
       }
     }
-    difference = Main.WEIGHT_ON_CHARACTERISTIC > 0 ? Main.WEIGHT_ON_CHARACTERISTIC * differenceCharacteristic / (double) Main.L : 0 + Main.WEIGHT_ON_BELIEF > 0 ? Main.WEIGHT_ON_BELIEF * differenceBelief / (double) Main.M : 0;
+    difference = (Main.WEIGHT_ON_CHARACTERISTIC > 0 ? Main.WEIGHT_ON_CHARACTERISTIC * differenceCharacteristic / (double) Main.L : 0) +
+        (Main.WEIGHT_ON_BELIEF > 0 ? Main.WEIGHT_ON_BELIEF * differenceBelief / (double) Main.M : 0);
 
     return difference;
   }

@@ -32,7 +32,7 @@ public class ProgressBar {
 
     System.out.println(
         timeCurrent + "\t" + label +
-            "Iterated: " + finishedIteration + " / " + iterationMax +
+            " Iterated: " + finishedIteration + " / " + iterationMax +
             " (" + String.format("%.02f", progress) + "%)" +
             "\t\tElapsed: " + String.format("%.02f", timeElapsed) + " Hr" +
             "\t\tLeft: " + String.format("%.02f", timeLeft) + " Hr"

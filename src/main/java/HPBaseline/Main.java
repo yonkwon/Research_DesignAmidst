@@ -12,7 +12,7 @@ public class Main {
   static final double WEIGHT_ON_CHARACTERISTIC = 1D;
   static final double WEIGHT_ON_BELIEF = 1D - WEIGHT_ON_CHARACTERISTIC;
 
-  static final int ITERATION = 100;
+  static final int ITERATION = 1;
   static final int TIME = 500 + 1;
 
 //  static final int N_OF_UNIT = 5;
@@ -48,13 +48,13 @@ public class Main {
 
 
 //  static final double[] BETA = {0, 1};
-//  static final double[] BETA = {0, .25, .5, .75, 1.0};
+  static final double[] BETA = {0, .25, .5, .75, 1.0};
 //  static final double[] BETA = {0, .125, .25, .375, .5, .625, .75, .875, 1.0};
-  static final double[] BETA = {0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375, 0.5, 0.5625, 0.625, 0.6875, 0.75, 0.8125, 0.875, 0.9375, 1};
+//  static final double[] BETA = {0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375, 0.5, 0.5625, 0.625, 0.6875, 0.75, 0.8125, 0.875, 0.9375, 1};
   static final int LENGTH_BETA = BETA.length;
 
-//  static final double[] E = {.25};
-  static final double[] E = {0, .25};
+  static final double[] E = {.25};
+//  static final double[] E = {0, .25};
   static final int LENGTH_E = E.length;
 
   static final double[] A = {0};
