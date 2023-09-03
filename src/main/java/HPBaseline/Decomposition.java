@@ -422,11 +422,6 @@ public class Decomposition extends Computation {
           performance13AVGAtomicPart[t].addAndGet(performance13);
           performance13STDAtomicPart[t].addAndGet(pow(performance13, 2));
 
-          System.out.println(t+":\t"+src.performanceAvg+"\t"+rr.performanceAvg+"\t"+nr.performanceAvg);
-          System.out.println("S"+Arrays.toString(src.performance));
-          System.out.println("r"+Arrays.toString(nr.performance));
-          System.out.println("n"+Arrays.toString(rr.performance));
-
           disagreementAVGAtomicPart[t].addAndGet(src.disagreementAvg);
           disagreementSTDAtomicPart[t].addAndGet(pow(src.disagreementAvg, 2));
           double disagreement12 = rr.disagreementAvg - nr.disagreementAvg;

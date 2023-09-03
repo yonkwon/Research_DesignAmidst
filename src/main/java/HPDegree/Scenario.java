@@ -11,8 +11,8 @@ public class Scenario {
 
   RandomGenerator r;
 
-  boolean isRewiring = false;
-  boolean isRandomRewiring = false;
+  boolean isRewiring;
+  boolean isRandomRewiring;
 
   int[] focalIndexArray;
   int[] targetIndexArray;
@@ -74,10 +74,11 @@ public class Scenario {
   public Scenario getClone() {
     Scenario clone = new Scenario(this.homophily, this.beta, this.enforcement, this.assortativity);
 
-    clone.reality = this.reality.clone(); //230902 Fix
+    clone.reality = this.reality.clone();
+    clone.realityBundleID = this.realityBundleID.clone();
     clone.beliefOf = new boolean[Main.N][];
     clone.typeOf = new boolean[Main.N][];
-    clone.performance = this.performance;
+    clone.performance = this.performance.clone();
 
     clone.networkEnforced = new boolean[Main.N][];
     clone.networkFlexible = new boolean[Main.N][];

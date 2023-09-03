@@ -4,13 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Global clustering coefficient">
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Unsync performance arrays of parallel scenarios">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/HPBaseline/Decomposition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPBaseline/Decomposition.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/HPBaseline/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPBaseline/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPBaseline/ProgressBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPBaseline/ProgressBar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/HPBaseline/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPBaseline/Scenario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HPClosure/Decomposition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPClosure/Decomposition.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/HPClosure/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPClosure/Scenario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HPDegree/Decomposition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPDegree/Decomposition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HPDegree/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPDegree/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/HPDegree/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPDegree/Scenario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,7 +79,7 @@
       <recent name="C:\Users\Yongha\Dropbox\Research\HomophilyAndDesign\src\main\java\HPBaseline" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.HPBaseline.Main">
+  <component name="RunManager" selected="Application.HPDegree.Main">
     <configuration name="HPBaseline.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="HPBaseline.Main" />
       <module name="HomophilyAndDesign.main" />
@@ -278,7 +280,15 @@
       <option name="project" value="LOCAL" />
       <updated>1693516458097</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="[Fix] Unsync performance arrays of parallel scenarios">
+      <option name="closed" value="true" />
+      <created>1693714945448</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1693714945448</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -294,6 +304,7 @@
     <MESSAGE value="[Add] A variant: HPClosure" />
     <MESSAGE value="Trivial Fixes" />
     <MESSAGE value="[Fix] Global clustering coefficient" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Global clustering coefficient" />
+    <MESSAGE value="[Fix] Unsync performance arrays of parallel scenarios" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Unsync performance arrays of parallel scenarios" />
   </component>
 </project>

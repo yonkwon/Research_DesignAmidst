@@ -3,6 +3,7 @@ package HPClosure;
 import static org.apache.commons.math3.util.FastMath.pow;
 
 import com.google.common.util.concurrent.AtomicDouble;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 public class Decomposition extends Computation {
