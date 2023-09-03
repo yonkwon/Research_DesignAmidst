@@ -322,7 +322,7 @@ public class Scenario {
         ) {
           continue;
         }
-        if( target2CutNumSharedContact > getNumSharedContactBetween(focal, target)){
+        if( target2CutNumSharedContact < getNumSharedContactBetween(focal, target)){
           numRewiring++;
           hasNewTie[focal] = true;
           hasNewTie[target] = true;
