@@ -12,7 +12,7 @@ public class Main {
   static final double WEIGHT_ON_CHARACTERISTIC = 1D;
   static final double WEIGHT_ON_BELIEF = 1D - WEIGHT_ON_CHARACTERISTIC;
 
-  static final int ITERATION = 10_000;
+  static final int ITERATION = 100;
   static final int TIME = 500 + 1;
 
 //  static final int N_OF_UNIT = 5;
@@ -57,8 +57,8 @@ public class Main {
   static final double[] E = {0, .25};
   static final int LENGTH_E = E.length;
 
-//  static final double[] A = {1};
-  static final double[] A = {0, .25, .5, .75, 1};
+  static final double[] A = {0};
+//  static final double[] A = {0, .25, .5, .75, 1};
   static final int LENGTH_A = A.length;
 
   static final double[] H = {0, 1};
@@ -74,10 +74,33 @@ public class Main {
   static String RUN_ID = "HPBaseline";
   static String FILENAME = RUN_ID + (EXPERIMENT_IS_DECOMPOSITION ?
       //Decomposed
-      "Dec_I" + ITERATION + "T" + TIME + "N" + N_OF_UNIT + "X" + N_IN_UNIT + "L" + L + "W" + WEIGHT_ON_CHARACTERISTIC + "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE + "H" + LENGTH_H + "Be" + GRANULARITY_THETA + "(Opt" + "" + (GET_OPTIMAL_BETA ? "Calc"
-          : "Set") + ")" + "E" + LENGTH_E + "A" + LENGTH_A + "P" + P_LEARNING :
+      "Dec_I" + ITERATION +
+          "T" + TIME +
+          "N" + N_OF_UNIT +
+          "X" + N_IN_UNIT +
+          "L" + L +
+          "W" + WEIGHT_ON_CHARACTERISTIC +
+          "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE +
+          "H" + LENGTH_H +
+          "Th" + GRANULARITY_THETA +
+          "(Opt" + OPTIMAL_BETA + (GET_OPTIMAL_BETA ? "Calc" : "Set") + ")" +
+          "E" + LENGTH_E +
+          "A" + LENGTH_A +
+          "P" + P_LEARNING :
       //Not Decomposed
-      "Com_I" + ITERATION + "T" + TIME + "N" + N_OF_UNIT + "X" + N_IN_UNIT + "L" + L + "W" + WEIGHT_ON_CHARACTERISTIC + "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE + "H" + LENGTH_H + "Et" + LENGTH_BETA + "E" + LENGTH_E + "A" + LENGTH_A + "P" + P_LEARNING);
+      "Com_I" + ITERATION +
+          "T" + TIME +
+          "N" + N_OF_UNIT +
+          "X" + N_IN_UNIT +
+          "L" + L +
+          "W" + WEIGHT_ON_CHARACTERISTIC +
+          "M" + M_OF_BUNDLE +
+          "X" + M_IN_BUNDLE +
+          "H" + LENGTH_H +
+          "B" + LENGTH_BETA +
+          "E" + LENGTH_E +
+          "A" + LENGTH_A +
+          "P" + P_LEARNING);
   static String PATH_CSV = new File(".").getAbsolutePath() + "\\" + FILENAME + "\\";
 
   public static void main(String[] args) {
@@ -117,11 +140,33 @@ public class Main {
   private static void setFileName() {
     FILENAME = RUN_ID + (EXPERIMENT_IS_DECOMPOSITION ?
         //Decomposed
-        "Dec_I" + ITERATION + "T" + TIME + "N" + N_OF_UNIT + "X" + N_IN_UNIT + "L" + L + "W" + WEIGHT_ON_CHARACTERISTIC + "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE + "H" + LENGTH_H + "Th" + GRANULARITY_THETA + "(Opt" + OPTIMAL_BETA + (GET_OPTIMAL_BETA
-            ? "Calc" : "Set") + ")" + "E" + LENGTH_E + "A" + LENGTH_A + "P" + P_LEARNING :
+        "Dec_I" + ITERATION +
+            "T" + TIME +
+            "N" + N_OF_UNIT +
+            "X" + N_IN_UNIT +
+            "L" + L +
+            "W" + WEIGHT_ON_CHARACTERISTIC +
+            "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE +
+            "H" + LENGTH_H +
+            "Th" + GRANULARITY_THETA +
+            "(Opt" + OPTIMAL_BETA + (GET_OPTIMAL_BETA ? "Calc" : "Set") + ")" +
+            "E" + LENGTH_E +
+            "A" + LENGTH_A +
+            "P" + P_LEARNING :
         //Not Decomposed
-        "Com_I" + ITERATION + "T" + TIME + "N" + N_OF_UNIT + "X" + N_IN_UNIT + "L" + L + "W" + WEIGHT_ON_CHARACTERISTIC + "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE + "H" + LENGTH_H + "B" + LENGTH_BETA + "E" + LENGTH_E + "A" + LENGTH_A + "P"
-            + P_LEARNING);
+        "Com_I" + ITERATION +
+            "T" + TIME +
+            "N" + N_OF_UNIT +
+            "X" + N_IN_UNIT +
+            "L" + L +
+            "W" + WEIGHT_ON_CHARACTERISTIC +
+            "M" + M_OF_BUNDLE +
+            "X" + M_IN_BUNDLE +
+            "H" + LENGTH_H +
+            "B" + LENGTH_BETA +
+            "E" + LENGTH_E +
+            "A" + LENGTH_A +
+            "P" + P_LEARNING);
     PATH_CSV = new File(".").getAbsolutePath() + "\\" + FILENAME + "\\";
   }
 }

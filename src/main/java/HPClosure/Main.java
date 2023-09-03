@@ -10,7 +10,7 @@ public class Main {
   static final boolean DO_EXPERIMENT = true;
   static final boolean EXPERIMENT_IS_DECOMPOSITION = true;
 
-  static final int ITERATION = 1_000;
+  static final int ITERATION = 5_000;
   static final int TIME = 500 + 1;
 
 //  static final int N_OF_UNIT = 5;
