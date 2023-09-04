@@ -47,7 +47,7 @@ class MatWriter {
     Matrix matrixBetaSampledSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
     for (int h = 0; h < Main.LENGTH_C; h++) {
-      for (int th = 0; th < Main.GRANULARITY_THETA; th++) {
+      for (int th = 0; th < Main.LENGTH_THETA; th++) {
         for (int e = 0; e < Main.LENGTH_E; e++) {
           for (int t = 0; t < Main.TIME; t++) {
             int[] indices = {h, th, e, t};
@@ -92,15 +92,15 @@ class MatWriter {
     }
 
     Matrix matrixArrayC = Mat5.newMatrix(new int[]{1, Main.LENGTH_C});
-    Matrix matrixArrayTheta = Mat5.newMatrix(new int[]{1, Main.GRANULARITY_THETA});
+    Matrix matrixArrayTheta = Mat5.newMatrix(new int[]{1, Main.LENGTH_THETA});
     Matrix matrixArrayBeta = Mat5.newMatrix(new int[]{1, Main.LENGTH_BETA});
-    Matrix matrixArrayBetaCandidate = Mat5.newMatrix(new int[]{1, Main.GRANULARITY_BETA_CANDIDATE});
+    Matrix matrixArrayBetaCandidate = Mat5.newMatrix(new int[]{1, Main.LENGTH_BETA_CANDIDATE});
     Matrix matrixArrayE = Mat5.newMatrix(new int[]{1, Main.LENGTH_E});
 
     IntStream.range(0, Main.LENGTH_C).forEach(i -> matrixArrayC.setDouble(new int[]{0, i}, Main.C[i]));
-    IntStream.range(0, Main.GRANULARITY_THETA).forEach(i -> matrixArrayTheta.setDouble(new int[]{0, i}, Main.THETA[i]));
+    IntStream.range(0, Main.LENGTH_THETA).forEach(i -> matrixArrayTheta.setDouble(new int[]{0, i}, Main.THETA[i]));
     IntStream.range(0, Main.LENGTH_BETA).forEach(i -> matrixArrayBeta.setDouble(new int[]{0, i}, Main.BETA[i]));
-    IntStream.range(0, Main.GRANULARITY_BETA_CANDIDATE).forEach(i -> matrixArrayBetaCandidate.setDouble(new int[]{0, i}, Main.BETA_CANDIDATE[i]));
+    IntStream.range(0, Main.LENGTH_BETA_CANDIDATE).forEach(i -> matrixArrayBetaCandidate.setDouble(new int[]{0, i}, Main.BETA_CANDIDATE[i]));
     IntStream.range(0, Main.LENGTH_E).forEach(i -> matrixArrayE.setDouble(new int[]{0, i}, Main.E[i]));
 
     try {
@@ -116,9 +116,9 @@ class MatWriter {
           .addArray("para_m_of_bundle", Mat5.newScalar(Main.M_OF_BUNDLE))
           .addArray("para_m_in_bundle", Mat5.newScalar(Main.M_IN_BUNDLE))
           .addArray("para_g_h", Mat5.newScalar(Main.LENGTH_C))
-          .addArray("para_g_theta", Mat5.newScalar(Main.GRANULARITY_THETA))
+          .addArray("para_g_theta", Mat5.newScalar(Main.LENGTH_THETA))
           .addArray("para_g_beta", Mat5.newScalar(Main.LENGTH_BETA))
-          .addArray("para_g_beta_cand", Mat5.newScalar(Main.GRANULARITY_BETA_CANDIDATE))
+          .addArray("para_g_beta_cand", Mat5.newScalar(Main.LENGTH_BETA_CANDIDATE))
           .addArray("para_o_beta", Mat5.newScalar(Main.OPTIMAL_BETA))
           .addArray("para_o_beta_set_by_user", Mat5.newScalar(Main.GET_OPTIMAL_BETA ? 1 : 0))
           .addArray("para_g_e", Mat5.newScalar(Main.LENGTH_E))
@@ -280,7 +280,7 @@ class MatWriter {
           .addArray("para_g_h", Mat5.newScalar(Main.LENGTH_C))
           .addArray("para_g_beta", Mat5.newScalar(Main.LENGTH_BETA))
           .addArray("para_g_e", Mat5.newScalar(Main.LENGTH_E))
-          .addArray("para_g_beta_cand", Mat5.newScalar(Main.GRANULARITY_BETA_CANDIDATE))
+          .addArray("para_g_beta_cand", Mat5.newScalar(Main.LENGTH_BETA_CANDIDATE))
           .addArray("para_o_beta", Mat5.newScalar(Main.OPTIMAL_BETA))
           .addArray("para_o_beta_set_by_user", Mat5.newScalar(Main.GET_OPTIMAL_BETA ? 1 : 0))
           .addArray("para_p_learning", Mat5.newScalar(Main.P_LEARNING))

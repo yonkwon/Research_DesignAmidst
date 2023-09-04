@@ -52,7 +52,7 @@ public class Main {
   static final int LENGTH_BETA = BETA.length;
 
 //  static final double[] E = {.25};
-  static final double[] E = {0, .25, .75};
+  static final double[] E = {0, .25, .5, .75};
   static final int LENGTH_E = E.length;
 
   static final double[] C = {0, 1};
@@ -66,37 +66,14 @@ public class Main {
   static final int[] RESULT_KEY_VALUE_DECOMPOSITION = {LENGTH_C, LENGTH_BETA, LENGTH_E, TIME};
 
   static String RUN_ID = "HPClosure";
-  static String FILENAME = RUN_ID + (EXPERIMENT_IS_DECOMPOSITION ?
-      //Decomposed
-      "Dec_I" + ITERATION +
-          "T" + TIME +
-          "N" + N_OF_UNIT +
-          "X" + N_IN_UNIT +
-          "M" + M_OF_BUNDLE +
-          "X" + M_IN_BUNDLE +
-          "H" + LENGTH_C +
-          "Th" + LENGTH_THETA +
-          "(Opt" + OPTIMAL_BETA + (GET_OPTIMAL_BETA? "Calc" : "Set") + ")" +
-          "E" + LENGTH_E +
-          "P" + P_LEARNING :
-      //Not Decomposed
-      "Com_I" + ITERATION +
-          "T" + TIME +
-          "N" + N_OF_UNIT +
-          "X" + N_IN_UNIT +
-          "M" + M_OF_BUNDLE +
-          "X" + M_IN_BUNDLE +
-          "H" + LENGTH_C +
-          "B" + LENGTH_BETA +
-          "E" + LENGTH_E +
-          "P" + P_LEARNING);
-  static String PATH_CSV = new File(".").getAbsolutePath() + "\\" + FILENAME + "\\";
+  static String FILENAME;
+  static String PATH_CSV;
 
   public static void main(String[] args) {
-    System.out.println("Target File: " + RUN_ID);
+    setFileName();
+    System.out.println("Target File: " + FILENAME);
 
     if (GET_GRAPH) {
-      setFileName();
       Computation c = new Computation();
       c.printNetwork();
       System.exit(0);
@@ -114,12 +91,10 @@ public class Main {
       if (EXPERIMENT_IS_DECOMPOSITION) {
         Decomposition d = new Decomposition();
         d.doExperiment();
-        setFileName();
         new MatWriter(d);
       } else {
         Computation c = new Computation();
         c.doExperiment();
-        setFileName();
         new MatWriter(c);
       }
     }
@@ -137,8 +112,6 @@ public class Main {
             "X" + M_IN_BUNDLE +
             "C" + LENGTH_C +
             "B" + LENGTH_BETA +
-            "Th" + LENGTH_THETA +
-            "(Opt" + OPTIMAL_BETA + (GET_OPTIMAL_BETA? "Calc" : "Set") + ")" +
             "E" + LENGTH_E +
             "P" + P_LEARNING :
         //Not Decomposed

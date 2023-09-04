@@ -25,7 +25,7 @@ public class Main {
   static final int N = N_OF_UNIT * N_IN_UNIT;
   static final int DENSITY = N_OF_UNIT * N_IN_UNIT * (N_IN_UNIT - 1) / 2;
 
-  static final int OBSERVATION_SCOPE = 4; // >= 2
+  static final int OBSERVATION_SCOPE = 2; // >= 2
 
   static final int L = 1; // Fixed param
   static final int M_OF_BUNDLE = 20;
@@ -50,14 +50,14 @@ public class Main {
   static double OPTIMAL_BETA_LEFT = 1D - OPTIMAL_BETA; // Set by 10000 iterations
 
 
-  static final double[] BETA = {0, 1};
+//  static final double[] BETA = {0, 1};
 //  static final double[] BETA = {0, .25, .5, .75, 1.0};
 //  static final double[] BETA = {0, .125, .25, .375, .5, .625, .75, .875, 1.0};
-//  static final double[] BETA = {0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375, 0.5, 0.5625, 0.625, 0.6875, 0.75, 0.8125, 0.875, 0.9375, 1};
+  static final double[] BETA = {0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375, 0.5, 0.5625, 0.625, 0.6875, 0.75, 0.8125, 0.875, 0.9375, 1};
   static final int LENGTH_BETA = BETA.length;
 
   //  static final double[] E = {.25};
-  static final double[] E = {0, .25, .75};
+  static final double[] E = {0, .25, .5, .75};
   static final int LENGTH_E = E.length;
 
   static final double[] A = {0};
@@ -75,44 +75,14 @@ public class Main {
   static final int[] RESULT_KEY_VALUE_DECOMPOSITION = {LENGTH_H, LENGTH_BETA, LENGTH_E, LENGTH_A, TIME};
 
   static String RUN_ID = "HPDegree";
-  static String FILENAME = RUN_ID + (EXPERIMENT_IS_DECOMPOSITION ?
-      //Decomposed
-      "Dec_I" + ITERATION +
-          "O" + OBSERVATION_SCOPE +
-          "T" + TIME +
-          "N" + N_OF_UNIT +
-          "X" + N_IN_UNIT +
-          "L" + L +
-          "W" + WEIGHT_ON_CHARACTERISTIC +
-          "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE +
-          "H" + LENGTH_H +
-          "Th" + LENGTH_THETA +
-          "(Opt" + OPTIMAL_BETA + (GET_OPTIMAL_BETA ? "Calc" : "Set") + ")" +
-          "E" + LENGTH_E +
-          "A" + LENGTH_A +
-          "P" + P_LEARNING :
-      //Not Decomposed
-      "Com_I" + ITERATION +
-          "O" + OBSERVATION_SCOPE +
-          "T" + TIME +
-          "N" + N_OF_UNIT +
-          "X" + N_IN_UNIT +
-          "L" + L +
-          "W" + WEIGHT_ON_CHARACTERISTIC +
-          "M" + M_OF_BUNDLE +
-          "X" + M_IN_BUNDLE +
-          "H" + LENGTH_H +
-          "B" + LENGTH_BETA +
-          "E" + LENGTH_E +
-          "A" + LENGTH_A +
-          "P" + P_LEARNING);
-  static String PATH_CSV = new File(".").getAbsolutePath() + "\\" + FILENAME + "\\";
+  static String FILENAME;
+  static String PATH_CSV;
 
   public static void main(String[] args) {
-    System.out.println("Target File: " + RUN_ID);
+    setFileName();
+    System.out.println("Target File: " + FILENAME);
 
     if (GET_GRAPH) {
-      setFileName();
       Computation c = new Computation();
       c.printNetwork();
       System.exit(0);
@@ -130,12 +100,10 @@ public class Main {
       if (EXPERIMENT_IS_DECOMPOSITION) {
         Decomposition d = new Decomposition();
         d.doExperiment();
-        setFileName();
         new MatWriter(d);
       } else {
         Computation c = new Computation();
         c.doExperiment();
-        setFileName();
         new MatWriter(c);
       }
     }
