@@ -294,7 +294,7 @@ public class Scenario {
     shuffleFisherYates(focalIndexArray);
     for (int focal : focalIndexArray) {
       //C as rewiring probability
-      if (hasNewTie[focal] || degreeFlexible[focal] == 0 || r.nextDouble() < closure) {
+      if (hasNewTie[focal] || degreeFlexible[focal] == 0 || r.nextDouble() >= closure ) {
         continue;
       }
       //Selection of a target to cut out among informal others
