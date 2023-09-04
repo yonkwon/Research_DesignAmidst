@@ -6,9 +6,9 @@ public class Main {
 
   static final long TIC = System.currentTimeMillis();
 
-  static final boolean GET_GRAPH = false;
+  static final boolean GET_GRAPH = true;
   static final boolean GET_OPTIMAL_BETA = false;
-  static final boolean DO_EXPERIMENT = true;
+  static final boolean DO_EXPERIMENT = false;
   static final boolean EXPERIMENT_IS_DECOMPOSITION = true;
 
   static final int ITERATION = 1_000;
@@ -45,14 +45,15 @@ public class Main {
   static double OPTIMAL_BETA_LEFT = 1D - OPTIMAL_BETA; // Set by 10000 iterations
 
 
-//  static final double[] BETA = {0, 1};
+//  static final double[] BETA = {.25};
+  static final double[] BETA = {0, 1};
 //  static final double[] BETA = {0, .25, .5, .75, 1.0};
 //  static final double[] BETA = {0, .125, .25, .375, .5, .625, .75, .875, 1.0};
-  static final double[] BETA = {0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375, 0.5, 0.5625, 0.625, 0.6875, 0.75, 0.8125, 0.875, 0.9375, 1};
+//  static final double[] BETA = {0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375, 0.5, 0.5625, 0.625, 0.6875, 0.75, 0.8125, 0.875, 0.9375, 1};
   static final int LENGTH_BETA = BETA.length;
 
-//  static final double[] E = {.25};
-  static final double[] E = {0, .25, .5, .75};
+  static final double[] E = {.75};
+//  static final double[] E = {0, .25, .5, .75};
   static final int LENGTH_E = E.length;
 
   static final double[] C = {0, 1};

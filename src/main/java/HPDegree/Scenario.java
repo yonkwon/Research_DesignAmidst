@@ -276,8 +276,8 @@ public class Scenario {
     doEvaluateNeighbor();
     //Step 2. Rewiring ... among dissatisfied individuals
     if (isRewiring) {
-      doRewiring();
       setObservationStructure();
+      doRewiring();
     }
     //Step 3. Learning
     doLearning();
@@ -288,8 +288,8 @@ public class Scenario {
     doEvaluateNeighbor();
     //Step 2. Rewiring ... among dissatisfied individuals
     if (isRewiring) {
-      doRewiring(numRewiring);
       setObservationStructure();
+      doRewiring(numRewiring);
     }
     //Step 3. Learning
     doLearning();
