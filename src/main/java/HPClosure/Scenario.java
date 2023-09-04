@@ -293,8 +293,8 @@ public class Scenario {
     boolean[] hasNewTie = new boolean[Main.N];
     shuffleFisherYates(focalIndexArray);
     for (int focal : focalIndexArray) {
-      //Only dissatisfied individuals initiate rewiring
-      if (hasNewTie[focal] || degreeFlexible[focal] == 0) {
+      //C as rewiring probability
+      if (hasNewTie[focal] || degreeFlexible[focal] == 0 || r.nextDouble() < closure) {
         continue;
       }
       //Selection of a target to cut out among informal others
