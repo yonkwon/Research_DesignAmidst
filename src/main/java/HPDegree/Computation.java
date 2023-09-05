@@ -1,4 +1,4 @@
-package HPBaseline;
+package HPDegree;
 
 import static org.apache.commons.math3.util.FastMath.pow;
 

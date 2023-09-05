@@ -1,4 +1,4 @@
-package HPBaseline;
+package HPDegree;
 
 public class ProgressBar {
 

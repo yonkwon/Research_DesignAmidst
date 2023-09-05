@@ -1,4 +1,4 @@
-package HPBaseline;
+package HPDegree;
 
 import static org.apache.commons.math3.util.FastMath.pow;
 
@@ -289,6 +289,7 @@ public class Decomposition extends Computation {
     int betaIndex;
     int eIndex;
     int aIndex;
+    int turbulenceScheduleIndex;
 
     double h;
     double beta;
