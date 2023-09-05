@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Filename for Beta run &amp; Theta run">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPClosure/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPClosure/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPDegree/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HPDegree/Scenario.java" afterDir="false" />
-    </list>
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="Trivial Fixes" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,6 +34,20 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "yonkwon"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="865935d0-f983-4727-b3f2-de5543a4b2a2" />
+        <option name="url" value="https://github.com/yonkwon/HomophilyAndDesign.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -314,7 +324,31 @@
       <option name="project" value="LOCAL" />
       <updated>1693870926696</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="[Fix] Observation structure set BEFORE rewiring">
+      <option name="closed" value="true" />
+      <created>1693871491699</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1693871491699</updated>
+    </task>
+    <task id="LOCAL-00025" summary="[Fix] Observation structure set BEFORE rewiring">
+      <option name="closed" value="true" />
+      <created>1693871507616</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1693871507616</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Trivial Fixes">
+      <option name="closed" value="true" />
+      <created>1693934405980</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1693934405980</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -328,12 +362,13 @@
     <MESSAGE value="Trivial fixes" />
     <MESSAGE value="[Fix] Rewiring based on observation structure" />
     <MESSAGE value="[Add] A variant: HPClosure" />
-    <MESSAGE value="Trivial Fixes" />
     <MESSAGE value="[Fix] Global clustering coefficient" />
     <MESSAGE value="[Fix] Unsync performance arrays of parallel scenarios" />
     <MESSAGE value="[Fix] Error that the interaction pattern was changing in the opposite direction of network closure" />
     <MESSAGE value="[Fix] Parameter C(losuure) as rewiring probability" />
     <MESSAGE value="[Fix] Filename for Beta run &amp; Theta run" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Filename for Beta run &amp; Theta run" />
+    <MESSAGE value="[Fix] Observation structure set BEFORE rewiring" />
+    <MESSAGE value="Trivial Fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Trivial Fixes" />
   </component>
 </project>
