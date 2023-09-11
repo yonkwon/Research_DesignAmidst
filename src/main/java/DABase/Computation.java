@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import org.apache.commons.math3.random.MersenneTwister;
 
 public class Computation {
 
@@ -102,14 +104,10 @@ public class Computation {
   double[][][][][] sampleBetaAVG;
   double[][][][][] sampleBetaSTD;
 
-  ProgressBar bb;
   ProgressBar pb;
 
-  public void doExperiment() {
-    pb = new ProgressBar(Main.RUN_ID + ": Computation", Main.ITERATION);
-    setResultSpace();
-    runFullExperiment();
-    averageFullExperiment();
+  Computation() {
+    workStealingPool = Executors.newWorkStealingPool();
   }
 
   public void printNetwork() {
@@ -138,6 +136,13 @@ public class Computation {
         }
       }
     }
+  }
+
+  public void doExperiment() {
+    pb = new ProgressBar(Main.RUN_ID + ": Computation", Main.ITERATION);
+    setResultSpace();
+    runFullExperiment();
+    averageFullExperiment();
   }
 
   private void setResultSpace() {

@@ -188,12 +188,13 @@ public class Scenario {
     }
 
     // Print the graph for visualization
-    for (int i = 0; i < Main.N; i++) {
-      for (int j = 0; j < Main.N; j++) {
-        System.out.print(network[i][j] ? "1 " : "0 ");
-      }
-      System.out.println();
-    }
+//    System.out.println("Network Visualization: Span "+span);
+//    for (int i = 0; i < Main.N; i++) {
+//      for (int j = 0; j < Main.N; j++) {
+//        System.out.print(network[i][j] ? "1 " : "0 ");
+//      }
+//      System.out.println();
+//    }
 
     //Tie Enforcement
     for (int focal = 0; focal < Main.N; focal++) {
@@ -222,6 +223,7 @@ public class Scenario {
   private void initializeEntity() {
     reality = new boolean[Main.M];
     realityBundleID = new int[Main.M];
+    typeOf = new boolean[Main.N][Main.L];
     beliefOf = new boolean[Main.N][Main.M];
 
     for (int bundle = 0; bundle < Main.M_OF_BUNDLE; bundle++) {

@@ -60,7 +60,7 @@ class MatWriter {
         for (int b = 0; b < Main.LENGTH_SPAN; b++) {
           for (int e = 0; e < Main.LENGTH_E; e++) {
             for (int t = 0; t < Main.TIME; t++) {
-              int[] indices = {h, b, e, t};
+              int[] indices = {mc, h, b, e, t};
               matrixPerformanceAVG.setDouble(indices, d.performanceAVG[mc][h][b][e][t]);
               matrixPerformanceSTD.setDouble(indices, d.performanceSTD[mc][h][b][e][t]);
               matrixPerformance12AVG.setDouble(indices, d.performance12AVG[mc][h][b][e][t]);
