@@ -328,19 +328,20 @@ public class Scenario {
         neighborhoodScoreScaled01[focal] = neighborhoodScore[focal] / degree[focal];
       }
     } else if (isNetworkClosure) {
-      for (int focal : focalIndexArray) {
-        for (int target : targetIndexArray) {
-          if (network[focal][target]) {
-            for (int contact = 0; contact < Main.N; contact++) {
-              if (network[focal][contact] && network[target][contact]) {
-                neighborScore[focal][target]++;
-                neighborhoodScore[focal]++;
-              }
+      for (int row = 0; row < Main.N; row++) {
+        for (int col = 0; col < Main.N; col++) {
+          if (row == col) {
+            continue;
+          }
+          for (int i = 0; i < Main.N; i++) {
+            if (network[row][i] && network[i][col]) {
+              neighborScore[row][col]++;
+              neighborhoodScore[row]++;
             }
           }
         }
-        neighborhoodScoreScaled01[focal] =
-            neighborhoodScore[focal] / (degree[focal] * (degree[focal] - 1D) / 2D);
+        neighborhoodScoreScaled01[row] =
+            neighborhoodScore[row] / (degree[row] * (degree[row] - 1D) / 2D);
       }
     } else if (isPreferentialAttachment) {
       for (int focal : focalIndexArray) {
@@ -398,25 +399,24 @@ public class Scenario {
   }
 
   void setObservationStructure() {
+    //Revised with matrix multiplication - Test its validity
     observationStructure = new boolean[Main.N][];
+    boolean[][] networkInDegree = new boolean[Main.N][];
     for (int focal = 0; focal < Main.N; focal++) {
+      networkInDegree[focal] = network[focal].clone();
       observationStructure[focal] = network[focal].clone();
     }
-    for (int d = 1; d < observationScope; d++) {
-      for (int focal = 0; focal < Main.N; focal++) {
-        for (int contact = 0; contact < Main.N; contact++) {
-          if (observationStructure[focal][contact]) {
-            for (int target = 0; target < Main.N; target++) {
-              if (network[contact][target]) {
-                observationStructure[focal][target] = true;
-              }
+    for (int d = 1; d < observationScope; d++) { // Degree
+      for (int row = 0; row < Main.N; row++) {
+        for (int col = 0; col < Main.N; col++) {
+          for (int i = 0; i < Main.N; i++) {
+            networkInDegree[row][col] = networkInDegree[row][i] && network[i][col];
+            if (networkInDegree[row][col]) {
+              observationStructure[row][col] = true;
             }
           }
         }
       }
-    }
-    for (int focal : focalIndexArray) {
-      observationStructure[focal][focal] = false;
     }
   }
 
@@ -773,5 +773,4 @@ public class Scenario {
       nArray[j] = temp;
     }
   }
-
 }
