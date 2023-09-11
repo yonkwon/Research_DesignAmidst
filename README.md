@@ -1,6 +1,4 @@
-# Homophily And Organizational Design
-Model and analysis for the "homophily paper" (Kwon, Posen, & Piezunka (working))
+# Design Amidst Social Behavior
+Model and analysis for the "homophily paper" (Kwon, Posen, & Piezunka (working)). This repository forks the old model repo.
 
-* HPBaseline: A baseline model
-  * HPDegree: A variant of the baseline model limiting individuals' scope of rewiring
-* HPClosure: A baseline model where individuals rewire to increase network closure (homophily based on shared acquaintances)
+* DABaseline: A baseline model
