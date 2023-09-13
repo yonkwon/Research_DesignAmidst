@@ -52,10 +52,10 @@ public class Main {
     setFileName();
     System.out.println("Target File: " + FILENAME);
     Computation c = new Computation();
-    if( GET_GRAPH ){
+    if (GET_GRAPH) {
       c.printNetwork();
     }
-    if( GET_MAT ){
+    if (GET_MAT) {
       c.doExperiment();
       new MatWriter(c);
     }
@@ -64,18 +64,18 @@ public class Main {
 
   private static void setFileName() {
     FILENAME = RUN_ID +
-        //Decomposed
-        "Dec_I" + ITERATION +
-            "O" + OBSERVATION_SCOPE +
-            "T" + TIME +
-            "N" + N +
-            "L" + L +
-            "W" + WEIGHT_ON_CHARACTERISTIC +
-            "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE +
-            "H" + LENGTH_H +
-            "S" + LENGTH_SPAN +
-            "E" + LENGTH_E +
-            "P" + P_LEARNING;
+        "I" + ITERATION +
+        "LL" + (LINK_LEVEL?0:1) +
+        "O" + OBSERVATION_SCOPE +
+        "T" + TIME +
+        "N" + N +
+        "L" + L +
+        "W" + WEIGHT_ON_CHARACTERISTIC +
+        "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE +
+        "H" + LENGTH_H +
+        "S" + LENGTH_SPAN +
+        "E" + LENGTH_E +
+        "P" + P_LEARNING;
     PATH_CSV = new File(".").getAbsolutePath() + "\\" + FILENAME + "\\";
   }
 }

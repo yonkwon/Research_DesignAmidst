@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="Trivial fix">
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Add] Link between nodes in the same level of hierarchy">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DABase/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DABase/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DABase/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DABase/Scenario.java" afterDir="false" />
@@ -22,6 +22,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand />
@@ -100,10 +103,10 @@
     &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Yongha/Dropbox/Research/DesignAmidst&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -382,7 +385,23 @@
       <option name="project" value="LOCAL" />
       <updated>1694445674598</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="[Fix] Get observation structure and network closure by matrix multiplication algorithm">
+      <option name="closed" value="true" />
+      <created>1694468571434</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1694468571434</updated>
+    </task>
+    <task id="LOCAL-00032" summary="[Add] Link between nodes in the same level of hierarchy">
+      <option name="closed" value="true" />
+      <created>1694624844912</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1694624844912</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -405,6 +424,8 @@
     <MESSAGE value="Trivial Fixes" />
     <MESSAGE value="First Commitment" />
     <MESSAGE value="Trivial fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Trivial fix" />
+    <MESSAGE value="[Fix] Get observation structure and network closure by matrix multiplication algorithm" />
+    <MESSAGE value="[Add] Link between nodes in the same level of hierarchy" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Add] Link between nodes in the same level of hierarchy" />
   </component>
 </project>
