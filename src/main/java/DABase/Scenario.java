@@ -170,7 +170,6 @@ public class Scenario {
       for (int upper = upperStart; upper < upperEnd; upper++) {
         int lowerEnd = FastMath.min(lowerStart + span, Main.N);
         for (int lower = lowerStart; lower < lowerEnd; lower++) {
-          System.out.println(upperStart + "\t" + upperEnd + "\t" + upper + " - " + lowerStart + "\t" + lowerEnd + "\t" + lower);
           network[upper][lower] = true;
           network[lower][upper] = true;
           degree[upper]++;
@@ -197,13 +196,13 @@ public class Scenario {
     }
 
     //Print the graph for visualization
-    System.out.println("Network Visualization: Span " + span);
-    for (int i = 0; i < Main.N; i++) {
-      for (int j = 0; j < Main.N; j++) {
-        System.out.print(network[i][j] ? "1 " : "0 ");
-      }
-      System.out.println();
-    }
+//    System.out.println("Network Visualization: Span " + span);
+//    for (int i = 0; i < Main.N; i++) {
+//      for (int j = 0; j < Main.N; j++) {
+//        System.out.print(network[i][j] ? "1 " : "0 ");
+//      }
+//      System.out.println();
+//    }
 
     //Tie Enforcement
     for (int focal = 0; focal < Main.N; focal++) {
