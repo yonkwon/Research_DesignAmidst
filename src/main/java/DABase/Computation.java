@@ -23,6 +23,10 @@ public class Computation {
   AtomicDouble[][][][][] performance23STDAtomic;
   AtomicDouble[][][][][] performance13AVGAtomic;
   AtomicDouble[][][][][] performance13STDAtomic;
+  AtomicDouble[][][][][] performanceNRAVGAtomic;
+  AtomicDouble[][][][][] performanceNRSTDAtomic;
+  AtomicDouble[][][][][] performanceRRAVGAtomic;
+  AtomicDouble[][][][][] performanceRRSTDAtomic;
 
   AtomicDouble[][][][][] disagreementAVGAtomic;
   AtomicDouble[][][][][] disagreementSTDAtomic;
@@ -32,15 +36,10 @@ public class Computation {
   AtomicDouble[][][][][] disagreement23STDAtomic;
   AtomicDouble[][][][][] disagreement13AVGAtomic;
   AtomicDouble[][][][][] disagreement13STDAtomic;
-
-  AtomicDouble[][][][][] dissimilarityAVGAtomic;
-  AtomicDouble[][][][][] dissimilaritySTDAtomic;
-  AtomicDouble[][][][][] dissimilarity12AVGAtomic;
-  AtomicDouble[][][][][] dissimilarity12STDAtomic;
-  AtomicDouble[][][][][] dissimilarity23AVGAtomic;
-  AtomicDouble[][][][][] dissimilarity23STDAtomic;
-  AtomicDouble[][][][][] dissimilarity13AVGAtomic;
-  AtomicDouble[][][][][] dissimilarity13STDAtomic;
+  AtomicDouble[][][][][] disagreementNRAVGAtomic;
+  AtomicDouble[][][][][] disagreementNRSTDAtomic;
+  AtomicDouble[][][][][] disagreementRRAVGAtomic;
+  AtomicDouble[][][][][] disagreementRRSTDAtomic;
 
   AtomicDouble[][][][][] clusteringAVGAtomic;
   AtomicDouble[][][][][] clusteringSTDAtomic;
@@ -50,6 +49,10 @@ public class Computation {
   AtomicDouble[][][][][] clustering23STDAtomic;
   AtomicDouble[][][][][] clustering13AVGAtomic;
   AtomicDouble[][][][][] clustering13STDAtomic;
+  AtomicDouble[][][][][] clusteringNRAVGAtomic;
+  AtomicDouble[][][][][] clusteringNRSTDAtomic;
+  AtomicDouble[][][][][] clusteringRRAVGAtomic;
+  AtomicDouble[][][][][] clusteringRRSTDAtomic;
 
   AtomicDouble[][][][][] satisfactionAVGAtomic;
   AtomicDouble[][][][][] satisfactionSTDAtomic;
@@ -68,6 +71,10 @@ public class Computation {
   double[][][][][] performance23STD;
   double[][][][][] performance13AVG;
   double[][][][][] performance13STD;
+  double[][][][][] performanceNRAVG;
+  double[][][][][] performanceNRSTD;
+  double[][][][][] performanceRRAVG;
+  double[][][][][] performanceRRSTD;
 
   double[][][][][] disagreementAVG;
   double[][][][][] disagreementSTD;
@@ -77,15 +84,10 @@ public class Computation {
   double[][][][][] disagreement23STD;
   double[][][][][] disagreement13AVG;
   double[][][][][] disagreement13STD;
-
-  double[][][][][] dissimilarityAVG;
-  double[][][][][] dissimilaritySTD;
-  double[][][][][] dissimilarity12AVG;
-  double[][][][][] dissimilarity12STD;
-  double[][][][][] dissimilarity23AVG;
-  double[][][][][] dissimilarity23STD;
-  double[][][][][] dissimilarity13AVG;
-  double[][][][][] dissimilarity13STD;
+  double[][][][][] disagreementNRAVG;
+  double[][][][][] disagreementNRSTD;
+  double[][][][][] disagreementRRAVG;
+  double[][][][][] disagreementRRSTD;
 
   double[][][][][] clusteringAVG;
   double[][][][][] clusteringSTD;
@@ -95,6 +97,10 @@ public class Computation {
   double[][][][][] clustering23STD;
   double[][][][][] clustering13AVG;
   double[][][][][] clustering13STD;
+  double[][][][][] clusteringNRAVG;
+  double[][][][][] clusteringNRSTD;
+  double[][][][][] clusteringRRAVG;
+  double[][][][][] clusteringRRSTD;
 
   double[][][][][] satisfactionAVG;
   double[][][][][] satisfactionSTD;
@@ -154,6 +160,10 @@ public class Computation {
     performance23STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
     performance13AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
     performance13STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    performanceNRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    performanceNRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    performanceRRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    performanceRRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
 
     disagreementAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
     disagreementSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
@@ -163,16 +173,11 @@ public class Computation {
     disagreement23STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
     disagreement13AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
     disagreement13STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
-
-    dissimilarityAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
-    dissimilaritySTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
-    dissimilarity12AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
-    dissimilarity12STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
-    dissimilarity23AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
-    dissimilarity23STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
-    dissimilarity13AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
-    dissimilarity13STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
-
+    disagreementNRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    disagreementNRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    disagreementRRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    disagreementRRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    
     clusteringAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
     clusteringSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
     clustering12AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
@@ -181,6 +186,10 @@ public class Computation {
     clustering23STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
     clustering13AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
     clustering13STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    clusteringNRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    clusteringNRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    clusteringRRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    clusteringRRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
 
     satisfactionAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
     satisfactionSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
@@ -203,6 +212,10 @@ public class Computation {
               performance23STDAtomic[mc][h][b][e][t] = new AtomicDouble();
               performance13AVGAtomic[mc][h][b][e][t] = new AtomicDouble();
               performance13STDAtomic[mc][h][b][e][t] = new AtomicDouble();
+              performanceNRAVGAtomic[mc][h][b][e][t] = new AtomicDouble();
+              performanceNRSTDAtomic[mc][h][b][e][t] = new AtomicDouble();
+              performanceRRAVGAtomic[mc][h][b][e][t] = new AtomicDouble();
+              performanceRRSTDAtomic[mc][h][b][e][t] = new AtomicDouble();
 
               disagreementAVGAtomic[mc][h][b][e][t] = new AtomicDouble();
               disagreementSTDAtomic[mc][h][b][e][t] = new AtomicDouble();
@@ -212,16 +225,11 @@ public class Computation {
               disagreement23STDAtomic[mc][h][b][e][t] = new AtomicDouble();
               disagreement13AVGAtomic[mc][h][b][e][t] = new AtomicDouble();
               disagreement13STDAtomic[mc][h][b][e][t] = new AtomicDouble();
-
-              dissimilarityAVGAtomic[mc][h][b][e][t] = new AtomicDouble();
-              dissimilaritySTDAtomic[mc][h][b][e][t] = new AtomicDouble();
-              dissimilarity12AVGAtomic[mc][h][b][e][t] = new AtomicDouble();
-              dissimilarity12STDAtomic[mc][h][b][e][t] = new AtomicDouble();
-              dissimilarity23AVGAtomic[mc][h][b][e][t] = new AtomicDouble();
-              dissimilarity23STDAtomic[mc][h][b][e][t] = new AtomicDouble();
-              dissimilarity13AVGAtomic[mc][h][b][e][t] = new AtomicDouble();
-              dissimilarity13STDAtomic[mc][h][b][e][t] = new AtomicDouble();
-
+              disagreementNRAVGAtomic[mc][h][b][e][t] = new AtomicDouble();
+              disagreementNRSTDAtomic[mc][h][b][e][t] = new AtomicDouble();
+              disagreementRRAVGAtomic[mc][h][b][e][t] = new AtomicDouble();
+              disagreementRRSTDAtomic[mc][h][b][e][t] = new AtomicDouble();
+              
               clusteringAVGAtomic[mc][h][b][e][t] = new AtomicDouble();
               clusteringSTDAtomic[mc][h][b][e][t] = new AtomicDouble();
               clustering12AVGAtomic[mc][h][b][e][t] = new AtomicDouble();
@@ -230,6 +238,10 @@ public class Computation {
               clustering23STDAtomic[mc][h][b][e][t] = new AtomicDouble();
               clustering13AVGAtomic[mc][h][b][e][t] = new AtomicDouble();
               clustering13STDAtomic[mc][h][b][e][t] = new AtomicDouble();
+              clusteringNRAVGAtomic[mc][h][b][e][t] = new AtomicDouble();
+              clusteringNRSTDAtomic[mc][h][b][e][t] = new AtomicDouble();
+              clusteringRRAVGAtomic[mc][h][b][e][t] = new AtomicDouble();
+              clusteringRRSTDAtomic[mc][h][b][e][t] = new AtomicDouble();
 
               satisfactionAVGAtomic[mc][h][b][e][t] = new AtomicDouble();
               satisfactionSTDAtomic[mc][h][b][e][t] = new AtomicDouble();
@@ -251,6 +263,10 @@ public class Computation {
     performance23STD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
     performance13AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
     performance13STD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    performanceNRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    performanceNRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    performanceRRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    performanceRRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
 
     disagreementAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
     disagreementSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
@@ -260,15 +276,10 @@ public class Computation {
     disagreement23STD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
     disagreement13AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
     disagreement13STD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
-
-    dissimilarityAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
-    dissimilaritySTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
-    dissimilarity12AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
-    dissimilarity12STD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
-    dissimilarity23AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
-    dissimilarity23STD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
-    dissimilarity13AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
-    dissimilarity13STD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    disagreementNRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    disagreementNRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    disagreementRRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    disagreementRRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
 
     clusteringAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
     clusteringSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
@@ -278,6 +289,10 @@ public class Computation {
     clustering23STD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
     clustering13AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
     clustering13STD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    clusteringNRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    clusteringNRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    clusteringRRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
+    clusteringRRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
 
     satisfactionAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
     satisfactionSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_E][Main.TIME];
@@ -343,6 +358,14 @@ public class Computation {
               performance13STD[mc][h][s][e][t] = performance13STDAtomic[mc][h][s][e][t].get() / Main.ITERATION;
               performance13STD[mc][h][s][e][t] = pow(performance13STD[mc][h][s][e][t] - pow(performance13AVG[mc][h][s][e][t], 2), .5);
 
+              performanceNRAVG[mc][h][s][e][t] = performanceNRAVGAtomic[mc][h][s][e][t].get() / Main.ITERATION;
+              performanceNRSTD[mc][h][s][e][t] = performanceNRSTDAtomic[mc][h][s][e][t].get() / Main.ITERATION;
+              performanceNRSTD[mc][h][s][e][t] = pow(performanceNRSTD[mc][h][s][e][t] - pow(performanceNRAVG[mc][h][s][e][t], 2), .5);
+
+              performanceRRAVG[mc][h][s][e][t] = performanceRRAVGAtomic[mc][h][s][e][t].get() / Main.ITERATION;
+              performanceRRSTD[mc][h][s][e][t] = performanceRRSTDAtomic[mc][h][s][e][t].get() / Main.ITERATION;
+              performanceRRSTD[mc][h][s][e][t] = pow(performanceRRSTD[mc][h][s][e][t] - pow(performanceRRAVG[mc][h][s][e][t], 2), .5);
+
               disagreementAVG[mc][h][s][e][t] = disagreementAVGAtomic[mc][h][s][e][t].get() / Main.ITERATION;
               disagreementSTD[mc][h][s][e][t] = disagreementSTDAtomic[mc][h][s][e][t].get() / Main.ITERATION;
               disagreementSTD[mc][h][s][e][t] = pow(disagreementSTD[mc][h][s][e][t] - pow(disagreementAVG[mc][h][s][e][t], 2), .5);
@@ -359,21 +382,13 @@ public class Computation {
               disagreement13STD[mc][h][s][e][t] = disagreement13STDAtomic[mc][h][s][e][t].get() / Main.ITERATION;
               disagreement13STD[mc][h][s][e][t] = pow(disagreement13STD[mc][h][s][e][t] - pow(disagreement13AVG[mc][h][s][e][t], 2), .5);
 
-              dissimilarityAVG[mc][h][s][e][t] = dissimilarityAVGAtomic[mc][h][s][e][t].get() / Main.ITERATION;
-              dissimilaritySTD[mc][h][s][e][t] = dissimilaritySTDAtomic[mc][h][s][e][t].get() / Main.ITERATION;
-              dissimilaritySTD[mc][h][s][e][t] = pow(dissimilaritySTD[mc][h][s][e][t] - pow(dissimilarityAVG[mc][h][s][e][t], 2), .5);
+              disagreementNRAVG[mc][h][s][e][t] = disagreementNRAVGAtomic[mc][h][s][e][t].get() / Main.ITERATION;
+              disagreementNRSTD[mc][h][s][e][t] = disagreementNRSTDAtomic[mc][h][s][e][t].get() / Main.ITERATION;
+              disagreementNRSTD[mc][h][s][e][t] = pow(disagreementNRSTD[mc][h][s][e][t] - pow(disagreementNRAVG[mc][h][s][e][t], 2), .5);
 
-              dissimilarity12AVG[mc][h][s][e][t] = dissimilarity12AVGAtomic[mc][h][s][e][t].get() / Main.ITERATION;
-              dissimilarity12STD[mc][h][s][e][t] = dissimilarity12STDAtomic[mc][h][s][e][t].get() / Main.ITERATION;
-              dissimilarity12STD[mc][h][s][e][t] = pow(dissimilarity12STD[mc][h][s][e][t] - pow(dissimilarity12AVG[mc][h][s][e][t], 2), .5);
-
-              dissimilarity23AVG[mc][h][s][e][t] = dissimilarity23AVGAtomic[mc][h][s][e][t].get() / Main.ITERATION;
-              dissimilarity23STD[mc][h][s][e][t] = dissimilarity23STDAtomic[mc][h][s][e][t].get() / Main.ITERATION;
-              dissimilarity23STD[mc][h][s][e][t] = pow(dissimilarity23STD[mc][h][s][e][t] - pow(dissimilarity23AVG[mc][h][s][e][t], 2), .5);
-
-              dissimilarity13AVG[mc][h][s][e][t] = dissimilarity13AVGAtomic[mc][h][s][e][t].get() / Main.ITERATION;
-              dissimilarity13STD[mc][h][s][e][t] = dissimilarity13STDAtomic[mc][h][s][e][t].get() / Main.ITERATION;
-              dissimilarity13STD[mc][h][s][e][t] = pow(dissimilarity13STD[mc][h][s][e][t] - pow(dissimilarity13AVG[mc][h][s][e][t], 2), .5);
+              disagreementRRAVG[mc][h][s][e][t] = disagreementRRAVGAtomic[mc][h][s][e][t].get() / Main.ITERATION;
+              disagreementRRSTD[mc][h][s][e][t] = disagreementRRSTDAtomic[mc][h][s][e][t].get() / Main.ITERATION;
+              disagreementRRSTD[mc][h][s][e][t] = pow(disagreementRRSTD[mc][h][s][e][t] - pow(disagreementRRAVG[mc][h][s][e][t], 2), .5);
 
               clusteringAVG[mc][h][s][e][t] = clusteringAVGAtomic[mc][h][s][e][t].get() / Main.ITERATION;
               clusteringSTD[mc][h][s][e][t] = clusteringSTDAtomic[mc][h][s][e][t].get() / Main.ITERATION;
@@ -390,6 +405,14 @@ public class Computation {
               clustering13AVG[mc][h][s][e][t] = clustering13AVGAtomic[mc][h][s][e][t].get() / Main.ITERATION;
               clustering13STD[mc][h][s][e][t] = clustering13STDAtomic[mc][h][s][e][t].get() / Main.ITERATION;
               clustering13STD[mc][h][s][e][t] = pow(clustering13STD[mc][h][s][e][t] - pow(clustering13AVG[mc][h][s][e][t], 2), .5);
+
+              clusteringNRAVG[mc][h][s][e][t] = clusteringNRAVGAtomic[mc][h][s][e][t].get() / Main.ITERATION;
+              clusteringNRSTD[mc][h][s][e][t] = clusteringNRSTDAtomic[mc][h][s][e][t].get() / Main.ITERATION;
+              clusteringNRSTD[mc][h][s][e][t] = pow(clusteringNRSTD[mc][h][s][e][t] - pow(clusteringNRAVG[mc][h][s][e][t], 2), .5);
+
+              clusteringRRAVG[mc][h][s][e][t] = clusteringRRAVGAtomic[mc][h][s][e][t].get() / Main.ITERATION;
+              clusteringRRSTD[mc][h][s][e][t] = clusteringRRSTDAtomic[mc][h][s][e][t].get() / Main.ITERATION;
+              clusteringRRSTD[mc][h][s][e][t] = pow(clusteringRRSTD[mc][h][s][e][t] - pow(clusteringRRAVG[mc][h][s][e][t], 2), .5);
 
               satisfactionAVG[mc][h][s][e][t] = satisfactionAVGAtomic[mc][h][s][e][t].get() / Main.ITERATION;
               satisfactionSTD[mc][h][s][e][t] = satisfactionSTDAtomic[mc][h][s][e][t].get() / Main.ITERATION;
@@ -422,39 +445,42 @@ public class Computation {
 
     AtomicDouble[] performanceAVGAtomicPart;
     AtomicDouble[] performanceSTDAtomicPart;
-    AtomicDouble[] performance12AVGAtomicPart; // No rewiring v. random rewiring
-    AtomicDouble[] performance12STDAtomicPart; // No rewiring v. random rewiring
-    AtomicDouble[] performance23AVGAtomicPart; // Random rewiring v. homophily
-    AtomicDouble[] performance23STDAtomicPart; // Random rewiring v. homophily
-    AtomicDouble[] performance13AVGAtomicPart; // No rewiring v. homophily
-    AtomicDouble[] performance13STDAtomicPart; // No rewiring v. homophily
+    AtomicDouble[] performance12AVGAtomicPart;
+    AtomicDouble[] performance12STDAtomicPart;
+    AtomicDouble[] performance23AVGAtomicPart;
+    AtomicDouble[] performance23STDAtomicPart;
+    AtomicDouble[] performance13AVGAtomicPart;
+    AtomicDouble[] performance13STDAtomicPart;
+    AtomicDouble[] performanceNRAVGAtomicPart;
+    AtomicDouble[] performanceNRSTDAtomicPart;
+    AtomicDouble[] performanceRRAVGAtomicPart;
+    AtomicDouble[] performanceRRSTDAtomicPart;
 
     AtomicDouble[] disagreementAVGAtomicPart;
     AtomicDouble[] disagreementSTDAtomicPart;
-    AtomicDouble[] disagreement12AVGAtomicPart; // No rewiring v. random rewiring
-    AtomicDouble[] disagreement12STDAtomicPart; // No rewiring v. random rewiring
-    AtomicDouble[] disagreement23AVGAtomicPart; // Random rewiring v. homophily
-    AtomicDouble[] disagreement23STDAtomicPart; // Random rewiring v. homophily
-    AtomicDouble[] disagreement13AVGAtomicPart; // No rewiring v. homophily
-    AtomicDouble[] disagreement13STDAtomicPart; // No rewiring v. homophily
-
-    AtomicDouble[] dissimilarityAVGAtomicPart;
-    AtomicDouble[] dissimilaritySTDAtomicPart;
-    AtomicDouble[] dissimilarity12AVGAtomicPart; // No rewiring v. random rewiring
-    AtomicDouble[] dissimilarity12STDAtomicPart; // No rewiring v. random rewiring
-    AtomicDouble[] dissimilarity23AVGAtomicPart; // Random rewiring v. homophily
-    AtomicDouble[] dissimilarity23STDAtomicPart; // Random rewiring v. homophily
-    AtomicDouble[] dissimilarity13AVGAtomicPart; // No rewiring v. homophily
-    AtomicDouble[] dissimilarity13STDAtomicPart; // No rewiring v. homophily
+    AtomicDouble[] disagreement12AVGAtomicPart;
+    AtomicDouble[] disagreement12STDAtomicPart;
+    AtomicDouble[] disagreement23AVGAtomicPart;
+    AtomicDouble[] disagreement23STDAtomicPart;
+    AtomicDouble[] disagreement13AVGAtomicPart;
+    AtomicDouble[] disagreement13STDAtomicPart;
+    AtomicDouble[] disagreementNRAVGAtomicPart;
+    AtomicDouble[] disagreementNRSTDAtomicPart;
+    AtomicDouble[] disagreementRRAVGAtomicPart;
+    AtomicDouble[] disagreementRRSTDAtomicPart;
 
     AtomicDouble[] clusteringAVGAtomicPart;
     AtomicDouble[] clusteringSTDAtomicPart;
-    AtomicDouble[] clustering12AVGAtomicPart; // No rewiring v. random rewiring
-    AtomicDouble[] clustering12STDAtomicPart; // No rewiring v. random rewiring
-    AtomicDouble[] clustering23AVGAtomicPart; // Random rewiring v. homophily
-    AtomicDouble[] clustering23STDAtomicPart; // Random rewiring v. homophily
-    AtomicDouble[] clustering13AVGAtomicPart; // No rewiring v. homophily
-    AtomicDouble[] clustering13STDAtomicPart; // No rewiring v. homophily
+    AtomicDouble[] clustering12AVGAtomicPart;
+    AtomicDouble[] clustering12STDAtomicPart;
+    AtomicDouble[] clustering23AVGAtomicPart;
+    AtomicDouble[] clustering23STDAtomicPart;
+    AtomicDouble[] clustering13AVGAtomicPart;
+    AtomicDouble[] clustering13STDAtomicPart;
+    AtomicDouble[] clusteringNRAVGAtomicPart;
+    AtomicDouble[] clusteringNRSTDAtomicPart;
+    AtomicDouble[] clusteringRRAVGAtomicPart;
+    AtomicDouble[] clusteringRRSTDAtomicPart;
 
     AtomicDouble[] satisfactionAVGAtomicPart;
     AtomicDouble[] satisfactionSTDAtomicPart;
@@ -488,6 +514,10 @@ public class Computation {
       performance23STDAtomicPart = performance23STDAtomic[mcIndex][hIndex][spanIndex][eIndex];
       performance13AVGAtomicPart = performance13AVGAtomic[mcIndex][hIndex][spanIndex][eIndex];
       performance13STDAtomicPart = performance13STDAtomic[mcIndex][hIndex][spanIndex][eIndex];
+      performanceNRAVGAtomicPart = performanceNRAVGAtomic[mcIndex][hIndex][spanIndex][eIndex];
+      performanceNRSTDAtomicPart = performanceNRSTDAtomic[mcIndex][hIndex][spanIndex][eIndex];
+      performanceRRAVGAtomicPart = performanceRRAVGAtomic[mcIndex][hIndex][spanIndex][eIndex];
+      performanceRRSTDAtomicPart = performanceRRSTDAtomic[mcIndex][hIndex][spanIndex][eIndex];
 
       disagreementAVGAtomicPart = disagreementAVGAtomic[mcIndex][hIndex][spanIndex][eIndex];
       disagreementSTDAtomicPart = disagreementSTDAtomic[mcIndex][hIndex][spanIndex][eIndex];
@@ -497,16 +527,11 @@ public class Computation {
       disagreement23STDAtomicPart = disagreement23STDAtomic[mcIndex][hIndex][spanIndex][eIndex];
       disagreement13AVGAtomicPart = disagreement13AVGAtomic[mcIndex][hIndex][spanIndex][eIndex];
       disagreement13STDAtomicPart = disagreement13STDAtomic[mcIndex][hIndex][spanIndex][eIndex];
-
-      dissimilarityAVGAtomicPart = dissimilarityAVGAtomic[mcIndex][hIndex][spanIndex][eIndex];
-      dissimilaritySTDAtomicPart = dissimilaritySTDAtomic[mcIndex][hIndex][spanIndex][eIndex];
-      dissimilarity12AVGAtomicPart = dissimilarity12AVGAtomic[mcIndex][hIndex][spanIndex][eIndex];
-      dissimilarity12STDAtomicPart = dissimilarity12STDAtomic[mcIndex][hIndex][spanIndex][eIndex];
-      dissimilarity23AVGAtomicPart = dissimilarity23AVGAtomic[mcIndex][hIndex][spanIndex][eIndex];
-      dissimilarity23STDAtomicPart = dissimilarity23STDAtomic[mcIndex][hIndex][spanIndex][eIndex];
-      dissimilarity13AVGAtomicPart = dissimilarity13AVGAtomic[mcIndex][hIndex][spanIndex][eIndex];
-      dissimilarity13STDAtomicPart = dissimilarity13STDAtomic[mcIndex][hIndex][spanIndex][eIndex];
-
+      disagreementNRAVGAtomicPart = disagreementNRAVGAtomic[mcIndex][hIndex][spanIndex][eIndex];
+      disagreementNRSTDAtomicPart = disagreementNRSTDAtomic[mcIndex][hIndex][spanIndex][eIndex];
+      disagreementRRAVGAtomicPart = disagreementRRAVGAtomic[mcIndex][hIndex][spanIndex][eIndex];
+      disagreementRRSTDAtomicPart = disagreementRRSTDAtomic[mcIndex][hIndex][spanIndex][eIndex];
+      
       clusteringAVGAtomicPart = clusteringAVGAtomic[mcIndex][hIndex][spanIndex][eIndex];
       clusteringSTDAtomicPart = clusteringSTDAtomic[mcIndex][hIndex][spanIndex][eIndex];
       clustering12AVGAtomicPart = clustering12AVGAtomic[mcIndex][hIndex][spanIndex][eIndex];
@@ -515,6 +540,10 @@ public class Computation {
       clustering23STDAtomicPart = clustering23STDAtomic[mcIndex][hIndex][spanIndex][eIndex];
       clustering13AVGAtomicPart = clustering13AVGAtomic[mcIndex][hIndex][spanIndex][eIndex];
       clustering13STDAtomicPart = clustering13STDAtomic[mcIndex][hIndex][spanIndex][eIndex];
+      clusteringNRAVGAtomicPart = clusteringNRAVGAtomic[mcIndex][hIndex][spanIndex][eIndex];
+      clusteringNRSTDAtomicPart = clusteringNRSTDAtomic[mcIndex][hIndex][spanIndex][eIndex];
+      clusteringRRAVGAtomicPart = clusteringRRAVGAtomic[mcIndex][hIndex][spanIndex][eIndex];
+      clusteringRRSTDAtomicPart = clusteringRRSTDAtomic[mcIndex][hIndex][spanIndex][eIndex];
 
       satisfactionAVGAtomicPart = satisfactionAVGAtomic[mcIndex][hIndex][spanIndex][eIndex];
       satisfactionSTDAtomicPart = satisfactionSTDAtomic[mcIndex][hIndex][spanIndex][eIndex];
@@ -544,6 +573,10 @@ public class Computation {
           double performance13 = src.performanceAvg - nr.performanceAvg;
           performance13AVGAtomicPart[t].addAndGet(performance13);
           performance13STDAtomicPart[t].addAndGet(pow(performance13, 2));
+          performanceNRAVGAtomicPart[t].addAndGet(nr.performanceAvg);
+          performanceNRSTDAtomicPart[t].addAndGet(pow(nr.performanceAvg, 2));
+          performanceRRAVGAtomicPart[t].addAndGet(rr.performanceAvg);
+          performanceRRSTDAtomicPart[t].addAndGet(pow(rr.performanceAvg, 2));
 
           disagreementAVGAtomicPart[t].addAndGet(src.disagreementAvg);
           disagreementSTDAtomicPart[t].addAndGet(pow(src.disagreementAvg, 2));
@@ -556,6 +589,10 @@ public class Computation {
           double disagreement13 = src.disagreementAvg - nr.disagreementAvg;
           disagreement13AVGAtomicPart[t].addAndGet(disagreement13);
           disagreement13STDAtomicPart[t].addAndGet(pow(disagreement13, 2));
+          disagreementNRAVGAtomicPart[t].addAndGet(nr.disagreementAvg);
+          disagreementNRSTDAtomicPart[t].addAndGet(pow(nr.disagreementAvg, 2));
+          disagreementRRAVGAtomicPart[t].addAndGet(rr.disagreementAvg);
+          disagreementRRSTDAtomicPart[t].addAndGet(pow(rr.disagreementAvg, 2));
 
           clusteringAVGAtomicPart[t].addAndGet(src.clusteringCoefficient);
           clusteringSTDAtomicPart[t].addAndGet(pow(src.clusteringCoefficient, 2));
@@ -568,6 +605,10 @@ public class Computation {
           double clustering13 = src.clusteringCoefficient - nr.clusteringCoefficient;
           clustering13AVGAtomicPart[t].addAndGet(clustering13);
           clustering13STDAtomicPart[t].addAndGet(pow(clustering13, 2));
+          clusteringNRAVGAtomicPart[t].addAndGet(nr.clusteringCoefficient);
+          clusteringNRSTDAtomicPart[t].addAndGet(pow(nr.clusteringCoefficient, 2));
+          clusteringRRAVGAtomicPart[t].addAndGet(rr.clusteringCoefficient);
+          clusteringRRSTDAtomicPart[t].addAndGet(pow(rr.clusteringCoefficient, 2));
 
           satisfactionAVGAtomicPart[t].addAndGet(src.satisfactionRate);
           satisfactionSTDAtomicPart[t].addAndGet(pow(src.satisfactionRate, 2));

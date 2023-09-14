@@ -18,6 +18,10 @@ class MatWriter {
     Matrix matrixPerformance23STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixPerformance13AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixPerformance13STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixPerformanceNRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixPerformanceNRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixPerformanceRRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixPerformanceRRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
     Matrix matrixDisagreementAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixDisagreementSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
@@ -27,15 +31,10 @@ class MatWriter {
     Matrix matrixDisagreement23STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixDisagreement13AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixDisagreement13STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
-
-    Matrix matrixDissimilarityAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
-    Matrix matrixDissimilaritySTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
-    Matrix matrixDissimilarity12AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
-    Matrix matrixDissimilarity12STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
-    Matrix matrixDissimilarity23AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
-    Matrix matrixDissimilarity23STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
-    Matrix matrixDissimilarity13AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
-    Matrix matrixDissimilarity13STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDisagreementNRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDisagreementNRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDisagreementRRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDisagreementRRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
     Matrix matrixClusteringAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixClusteringSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
@@ -45,7 +44,11 @@ class MatWriter {
     Matrix matrixClustering23STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixClustering13AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixClustering13STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
-
+    Matrix matrixClusteringNRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClusteringNRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClusteringRRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClusteringRRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    
     Matrix matrixSatisfactionAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixSatisfactionSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
@@ -69,6 +72,10 @@ class MatWriter {
               matrixPerformance23STD.setDouble(indices, d.performance23STD[mc][h][b][e][t]);
               matrixPerformance13AVG.setDouble(indices, d.performance13AVG[mc][h][b][e][t]);
               matrixPerformance13STD.setDouble(indices, d.performance13STD[mc][h][b][e][t]);
+              matrixPerformanceNRAVG.setDouble(indices, d.performanceNRAVG[mc][h][b][e][t]);
+              matrixPerformanceNRSTD.setDouble(indices, d.performanceNRSTD[mc][h][b][e][t]);
+              matrixPerformanceRRAVG.setDouble(indices, d.performanceRRAVG[mc][h][b][e][t]);
+              matrixPerformanceRRSTD.setDouble(indices, d.performanceRRSTD[mc][h][b][e][t]);
 
               matrixDisagreementAVG.setDouble(indices, d.disagreementAVG[mc][h][b][e][t]);
               matrixDisagreementSTD.setDouble(indices, d.disagreementSTD[mc][h][b][e][t]);
@@ -78,15 +85,10 @@ class MatWriter {
               matrixDisagreement23STD.setDouble(indices, d.disagreement23STD[mc][h][b][e][t]);
               matrixDisagreement13AVG.setDouble(indices, d.disagreement13AVG[mc][h][b][e][t]);
               matrixDisagreement13STD.setDouble(indices, d.disagreement13STD[mc][h][b][e][t]);
-
-              matrixDissimilarityAVG.setDouble(indices, d.dissimilarityAVG[mc][h][b][e][t]);
-              matrixDissimilaritySTD.setDouble(indices, d.dissimilaritySTD[mc][h][b][e][t]);
-              matrixDissimilarity12AVG.setDouble(indices, d.dissimilarity12AVG[mc][h][b][e][t]);
-              matrixDissimilarity12STD.setDouble(indices, d.dissimilarity12STD[mc][h][b][e][t]);
-              matrixDissimilarity23AVG.setDouble(indices, d.dissimilarity23AVG[mc][h][b][e][t]);
-              matrixDissimilarity23STD.setDouble(indices, d.dissimilarity23STD[mc][h][b][e][t]);
-              matrixDissimilarity13AVG.setDouble(indices, d.dissimilarity13AVG[mc][h][b][e][t]);
-              matrixDissimilarity13STD.setDouble(indices, d.dissimilarity13STD[mc][h][b][e][t]);
+              matrixDisagreementNRAVG.setDouble(indices, d.disagreementNRAVG[mc][h][b][e][t]);
+              matrixDisagreementNRSTD.setDouble(indices, d.disagreementNRSTD[mc][h][b][e][t]);
+              matrixDisagreementRRAVG.setDouble(indices, d.disagreementRRAVG[mc][h][b][e][t]);
+              matrixDisagreementRRSTD.setDouble(indices, d.disagreementRRSTD[mc][h][b][e][t]);
 
               matrixClusteringAVG.setDouble(indices, d.clusteringAVG[mc][h][b][e][t]);
               matrixClusteringSTD.setDouble(indices, d.clusteringSTD[mc][h][b][e][t]);
@@ -96,6 +98,10 @@ class MatWriter {
               matrixClustering23STD.setDouble(indices, d.clustering23STD[mc][h][b][e][t]);
               matrixClustering13AVG.setDouble(indices, d.clustering13AVG[mc][h][b][e][t]);
               matrixClustering13STD.setDouble(indices, d.clustering13STD[mc][h][b][e][t]);
+              matrixClusteringNRAVG.setDouble(indices, d.clusteringNRAVG[mc][h][b][e][t]);
+              matrixClusteringNRSTD.setDouble(indices, d.clusteringNRSTD[mc][h][b][e][t]);
+              matrixClusteringRRAVG.setDouble(indices, d.clusteringRRAVG[mc][h][b][e][t]);
+              matrixClusteringRRSTD.setDouble(indices, d.clusteringRRSTD[mc][h][b][e][t]);
 
               matrixSatisfactionAVG.setDouble(indices, d.satisfactionAVG[mc][h][b][e][t]);
               matrixSatisfactionSTD.setDouble(indices, d.satisfactionSTD[mc][h][b][e][t]);
@@ -124,7 +130,8 @@ class MatWriter {
           .addArray("para_w", Mat5.newScalar(Main.WEIGHT_ON_CHARACTERISTIC))
           .addArray("para_iteration", Mat5.newScalar(Main.ITERATION))
           .addArray("para_time", Mat5.newScalar(Main.TIME))
-          .addArray("para_degree", Mat5.newScalar(Main.OBSERVATION_SCOPE))
+          .addArray("para_o", Mat5.newScalar(Main.OBSERVATION_SCOPE))
+          .addArray("para_g_mech", Mat5.newScalar(Main.NUM_MECHANISM))
           .addArray("para_n", Mat5.newScalar(Main.N))
           .addArray("para_l", Mat5.newScalar(Main.L))
           .addArray("para_m", Mat5.newScalar(Main.M))
@@ -135,12 +142,20 @@ class MatWriter {
           .addArray("para_g_e", Mat5.newScalar(Main.LENGTH_E))
           .addArray("para_p_learning", Mat5.newScalar(Main.P_LEARNING))
           .addArray("para_a_h", matrixArrayH)
-          .addArray("para_a_beta", matrixArraySpan)
+          .addArray("para_a_span", matrixArraySpan)
           .addArray("para_a_e", matrixArrayE)
           .addArray("r_perf_avg", matrixPerformanceAVG)
           .addArray("r_perf_std", matrixPerformanceSTD)
           .addArray("r_perf_12_avg", matrixPerformance12AVG)
           .addArray("r_perf_12_std", matrixPerformance12STD)
+          .addArray("r_perf_23_avg", matrixPerformance23AVG)
+          .addArray("r_perf_23_std", matrixPerformance23STD)
+          .addArray("r_perf_13_avg", matrixPerformance13AVG)
+          .addArray("r_perf_13_std", matrixPerformance13STD)
+          .addArray("r_perf_nr_avg", matrixPerformanceNRAVG)
+          .addArray("r_perf_nr_std", matrixPerformanceNRSTD)
+          .addArray("r_perf_rr_avg", matrixPerformanceRRAVG)
+          .addArray("r_perf_rr_std", matrixPerformanceRRSTD)
           .addArray("r_perf_23_avg", matrixPerformance23AVG)
           .addArray("r_perf_23_std", matrixPerformance23STD)
           .addArray("r_perf_13_avg", matrixPerformance13AVG)
@@ -153,14 +168,10 @@ class MatWriter {
           .addArray("r_disa_23_std", matrixDisagreement23STD)
           .addArray("r_disa_13_avg", matrixDisagreement13AVG)
           .addArray("r_disa_13_std", matrixDisagreement13STD)
-          .addArray("r_diss_avg", matrixDissimilarityAVG)
-          .addArray("r_diss_std", matrixDissimilaritySTD)
-          .addArray("r_diss_12_avg", matrixDissimilarity12AVG)
-          .addArray("r_diss_12_std", matrixDissimilarity12STD)
-          .addArray("r_diss_23_avg", matrixDissimilarity23AVG)
-          .addArray("r_diss_23_std", matrixDissimilarity23STD)
-          .addArray("r_diss_13_avg", matrixDissimilarity13AVG)
-          .addArray("r_diss_13_std", matrixDissimilarity13STD)
+          .addArray("r_disa_nr_avg", matrixDisagreementNRAVG)
+          .addArray("r_disa_nr_std", matrixDisagreementNRSTD)
+          .addArray("r_disa_rr_avg", matrixDisagreementRRAVG)
+          .addArray("r_disa_rr_std", matrixDisagreementRRSTD)
           .addArray("r_clus_avg", matrixClusteringAVG)
           .addArray("r_clus_std", matrixClusteringSTD)
           .addArray("r_clus_12_avg", matrixClustering12AVG)
@@ -169,6 +180,10 @@ class MatWriter {
           .addArray("r_clus_23_std", matrixClustering23STD)
           .addArray("r_clus_13_avg", matrixClustering13AVG)
           .addArray("r_clus_13_std", matrixClustering13STD)
+          .addArray("r_clus_nr_avg", matrixClusteringNRAVG)
+          .addArray("r_clus_nr_std", matrixClusteringNRSTD)
+          .addArray("r_clus_rr_avg", matrixClusteringRRAVG)
+          .addArray("r_clus_rr_std", matrixClusteringRRSTD)
           .addArray("r_sati_avg", matrixSatisfactionAVG)
           .addArray("r_sati_std", matrixSatisfactionSTD)
           .addArray("r_rewi_avg", matrixRewiringAVG)
