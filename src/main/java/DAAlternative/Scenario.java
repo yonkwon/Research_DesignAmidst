@@ -2,9 +2,11 @@ package DAAlternative;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import jdk.jfr.Description;
 import org.apache.commons.math3.random.MersenneTwister;
 import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.util.FastMath;
 
 public class Scenario {
 
@@ -34,7 +36,6 @@ public class Scenario {
 
   int[] performance;
 
-  int[] isInUnit;
   boolean[][] network;
   boolean[][] networkEnforced;
   boolean[][] networkFlexible;
@@ -148,6 +149,7 @@ public class Scenario {
     initializeOutcome();
   }
 
+
   private void initializeNetwork() {
     networkEnforced = new boolean[Main.N][Main.N];
     networkFlexible = new boolean[Main.N][Main.N];
@@ -156,20 +158,19 @@ public class Scenario {
     degreeEnforced = new int[Main.N];
     degreeFlexible = new int[Main.N];
     degree = new int[Main.N];
-    isInUnit = new int[Main.N];
 
     int managerStart = 1;
-    int managerEnd = span+1;
-    for( int manager = managerStart; manager < managerEnd; manager ++ ){
+    int managerEnd = span + 1;
+    for (int manager = managerStart; manager < managerEnd; manager++) {
       network[0][manager] = true;
       network[manager][0] = true;
-      degree[manager] ++;
-      degree[0] ++;
+      degree[manager]++;
+      degree[0]++;
     }
     int workerStart = managerEnd;
     int workerEnd = Main.N;
-    for( int worker = workerStart; worker < workerEnd; worker ++ ){
-      int manager2Assign = r.nextInt(span)+1;
+    for (int worker = workerStart; worker < workerEnd; worker++) {
+      int manager2Assign = r.nextInt(span) + 1;
       network[manager2Assign][worker] = true;
       network[worker][manager2Assign] = true;
       degree[manager2Assign]++;
@@ -199,6 +200,7 @@ public class Scenario {
 
     setObservationStructure();
   }
+
 
   private void initializeEntity() {
     reality = new boolean[Main.M];
@@ -310,18 +312,18 @@ public class Scenario {
     } else if (isNetworkClosure) {
       for (int row = 0; row < Main.N; row++) {
         for (int col = 0; col < Main.N; col++) {
-          if (row == col) {
-            continue;
-          }
-          for (int i = 0; i < Main.N; i++) {
-            if (network[row][i] && network[i][col]) {
-              neighborScore[row][col]++;
-              neighborhoodScore[row]++;
+          if (network[row][col]) {
+            for (int i = 0; i < Main.N; i++) {
+              if (network[row][i] && network[i][col]) {
+                neighborScore[row][col]++;
+              }
             }
           }
+          neighborScore[row][col] /= degree[row];
+          neighborhoodScore[row] += neighborScore[row][col];
         }
         neighborhoodScoreScaled01[row] =
-            neighborhoodScore[row] / (degree[row] * (degree[row] - 1D) / 2D);
+            neighborhoodScore[row] / degree[row];
       }
     } else if (isPreferentialAttachment) {
       for (int focal : focalIndexArray) {
@@ -347,23 +349,23 @@ public class Scenario {
         neighborhoodScoreScaled01[focal] = (neighborhoodScore[focal] - minSumDegree) / rangeSumDegree;
       }
     }
-
     for (int focal = 0; focal < Main.N; focal++) {
-      satisfied[focal] = neighborhoodScoreScaled01[focal] < strength;
+      // Neighborhood score is higher than desired score = strength
+      satisfied[focal] = neighborhoodScoreScaled01[focal] >= strength;
     }
   }
 
   @Description("Returns similarity in a fraction [0, 1]")
   double getHomogeneityBetween(int focal, int target) {
-    double homogeneity;
-    int homogeneityCharacteristic = 0;
-    int homogeneityBelief = 0;
+    double homogeneityCharacteristic = 0;
+    double homogeneityBelief = 0;
     if (Main.WEIGHT_ON_CHARACTERISTIC > 0D) {
       for (int l = 0; l < Main.L; l++) {
         if (typeOf[focal][l] == typeOf[target][l]) {
           homogeneityCharacteristic++;
         }
       }
+      homogeneityCharacteristic = Main.WEIGHT_ON_CHARACTERISTIC * homogeneityCharacteristic / (double) Main.L;
     }
     if (Main.WEIGHT_ON_BELIEF > 0D) {
       for (int m = 0; m < Main.M; m++) {
@@ -371,11 +373,9 @@ public class Scenario {
           homogeneityBelief++;
         }
       }
+      homogeneityBelief /= Main.WEIGHT_ON_BELIEF * homogeneityBelief / (double) Main.M;
     }
-    homogeneity
-        = (Main.WEIGHT_ON_CHARACTERISTIC > 0 ? Main.WEIGHT_ON_CHARACTERISTIC * homogeneityCharacteristic / (double) Main.L : 0)
-        + (Main.WEIGHT_ON_BELIEF > 0 ? Main.WEIGHT_ON_BELIEF * homogeneityBelief / (double) Main.M : 0);
-    return homogeneity;
+    return homogeneityCharacteristic + homogeneityBelief;
   }
 
   void setObservationStructure() {
@@ -414,7 +414,7 @@ public class Scenario {
       int target2Cut = -1;
       double worstNeighborScore = Double.MAX_VALUE;
       shuffleFisherYates(targetIndexArray);
-      for (int target = 0; target < Main.N; target++) {
+      for (int target : targetIndexArray) {
         if (degree[target] == 1) {
           continue;
         }
@@ -668,8 +668,6 @@ public class Scenario {
         csvWriter.append("SOURCE_TYPE" + l);
         csvWriter.append(",");
       }
-      csvWriter.append("SOURCE_UNIT");
-      csvWriter.append(",");
       csvWriter.append("TIE_ENFORCED");
       csvWriter.append(",");
       csvWriter.append("L");
@@ -696,10 +694,6 @@ public class Scenario {
               csvWriter.append(",");
             }
 
-//            csvWriter.append("SOURCE_UNIT");
-            csvWriter.append(Integer.toString(isInUnit[focal]));
-            csvWriter.append(",");
-
 //            csvWriter.append("TIE_ENFORCED");
             csvWriter.append(Boolean.toString(networkEnforced[focal][target]));
             csvWriter.append(",");
@@ -725,10 +719,6 @@ public class Scenario {
           csvWriter.append(typeOf[focal][l] ? "true" : "false");
           csvWriter.append(",");
         }
-
-//        csvWriter.append("SOURCE_UNIT");
-        csvWriter.append(Integer.toString(isInUnit[focal]));
-        csvWriter.append(",");
 
 //        csvWriter.append("TIE_ENFORCED");
         csvWriter.append(",");

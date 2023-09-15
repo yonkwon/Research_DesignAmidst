@@ -6,25 +6,25 @@ public class Main {
 
   static final long TIC = System.currentTimeMillis();
 
-  static final boolean GET_GRAPH = false;
+  static final boolean GET_GRAPH = true;
   static final boolean GET_MAT = true;
 
   static final boolean LINK_LEVEL = true;
 
-  static final int ITERATION = 500;
-  static final int TIME = 500 + 1;
+  static final int ITERATION = 1;
+  static final int TIME = 300 + 1;
   static final int NUM_MECHANISM = 3; // Homophily, closure, & p-attachment
-  static final int OBSERVATION_SCOPE = 2; // >= 2
+  static final int OBSERVATION_SCOPE = 5; // >= 2
 
   static final int N = 200;
-  static final int[] SPAN = {1, 2, 3, 4, 5, 6, 7, 8};
+  static final int[] SPAN = {2, 3, 4, 5, 6, 7};
   static final int LENGTH_SPAN = SPAN.length;
 
   static final int M_OF_BUNDLE = 20;
   static final int M_IN_BUNDLE = 5;
   static final int M = M_OF_BUNDLE * M_IN_BUNDLE;
 
-  static final double[] H = {0, 1};
+  static final double[] H = {1};
   static final int LENGTH_H = H.length;
 
   static final double[] E = {0, .25};

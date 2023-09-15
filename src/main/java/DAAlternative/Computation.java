@@ -129,7 +129,7 @@ public class Computation {
             double strength = Main.H[h];
             int span = Main.SPAN[b];
             double enforcement = Main.E[e];
-            String fileName = Main.RUN_ID + "_" + "h" + strength + "_s" + span + "_e" + enforcement;
+            String fileName = Main.RUN_ID + "_" + "mech" + mc + "h" + strength + "_s" + span + "_e" + enforcement;
             Scenario sc = new Scenario(mc, strength, span, enforcement);
             sc.printCSV(Main.PATH_CSV + fileName + "_t0");
             for (int t = 0; t < Main.TIME; t++) {
