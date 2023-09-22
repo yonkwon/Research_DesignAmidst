@@ -3,7 +3,6 @@ package DABase;
 import java.io.FileWriter;
 import java.io.IOException;
 import jdk.jfr.Description;
-import org.apache.commons.math3.ml.neuralnet.Network;
 import org.apache.commons.math3.random.MersenneTwister;
 import org.apache.commons.math3.random.RandomGenerator;
 import org.apache.commons.math3.util.FastMath;
@@ -38,6 +37,7 @@ public class Scenario {
   int[] performance;
 
   int[] levelOf;
+  double levelMax;
   boolean[][] network;
   boolean[][] networkEnforced;
   boolean[][] networkFlexible;
@@ -53,7 +53,7 @@ public class Scenario {
   double[] neighborhoodScoreScaled01;
   boolean[] satisfied;
 
-  double maxSumDegree, minSumDegree, rangeSumDegree;
+  double maxSumDegree, degreeMin, degreeRange;
 
   int numRewiring;
   double performanceAvg;
@@ -184,7 +184,9 @@ public class Scenario {
           for (int i = 0; i < lowerNum; i++) {
             int focal = lowerStart + i;
             int target = lowerStart + (i + 1) % lowerNum;
-            if( focal == target ){ break; }
+            if (focal == target) {
+              break;
+            }
             network[focal][target] = true;
             network[target][focal] = true;
             degree[focal]++;
@@ -210,6 +212,7 @@ public class Scenario {
       levelStart = levelEnd;
       levelEnd = FastMath.min(Main.N, levelEnd + (int) FastMath.pow(span, levelNow));
       if (levelStart == Main.N) {
+        levelMax = levelNow;
         break;
       }
     }
@@ -340,6 +343,50 @@ public class Scenario {
     clusteringCoefficient /= Main.NUM_TRIPLET;
   }
 
+  double getNeighborScoreHomophilyOnChar(int focal, int target) {
+    double neighborScore = 0;
+    for (int ch = 0; ch < Main.L; ch++) {
+      if (typeOf[focal][ch] == typeOf[target][ch]) {
+        neighborScore++;
+      }
+    }
+    return neighborScore / (double) Main.L;
+  }
+
+  double getNeighborScoreHomophilyOnStatus(int focal, int target) {
+    double neighborScore = FastMath.abs(levelOf[focal] - levelOf[target]) / levelMax;
+    if (neighborScore > 1) {
+      System.out.println("WARNING: NS over 1");
+    }
+    return neighborScore;
+  }
+
+  double getNeighborScoreNetworkClosure(int focal, int target) {
+    double neighborScore = 0;
+    for (int i = 0; i < Main.N; i++) {
+      if( focal == i || target == i ){
+        continue;
+      }
+      if( network[focal][i] && network[i][target] ){
+        neighborScore++;
+      }
+    }
+    return neighborScore / (double) degree[focal];
+  }
+
+  double getNeighborScoreClustering(int focal, int target) {
+    double neighborScore = (degree[target] - degreeMin)/
+
+    for (int i = 0; i < Main.N; i++) {
+      if( focal == i || target == i ){
+        continue;
+      }
+      if( network[focal][i] && network[i][target] ){
+        neighborScore++;
+      }
+    }
+    return neighborScore / (double) degree[focal];
+  }
 
   void setNeighborScore() {
     neighborScore = new double[Main.N][Main.N];
@@ -381,18 +428,18 @@ public class Scenario {
         }
       }
       maxSumDegree = neighborhoodScore[0];
-      minSumDegree = neighborhoodScore[0];
+      degreeMin = neighborhoodScore[0];
       for (int focal = 1; focal < Main.N; focal++) {
         if (neighborhoodScore[focal] > maxSumDegree) {
           maxSumDegree = neighborhoodScore[focal];
         }
-        if (neighborhoodScore[focal] < minSumDegree) {
-          minSumDegree = neighborhoodScore[focal];
+        if (neighborhoodScore[focal] < degreeMin) {
+          degreeMin = neighborhoodScore[focal];
         }
       }
-      rangeSumDegree = maxSumDegree - minSumDegree;
+      degreeRange = maxSumDegree - degreeMin;
       for (int focal : focalIndexArray) {
-        neighborhoodScoreScaled01[focal] = (neighborhoodScore[focal] - minSumDegree) / rangeSumDegree;
+        neighborhoodScoreScaled01[focal] = (neighborhoodScore[focal] - degreeMin) / degreeRange;
       }
     }
     for (int focal = 0; focal < Main.N; focal++) {
@@ -556,18 +603,18 @@ public class Scenario {
             if (degree[target2Link] > maxSumDegree) {
               maxSumDegree = degree[target2Link];
             }
-            if (degree[target2Link] < minSumDegree) {
-              minSumDegree = degree[target2Link];
+            if (degree[target2Link] < degreeMin) {
+              degreeMin = degree[target2Link];
             }
             if (degree[target2Cut] > maxSumDegree) {
               maxSumDegree = degree[target2Cut];
             }
-            if (degree[target2Cut] < minSumDegree) {
-              minSumDegree = degree[target2Cut];
+            if (degree[target2Cut] < degreeMin) {
+              degreeMin = degree[target2Cut];
             }
-            neighborhoodScoreScaled01[focal] = (neighborhoodScore[focal] - minSumDegree) / rangeSumDegree;
-            neighborhoodScoreScaled01[target2Cut] = (neighborhoodScore[target2Cut] - minSumDegree) / rangeSumDegree;
-            neighborhoodScoreScaled01[target2Link] = (neighborhoodScore[target2Link] - minSumDegree) / rangeSumDegree;
+            neighborhoodScoreScaled01[focal] = (neighborhoodScore[focal] - degreeMin) / degreeRange;
+            neighborhoodScoreScaled01[target2Cut] = (neighborhoodScore[target2Cut] - degreeMin) / degreeRange;
+            neighborhoodScoreScaled01[target2Link] = (neighborhoodScore[target2Link] - degreeMin) / degreeRange;
           }
           satisfied[focal] = neighborhoodScoreScaled01[focal] < strength;
           satisfied[target2Cut] = neighborhoodScoreScaled01[focal] < strength; //@ 230910 Update: This line didn't exist in the previous code...
