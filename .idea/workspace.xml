@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] (!) Satisfaction as a function of strength; Like between workers under the same supervision">
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Remove] Alternative hierarchy model">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAAlternative/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAAlternative/Computation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAAlternative/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAAlternative/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAAlternative/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAAlternative/Scenario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DABase/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DABase/Computation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DABase/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DABase/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DABase/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DABase/Scenario.java" afterDir="false" />
@@ -467,11 +464,26 @@
       <option name="project" value="LOCAL" />
       <updated>1694737209595</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="[Fix] (!) Satisfaction as a function of strength; Like between workers under the same supervision">
+      <option name="closed" value="true" />
+      <created>1694763161397</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1694763161397</updated>
+    </task>
+    <task id="LOCAL-00038" summary="[Remove] Alternative hierarchy model">
+      <option name="closed" value="true" />
+      <created>1695263158995</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1695263158995</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Fix] Code reformat" />
     <MESSAGE value="[Fix] Remove environmental turbulence" />
     <MESSAGE value="[Fix] Remove environmental turbulence &amp; Code reformat" />
     <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/HPBaseline/Computation.java&#10;#&#9;src/main/java/HPBaseline/Decomposition.java&#10;#&#9;src/main/java/HPBaseline/Main.java&#10;#&#9;src/main/java/HPBaseline/MatWriter.java&#10;#&#9;src/main/java/HPBaseline/Scenario.java" />
@@ -496,6 +508,7 @@
     <MESSAGE value="[Fix] Target search order in doRewiring method" />
     <MESSAGE value="[Add] Alternative hierarchy model" />
     <MESSAGE value="[Fix] (!) Satisfaction as a function of strength; Like between workers under the same supervision" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Fix] (!) Satisfaction as a function of strength; Like between workers under the same supervision" />
+    <MESSAGE value="[Remove] Alternative hierarchy model" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Remove] Alternative hierarchy model" />
   </component>
 </project>

@@ -7,27 +7,28 @@ public class Main {
   static final long TIC = System.currentTimeMillis();
 
   static final boolean GET_GRAPH = true;
-  static final boolean GET_MAT = true;
-
-  static final boolean LINK_LEVEL = true;
+  static final boolean GET_MAT = false;
+  static final boolean LINK_LEVEL = false;
 
   static final int ITERATION = 1;
   static final int TIME = 300 + 1;
-  static final int NUM_MECHANISM = 3; // Homophily, closure, & p-attachment
+  static final int NUM_MECHANISM = 4; // Homophily on Char, on Status, closure, & p-attachment
   static final int OBSERVATION_SCOPE = 5; // >= 2
 
   static final int N = 200;
-  static final int[] SPAN = {2, 3, 4, 5, 6, 7};
+  static final int[] SPAN = {3, 4, 5, 6, 7, 8};
+//  static final int N = 20;
+//  static final int[] SPAN = {3};
   static final int LENGTH_SPAN = SPAN.length;
 
-  static final int M_OF_BUNDLE = 20;
+  static final int M_OF_BUNDLE = 10;
   static final int M_IN_BUNDLE = 5;
   static final int M = M_OF_BUNDLE * M_IN_BUNDLE;
 
   static final double[] H = {1};
   static final int LENGTH_H = H.length;
 
-  static final double[] E = {0, .25};
+  static final double[] E = {.25, .75};
   static final int LENGTH_E = E.length;
 
   static final double P_LEARNING = .25;
@@ -65,7 +66,7 @@ public class Main {
   private static void setFileName() {
     FILENAME = RUN_ID +
         "I" + ITERATION +
-        "LL" + (LINK_LEVEL?0:1) +
+        "LL" + (LINK_LEVEL?"t":"f") +
         "O" + OBSERVATION_SCOPE +
         "T" + TIME +
         "N" + N +

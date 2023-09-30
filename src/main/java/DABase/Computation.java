@@ -6,10 +6,10 @@ import com.google.common.util.concurrent.AtomicDouble;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import org.apache.commons.math3.random.MersenneTwister;
 
 public class Computation {
 
@@ -130,13 +130,20 @@ public class Computation {
             double strength = Main.H[h];
             int span = Main.SPAN[b];
             double enforcement = Main.E[e];
-            String fileName = Main.RUN_ID + "_" + "mech" + mc + "h" + strength + "_s" + span + "_e" + enforcement;
-            Scenario sc = new Scenario(mc, strength, span, enforcement);
-            sc.printCSV(Main.PATH_CSV + fileName + "_t0");
-            for (int t = 0; t < Main.TIME; t++) {
-              sc.stepForward();
+            String mcString = null;
+            switch (mc) {
+              case 0 -> mcString = "homophilyChar";
+              case 1 -> mcString = "homophilyStat";
+              case 2 -> mcString = "closure";
+              case 3 -> mcString = "clustering";
             }
-            sc.printCSV(Main.PATH_CSV + fileName + "_t" + Main.TIME);
+            String fileName = Main.RUN_ID + "_" + "h" + strength + "_s" + span + "_e" + enforcement + "_" + mcString;
+            Scenario src = new Scenario(mc, strength, span, enforcement);
+            src.printCSV(Main.PATH_CSV + fileName + "_t0");
+            for (int t = 0; t < Main.TIME; t++) {
+              src.stepForward();
+            }
+            src.printCSV(Main.PATH_CSV + fileName + "_t" + Main.TIME);
             System.out.println("Network Printed: " + fileName);
           }
         }

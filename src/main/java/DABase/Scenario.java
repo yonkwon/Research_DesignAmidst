@@ -15,7 +15,7 @@ public class Scenario {
 
   boolean isRewiring;
   boolean isHomophilyOnChar;
-  boolean isHomophilyOnStatus;
+  boolean isHomophilyOnStat;
   boolean isNetworkClosure;
   boolean isPreferentialAttachment;
   boolean isRandomRewiring;
@@ -50,10 +50,9 @@ public class Scenario {
 
   double[][] neighborScore;
   double[] neighborhoodScore;
-  double[] neighborhoodScoreScaled01;
   boolean[] satisfied;
 
-  double maxSumDegree, degreeMin, degreeRange;
+  double degreeMax, degreeMin, degreeRange;
 
   int numRewiring;
   double performanceAvg;
@@ -66,9 +65,10 @@ public class Scenario {
 
     this.socialMechanism = socialMechanism;
     switch (socialMechanism) {
-      case 0 -> isHomophilyOnStatus = true;
-      case 1 -> isNetworkClosure = true;
-      case 2 -> isPreferentialAttachment = true;
+      case 0 -> isHomophilyOnChar = true;
+      case 1 -> isHomophilyOnStat = true;
+      case 2 -> isNetworkClosure = true;
+      case 3 -> isPreferentialAttachment = true;
     }
 
     focalIndexArray = new int[Main.N];
@@ -208,13 +208,13 @@ public class Scenario {
       for (int i = levelStart; i < levelEnd; i++) {
         levelOf[i] = levelNow;
       }
-      levelNow++;
       levelStart = levelEnd;
       levelEnd = FastMath.min(Main.N, levelEnd + (int) FastMath.pow(span, levelNow));
       if (levelStart == Main.N) {
         levelMax = levelNow;
         break;
       }
+      levelNow++;
     }
 
     //Print the graph for visualization
@@ -284,13 +284,13 @@ public class Scenario {
     satisfied = new boolean[Main.N];
 
     setPerformance();
-    setNeighborScore();
+    doEvaluateNeighbor();
     setOutcome();
   }
 
   void stepForward() {
     if (isRewiring) {
-      setNeighborScore();
+      doEvaluateNeighbor();
       setObservationStructure();
       doRewiring();
     }
@@ -364,87 +364,98 @@ public class Scenario {
   double getNeighborScoreNetworkClosure(int focal, int target) {
     double neighborScore = 0;
     for (int i = 0; i < Main.N; i++) {
-      if( focal == i || target == i ){
+      if (focal == i || target == i) {
         continue;
       }
-      if( network[focal][i] && network[i][target] ){
+      if (network[focal][i] && network[i][target]) {
         neighborScore++;
       }
     }
     return neighborScore / (double) degree[focal];
   }
 
-  double getNeighborScoreClustering(int focal, int target) {
-    double neighborScore = (degree[target] - degreeMin)/
-
+  double getNeighborScoreNetworkClosure(int focal, int target, boolean[][] network) {
+    double neighborScore = 0;
     for (int i = 0; i < Main.N; i++) {
-      if( focal == i || target == i ){
+      if (focal == i || target == i) {
         continue;
       }
-      if( network[focal][i] && network[i][target] ){
+      if (network[focal][i] && network[i][target]) {
         neighborScore++;
       }
     }
     return neighborScore / (double) degree[focal];
   }
 
-  void setNeighborScore() {
+  double getNeighborScorePreferentialAttachement(int focal, int target) {
+    return (degree[target] - degreeMin) / (double) degreeRange;
+  }
+
+  void doEvaluateNeighbor() {
     neighborScore = new double[Main.N][Main.N];
     neighborhoodScore = new double[Main.N];
-    neighborhoodScoreScaled01 = new double[Main.N];
-    if (isHomophilyOnStatus) {
+    if (isHomophilyOnChar) {
       for (int focal : focalIndexArray) {
-        for (int target : targetIndexArray) {
-          if (network[focal][target]) {
-            neighborScore[focal][target] = getHomogeneityBetween(focal, target);
-            neighborhoodScore[focal] += neighborScore[focal][target];
+        for (int target = focal; target < Main.N; target++) {
+          if (!network[focal][target]) {
+            continue;
           }
+          neighborScore[focal][target] = getNeighborScoreHomophilyOnChar(focal, target);
+          neighborScore[focal][target] = neighborScore[target][focal];
+          neighborhoodScore[focal] += neighborScore[focal][target];
+          neighborhoodScore[target] += neighborScore[target][focal];
         }
-        neighborhoodScoreScaled01[focal] = neighborhoodScore[focal] / degree[focal];
+      }
+    } else if (isHomophilyOnStat) {
+      for (int focal : focalIndexArray) {
+        for (int target = focal; target < Main.N; target++) {
+          if (!network[focal][target]) {
+            continue;
+          }
+          neighborScore[focal][target] = getNeighborScoreHomophilyOnStatus(focal, target);
+          neighborScore[focal][target] = neighborScore[target][focal];
+          neighborhoodScore[focal] += neighborScore[focal][target];
+          neighborhoodScore[target] += neighborScore[target][focal];
+        }
       }
     } else if (isNetworkClosure) {
-      for (int row = 0; row < Main.N; row++) {
-        for (int col = 0; col < Main.N; col++) {
-          if (network[row][col]) {
-            for (int i = 0; i < Main.N; i++) {
-              if (network[row][i] && network[i][col]) {
-                neighborScore[row][col]++;
-              }
-            }
+      for (int focal : focalIndexArray) {
+        for (int target = focal; target < Main.N; target++) {
+          if (!network[focal][target]) {
+            continue;
           }
-          neighborScore[row][col] /= degree[row];
-          neighborhoodScore[row] += neighborScore[row][col];
+          neighborScore[focal][target] = getNeighborScoreNetworkClosure(focal, target);
+          neighborScore[focal][target] = neighborScore[focal][target] * (degree[focal] - 1) / (degree[target] - 1);
+          neighborhoodScore[focal] += neighborScore[focal][target];
+          neighborhoodScore[target] += neighborScore[target][focal];
         }
-        neighborhoodScoreScaled01[row] =
-            neighborhoodScore[row] / degree[row];
       }
     } else if (isPreferentialAttachment) {
-      for (int focal : focalIndexArray) {
-        for (int target : targetIndexArray) {
-          if (network[focal][target]) {
-            neighborScore[focal][target] = degree[target];
-            neighborhoodScore[focal] += degree[target];
-          }
-        }
-      }
-      maxSumDegree = neighborhoodScore[0];
+      degreeMax = neighborhoodScore[0];
       degreeMin = neighborhoodScore[0];
       for (int focal = 1; focal < Main.N; focal++) {
-        if (neighborhoodScore[focal] > maxSumDegree) {
-          maxSumDegree = neighborhoodScore[focal];
-        }
-        if (neighborhoodScore[focal] < degreeMin) {
+        if (neighborhoodScore[focal] > degreeMax) {
+          degreeMax = neighborhoodScore[focal];
+        } else if (neighborhoodScore[focal] < degreeMin) {
           degreeMin = neighborhoodScore[focal];
         }
       }
-      degreeRange = maxSumDegree - degreeMin;
-      for (int focal : focalIndexArray) {
-        neighborhoodScoreScaled01[focal] = (neighborhoodScore[focal] - degreeMin) / degreeRange;
+      degreeRange = degreeMax - degreeMin;
+      for (int target : targetIndexArray) {
+        double score = getNeighborScorePreferentialAttachement(-1, target);
+        for (int focal : focalIndexArray) {
+          if (!network[focal][target]) {
+            continue;
+          }
+          neighborScore[focal][target] = score;
+          neighborhoodScore[focal] += neighborScore[focal][target];
+        }
       }
     }
     for (int focal = 0; focal < Main.N; focal++) {
+      neighborhoodScore[focal] /= (double) degree[focal];
       // Neighborhood score is higher than desired score = strength
-      satisfied[focal] = neighborhoodScoreScaled01[focal] >= strength;
+      satisfied[focal] = neighborhoodScore[focal] >= strength;
     }
   }
 
@@ -533,92 +544,63 @@ public class Scenario {
           continue;
         }
         double target2LinkScore = Double.NaN;
-        if (isHomophilyOnStatus) {
-          target2LinkScore = getHomogeneityBetween(focal, target2Link);
+        boolean[][] networkAlt = new boolean[Main.N][];
+        if (isHomophilyOnChar) {
+          target2LinkScore = getNeighborScoreHomophilyOnChar(focal, target2Link);
+        } else if (isHomophilyOnStat) {
+          target2LinkScore = getNeighborScoreHomophilyOnStatus(focal, target2Link);
         } else if (isNetworkClosure) {
-          target2LinkScore = 0;
-          for (int contact = 0; contact < Main.N; contact++) {
-            if (contact == target2Cut) {
-              continue;
-            }
-            if (network[focal][contact] && network[target2Link][contact]) {
-              target2LinkScore++;
-            }
-          }
+          target2LinkScore = getNeighborScoreNetworkClosure(focal, target2Link);
         } else if (isPreferentialAttachment) {
-          target2LinkScore = degree[target2Link];
+          target2LinkScore = getNeighborScorePreferentialAttachement(focal, target2Link);
         }
         if (target2LinkScore > worstNeighborScore) {
           //Checking for mutual agreement
-          //230910 This check didn't occur for network closure ...
           double focalScore = Double.NaN;
-          double neighborhoodScoreAverageOfTarget = 0;
-          if (isHomophilyOnStatus || isNetworkClosure) {
+          if (isHomophilyOnChar) {
             focalScore = target2LinkScore;
+          } else if (isHomophilyOnStat) {
+            focalScore = target2LinkScore;
+          } else if (isNetworkClosure) {
+            focalScore = target2LinkScore / (degree[focal] - 1D) * (degree[target2Link] - 1D);
           } else if (isPreferentialAttachment) {
-            focalScore = degree[focal];
+            focalScore = getNeighborScorePreferentialAttachement(target2Link, focal);
           }
-          for (int targetTarget = 0; targetTarget < Main.N; targetTarget++) {
-            if (network[target2Link][targetTarget]) {
-              neighborhoodScoreAverageOfTarget += neighborScore[target2Link][targetTarget];
-            }
-          }
-          neighborhoodScoreAverageOfTarget /= degree[target2Link];
-          if (focalScore < neighborhoodScoreAverageOfTarget) {
+          if (focalScore < neighborhoodScore[target2Link]) {
             //Potential score of focal is higher than average neighborhoods core
             continue;
           }
-          numRewiring++;
-          hasNewTie[focal] = true;
-          hasNewTie[target2Link] = true;
           // Rewiring tie
-          networkFlexible[focal][target2Cut] = false;
-          networkFlexible[target2Cut][focal] = false;
           network[focal][target2Cut] = false;
           network[target2Cut][focal] = false;
-          degreeFlexible[target2Cut]--;
+          networkFlexible[focal][target2Cut] = false;
+          networkFlexible[target2Cut][focal] = false;
           degree[target2Cut]--;
-          networkFlexible[focal][target2Link] = true;
-          networkFlexible[target2Link][focal] = true;
+          degreeFlexible[target2Cut]--;
           network[focal][target2Link] = true;
           network[target2Link][focal] = true;
-          degreeFlexible[target2Link]++;
+          networkFlexible[focal][target2Link] = true;
+          networkFlexible[target2Link][focal] = true;
           degree[target2Link]++;
-          // Updating Neighbor score and satisfaction
-          neighborScore[focal][target2Link] = target2LinkScore;
-          neighborScore[target2Link][focal] = focalScore;
-          neighborhoodScore[focal] -= neighborScore[focal][target2Cut];
-          neighborScore[focal][target2Cut] = 0;
-          neighborhoodScore[focal] += neighborScore[focal][target2Link];
-          neighborhoodScore[target2Link] += neighborScore[target2Link][focal];
-          if (isHomophilyOnStatus) {
-            neighborhoodScoreScaled01[focal] /= degree[focal];
-            neighborhoodScoreScaled01[target2Cut] /= degree[target2Cut];
-            neighborhoodScoreScaled01[target2Link] /= degree[target2Link];
-          } else if (isNetworkClosure) {
-            neighborhoodScoreScaled01[focal] /= (degree[focal] * (degree[focal] - 1D) / 2D);
-            neighborhoodScoreScaled01[target2Cut] /= (degree[target2Cut] * (degree[target2Cut] - 1D) / 2D);
-            neighborhoodScoreScaled01[target2Link] /= (degree[target2Link] * (degree[target2Link] - 1D) / 2D);
-          } else if (isPreferentialAttachment) {
-            if (degree[target2Link] > maxSumDegree) {
-              maxSumDegree = degree[target2Link];
-            }
-            if (degree[target2Link] < degreeMin) {
-              degreeMin = degree[target2Link];
-            }
-            if (degree[target2Cut] > maxSumDegree) {
-              maxSumDegree = degree[target2Cut];
-            }
-            if (degree[target2Cut] < degreeMin) {
-              degreeMin = degree[target2Cut];
-            }
-            neighborhoodScoreScaled01[focal] = (neighborhoodScore[focal] - degreeMin) / degreeRange;
-            neighborhoodScoreScaled01[target2Cut] = (neighborhoodScore[target2Cut] - degreeMin) / degreeRange;
-            neighborhoodScoreScaled01[target2Link] = (neighborhoodScore[target2Link] - degreeMin) / degreeRange;
+          degreeFlexible[target2Link]++;
+          hasNewTie[focal] = true;
+          hasNewTie[target2Link] = true;
+          numRewiring++;
+          // Update degree max min range
+          if (degree[target2Link] > degreeMax) {
+            degreeMax = degree[target2Link];
           }
-          satisfied[focal] = neighborhoodScoreScaled01[focal] < strength;
-          satisfied[target2Cut] = neighborhoodScoreScaled01[focal] < strength; //@ 230910 Update: This line didn't exist in the previous code...
-          satisfied[target2Link] = neighborhoodScoreScaled01[focal] < strength;
+          if (degree[target2Link] < degreeMin) {
+            degreeMin = degree[target2Link];
+          }
+          if (degree[target2Cut] > degreeMax) {
+            degreeMax = degree[target2Cut];
+          }
+          if (degree[target2Cut] < degreeMin) {
+            degreeMin = degree[target2Cut];
+          }
+          // Reset Neighborhood Score
+          doEvaluateNeighbor();
           //Occurs at most once for each individual
           break;
         }
