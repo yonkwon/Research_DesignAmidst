@@ -621,15 +621,15 @@ public class Computation {
         }
         src.stepForward();
         nr.stepForward();
-        rr.stepForward(src.numCut, src.numLink);
+        rr.stepForward(src.numRewiring);
 
         src.setOutcome();
         nr.setOutcome();
         rr.setOutcome();
 
         synchronized (this) {
-          rewiringAVGAtomicPart[t].addAndGet(src.numLink);
-          rewiringSTDAtomicPart[t].addAndGet(pow(src.numLink, 2));
+          rewiringAVGAtomicPart[t].addAndGet(src.numRewiring);
+          rewiringSTDAtomicPart[t].addAndGet(pow(src.numRewiring, 2));
         }
       }
     }

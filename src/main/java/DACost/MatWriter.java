@@ -131,6 +131,7 @@ class MatWriter {
           .addArray("para_iteration", Mat5.newScalar(Main.ITERATION))
           .addArray("para_time", Mat5.newScalar(Main.TIME))
           .addArray("para_o", Mat5.newScalar(Main.OBSERVATION_SCOPE))
+          .addArray("para_degree_max", Mat5.newScalar(Main.MAX_DEGREE))
           .addArray("para_g_mech", Mat5.newScalar(Main.NUM_MECHANISM))
           .addArray("para_n", Mat5.newScalar(Main.N))
           .addArray("para_l", Mat5.newScalar(Main.L))

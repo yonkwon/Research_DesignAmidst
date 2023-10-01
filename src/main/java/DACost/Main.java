@@ -10,11 +10,11 @@ public class Main {
   static final boolean GET_MAT = false;
   static final boolean LINK_LEVEL = false;
 
-  static final int ITERATION = 1;
+  static final int ITERATION = 2_000;
   static final int TIME = 300 + 1;
   static final int NUM_MECHANISM = 4; // Homophily on Char, on Status, closure, & p-attachment
-  static final int OBSERVATION_SCOPE = 5; // >= 2
-  static final int DEGREE_MAX = 5; // >= 2
+  static final int OBSERVATION_SCOPE = 3; // >= 2
+  static final int MAX_DEGREE = 5; // >= 2
 
   static final int N = 200;
   static final int[] SPAN = {3, 4, 5, 6, 7, 8};
@@ -46,7 +46,7 @@ public class Main {
 
   static final int[] RESULT_KEY_VALUE = {NUM_MECHANISM, LENGTH_H, LENGTH_SPAN, LENGTH_E, TIME};
 
-  static String RUN_ID = "DACost";
+  static String RUN_ID = "DABase";
   static String FILENAME;
   static String PATH_CSV;
 
@@ -69,6 +69,7 @@ public class Main {
         "I" + ITERATION +
         "LL" + (LINK_LEVEL?"t":"f") +
         "O" + OBSERVATION_SCOPE +
+        "MD" + MAX_DEGREE +
         "T" + TIME +
         "N" + N +
         "L" + L +

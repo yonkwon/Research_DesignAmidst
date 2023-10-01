@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Remove] Alternative hierarchy model">
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Cost-to-Link model variant, Cut-and-link to rewire">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DABase/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DABase/Computation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DABase/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DABase/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DABase/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DABase/Scenario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DACost/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DACost/Computation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DACost/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DACost/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DACost/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DACost/MatWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DACost/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DACost/Scenario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +105,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DAAlternative&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DACost&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -112,14 +114,14 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DACost" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAAlternative" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAAlt" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java" />
       <recent name="C:\Users\Yongha\Dropbox\Research\HomophilyAndDesign\src\main\java\HPClosure" />
-      <recent name="C:\Users\Yongha\Dropbox\Research\HomophilyAndDesign\src\main\java\HPDegree" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.DACost.Main">
     <configuration name="DAAlt.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DAAlt.Main" />
       <module name="DesignAmidst.main" />
@@ -146,6 +148,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DACost.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DACost.Main" />
+      <module name="DesignAmidst.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="DACost.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DABase.Main" />
       <module name="DesignAmidst.main" />
@@ -161,6 +176,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DACost.Main" />
         <item itemvalue="Application.DAAlternative.Main" />
         <item itemvalue="Application.DAAlt.Main" />
         <item itemvalue="Application.Main" />
@@ -480,13 +496,26 @@
       <option name="project" value="LOCAL" />
       <updated>1695263158995</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="[Add] Homophily based on status (hierarchy level)">
+      <option name="closed" value="true" />
+      <created>1696109032349</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1696109032349</updated>
+    </task>
+    <task id="LOCAL-00040" summary="[Add] Cost-to-Link model variant">
+      <option name="closed" value="true" />
+      <created>1696130758234</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1696130758234</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Fix] Remove environmental turbulence" />
-    <MESSAGE value="[Fix] Remove environmental turbulence &amp; Code reformat" />
-    <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/HPBaseline/Computation.java&#10;#&#9;src/main/java/HPBaseline/Decomposition.java&#10;#&#9;src/main/java/HPBaseline/Main.java&#10;#&#9;src/main/java/HPBaseline/MatWriter.java&#10;#&#9;src/main/java/HPBaseline/Scenario.java" />
     <MESSAGE value="Merge remote-tracking branch 'origin/master'" />
     <MESSAGE value="[Add] A new variant: HPDegree" />
     <MESSAGE value="[Fix] Rewiring based on observation structure" />
@@ -509,6 +538,9 @@
     <MESSAGE value="[Add] Alternative hierarchy model" />
     <MESSAGE value="[Fix] (!) Satisfaction as a function of strength; Like between workers under the same supervision" />
     <MESSAGE value="[Remove] Alternative hierarchy model" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Remove] Alternative hierarchy model" />
+    <MESSAGE value="[Add] Homophily based on status (hierarchy level)" />
+    <MESSAGE value="[Add] Cost-to-Link model variant" />
+    <MESSAGE value="[Fix] Cost-to-Link model variant, Cut-and-link to rewire" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Cost-to-Link model variant, Cut-and-link to rewire" />
   </component>
 </project>

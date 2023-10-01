@@ -54,8 +54,7 @@ public class Scenario {
 
   double degreeMax, degreeMin, degreeRange;
 
-  int numCut;
-  int numLink;
+  int numRewiring;
   double performanceAvg;
   double disagreementAvg;
   double clusteringCoefficient;
@@ -111,8 +110,7 @@ public class Scenario {
     clone.differenceSum = this.differenceSum.clone();
     clone.satisfied = this.satisfied.clone();
 
-    clone.numCut = this.numCut;
-    clone.numLink = this.numLink;
+    clone.numRewiring = this.numRewiring;
     clone.performanceAvg = this.performanceAvg;
     clone.disagreementAvg = this.disagreementAvg;
     clone.satisfactionRate = this.satisfactionRate;
@@ -299,10 +297,10 @@ public class Scenario {
     doLearning();
   }
 
-  void stepForward(int numCut, int numLink) {
+  void stepForward(int numRewiring) {
     if (isRewiring) {
       setObservationStructure();
-      doRewiring(numCut, numLink);
+      doRewiring(numRewiring);
     }
     doLearning();
   }
@@ -506,11 +504,13 @@ public class Scenario {
     }
   }
 
-  void doCut() {
-    numCut = 0;
+  void doRewiring() {
+    numRewiring = 0;
+    boolean[] hasNewTie = new boolean[Main.N];
     shuffleFisherYates(focalIndexArray);
     for (int focal : focalIndexArray) {
       if (satisfied[focal] ||
+          hasNewTie[focal] ||
           degreeFlexible[focal] == 0) {
         continue;
       }
@@ -520,9 +520,9 @@ public class Scenario {
       shuffleFisherYates(targetIndexArray);
       for (int target : targetIndexArray) {
         if (networkFlexible[focal][target]) {
-//          if (degree[target] == 1) {
-//            continue;
-//          }
+          if (degree[target] == 1) {
+            continue;
+          }
           if (neighborScore[focal][target] < worstNeighborScore) {
             target2Cut = target;
             worstNeighborScore = neighborScore[focal][target];
@@ -532,35 +532,6 @@ public class Scenario {
       if (target2Cut == -1) {
         continue;
       }
-      // Rewiring tie
-      network[focal][target2Cut] = false;
-      network[target2Cut][focal] = false;
-      networkFlexible[focal][target2Cut] = false;
-      networkFlexible[target2Cut][focal] = false;
-      degree[target2Cut]--;
-      degreeFlexible[target2Cut]--;
-      // Update degree max min range
-      if (degree[target2Cut] > degreeMax) {
-        degreeMax = degree[target2Cut];
-      }
-      if (degree[target2Cut] < degreeMin) {
-        degreeMin = degree[target2Cut];
-      }
-      // Reset Neighborhood Score
-      doEvaluateNeighbor();
-    }
-  }
-
-  void doLink() {
-    numLink = 0;
-    boolean[] hasNewTie = new boolean[Main.N];
-    shuffleFisherYates(focalIndexArray);
-    for (int focal : focalIndexArray) {
-      if (satisfied[focal] ||
-          hasNewTie[focal] ||
-          degree[focal] >= Main.DEGREE_MAX) {
-        continue;
-      }
       //Selection of a new neighbor to connect
       shuffleFisherYates(targetIndexArray);
       for (int target2Link : targetIndexArray) {
@@ -568,12 +539,12 @@ public class Scenario {
             hasNewTie[target2Link] || // If the target already has a new tie
             network[focal][target2Link] || // If the target is already a neighbor of the focal
             !observationStructure[focal][target2Link] || // If the target is outside the observation structure
-            focal == target2Link || // If the target is focal herself
-            degree[target2Link] >= Main.DEGREE_MAX
+            focal == target2Link // If the target is focal herself
         ) {
           continue;
         }
         double target2LinkScore = Double.NaN;
+        boolean[][] networkAlt = new boolean[Main.N][];
         if (isHomophilyOnChar) {
           target2LinkScore = getNeighborScoreHomophilyOnChar(focal, target2Link);
         } else if (isHomophilyOnStat) {
@@ -583,7 +554,7 @@ public class Scenario {
         } else if (isPreferentialAttachment) {
           target2LinkScore = getNeighborScorePreferentialAttachement(focal, target2Link);
         }
-        if (target2LinkScore > neighborhoodScore[focal]) {
+        if (target2LinkScore > worstNeighborScore) {
           //Checking for mutual agreement
           double focalScore = Double.NaN;
           if (isHomophilyOnChar) {
@@ -596,10 +567,16 @@ public class Scenario {
             focalScore = getNeighborScorePreferentialAttachement(target2Link, focal);
           }
           if (focalScore <= neighborhoodScore[target2Link]) {
-            //Potential score of focal is higher than average neighborhoods core
+            //Potential score of focal is equal to or higher than average neighborhoods core
             continue;
           }
           // Rewiring tie
+          network[focal][target2Cut] = false;
+          network[target2Cut][focal] = false;
+          networkFlexible[focal][target2Cut] = false;
+          networkFlexible[target2Cut][focal] = false;
+          degree[target2Cut]--;
+          degreeFlexible[target2Cut]--;
           network[focal][target2Link] = true;
           network[target2Link][focal] = true;
           networkFlexible[focal][target2Link] = true;
@@ -608,13 +585,19 @@ public class Scenario {
           degreeFlexible[target2Link]++;
           hasNewTie[focal] = true;
           hasNewTie[target2Link] = true;
-          numLink++;
+          numRewiring++;
           // Update degree max min range
           if (degree[target2Link] > degreeMax) {
             degreeMax = degree[target2Link];
           }
           if (degree[target2Link] < degreeMin) {
             degreeMin = degree[target2Link];
+          }
+          if (degree[target2Cut] > degreeMax) {
+            degreeMax = degree[target2Cut];
+          }
+          if (degree[target2Cut] < degreeMin) {
+            degreeMin = degree[target2Cut];
           }
           // Reset Neighborhood Score
           doEvaluateNeighbor();
@@ -625,102 +608,62 @@ public class Scenario {
     }
   }
 
-  void doCut(int numCut) {
-    int numCutLeft = numCut;
+  void doRewiring(int numRewiring) {
+    //Random rewiring
+    int numRewiringLeft = numRewiring;
+    boolean[] hasNewTie = new boolean[Main.N];
     shuffleFisherYates(focalIndexArray);
     for (int focal : focalIndexArray) {
-      if (degreeFlexible[focal] == 0) {
+      if (numRewiringLeft == 0) {
+        break;
+      }
+      if (hasNewTie[focal] ||
+          degreeFlexible[focal] == 0) {
         continue;
       }
-      //Selection of a neighbor to be cut out
       int target2Cut = -1;
       shuffleFisherYates(targetIndexArray);
       for (int target : targetIndexArray) {
+        if (degree[target] == 1) {
+          continue;
+        }
         if (networkFlexible[focal][target]) {
-//          if (degree[target] == 1) {
-//            continue;
-//          }
           target2Cut = target;
+          break;
         }
       }
       if (target2Cut == -1) {
         continue;
       }
-      // Rewiring tie
-      numCutLeft--;
-      network[focal][target2Cut] = false;
-      network[target2Cut][focal] = false;
-      networkFlexible[focal][target2Cut] = false;
-      networkFlexible[target2Cut][focal] = false;
-      degree[target2Cut]--;
-      degreeFlexible[target2Cut]--;
-      // Update degree max min range
-      if (degree[target2Cut] > degreeMax) {
-        degreeMax = degree[target2Cut];
-      }
-      if (degree[target2Cut] < degreeMin) {
-        degreeMin = degree[target2Cut];
-      }
-      if (numCutLeft == 0) {
-        break;
-      }
-    }
-  }
-
-  void doLink(int numLink) {
-    int numLinkLeft = numLink;
-    boolean[] hasNewTie = new boolean[Main.N];
-    shuffleFisherYates(focalIndexArray);
-    for (int focal : focalIndexArray) {
-      if (hasNewTie[focal] ||
-          degree[focal] >= Main.DEGREE_MAX) {
-        continue;
-      }
-      //Selection of a new neighbor to connect
       shuffleFisherYates(targetIndexArray);
       for (int target2Link : targetIndexArray) {
-        if (hasNewTie[target2Link] || // If the target already has a new tie
-            network[focal][target2Link] || // If the target is already a neighbor of the focal
+        if (network[focal][target2Link] || // If the target is already a neighbor of the focal
+            hasNewTie[target2Link] || // If the target already has a new tie
             !observationStructure[focal][target2Link] || // If the target is outside the observation structure
-            focal == target2Link || // If the target is focal herself
-            degree[target2Link] >= Main.DEGREE_MAX
+            degree[target2Link] >= Main.MAX_DEGREE ||
+            focal == target2Link // If the target is focal herself
         ) {
           continue;
         }
-        // Rewiring tie
-        network[focal][target2Link] = true;
-        network[target2Link][focal] = true;
-        networkFlexible[focal][target2Link] = true;
-        networkFlexible[target2Link][focal] = true;
-        degree[target2Link]++;
-        degreeFlexible[target2Link]++;
         hasNewTie[focal] = true;
         hasNewTie[target2Link] = true;
-        numLinkLeft--;
-        // Update degree max min range
-        if (degree[target2Link] > degreeMax) {
-          degreeMax = degree[target2Link];
-        }
-        if (degree[target2Link] < degreeMin) {
-          degreeMin = degree[target2Link];
-        }
-        //Occurs at most once for each individual
-        break;
-      }
-      if (numLinkLeft == 0) {
+        // Rewiring tie
+        networkFlexible[focal][target2Cut] = false;
+        networkFlexible[target2Cut][focal] = false;
+        network[focal][target2Cut] = false;
+        network[target2Cut][focal] = false;
+        degreeFlexible[target2Cut]--;
+        degree[target2Cut]--;
+        networkFlexible[focal][target2Link] = true;
+        networkFlexible[target2Link][focal] = true;
+        network[focal][target2Link] = true;
+        network[target2Link][focal] = true;
+        degreeFlexible[target2Link]++;
+        degree[target2Link]++;
+        numRewiringLeft--;
         break;
       }
     }
-  }
-
-  void doRewiring() {
-    doCut();
-    doLink();
-  }
-
-  void doRewiring(int numCut, int numLink) {
-    doCut(numCut);
-    doLink(numLink);
   }
 
   void doLearning() {
