@@ -7,10 +7,10 @@ public class Main {
   static final long TIC = System.currentTimeMillis();
 
   static final boolean GET_GRAPH = true;
-  static final boolean GET_MAT = false;
+  static final boolean GET_MAT = true;
   static final boolean LINK_LEVEL = false;
 
-  static final int ITERATION = 2_000;
+  static final int ITERATION = 1_000;
   static final int TIME = 300 + 1;
   static final int NUM_MECHANISM = 4; // Homophily on Char, on Status, closure, & p-attachment
   static final int OBSERVATION_SCOPE = 3; // >= 2
@@ -46,7 +46,7 @@ public class Main {
 
   static final int[] RESULT_KEY_VALUE = {NUM_MECHANISM, LENGTH_H, LENGTH_SPAN, LENGTH_E, TIME};
 
-  static String RUN_ID = "DABase";
+  static String RUN_ID = "DACost";
   static String FILENAME;
   static String PATH_CSV;
 

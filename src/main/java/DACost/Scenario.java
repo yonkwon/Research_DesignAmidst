@@ -539,6 +539,7 @@ public class Scenario {
             hasNewTie[target2Link] || // If the target already has a new tie
             network[focal][target2Link] || // If the target is already a neighbor of the focal
             !observationStructure[focal][target2Link] || // If the target is outside the observation structure
+            degree[target2Link] >= Main.MAX_DEGREE ||
             focal == target2Link // If the target is focal herself
         ) {
           continue;
