@@ -7,10 +7,10 @@ public class Main {
   static final long TIC = System.currentTimeMillis();
 
   static final boolean GET_GRAPH = true;
-  static final boolean GET_MAT = false;
+  static final boolean GET_MAT = true;
   static final boolean LINK_LEVEL = false;
 
-  static final int ITERATION = 1;
+  static final int ITERATION = 1000;
   static final int TIME = 300 + 1;
   static final int NUM_MECHANISM = 4; // Homophily on Char, on Status, closure, & p-attachment
   static final int OBSERVATION_SCOPE = 5; // >= 2
@@ -36,7 +36,7 @@ public class Main {
   static final double M_N = M * N;
   static final double N_DYAD = N * (N - 1) / 2D;
   static final double M_N_DYAD = M * N_DYAD;
-  static final double NUM_TRIPLET = (double) (N * (N - 1) * (N - 2)) / 6D;
+  static final double N_TRIPLET = (double) (N * (N - 1) * (N - 2)) / 6D;
 
   //Parameters of Hompohily
   static final int L = 1; // Fixed param

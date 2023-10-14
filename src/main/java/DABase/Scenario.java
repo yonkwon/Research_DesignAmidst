@@ -340,7 +340,7 @@ public class Scenario {
     performanceAvg /= Main.M_N;
     disagreementAvg /= Main.M_N_DYAD;
     satisfactionRate /= Main.N;
-    clusteringCoefficient /= Main.NUM_TRIPLET;
+    clusteringCoefficient /= Main.N_TRIPLET;
   }
 
   double getNeighborScoreHomophilyOnChar(int focal, int target) {

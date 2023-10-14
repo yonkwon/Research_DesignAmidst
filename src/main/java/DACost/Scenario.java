@@ -1,5 +1,6 @@
 package DACost;
 
+import DABase.NetworkAnalyzer;
 import java.io.FileWriter;
 import java.io.IOException;
 import jdk.jfr.Description;
@@ -10,6 +11,7 @@ import org.apache.commons.math3.util.FastMath;
 public class Scenario {
 
   RandomGenerator r;
+  NetworkAnalyzer na;
 
   int socialMechanism;
 
@@ -57,7 +59,13 @@ public class Scenario {
   int numRewiring;
   double performanceAvg;
   double disagreementAvg;
-  double clusteringCoefficient;
+
+  double diameter;
+  double averagePathLength;
+  double networkEfficiency;
+  double overallClustering;
+  double overallCentralization;
+
   double satisfactionRate;
 
   Scenario(int socialMechanism, double strength, int span, double enforcement) {
@@ -101,6 +109,7 @@ public class Scenario {
     clone.networkEnforced = new boolean[Main.N][];
     clone.networkFlexible = new boolean[Main.N][];
     clone.network = new boolean[Main.N][];
+    clone.na = new NetworkAnalyzer(clone.network);
 
     clone.degreeEnforced = this.degreeEnforced.clone();
     clone.degreeFlexible = this.degreeFlexible.clone();
@@ -248,6 +257,7 @@ public class Scenario {
       }
     }
 
+    na = new NetworkAnalyzer(network);
     setObservationStructure();
   }
 
@@ -309,7 +319,13 @@ public class Scenario {
     performanceAvg = 0;
     disagreementAvg = 0;
     satisfactionRate = 0;
-    clusteringCoefficient = 0;
+    na.setNetworkMetrics();
+    diameter = na.getDiameter();
+    averagePathLength = na.getAveragePathLength();
+    networkEfficiency = na.getNetworkEfficiency();
+    overallClustering = na.getOverallClustering();
+    overallCentralization = na.getOverallClosenessCentralization();
+
     for (int focal = 0; focal < Main.N; focal++) {
       performanceAvg += performance[focal];
       satisfactionRate += satisfied[focal] ? 1 : 0;
@@ -322,25 +338,9 @@ public class Scenario {
 
       }
     }
-    // Global Clustering Coefficient
-    // https://en.wikipedia.org/wiki/Clustering_coefficient#Global_clustering_coefficient
-    for (int ind1 : focalIndexArray) {
-      for (int ind2 : targetIndexArray) {
-        if (network[ind1][ind2]) {
-          for (int ind3 = 0; ind3 < Main.N; ind3++) {
-            if (network[ind1][ind3] && network[ind2][ind3]
-            ) {
-              //ind 1, 2, 3 are different and form a closed triplet
-              clusteringCoefficient++;
-            }
-          }
-        }
-      }
-    }
     performanceAvg /= Main.M_N;
     disagreementAvg /= Main.M_N_DYAD;
     satisfactionRate /= Main.N;
-    clusteringCoefficient /= Main.NUM_TRIPLET;
   }
 
   double getNeighborScoreHomophilyOnChar(int focal, int target) {

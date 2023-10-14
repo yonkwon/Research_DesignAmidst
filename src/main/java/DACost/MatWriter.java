@@ -48,7 +48,33 @@ class MatWriter {
     Matrix matrixClusteringNRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixClusteringRRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixClusteringRRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
-    
+
+    Matrix matrixCentralizationAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixCentralizationSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixCentralization12AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixCentralization12STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixCentralization23AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixCentralization23STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixCentralization13AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixCentralization13STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixCentralizationNRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixCentralizationNRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixCentralizationRRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixCentralizationRRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+
+    Matrix matrixEfficiencyAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixEfficiencySTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixEfficiency12AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixEfficiency12STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixEfficiency23AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixEfficiency23STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixEfficiency13AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixEfficiency13STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixEfficiencyNRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixEfficiencyNRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixEfficiencyRRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixEfficiencyRRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+
     Matrix matrixSatisfactionAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixSatisfactionSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
@@ -103,7 +129,33 @@ class MatWriter {
               matrixClusteringRRAVG.setDouble(indices, d.clusteringRRAVG[mc][h][b][e][t]);
               matrixClusteringRRSTD.setDouble(indices, d.clusteringRRSTD[mc][h][b][e][t]);
 
-              matrixSatisfactionAVG.setDouble(indices, d.satisfactionAVG[mc][h][b][e][t]);
+              matrixCentralizationAVG.setDouble(indices, d.centralizationAVG[mc][h][b][e][t]);
+              matrixCentralizationSTD.setDouble(indices, d.centralizationSTD[mc][h][b][e][t]);
+              matrixCentralization12AVG.setDouble(indices, d.centralization12AVG[mc][h][b][e][t]);
+              matrixCentralization12STD.setDouble(indices, d.centralization12STD[mc][h][b][e][t]);
+              matrixCentralization23AVG.setDouble(indices, d.centralization23AVG[mc][h][b][e][t]);
+              matrixCentralization23STD.setDouble(indices, d.centralization23STD[mc][h][b][e][t]);
+              matrixCentralization13AVG.setDouble(indices, d.centralization13AVG[mc][h][b][e][t]);
+              matrixCentralization13STD.setDouble(indices, d.centralization13STD[mc][h][b][e][t]);
+              matrixCentralizationNRAVG.setDouble(indices, d.centralizationNRAVG[mc][h][b][e][t]);
+              matrixCentralizationNRSTD.setDouble(indices, d.centralizationNRSTD[mc][h][b][e][t]);
+              matrixCentralizationRRAVG.setDouble(indices, d.centralizationRRAVG[mc][h][b][e][t]);
+              matrixCentralizationRRSTD.setDouble(indices, d.centralizationRRSTD[mc][h][b][e][t]);
+
+              matrixEfficiencyAVG.setDouble(indices, d.efficiencyAVG[mc][h][b][e][t]);
+              matrixEfficiencySTD.setDouble(indices, d.efficiencySTD[mc][h][b][e][t]);
+              matrixEfficiency12AVG.setDouble(indices, d.efficiency12AVG[mc][h][b][e][t]);
+              matrixEfficiency12STD.setDouble(indices, d.efficiency12STD[mc][h][b][e][t]);
+              matrixEfficiency23AVG.setDouble(indices, d.efficiency23AVG[mc][h][b][e][t]);
+              matrixEfficiency23STD.setDouble(indices, d.efficiency23STD[mc][h][b][e][t]);
+              matrixEfficiency13AVG.setDouble(indices, d.efficiency13AVG[mc][h][b][e][t]);
+              matrixEfficiency13STD.setDouble(indices, d.efficiency13STD[mc][h][b][e][t]);
+              matrixEfficiencyNRAVG.setDouble(indices, d.efficiencyNRAVG[mc][h][b][e][t]);
+              matrixEfficiencyNRSTD.setDouble(indices, d.efficiencyNRSTD[mc][h][b][e][t]);
+              matrixEfficiencyRRAVG.setDouble(indices, d.efficiencyRRAVG[mc][h][b][e][t]);
+              matrixEfficiencyRRSTD.setDouble(indices, d.efficiencyRRSTD[mc][h][b][e][t]);
+
+              matrixSatisfactionAVG.setDouble(indices, d.[mc][h][b][e][t]);
               matrixSatisfactionSTD.setDouble(indices, d.satisfactionSTD[mc][h][b][e][t]);
 
               matrixRewiringAVG.setDouble(indices, d.rewiringAVG[mc][h][b][e][t]);
@@ -131,7 +183,6 @@ class MatWriter {
           .addArray("para_iteration", Mat5.newScalar(Main.ITERATION))
           .addArray("para_time", Mat5.newScalar(Main.TIME))
           .addArray("para_o", Mat5.newScalar(Main.OBSERVATION_SCOPE))
-          .addArray("para_degree_max", Mat5.newScalar(Main.MAX_DEGREE))
           .addArray("para_g_mech", Mat5.newScalar(Main.NUM_MECHANISM))
           .addArray("para_n", Mat5.newScalar(Main.N))
           .addArray("para_l", Mat5.newScalar(Main.L))
@@ -185,6 +236,31 @@ class MatWriter {
           .addArray("r_clus_nr_std", matrixClusteringNRSTD)
           .addArray("r_clus_rr_avg", matrixClusteringRRAVG)
           .addArray("r_clus_rr_std", matrixClusteringRRSTD)
+          .addArray("r_cent_avg", matrixCentralizationAVG)
+          .addArray("r_cent_std", matrixCentralizationSTD)
+          .addArray("r_cent_12_avg", matrixCentralization12AVG)
+          .addArray("r_cent_12_std", matrixCentralization12STD)
+          .addArray("r_cent_23_avg", matrixCentralization23AVG)
+          .addArray("r_cent_23_std", matrixCentralization23STD)
+          .addArray("r_cent_13_avg", matrixCentralization13AVG)
+          .addArray("r_cent_13_std", matrixCentralization13STD)
+          .addArray("r_cent_nr_avg", matrixCentralizationNRAVG)
+          .addArray("r_cent_nr_std", matrixCentralizationNRSTD)
+          .addArray("r_cent_rr_avg", matrixCentralizationRRAVG)
+          .addArray("r_cent_rr_std", matrixCentralizationRRSTD)
+          .addArray("r_effi_avg", matrixEfficiencyAVG)
+          .addArray("r_effi_std", matrixEfficiencySTD)
+          .addArray("r_effi_12_avg", matrixEfficiency12AVG)
+          .addArray("r_effi_12_std", matrixEfficiency12STD)
+          .addArray("r_effi_23_avg", matrixEfficiency23AVG)
+          .addArray("r_effi_23_std", matrixEfficiency23STD)
+          .addArray("r_effi_13_avg", matrixEfficiency13AVG)
+          .addArray("r_effi_13_std", matrixEfficiency13STD)
+          .addArray("r_effi_nr_avg", matrixEfficiencyNRAVG)
+          .addArray("r_effi_nr_std", matrixEfficiencyNRSTD)
+          .addArray("r_effi_rr_avg", matrixEfficiencyRRAVG)
+          .addArray("r_effi_rr_std", matrixEfficiencyRRSTD)
+
           .addArray("r_sati_avg", matrixSatisfactionAVG)
           .addArray("r_sati_std", matrixSatisfactionSTD)
           .addArray("r_rewi_avg", matrixRewiringAVG)

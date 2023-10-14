@@ -34,10 +34,10 @@ public class Main {
 
   static final double P_LEARNING = .25;
 
+  static final double N_DYAD = N * (N - 1D) / 2D;
   static final double M_N = M * N;
-  static final double N_DYAD = N * (N - 1) / 2D;
   static final double M_N_DYAD = M * N_DYAD;
-  static final double NUM_TRIPLET = (double) (N * (N - 1) * (N - 2)) / 6D;
+  static final double N_TRIPLET = (double) (N * (N - 1D) * (N - 2D)) / 6D;
 
   //Parameters of Hompohily
   static final int L = 1; // Fixed param

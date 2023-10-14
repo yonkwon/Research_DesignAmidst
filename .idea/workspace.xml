@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Cost-to-Link model variant, Cut-and-link to rewire">
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] A logical error in DACost variant - doRewiring() function ignores MAX_DEGREE param.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/DABase/NetworkAnalyzer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DACost/NetworkAnalyzer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DABase/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DABase/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DABase/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DABase/Scenario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DACost/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DACost/Computation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DACost/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DACost/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DACost/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DACost/MatWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DACost/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DACost/Scenario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,6 +39,13 @@
         </projects_view>
       </state>
     </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <excluded-from-favorite>
@@ -117,8 +130,11 @@
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java" />
       <recent name="C:\Users\Yongha\Dropbox\Research\HomophilyAndDesign\src\main\java\HPClosure" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="DACost" />
+    </key>
   </component>
-  <component name="RunManager" selected="Application.DACost.Main">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="DAAlt.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DAAlt.Main" />
       <module name="DesignAmidst.main" />
@@ -517,11 +533,18 @@
       <option name="project" value="LOCAL" />
       <updated>1696163814944</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="[Fix] A logical error in DACost variant - doRewiring() function ignores MAX_DEGREE param.">
+      <option name="closed" value="true" />
+      <created>1696219209221</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1696219209221</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Merge remote-tracking branch 'origin/master'" />
     <MESSAGE value="[Add] A new variant: HPDegree" />
     <MESSAGE value="[Fix] Rewiring based on observation structure" />
     <MESSAGE value="[Add] A variant: HPClosure" />
@@ -546,6 +569,7 @@
     <MESSAGE value="[Add] Homophily based on status (hierarchy level)" />
     <MESSAGE value="[Add] Cost-to-Link model variant" />
     <MESSAGE value="[Fix] Cost-to-Link model variant, Cut-and-link to rewire" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Cost-to-Link model variant, Cut-and-link to rewire" />
+    <MESSAGE value="[Fix] A logical error in DACost variant - doRewiring() function ignores MAX_DEGREE param." />
+    <option name="LAST_COMMIT_MESSAGE" value="[Fix] A logical error in DACost variant - doRewiring() function ignores MAX_DEGREE param." />
   </component>
 </project>
