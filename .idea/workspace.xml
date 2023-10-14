@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] A logical error in DACost variant - doRewiring() function ignores MAX_DEGREE param.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/DABase/NetworkAnalyzer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DACost/NetworkAnalyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DABase/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DABase/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DABase/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DABase/Scenario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DACost/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DACost/Computation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DACost/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DACost/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DACost/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DACost/MatWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DACost/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DACost/Scenario.java" afterDir="false" />
-    </list>
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Add] Network metrics - centralization, efficiency, etc." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -541,11 +531,18 @@
       <option name="project" value="LOCAL" />
       <updated>1696219209221</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="[Add] Network metrics - centralization, efficiency, etc.">
+      <option name="closed" value="true" />
+      <created>1697252940652</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1697252940652</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Add] A new variant: HPDegree" />
     <MESSAGE value="[Fix] Rewiring based on observation structure" />
     <MESSAGE value="[Add] A variant: HPClosure" />
     <MESSAGE value="[Fix] Global clustering coefficient" />
@@ -570,6 +567,7 @@
     <MESSAGE value="[Add] Cost-to-Link model variant" />
     <MESSAGE value="[Fix] Cost-to-Link model variant, Cut-and-link to rewire" />
     <MESSAGE value="[Fix] A logical error in DACost variant - doRewiring() function ignores MAX_DEGREE param." />
-    <option name="LAST_COMMIT_MESSAGE" value="[Fix] A logical error in DACost variant - doRewiring() function ignores MAX_DEGREE param." />
+    <MESSAGE value="[Add] Network metrics - centralization, efficiency, etc." />
+    <option name="LAST_COMMIT_MESSAGE" value="[Add] Network metrics - centralization, efficiency, etc." />
   </component>
 </project>
