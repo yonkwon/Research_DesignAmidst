@@ -155,7 +155,7 @@ class MatWriter {
               matrixEfficiencyRRAVG.setDouble(indices, d.efficiencyRRAVG[mc][h][b][e][t]);
               matrixEfficiencyRRSTD.setDouble(indices, d.efficiencyRRSTD[mc][h][b][e][t]);
 
-              matrixSatisfactionAVG.setDouble(indices, d.[mc][h][b][e][t]);
+              matrixSatisfactionAVG.setDouble(indices, d.satisfactionAVG[mc][h][b][e][t]);
               matrixSatisfactionSTD.setDouble(indices, d.satisfactionSTD[mc][h][b][e][t]);
 
               matrixRewiringAVG.setDouble(indices, d.rewiringAVG[mc][h][b][e][t]);

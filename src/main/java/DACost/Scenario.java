@@ -363,8 +363,12 @@ public class Scenario {
       if (focal == i || target == i) {
         continue;
       }
-      if (network[focal][i] && network[i][target]) {
+      if (network[focal][i] && network[target][i]) {
         neighborScore++;
+//        System.out.println(
+//            focal+ " " + target + " to " + i +
+//            network[focal][i] + " " + network[target][i] + " -> "+ neighborScore
+//        );
       }
     }
     return neighborScore / (double) degree[focal];
@@ -376,7 +380,7 @@ public class Scenario {
       if (focal == i || target == i) {
         continue;
       }
-      if (network[focal][i] && network[i][target]) {
+      if (network[focal][i] && network[target][i]) {
         neighborScore++;
       }
     }
