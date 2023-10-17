@@ -367,7 +367,7 @@ public class Scenario {
         neighborScore++;
       }
     }
-    return neighborScore / (double) degree[focal];
+    return neighborScore / (double) (degree[focal] - 1D);
   }
 
   double getNeighborScoreNetworkClosure(int focal, int target, boolean[][] network) {
@@ -380,7 +380,7 @@ public class Scenario {
         neighborScore++;
       }
     }
-    return neighborScore / (double) degree[focal];
+    return neighborScore / (double) (degree[focal] - 1D);
   }
 
   double getNeighborScorePreferentialAttachement(int focal, int target) {
