@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] An error in homophily on status logic - it was working in the opposite direction">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DACost/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DACost/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DACost/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DACost/MatWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DACost/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DACost/Scenario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,21 +99,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DACost&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "android.gradle.sync.needed": "true",
+    "git-widget-placeholder": "develop",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DACost",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.sourceCode.Kotlin"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DACost" />
@@ -129,34 +127,8 @@
       <recent name="DACost" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.DACost.Main">
-    <configuration name="DAAlt.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DAAlt.Main" />
-      <module name="DesignAmidst.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="DAAlt.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DAAlternative.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DAAlternative.Main" />
-      <module name="DesignAmidst.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="DAAlternative.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DACost.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DACost.Main" />
       <module name="DesignAmidst.main" />
       <extension name="coverage">
@@ -169,24 +141,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DABase.Main" />
-      <module name="DesignAmidst.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="DABase.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.DACost.Main" />
-        <item itemvalue="Application.DAAlternative.Main" />
-        <item itemvalue="Application.DAAlt.Main" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -560,11 +516,18 @@
       <option name="project" value="LOCAL" />
       <updated>1697516792574</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="[Misc]">
+      <option name="closed" value="true" />
+      <created>1697527177369</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1697527177369</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Add] A variant: HPClosure" />
     <MESSAGE value="[Fix] Global clustering coefficient" />
     <MESSAGE value="[Fix] Unsync performance arrays of parallel scenarios" />
     <MESSAGE value="[Fix] Error that the interaction pattern was changing in the opposite direction of network closure" />
@@ -589,6 +552,11 @@
     <MESSAGE value="[Fix] A logical error in DACost variant - doRewiring() function ignores MAX_DEGREE param." />
     <MESSAGE value="[Add] Network metrics - centralization, efficiency, etc." />
     <MESSAGE value="[Fix] An error in homophily on status logic - it was working in the opposite direction" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Fix] An error in homophily on status logic - it was working in the opposite direction" />
+    <MESSAGE value="[Misc]" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Misc]" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

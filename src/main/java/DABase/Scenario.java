@@ -562,8 +562,8 @@ public class Scenario {
           } else if (isPreferentialAttachment) {
             focalScore = getNeighborScorePreferentialAttachement(target2Link, focal);
           }
-          if (focalScore <= neighborhoodScore[target2Link]) {
-            //Potential score of focal is equal to or higher than average neighborhoods core
+          if (focalScore < neighborhoodScore[target2Link]) {
+            //Potential score of focal is higher than average neighborhoods core
             continue;
           }
           // Rewiring tie
