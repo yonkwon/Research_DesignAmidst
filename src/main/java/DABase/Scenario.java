@@ -388,40 +388,40 @@ public class Scenario {
   }
 
   void doEvaluateNeighbor() {
-    neighborScore = new double[Main.N][Main.N];
-    neighborhoodScore = new double[Main.N];
+    neighborScore = new double[DACost.Main.N][DACost.Main.N];
+    neighborhoodScore = new double[DACost.Main.N];
     if (isHomophilyOnChar) {
       for (int focal : focalIndexArray) {
-        for (int target = focal; target < Main.N; target++) {
+        for (int target = focal; target < DACost.Main.N; target++) {
           if (!network[focal][target]) {
             continue;
           }
           neighborScore[focal][target] = getNeighborScoreHomophilyOnChar(focal, target);
-          neighborScore[focal][target] = neighborScore[target][focal];
+          neighborScore[target][focal] = neighborScore[focal][target];
           neighborhoodScore[focal] += neighborScore[focal][target];
           neighborhoodScore[target] += neighborScore[target][focal];
         }
       }
     } else if (isHomophilyOnStat) {
       for (int focal : focalIndexArray) {
-        for (int target = focal; target < Main.N; target++) {
+        for (int target = focal; target < DACost.Main.N; target++) {
           if (!network[focal][target]) {
             continue;
           }
           neighborScore[focal][target] = getNeighborScoreHomophilyOnStatus(focal, target);
-          neighborScore[focal][target] = neighborScore[target][focal];
+          neighborScore[target][focal] = neighborScore[focal][target];
           neighborhoodScore[focal] += neighborScore[focal][target];
           neighborhoodScore[target] += neighborScore[target][focal];
         }
       }
     } else if (isNetworkClosure) {
       for (int focal : focalIndexArray) {
-        for (int target = focal; target < Main.N; target++) {
+        for (int target = focal; target < DACost.Main.N; target++) {
           if (!network[focal][target]) {
             continue;
           }
           neighborScore[focal][target] = getNeighborScoreNetworkClosure(focal, target);
-          neighborScore[focal][target] = neighborScore[focal][target] * (degree[focal] - 1) / (degree[target] - 1);
+          neighborScore[target][focal] = neighborScore[focal][target] * (degree[focal] - 1) / (degree[target] - 1);
           neighborhoodScore[focal] += neighborScore[focal][target];
           neighborhoodScore[target] += neighborScore[target][focal];
         }
@@ -429,7 +429,7 @@ public class Scenario {
     } else if (isPreferentialAttachment) {
       degreeMax = neighborhoodScore[0];
       degreeMin = neighborhoodScore[0];
-      for (int focal = 1; focal < Main.N; focal++) {
+      for (int focal = 1; focal < DACost.Main.N; focal++) {
         if (neighborhoodScore[focal] > degreeMax) {
           degreeMax = neighborhoodScore[focal];
         } else if (neighborhoodScore[focal] < degreeMin) {
@@ -448,7 +448,7 @@ public class Scenario {
         }
       }
     }
-    for (int focal = 0; focal < Main.N; focal++) {
+    for (int focal = 0; focal < DACost.Main.N; focal++) {
       neighborhoodScore[focal] /= (double) degree[focal];
       // Neighborhood score is higher than desired score = strength
       satisfied[focal] = neighborhoodScore[focal] >= strength;

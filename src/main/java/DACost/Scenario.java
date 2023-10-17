@@ -401,7 +401,7 @@ public class Scenario {
             continue;
           }
           neighborScore[focal][target] = getNeighborScoreHomophilyOnChar(focal, target);
-          neighborScore[focal][target] = neighborScore[target][focal];
+          neighborScore[target][focal] = neighborScore[focal][target];
           neighborhoodScore[focal] += neighborScore[focal][target];
           neighborhoodScore[target] += neighborScore[target][focal];
         }
@@ -413,7 +413,7 @@ public class Scenario {
             continue;
           }
           neighborScore[focal][target] = getNeighborScoreHomophilyOnStatus(focal, target);
-          neighborScore[focal][target] = neighborScore[target][focal];
+          neighborScore[target][focal] = neighborScore[focal][target];
           neighborhoodScore[focal] += neighborScore[focal][target];
           neighborhoodScore[target] += neighborScore[target][focal];
         }
@@ -425,7 +425,7 @@ public class Scenario {
             continue;
           }
           neighborScore[focal][target] = getNeighborScoreNetworkClosure(focal, target);
-          neighborScore[focal][target] = neighborScore[focal][target] * (degree[focal] - 1) / (degree[target] - 1);
+          neighborScore[target][focal] = neighborScore[focal][target] * (degree[focal] - 1) / (degree[target] - 1);
           neighborhoodScore[focal] += neighborScore[focal][target];
           neighborhoodScore[target] += neighborScore[target][focal];
         }

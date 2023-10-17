@@ -7,10 +7,10 @@ public class Main {
   static final long TIC = System.currentTimeMillis();
 
   static final boolean GET_GRAPH = true;
-  static final boolean GET_MAT = true;
+  static final boolean GET_MAT = false;
   static final boolean LINK_LEVEL = false;
 
-  static final int ITERATION = 1_000;
+  static final int ITERATION = 1;
   static final int TIME = 300 + 1;
   static final int NUM_MECHANISM = 4; // Homophily on Char, on Status, closure, & p-attachment
   static final int OBSERVATION_SCOPE = 3; // >= 2

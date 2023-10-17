@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] An error in homophily on status logic - it was working in the opposite direction">
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Mutual agreement logic. Focal individual's score has to be higher and only higher than the target's neighborhood score">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DACost/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DACost/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,22 +100,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "android.gradle.sync.needed": "true",
-    "git-widget-placeholder": "develop",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DACost",
-    "project.structure.last.edited": "Problems",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.sourceCode.Kotlin"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DACost&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.Kotlin&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DACost" />
@@ -524,11 +525,18 @@
       <option name="project" value="LOCAL" />
       <updated>1697527177369</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="[Fix] Mutual agreement logic. Focal individual's score has to be higher and only higher than the target's neighborhood score">
+      <option name="closed" value="true" />
+      <created>1697528315545</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1697528315545</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Fix] Global clustering coefficient" />
     <MESSAGE value="[Fix] Unsync performance arrays of parallel scenarios" />
     <MESSAGE value="[Fix] Error that the interaction pattern was changing in the opposite direction of network closure" />
     <MESSAGE value="[Fix] Parameter C(losuure) as rewiring probability" />
@@ -553,7 +561,8 @@
     <MESSAGE value="[Add] Network metrics - centralization, efficiency, etc." />
     <MESSAGE value="[Fix] An error in homophily on status logic - it was working in the opposite direction" />
     <MESSAGE value="[Misc]" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Misc]" />
+    <MESSAGE value="[Fix] Mutual agreement logic. Focal individual's score has to be higher and only higher than the target's neighborhood score" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Mutual agreement logic. Focal individual's score has to be higher and only higher than the target's neighborhood score" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
