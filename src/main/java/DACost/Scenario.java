@@ -354,11 +354,7 @@ public class Scenario {
   }
 
   double getNeighborScoreHomophilyOnStatus(int focal, int target) {
-    double neighborScore = FastMath.abs(levelOf[focal] - levelOf[target]) / levelMax;
-    if (neighborScore > 1) {
-      System.out.println("WARNING: NS over 1");
-    }
-    return neighborScore;
+    return 1D - FastMath.abs(levelOf[focal] - levelOf[target]) / levelMax;
   }
 
   double getNeighborScoreNetworkClosure(int focal, int target) {
