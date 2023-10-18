@@ -481,22 +481,26 @@ public class Scenario {
   void setObservationStructure() {
     //Revised with matrix multiplication - Test its validity
     observationStructure = new boolean[Main.N][];
-    boolean[][] networkInDegree = new boolean[Main.N][];
+    boolean[][] networkInDegreeLeft = new boolean[Main.N][];
+    boolean[][] networkInDegreeRight;
     for (int focal = 0; focal < Main.N; focal++) {
-      networkInDegree[focal] = network[focal].clone();
+      networkInDegreeLeft[focal] = network[focal].clone();
       observationStructure[focal] = network[focal].clone();
     }
     for (int d = 1; d < observationScope; d++) { // Degree
+      networkInDegreeRight = new boolean[Main.N][Main.N];
       for (int row = 0; row < Main.N; row++) {
         for (int col = 0; col < Main.N; col++) {
           for (int i = 0; i < Main.N; i++) {
-            networkInDegree[row][col] = networkInDegree[row][i] && network[i][col];
-            if (networkInDegree[row][col]) {
+            if( networkInDegreeLeft[row][i] && network[i][col] ){
+              networkInDegreeRight[row][col] = true;
               observationStructure[row][col] = true;
+              break;
             }
           }
         }
       }
+      networkInDegreeLeft = networkInDegreeRight;
     }
   }
 
