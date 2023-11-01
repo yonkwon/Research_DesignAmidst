@@ -7,21 +7,25 @@ public class Main {
   static final long TIC = System.currentTimeMillis();
 
   static final boolean GET_GRAPH = true;
-  static final boolean GET_MAT = false;
+  static final boolean GET_MAT = true;
   static final boolean LINK_LEVEL = false;
 
-  static final int ITERATION = 1;
-  static final int TIME = 10 + 1;
+  static final int ITERATION = 1_000;
+  static final int TIME = 300 + 1;
+
+//  static final int ITERATION = 1;
+//  static final int TIME = 5 + 1;
+
   static final int NUM_MECHANISM = 4; // Homophily on Char, on Status, closure, & p-attachment
   static final int OBSERVATION_SCOPE = 3; // >= 2
 //  static final int MAX_DEGREE = 5; // >= 2
   static final int MAX_DEGREE = Integer.MAX_VALUE; // >= 2
 
-//  static final int N = 200;
-//  static final int[] SPAN = {2, 5, 8, 11, 14, 17, 20};
+  static final int N = 200;
+  static final int[] SPAN = {2, 5, 8, 11, 14, 17, 20};
 //  static final int[] SPAN = {2, 20};
-  static final int N = 20;
-  static final int[] SPAN = {3};
+//  static final int N = 20;
+//  static final int[] SPAN = {2};
   static final int LENGTH_SPAN = SPAN.length;
 
   static final int M_OF_BUNDLE = 10;

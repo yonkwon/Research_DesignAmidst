@@ -1,5 +1,7 @@
 package DACost;
 
+import java.util.Arrays;
+
 public class NetworkAnalyzer {
 
   // Pen-and-paper solution:
@@ -55,21 +57,31 @@ public class NetworkAnalyzer {
     //https://bard.google.com/chat/acb7fceb30ea4ef0
     shortestDistance = new int[Main.N][Main.N];
     for (int i = 0; i < Main.N; i++) {
-      shortestDistance[i][i] = 0;
-    }
-    for (int i = 0; i < Main.N; i++) {
       for (int j = 0; j < Main.N; j++) {
         if (network2Analyze[i][j]) {
           shortestDistance[i][j] = 1;
+        } else {
+          shortestDistance[i][j] = Main.N; // Impossible distance
+          //Do not try to work with it 0 = INF.
         }
       }
+      shortestDistance[i][i] = 0; // Do not delete this line
     }
+
     for (int k = 0; k < Main.N; k++) {
       for (int i = 0; i < Main.N; i++) {
         for (int j = 0; j < Main.N; j++) {
           if (shortestDistance[i][k] + shortestDistance[k][j] < shortestDistance[i][j]) {
             shortestDistance[i][j] = shortestDistance[i][k] + shortestDistance[k][j];
           }
+        }
+      }
+    }
+
+    for (int i = 0; i < Main.N; i++) {
+      for (int j = 0; j < Main.N; j++) {
+        if (shortestDistance[i][j] == Main.N) {
+          shortestDistance[i][j] = 0;
         }
       }
     }
@@ -93,7 +105,7 @@ public class NetworkAnalyzer {
             diameter = d;
           }
           averagePathLength += d;
-          if (d > 0) { // inverseD = 0 otherwise
+          if (d > 0) { // Self or disconnected
             double inverseD = 1D / (double) d;
             networkEfficiency += inverseD;
             closenessCentrality[i] += inverseD;
@@ -120,6 +132,7 @@ public class NetworkAnalyzer {
         }
       }
     }
+
     overallClosenessCentralization += closenessCentralityMax * (double) Main.N;
     overallClosenessCentralization /= CLOSENESS_CENTRALIZATION_DENOMINATOR;
     overallClustering = (double) overallClusteringNumerator / (double) overallClusteringDenominator;

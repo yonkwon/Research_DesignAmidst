@@ -553,7 +553,6 @@ public class Scenario {
         if (isHomophilyOnChar) {
           target2LinkScore = getNeighborScoreHomophilyOnChar(focal, target2Link);
         } else if (isHomophilyOnStat) {
-          System.out.println(focal+" - "+target2Link + " = " + levelOf[focal]+ " to " + levelOf[target2Link] + " @"+ (levelOf[focal]-levelOf[target2Link])+ "\t#"+ getNeighborScoreHomophilyOnStatus(focal, target2Link) );
           target2LinkScore = getNeighborScoreHomophilyOnStatus(focal, target2Link);
         } else if (isNetworkClosure) {
           target2LinkScore = getNeighborScoreNetworkClosure(focal, target2Link);
