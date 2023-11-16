@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Observation structure">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix]  Errors in Network analyzer shortest path algorithm">
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAFormation/Computation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAFormation/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAFormation/MatWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAFormation/NetworkAnalyzer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAFormation/ProgressBar.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAFormation/Scenario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DACost/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DACost/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DACost/NetworkAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DACost/NetworkAnalyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DACost/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DACost/Scenario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,10 +112,9 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "android.gradle.sync.needed": "true",
     "git-widget-placeholder": "develop",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Yongha/Dropbox/Gradle/gradle-8.4/bin",
+    "last_opened_file_path": "C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DAFormation",
     "project.structure.last.edited": "Problems",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -121,11 +123,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAFormation" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DACost" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAAlternative" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAAlt" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java" />
-      <recent name="C:\Users\Yongha\Dropbox\Research\HomophilyAndDesign\src\main\java\HPClosure" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="DACost" />
@@ -159,14 +161,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/HPBaseline/Computation.java&#10;#&#9;src/main/java/HPBaseline/Decomposition.java&#10;#&#9;src/main/java/HPBaseline/Main.java&#10;#&#9;src/main/java/HPBaseline/MatWriter.java&#10;#&#9;src/main/java/HPBaseline/Scenario.java">
-      <option name="closed" value="true" />
-      <created>1693270606242</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1693270606242</updated>
     </task>
     <task id="LOCAL-00004" summary="Trivial fix">
       <option name="closed" value="true" />
@@ -552,11 +546,18 @@
       <option name="project" value="LOCAL" />
       <updated>1697591506790</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="[Fix]  Errors in Network analyzer shortest path algorithm">
+      <option name="closed" value="true" />
+      <created>1698869282783</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1698869282783</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Fix] Filename for Beta run &amp; Theta run" />
     <MESSAGE value="[Fix] Observation structure set BEFORE rewiring" />
     <MESSAGE value="Merge pull request #1 from yonkwon/develop&#10;&#10;Develop" />
     <MESSAGE value="Trivial Fixes" />
@@ -581,7 +582,8 @@
     <MESSAGE value="[Fix] doEvaluateNeighbor logic. f(score[focal][target]) -&gt; score[target][focal]" />
     <MESSAGE value="[Fix] return neighborScore / (double) (degree[focal] - 1D);" />
     <MESSAGE value="[Fix] Observation structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Observation structure" />
+    <MESSAGE value="[Fix]  Errors in Network analyzer shortest path algorithm" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Fix]  Errors in Network analyzer shortest path algorithm" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
