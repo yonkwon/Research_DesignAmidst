@@ -28,7 +28,6 @@ public class Scenario {
 
   double strength;      //Strength of social behavior
   int span;          //Span of control
-  double enforcement;   //E
 
   boolean[] reality;
   int[] realityBundleID;
@@ -40,12 +39,12 @@ public class Scenario {
   int[] levelOf;
   double levelRange;
   boolean[][] network;
-  boolean[][] networkEnforced;
-  boolean[][] networkFlexible;
+  boolean[][] networkFormal;
+  boolean[][] networkInformal;
   boolean[][] observationStructure;
   int[] degree;
-  int[] degreeEnforced;
-  int[] degreeFlexible;
+  int[] degreeFormal;
+  int[] degreeInformal;
   double[][] differenceOf;
   double[] differenceSum;
 
@@ -67,7 +66,7 @@ public class Scenario {
 
   double satisfactionRate;
 
-  Scenario(int socialMechanism, double strength, int span, double enforcement) {
+  Scenario(int socialMechanism, double strength, int span) {
     r = new MersenneTwister();
 
     this.socialMechanism = socialMechanism;
@@ -86,7 +85,6 @@ public class Scenario {
 
     this.strength = strength;
     this.span = span;
-    this.enforcement = enforcement;
 
     this.observationScope = Main.OBSERVATION_SCOPE;
 
@@ -97,7 +95,7 @@ public class Scenario {
   }
 
   public Scenario getClone() {
-    Scenario clone = new Scenario(this.socialMechanism, this.strength, this.span, this.enforcement);
+    Scenario clone = new Scenario(this.socialMechanism, this.strength, this.span);
 
     clone.reality = this.reality.clone();
     clone.realityBundleID = this.realityBundleID.clone();
@@ -105,13 +103,13 @@ public class Scenario {
     clone.typeOf = new boolean[Main.N][];
     clone.performance = this.performance.clone();
 
-    clone.networkEnforced = new boolean[Main.N][];
-    clone.networkFlexible = new boolean[Main.N][];
+    clone.networkFormal = new boolean[Main.N][];
+    clone.networkInformal = new boolean[Main.N][];
     clone.network = new boolean[Main.N][];
     clone.na = new NetworkAnalyzer(clone.network);
 
-    clone.degreeEnforced = this.degreeEnforced.clone();
-    clone.degreeFlexible = this.degreeFlexible.clone();
+    clone.degreeFormal = this.degreeFormal.clone();
+    clone.degreeInformal = this.degreeInformal.clone();
     clone.degree = this.degree.clone();
 
     clone.differenceOf = new double[Main.N][];
@@ -127,8 +125,8 @@ public class Scenario {
       clone.beliefOf[focal] = this.beliefOf[focal].clone();
       clone.typeOf[focal] = this.typeOf[focal].clone();
 
-      clone.networkEnforced[focal] = this.networkEnforced[focal].clone();
-      clone.networkFlexible[focal] = this.networkFlexible[focal].clone();
+      clone.networkFormal[focal] = this.networkFormal[focal].clone();
+      clone.networkInformal[focal] = this.networkInformal[focal].clone();
       clone.network[focal] = this.network[focal].clone();
 
       clone.differenceOf[focal] = this.differenceOf[focal].clone();
@@ -160,13 +158,13 @@ public class Scenario {
   }
 
   private void initializeNetwork() {
-    networkEnforced = new boolean[Main.N][Main.N];
-    networkFlexible = new boolean[Main.N][Main.N];
     network = new boolean[Main.N][Main.N];
+    networkFormal = new boolean[Main.N][Main.N];
+    networkInformal = new boolean[Main.N][Main.N];
     levelOf = new int[Main.N];
 
-    degreeEnforced = new int[Main.N];
-    degreeFlexible = new int[Main.N];
+    degreeFormal = new int[Main.N];
+    degreeInformal = new int[Main.N];
     degree = new int[Main.N];
 
     int upperStart = 0;
@@ -181,8 +179,12 @@ public class Scenario {
         for (int lower = lowerStart; lower < lowerEnd; lower++) {
           network[upper][lower] = true;
           network[lower][upper] = true;
+          networkFormal[upper][lower] = true;
+          networkFormal[lower][upper] = true;
           degree[upper]++;
           degree[lower]++;
+          degreeFormal[upper]++;
+          degreeFormal[lower]++;
         }
         if (Main.LINK_LEVEL) {
           int lowerNum = lowerEnd - lowerStart;
@@ -197,8 +199,12 @@ public class Scenario {
             }
             network[focal][target] = true;
             network[target][focal] = true;
+            networkFormal[focal][target] = true;
+            networkFormal[target][focal] = true;
             degree[focal]++;
             degree[target]++;
+            degreeFormal[focal]++;
+            degreeFormal[target]++;
           }
         }
         lowerStart = lowerEnd;
@@ -225,37 +231,6 @@ public class Scenario {
       levelNow++;
     }
     levelRange -= levelOf[0];
-
-    //Print the graph for visualization
-//    System.out.println("Network Visualization: Span " + span);
-//    for (int i = 0; i < Main.N; i++) {
-//      System.out.print(i + " lv. " + levelOf[i] + " dg. " + degree[i] + ":\t");
-//      for (int j = 0; j < Main.N; j++) {
-//        System.out.print(network[i][j] ? "1 " : "0 ");
-//      }
-//      System.out.println();
-//    }
-
-    //Tie Enforcement
-    for (int focal = 0; focal < Main.N; focal++) {
-      for (int target = focal; target < Main.N; target++) {
-        if (network[focal][target]) {
-          if (r.nextDouble() < enforcement) { // This choice has little effect on the result
-            //Enforced
-            networkEnforced[focal][target] = true;
-            networkEnforced[target][focal] = true;
-            degreeEnforced[focal]++;
-            degreeEnforced[target]++;
-          } else {
-            //Flexible
-            networkFlexible[focal][target] = true;
-            networkFlexible[target][focal] = true;
-            degreeFlexible[focal]++;
-            degreeFlexible[target]++;
-          }
-        }
-      }
-    }
 
     na = new NetworkAnalyzer(network);
     setObservationStructure();
@@ -564,10 +539,10 @@ public class Scenario {
         // Forming tie
         network[focal][target] = true;
         network[target][focal] = true;
-        networkFlexible[focal][target] = true;
-        networkFlexible[target][focal] = true;
+        networkInformal[focal][target] = true;
+        networkInformal[target][focal] = true;
         degree[target]++;
-        degreeFlexible[target]++;
+        degreeInformal[target]++;
         hasNewTie[focal] = true;
         hasNewTie[target] = true;
         numFormation++;
@@ -618,11 +593,11 @@ public class Scenario {
         hasNewTie[focal] = true;
         hasNewTie[target] = true;
         // Forming tie
-        networkFlexible[focal][target] = true;
-        networkFlexible[target][focal] = true;
+        networkInformal[focal][target] = true;
+        networkInformal[target][focal] = true;
         network[focal][target] = true;
         network[target][focal] = true;
-        degreeFlexible[target]++;
+        degreeInformal[target]++;
         degree[target]++;
         numFormationLeft--;
         break;
@@ -733,7 +708,7 @@ public class Scenario {
             }
 
 //            csvWriter.append("TIE_ENFORCED");
-            csvWriter.append(Boolean.toString(networkEnforced[focal][target]));
+            csvWriter.append(Boolean.toString(networkFormal[focal][target]));
             csvWriter.append(",");
 
 //            csvWriter.append("L");

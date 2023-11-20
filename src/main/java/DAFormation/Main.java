@@ -17,11 +17,11 @@ public class Main {
 //  static final int TIME = 5 + 1;
 
   static final int NUM_MECHANISM = 4; // Homophily on Char, on Status, closure, & p-attachment
-  static final int OBSERVATION_SCOPE = 3; // >= 2
+  static final int OBSERVATION_SCOPE = 4; // >= 2
   static final int MAX_DEGREE = 5; // >= 2
 
-  static final int N = 200;
-  static final int[] SPAN = {2, 5, 8, 11, 14, 17, 20};
+  static final int N = 100;
+  static final int[] SPAN = {2, 4, 6, 8, 10, N-1};
 //  static final int[] SPAN = {2, 20};
 //  static final int N = 20;
 //  static final int[] SPAN = {2};
@@ -33,9 +33,6 @@ public class Main {
 
   static final double[] H = {1};
   static final int LENGTH_H = H.length;
-
-  static final double[] E = {.25, .75};
-  static final int LENGTH_E = E.length;
 
   static final double P_LEARNING = .25;
 
@@ -49,7 +46,7 @@ public class Main {
   static final double WEIGHT_ON_CHARACTERISTIC = 1D;
   static final double WEIGHT_ON_BELIEF = 1D - WEIGHT_ON_CHARACTERISTIC;
 
-  static final int[] RESULT_KEY_VALUE = {NUM_MECHANISM, LENGTH_H, LENGTH_SPAN, LENGTH_E, TIME};
+  static final int[] RESULT_KEY_VALUE = {NUM_MECHANISM, LENGTH_H, LENGTH_SPAN, TIME};
 
   static String RUN_ID = "DAFormation";
   static String FILENAME;
@@ -82,7 +79,6 @@ public class Main {
         "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE +
         "H" + LENGTH_H +
         "S" + LENGTH_SPAN +
-        "E" + LENGTH_E +
         "P" + P_LEARNING;
     PATH_CSV = new File(".").getAbsolutePath() + "\\" + FILENAME + "\\";
   }

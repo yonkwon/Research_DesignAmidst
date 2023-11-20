@@ -87,83 +87,81 @@ class MatWriter {
     for (int mc = 0; mc < Main.NUM_MECHANISM; mc++) {
       for (int h = 0; h < Main.LENGTH_H; h++) {
         for (int b = 0; b < Main.LENGTH_SPAN; b++) {
-          for (int e = 0; e < Main.LENGTH_E; e++) {
-            for (int t = 0; t < Main.TIME; t++) {
-              int[] indices = {mc, h, b, e, t};
-              matrixPerformanceAVG.setDouble(indices, d.performanceAVG[mc][h][b][e][t]);
-              matrixPerformanceSTD.setDouble(indices, d.performanceSTD[mc][h][b][e][t]);
-              matrixPerformance12AVG.setDouble(indices, d.performance12AVG[mc][h][b][e][t]);
-              matrixPerformance12STD.setDouble(indices, d.performance12STD[mc][h][b][e][t]);
-              matrixPerformance23AVG.setDouble(indices, d.performance23AVG[mc][h][b][e][t]);
-              matrixPerformance23STD.setDouble(indices, d.performance23STD[mc][h][b][e][t]);
-              matrixPerformance13AVG.setDouble(indices, d.performance13AVG[mc][h][b][e][t]);
-              matrixPerformance13STD.setDouble(indices, d.performance13STD[mc][h][b][e][t]);
-              matrixPerformanceNRAVG.setDouble(indices, d.performanceNRAVG[mc][h][b][e][t]);
-              matrixPerformanceNRSTD.setDouble(indices, d.performanceNRSTD[mc][h][b][e][t]);
-              matrixPerformanceRRAVG.setDouble(indices, d.performanceRRAVG[mc][h][b][e][t]);
-              matrixPerformanceRRSTD.setDouble(indices, d.performanceRRSTD[mc][h][b][e][t]);
+          for (int t = 0; t < Main.TIME; t++) {
+            int[] indices = {mc, h, b, t};
+            matrixPerformanceAVG.setDouble(indices, d.performanceAVG[mc][h][b][t]);
+            matrixPerformanceSTD.setDouble(indices, d.performanceSTD[mc][h][b][t]);
+            matrixPerformance12AVG.setDouble(indices, d.performance12AVG[mc][h][b][t]);
+            matrixPerformance12STD.setDouble(indices, d.performance12STD[mc][h][b][t]);
+            matrixPerformance23AVG.setDouble(indices, d.performance23AVG[mc][h][b][t]);
+            matrixPerformance23STD.setDouble(indices, d.performance23STD[mc][h][b][t]);
+            matrixPerformance13AVG.setDouble(indices, d.performance13AVG[mc][h][b][t]);
+            matrixPerformance13STD.setDouble(indices, d.performance13STD[mc][h][b][t]);
+            matrixPerformanceNRAVG.setDouble(indices, d.performanceNRAVG[mc][h][b][t]);
+            matrixPerformanceNRSTD.setDouble(indices, d.performanceNRSTD[mc][h][b][t]);
+            matrixPerformanceRRAVG.setDouble(indices, d.performanceRRAVG[mc][h][b][t]);
+            matrixPerformanceRRSTD.setDouble(indices, d.performanceRRSTD[mc][h][b][t]);
 
-              matrixDisagreementAVG.setDouble(indices, d.disagreementAVG[mc][h][b][e][t]);
-              matrixDisagreementSTD.setDouble(indices, d.disagreementSTD[mc][h][b][e][t]);
-              matrixDisagreement12AVG.setDouble(indices, d.disagreement12AVG[mc][h][b][e][t]);
-              matrixDisagreement12STD.setDouble(indices, d.disagreement12STD[mc][h][b][e][t]);
-              matrixDisagreement23AVG.setDouble(indices, d.disagreement23AVG[mc][h][b][e][t]);
-              matrixDisagreement23STD.setDouble(indices, d.disagreement23STD[mc][h][b][e][t]);
-              matrixDisagreement13AVG.setDouble(indices, d.disagreement13AVG[mc][h][b][e][t]);
-              matrixDisagreement13STD.setDouble(indices, d.disagreement13STD[mc][h][b][e][t]);
-              matrixDisagreementNRAVG.setDouble(indices, d.disagreementNRAVG[mc][h][b][e][t]);
-              matrixDisagreementNRSTD.setDouble(indices, d.disagreementNRSTD[mc][h][b][e][t]);
-              matrixDisagreementRRAVG.setDouble(indices, d.disagreementRRAVG[mc][h][b][e][t]);
-              matrixDisagreementRRSTD.setDouble(indices, d.disagreementRRSTD[mc][h][b][e][t]);
+            matrixDisagreementAVG.setDouble(indices, d.disagreementAVG[mc][h][b][t]);
+            matrixDisagreementSTD.setDouble(indices, d.disagreementSTD[mc][h][b][t]);
+            matrixDisagreement12AVG.setDouble(indices, d.disagreement12AVG[mc][h][b][t]);
+            matrixDisagreement12STD.setDouble(indices, d.disagreement12STD[mc][h][b][t]);
+            matrixDisagreement23AVG.setDouble(indices, d.disagreement23AVG[mc][h][b][t]);
+            matrixDisagreement23STD.setDouble(indices, d.disagreement23STD[mc][h][b][t]);
+            matrixDisagreement13AVG.setDouble(indices, d.disagreement13AVG[mc][h][b][t]);
+            matrixDisagreement13STD.setDouble(indices, d.disagreement13STD[mc][h][b][t]);
+            matrixDisagreementNRAVG.setDouble(indices, d.disagreementNRAVG[mc][h][b][t]);
+            matrixDisagreementNRSTD.setDouble(indices, d.disagreementNRSTD[mc][h][b][t]);
+            matrixDisagreementRRAVG.setDouble(indices, d.disagreementRRAVG[mc][h][b][t]);
+            matrixDisagreementRRSTD.setDouble(indices, d.disagreementRRSTD[mc][h][b][t]);
 
-              matrixClusteringAVG.setDouble(indices, d.clusteringAVG[mc][h][b][e][t]);
-              matrixClusteringSTD.setDouble(indices, d.clusteringSTD[mc][h][b][e][t]);
-              matrixClustering12AVG.setDouble(indices, d.clustering12AVG[mc][h][b][e][t]);
-              matrixClustering12STD.setDouble(indices, d.clustering12STD[mc][h][b][e][t]);
-              matrixClustering23AVG.setDouble(indices, d.clustering23AVG[mc][h][b][e][t]);
-              matrixClustering23STD.setDouble(indices, d.clustering23STD[mc][h][b][e][t]);
-              matrixClustering13AVG.setDouble(indices, d.clustering13AVG[mc][h][b][e][t]);
-              matrixClustering13STD.setDouble(indices, d.clustering13STD[mc][h][b][e][t]);
-              matrixClusteringNRAVG.setDouble(indices, d.clusteringNRAVG[mc][h][b][e][t]);
-              matrixClusteringNRSTD.setDouble(indices, d.clusteringNRSTD[mc][h][b][e][t]);
-              matrixClusteringRRAVG.setDouble(indices, d.clusteringRRAVG[mc][h][b][e][t]);
-              matrixClusteringRRSTD.setDouble(indices, d.clusteringRRSTD[mc][h][b][e][t]);
+            matrixClusteringAVG.setDouble(indices, d.clusteringAVG[mc][h][b][t]);
+            matrixClusteringSTD.setDouble(indices, d.clusteringSTD[mc][h][b][t]);
+            matrixClustering12AVG.setDouble(indices, d.clustering12AVG[mc][h][b][t]);
+            matrixClustering12STD.setDouble(indices, d.clustering12STD[mc][h][b][t]);
+            matrixClustering23AVG.setDouble(indices, d.clustering23AVG[mc][h][b][t]);
+            matrixClustering23STD.setDouble(indices, d.clustering23STD[mc][h][b][t]);
+            matrixClustering13AVG.setDouble(indices, d.clustering13AVG[mc][h][b][t]);
+            matrixClustering13STD.setDouble(indices, d.clustering13STD[mc][h][b][t]);
+            matrixClusteringNRAVG.setDouble(indices, d.clusteringNRAVG[mc][h][b][t]);
+            matrixClusteringNRSTD.setDouble(indices, d.clusteringNRSTD[mc][h][b][t]);
+            matrixClusteringRRAVG.setDouble(indices, d.clusteringRRAVG[mc][h][b][t]);
+            matrixClusteringRRSTD.setDouble(indices, d.clusteringRRSTD[mc][h][b][t]);
 
-              matrixCentralizationAVG.setDouble(indices, d.centralizationAVG[mc][h][b][e][t]);
-              matrixCentralizationSTD.setDouble(indices, d.centralizationSTD[mc][h][b][e][t]);
-              matrixCentralization12AVG.setDouble(indices, d.centralization12AVG[mc][h][b][e][t]);
-              matrixCentralization12STD.setDouble(indices, d.centralization12STD[mc][h][b][e][t]);
-              matrixCentralization23AVG.setDouble(indices, d.centralization23AVG[mc][h][b][e][t]);
-              matrixCentralization23STD.setDouble(indices, d.centralization23STD[mc][h][b][e][t]);
-              matrixCentralization13AVG.setDouble(indices, d.centralization13AVG[mc][h][b][e][t]);
-              matrixCentralization13STD.setDouble(indices, d.centralization13STD[mc][h][b][e][t]);
-              matrixCentralizationNRAVG.setDouble(indices, d.centralizationNRAVG[mc][h][b][e][t]);
-              matrixCentralizationNRSTD.setDouble(indices, d.centralizationNRSTD[mc][h][b][e][t]);
-              matrixCentralizationRRAVG.setDouble(indices, d.centralizationRRAVG[mc][h][b][e][t]);
-              matrixCentralizationRRSTD.setDouble(indices, d.centralizationRRSTD[mc][h][b][e][t]);
+            matrixCentralizationAVG.setDouble(indices, d.centralizationAVG[mc][h][b][t]);
+            matrixCentralizationSTD.setDouble(indices, d.centralizationSTD[mc][h][b][t]);
+            matrixCentralization12AVG.setDouble(indices, d.centralization12AVG[mc][h][b][t]);
+            matrixCentralization12STD.setDouble(indices, d.centralization12STD[mc][h][b][t]);
+            matrixCentralization23AVG.setDouble(indices, d.centralization23AVG[mc][h][b][t]);
+            matrixCentralization23STD.setDouble(indices, d.centralization23STD[mc][h][b][t]);
+            matrixCentralization13AVG.setDouble(indices, d.centralization13AVG[mc][h][b][t]);
+            matrixCentralization13STD.setDouble(indices, d.centralization13STD[mc][h][b][t]);
+            matrixCentralizationNRAVG.setDouble(indices, d.centralizationNRAVG[mc][h][b][t]);
+            matrixCentralizationNRSTD.setDouble(indices, d.centralizationNRSTD[mc][h][b][t]);
+            matrixCentralizationRRAVG.setDouble(indices, d.centralizationRRAVG[mc][h][b][t]);
+            matrixCentralizationRRSTD.setDouble(indices, d.centralizationRRSTD[mc][h][b][t]);
 
-              matrixEfficiencyAVG.setDouble(indices, d.efficiencyAVG[mc][h][b][e][t]);
-              matrixEfficiencySTD.setDouble(indices, d.efficiencySTD[mc][h][b][e][t]);
-              matrixEfficiency12AVG.setDouble(indices, d.efficiency12AVG[mc][h][b][e][t]);
-              matrixEfficiency12STD.setDouble(indices, d.efficiency12STD[mc][h][b][e][t]);
-              matrixEfficiency23AVG.setDouble(indices, d.efficiency23AVG[mc][h][b][e][t]);
-              matrixEfficiency23STD.setDouble(indices, d.efficiency23STD[mc][h][b][e][t]);
-              matrixEfficiency13AVG.setDouble(indices, d.efficiency13AVG[mc][h][b][e][t]);
-              matrixEfficiency13STD.setDouble(indices, d.efficiency13STD[mc][h][b][e][t]);
-              matrixEfficiencyNRAVG.setDouble(indices, d.efficiencyNRAVG[mc][h][b][e][t]);
-              matrixEfficiencyNRSTD.setDouble(indices, d.efficiencyNRSTD[mc][h][b][e][t]);
-              matrixEfficiencyRRAVG.setDouble(indices, d.efficiencyRRAVG[mc][h][b][e][t]);
-              matrixEfficiencyRRSTD.setDouble(indices, d.efficiencyRRSTD[mc][h][b][e][t]);
+            matrixEfficiencyAVG.setDouble(indices, d.efficiencyAVG[mc][h][b][t]);
+            matrixEfficiencySTD.setDouble(indices, d.efficiencySTD[mc][h][b][t]);
+            matrixEfficiency12AVG.setDouble(indices, d.efficiency12AVG[mc][h][b][t]);
+            matrixEfficiency12STD.setDouble(indices, d.efficiency12STD[mc][h][b][t]);
+            matrixEfficiency23AVG.setDouble(indices, d.efficiency23AVG[mc][h][b][t]);
+            matrixEfficiency23STD.setDouble(indices, d.efficiency23STD[mc][h][b][t]);
+            matrixEfficiency13AVG.setDouble(indices, d.efficiency13AVG[mc][h][b][t]);
+            matrixEfficiency13STD.setDouble(indices, d.efficiency13STD[mc][h][b][t]);
+            matrixEfficiencyNRAVG.setDouble(indices, d.efficiencyNRAVG[mc][h][b][t]);
+            matrixEfficiencyNRSTD.setDouble(indices, d.efficiencyNRSTD[mc][h][b][t]);
+            matrixEfficiencyRRAVG.setDouble(indices, d.efficiencyRRAVG[mc][h][b][t]);
+            matrixEfficiencyRRSTD.setDouble(indices, d.efficiencyRRSTD[mc][h][b][t]);
 
-              matrixSatisfactionAVG.setDouble(indices, d.satisfactionAVG[mc][h][b][e][t]);
-              matrixSatisfactionSTD.setDouble(indices, d.satisfactionSTD[mc][h][b][e][t]);
+            matrixSatisfactionAVG.setDouble(indices, d.satisfactionAVG[mc][h][b][t]);
+            matrixSatisfactionSTD.setDouble(indices, d.satisfactionSTD[mc][h][b][t]);
 
-              matrixRewiringAVG.setDouble(indices, d.rewiringAVG[mc][h][b][e][t]);
-              matrixRewiringSTD.setDouble(indices, d.rewiringSTD[mc][h][b][e][t]);
+            matrixRewiringAVG.setDouble(indices, d.rewiringAVG[mc][h][b][t]);
+            matrixRewiringSTD.setDouble(indices, d.rewiringSTD[mc][h][b][t]);
 
-              matrixBetaSampledAVG.setDouble(indices, d.sampleBetaAVG[mc][h][b][e][t]);
-              matrixBetaSampledSTD.setDouble(indices, d.sampleBetaSTD[mc][h][b][e][t]);
-            }
+            matrixBetaSampledAVG.setDouble(indices, d.sampleBetaAVG[mc][h][b][t]);
+            matrixBetaSampledSTD.setDouble(indices, d.sampleBetaSTD[mc][h][b][t]);
           }
         }
       }
@@ -171,11 +169,9 @@ class MatWriter {
 
     Matrix matrixArrayH = Mat5.newMatrix(new int[]{1, Main.LENGTH_H});
     Matrix matrixArraySpan = Mat5.newMatrix(new int[]{1, Main.LENGTH_SPAN});
-    Matrix matrixArrayE = Mat5.newMatrix(new int[]{1, Main.LENGTH_E});
 
     IntStream.range(0, Main.LENGTH_H).forEach(i -> matrixArrayH.setDouble(new int[]{0, i}, Main.H[i]));
     IntStream.range(0, Main.LENGTH_SPAN).forEach(i -> matrixArraySpan.setDouble(new int[]{0, i}, Main.SPAN[i]));
-    IntStream.range(0, Main.LENGTH_E).forEach(i -> matrixArrayE.setDouble(new int[]{0, i}, Main.E[i]));
 
     try {
       Mat5.newMatFile()
@@ -191,11 +187,9 @@ class MatWriter {
           .addArray("para_m_in_bundle", Mat5.newScalar(Main.M_IN_BUNDLE))
           .addArray("para_g_h", Mat5.newScalar(Main.LENGTH_H))
           .addArray("para_g_span", Mat5.newScalar(Main.LENGTH_SPAN))
-          .addArray("para_g_e", Mat5.newScalar(Main.LENGTH_E))
           .addArray("para_p_learning", Mat5.newScalar(Main.P_LEARNING))
           .addArray("para_a_h", matrixArrayH)
           .addArray("para_a_span", matrixArraySpan)
-          .addArray("para_a_e", matrixArrayE)
           .addArray("r_perf_avg", matrixPerformanceAVG)
           .addArray("r_perf_std", matrixPerformanceSTD)
           .addArray("r_perf_12_avg", matrixPerformance12AVG)

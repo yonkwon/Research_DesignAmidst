@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix]  Errors in Network analyzer shortest path algorithm">
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAFormation/Computation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAFormation/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAFormation/MatWriter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAFormation/NetworkAnalyzer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAFormation/ProgressBar.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAFormation/Scenario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Enforced-Flexible ties to Formal-Informal ties">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormation/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormation/Computation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormation/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormation/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormation/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormation/MatWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormation/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormation/Scenario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +112,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "develop",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DAFormation",
+    "last_opened_file_path": "C:/Users/Yongha/Dropbox/Gradle/gradle-8.4/bin",
     "project.structure.last.edited": "Problems",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -133,7 +131,20 @@
       <recent name="DACost" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.DAFormation.Main">
+    <configuration name="DAFormation.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DAFormation.Main" />
+      <module name="DesignAmidst.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="DAFormation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DACost.Main" />
       <module name="DesignAmidst.main" />
@@ -149,6 +160,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DAFormation.Main" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -161,14 +173,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Trivial fix">
-      <option name="closed" value="true" />
-      <created>1693270676432</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1693270676432</updated>
     </task>
     <task id="LOCAL-00005" summary="Trivial fix">
       <option name="closed" value="true" />
@@ -554,12 +558,18 @@
       <option name="project" value="LOCAL" />
       <updated>1698869282783</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="[Add] DAFormation variant: Forming a new tie instead of rewiring an existing tie">
+      <option name="closed" value="true" />
+      <created>1700185027319</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1700185027319</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Fix] Observation structure set BEFORE rewiring" />
-    <MESSAGE value="Merge pull request #1 from yonkwon/develop&#10;&#10;Develop" />
     <MESSAGE value="Trivial Fixes" />
     <MESSAGE value="First Commitment" />
     <MESSAGE value="Trivial fix" />
@@ -583,7 +593,9 @@
     <MESSAGE value="[Fix] return neighborScore / (double) (degree[focal] - 1D);" />
     <MESSAGE value="[Fix] Observation structure" />
     <MESSAGE value="[Fix]  Errors in Network analyzer shortest path algorithm" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Fix]  Errors in Network analyzer shortest path algorithm" />
+    <MESSAGE value="[Add] DAFormation variant: Forming a new tie instead of rewiring an existing tie" />
+    <MESSAGE value="[Fix] Enforced-Flexible ties to Formal-Informal ties" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Enforced-Flexible ties to Formal-Informal ties" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
