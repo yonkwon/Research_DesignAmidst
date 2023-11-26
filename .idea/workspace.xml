@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Enforced-Flexible ties to Formal-Informal ties">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Add] Connectivity parameter to DAFormation variant">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAFormation/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormation/Computation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAFormation/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormation/Main.java" afterDir="false" />
@@ -104,21 +103,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "develop",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Yongha/Dropbox/Gradle/gradle-8.4/bin",
-    "project.structure.last.edited": "Problems",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Yongha/Dropbox/Gradle/gradle-8.4/bin&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAFormation" />
@@ -173,14 +172,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Trivial fix">
-      <option name="closed" value="true" />
-      <created>1693271070839</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1693271070840</updated>
     </task>
     <task id="LOCAL-00006" summary="Trivial fix">
       <option name="closed" value="true" />
@@ -566,11 +557,18 @@
       <option name="project" value="LOCAL" />
       <updated>1700185027319</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="[Fix] Enforced-Flexible ties to Formal-Informal ties">
+      <option name="closed" value="true" />
+      <created>1700457540217</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1700457540217</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Trivial Fixes" />
     <MESSAGE value="First Commitment" />
     <MESSAGE value="Trivial fix" />
     <MESSAGE value="[Fix] Get observation structure and network closure by matrix multiplication algorithm" />
@@ -595,7 +593,8 @@
     <MESSAGE value="[Fix]  Errors in Network analyzer shortest path algorithm" />
     <MESSAGE value="[Add] DAFormation variant: Forming a new tie instead of rewiring an existing tie" />
     <MESSAGE value="[Fix] Enforced-Flexible ties to Formal-Informal ties" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Enforced-Flexible ties to Formal-Informal ties" />
+    <MESSAGE value="[Add] Connectivity parameter to DAFormation variant" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Add] Connectivity parameter to DAFormation variant" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

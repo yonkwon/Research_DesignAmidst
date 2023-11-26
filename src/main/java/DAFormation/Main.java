@@ -11,17 +11,17 @@ public class Main {
   static final boolean LINK_LEVEL = false;
 
   static final int ITERATION = 1_000;
-  static final int TIME = 300 + 1;
+  static final int TIME = 100 + 1;
 
 //  static final int ITERATION = 1;
 //  static final int TIME = 5 + 1;
 
   static final int NUM_MECHANISM = 4; // Homophily on Char, on Status, closure, & p-attachment
-  static final int OBSERVATION_SCOPE = 4; // >= 2
-  static final int MAX_DEGREE = 5; // >= 2
+  static final int OBSERVATION_SCOPE = 3; // >= 2
+  static final int MAX_DEGREE = 10; // >= 2
 
   static final int N = 100;
-  static final int[] SPAN = {2, 4, 6, 8, 10, N-1};
+  static final int[] SPAN = {2, 5, 8, 11, 14, 17, 20, N-1};
 //  static final int[] SPAN = {2, 20};
 //  static final int N = 20;
 //  static final int[] SPAN = {2};
@@ -33,6 +33,9 @@ public class Main {
 
   static final double[] H = {1};
   static final int LENGTH_H = H.length;
+
+  static final double[] CONNECTIVITY = {0, .02, .04, .06, .08, .1};
+  static final int LENGTH_CONNECTIVITY = CONNECTIVITY.length;
 
   static final double P_LEARNING = .25;
 
@@ -46,7 +49,7 @@ public class Main {
   static final double WEIGHT_ON_CHARACTERISTIC = 1D;
   static final double WEIGHT_ON_BELIEF = 1D - WEIGHT_ON_CHARACTERISTIC;
 
-  static final int[] RESULT_KEY_VALUE = {NUM_MECHANISM, LENGTH_H, LENGTH_SPAN, TIME};
+  static final int[] RESULT_KEY_VALUE = {NUM_MECHANISM, LENGTH_H, LENGTH_SPAN, LENGTH_CONNECTIVITY, TIME};
 
   static String RUN_ID = "DAFormation";
   static String FILENAME;
@@ -79,6 +82,7 @@ public class Main {
         "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE +
         "H" + LENGTH_H +
         "S" + LENGTH_SPAN +
+        "C" + LENGTH_CONNECTIVITY +
         "P" + P_LEARNING;
     PATH_CSV = new File(".").getAbsolutePath() + "\\" + FILENAME + "\\";
   }

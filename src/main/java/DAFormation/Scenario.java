@@ -28,6 +28,7 @@ public class Scenario {
 
   double strength;      //Strength of social behavior
   int span;          //Span of control
+  double connectivity;      //Connectivity across hierarchy
 
   boolean[] reality;
   int[] realityBundleID;
@@ -66,7 +67,7 @@ public class Scenario {
 
   double satisfactionRate;
 
-  Scenario(int socialMechanism, double strength, int span) {
+  Scenario(int socialMechanism, double strength, int span, double connectivity) {
     r = new MersenneTwister();
 
     this.socialMechanism = socialMechanism;
@@ -85,6 +86,7 @@ public class Scenario {
 
     this.strength = strength;
     this.span = span;
+    this.connectivity = connectivity;
 
     this.observationScope = Main.OBSERVATION_SCOPE;
 
@@ -95,7 +97,7 @@ public class Scenario {
   }
 
   public Scenario getClone() {
-    Scenario clone = new Scenario(this.socialMechanism, this.strength, this.span);
+    Scenario clone = new Scenario(this.socialMechanism, this.strength, this.span, this.connectivity);
 
     clone.reality = this.reality.clone();
     clone.realityBundleID = this.realityBundleID.clone();
@@ -231,6 +233,27 @@ public class Scenario {
       levelNow++;
     }
     levelRange -= levelOf[0];
+
+    //Additional Connection
+    for (int focal = 0; focal < Main.N; focal++) {
+      for (int target = focal; target < Main.N; target++) {
+        if (!network[focal][target] &&
+            degree[focal] < Main.MAX_DEGREE &&
+            degree[target] < Main.MAX_DEGREE &&
+            focal != target) {
+          if (r.nextDouble() < connectivity) {
+            network[focal][target] = true;
+            network[target][focal] = true;
+            networkFormal[focal][target] = true;
+            networkFormal[target][focal] = true;
+            degree[focal]++;
+            degree[target]++;
+            degreeFormal[focal]++;
+            degreeFormal[target]++;
+          }
+        }
+      }
+    }
 
     na = new NetworkAnalyzer(network);
     setObservationStructure();
