@@ -52,8 +52,6 @@ public class Scenario {
   double[] neighborhoodScore;
   boolean[] satisfied;
 
-  double degreeMax, degreeMin, degreeRange;
-
   int numRewiring;
   double performanceAvg;
   double disagreementAvg;
@@ -384,7 +382,18 @@ public class Scenario {
   }
 
   double getNeighborScorePreferentialAttachement(int focal, int target) {
-    return (degree[target] - degreeMin) / (double) degreeRange;
+    int degreeMin = degree[focal];
+    int degreeMax = degree[focal];
+    for (int observable = 0; observable < Main.N; observable++) {
+      if (observationStructure[focal][observable]) {
+        if (degree[observable] > degreeMax) {
+          degreeMax = degree[observable];
+        }else if (degree[observable] < degreeMin) {
+          degreeMin = degree[observable];
+        }
+      }
+    }
+    return (double) (degree[target] - degreeMin) / (double) (degreeMax - degreeMin);
   }
 
   void doEvaluateNeighbor() {
@@ -427,24 +436,16 @@ public class Scenario {
         }
       }
     } else if (isPreferentialAttachment) {
-      degreeMax = neighborhoodScore[0];
-      degreeMin = neighborhoodScore[0];
-      for (int focal = 1; focal < Main.N; focal++) {
-        if (neighborhoodScore[focal] > degreeMax) {
-          degreeMax = neighborhoodScore[focal];
-        } else if (neighborhoodScore[focal] < degreeMin) {
-          degreeMin = neighborhoodScore[focal];
-        }
-      }
-      degreeRange = degreeMax - degreeMin;
-      for (int target : targetIndexArray) {
-        double score = getNeighborScorePreferentialAttachement(-1, target);
-        for (int focal : focalIndexArray) {
+      for (int focal : focalIndexArray) {
+        for (int target = focal; target < Main.N; target++) {
           if (!network[focal][target]) {
             continue;
+          } else {
+            neighborScore[focal][target] = getNeighborScorePreferentialAttachement(focal, target);
+            neighborScore[target][focal] = getNeighborScorePreferentialAttachement(target, focal);
+            neighborhoodScore[focal] += neighborScore[focal][target];
+            neighborhoodScore[target] += neighborScore[target][focal];
           }
-          neighborScore[focal][target] = score;
-          neighborhoodScore[focal] += neighborScore[focal][target];
         }
       }
     }
@@ -586,19 +587,6 @@ public class Scenario {
           hasNewTie[focal] = true;
           hasNewTie[target2Link] = true;
           numRewiring++;
-          // Update degree max min range
-          if (degree[target2Link] > degreeMax) {
-            degreeMax = degree[target2Link];
-          }
-          if (degree[target2Link] < degreeMin) {
-            degreeMin = degree[target2Link];
-          }
-          if (degree[target2Cut] > degreeMax) {
-            degreeMax = degree[target2Cut];
-          }
-          if (degree[target2Cut] < degreeMin) {
-            degreeMin = degree[target2Cut];
-          }
           // Reset Neighborhood Score
           doEvaluateNeighbor();
           //Occurs at most once for each individual
