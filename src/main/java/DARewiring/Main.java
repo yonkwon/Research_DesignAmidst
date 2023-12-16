@@ -1,4 +1,4 @@
-package DAFormation;
+package DARewiring;
 
 import java.io.File;
 
@@ -10,8 +10,8 @@ public class Main {
   static final boolean GET_MAT = true;
   static final boolean LINK_LEVEL = false;
 
-  static final int ITERATION = 5_000;
-  static final int TIME = 300 + 1;
+  static final int ITERATION = 10;
+  static final int TIME = 10 + 1;
 
 //  static final int ITERATION = 1;
 //  static final int TIME = 5 + 1;
@@ -21,7 +21,7 @@ public class Main {
   static final int MAX_DEGREE = 10; // >= 2
 
   static final int N = 100;
-  static final int[] SPAN = {2, 5, 8, 11, 14, 17, 20, N-1};
+  static final int[] SPAN = {2, 4, 6, 8, 10, 15, 20, N-1};
 //  static final int[] SPAN = {2, 20};
 //  static final int N = 20;
 //  static final int[] SPAN = {2};
@@ -36,6 +36,9 @@ public class Main {
 
   static final double[] CONNECTIVITY = {0, .01, .1};
   static final int LENGTH_CONNECTIVITY = CONNECTIVITY.length;
+  
+  static final double[] ENFORCEMENT = {0, .25};
+  static final int LENGTH_ENFORCEMENT = ENFORCEMENT.length;
 
   static final double P_LEARNING = .25;
 
@@ -49,9 +52,9 @@ public class Main {
   static final double WEIGHT_ON_CHARACTERISTIC = 1D;
   static final double WEIGHT_ON_BELIEF = 1D - WEIGHT_ON_CHARACTERISTIC;
 
-  static final int[] RESULT_KEY_VALUE = {NUM_MECHANISM, LENGTH_H, LENGTH_SPAN, LENGTH_CONNECTIVITY, TIME};
+  static final int[] RESULT_KEY_VALUE = {NUM_MECHANISM, LENGTH_H, LENGTH_SPAN, LENGTH_CONNECTIVITY, LENGTH_ENFORCEMENT, TIME};
 
-  static String RUN_ID = "DAFormation";
+  static String RUN_ID = "DARewiring";
   static String FILENAME;
   static String PATH_CSV;
 
@@ -83,6 +86,7 @@ public class Main {
         "H" + LENGTH_H +
         "S" + LENGTH_SPAN +
         "C" + LENGTH_CONNECTIVITY +
+        "E" + LENGTH_ENFORCEMENT +
         "P" + P_LEARNING;
     PATH_CSV = new File(".").getAbsolutePath() + "\\" + FILENAME + "\\";
   }
