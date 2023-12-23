@@ -84,9 +84,6 @@ public class Computation {
   AtomicDouble[][][][][][] rewiringAVGAtomic;
   AtomicDouble[][][][][][] rewiringSTDAtomic;
 
-  AtomicDouble[][][][][][] sampleBetaAVGAtomic;
-  AtomicDouble[][][][][][] sampleBetaSTDAtomic;
-
   // Results in double arrays
   double[][][][][][] performanceAVG;
   double[][][][][][] performanceSTD;
@@ -157,9 +154,6 @@ public class Computation {
   double[][][][][][] satisfactionSTD;
   double[][][][][][] rewiringAVG;
   double[][][][][][] rewiringSTD;
-
-  double[][][][][][] sampleBetaAVG;
-  double[][][][][][] sampleBetaSTD;
 
   ProgressBar pb;
 
@@ -283,9 +277,6 @@ public class Computation {
     rewiringAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     rewiringSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
 
-    sampleBetaAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
-    sampleBetaSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
-
     for (int mc = 0; mc < Main.NUM_MECHANISM; mc++) {
       for (int h = 0; h < Main.LENGTH_H; h++) {
         for (int s = 0; s < Main.LENGTH_SPAN; s++) {
@@ -361,9 +352,6 @@ public class Computation {
                 satisfactionSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
                 rewiringAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
                 rewiringSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
-
-                sampleBetaAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
-                sampleBetaSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
               }
             }
           }
@@ -439,9 +427,6 @@ public class Computation {
     satisfactionSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     rewiringAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     rewiringSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
-
-    sampleBetaAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
-    sampleBetaSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
   }
 
   private void runFullExperiment() {
@@ -468,8 +453,9 @@ public class Computation {
         for (int h = 0; h < Main.LENGTH_H; h++) {
           for (int s = 0; s < Main.LENGTH_SPAN; s++) {
             for (int c = 0; c < Main.LENGTH_CONNECTIVITY; c++) {
-
-              new SingleRun(mc, h, s, c);
+              for (int e = 0; e < Main.LENGTH_ENFORCEMENT; e++) {
+                new SingleRun(mc, h, s, c, e);
+              }
             }
           }
         }
@@ -612,10 +598,6 @@ public class Computation {
                 rewiringAVG[mc][h][s][c][e][t] = rewiringAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
                 rewiringSTD[mc][h][s][c][e][t] = rewiringSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
                 rewiringSTD[mc][h][s][c][e][t] = pow(rewiringSTD[mc][h][s][c][e][t] - pow(rewiringAVG[mc][h][s][c][e][t], 2), .5);
-
-                sampleBetaAVG[mc][h][s][c][e][t] = sampleBetaAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
-                sampleBetaSTD[mc][h][s][c][e][t] = sampleBetaSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
-                sampleBetaSTD[mc][h][s][c][e][t] = pow(sampleBetaSTD[mc][h][s][c][e][t] - pow(sampleBetaAVG[mc][h][s][c][e][t], 2), .5);
               }
             }
           }
@@ -708,14 +690,15 @@ public class Computation {
     AtomicDouble[] rewiringAVGAtomicPart;
     AtomicDouble[] rewiringSTDAtomicPart;
 
-    AtomicDouble[] sampleEtaAVGAtomicPart;
-    AtomicDouble[] sampleEtaSTDAtomicPart;
+    AtomicDouble[] sampleBetaAVGAtomicPart;
+    AtomicDouble[] sampleBetaSTDAtomicPart;
 
-    SingleRun(int mcIndex, int hIndex, int spanIndex, int connectivityIndex) {
+    SingleRun(int mcIndex, int hIndex, int spanIndex, int connectivityIndex, int enforcementIndex) {
       this.mcIndex = mcIndex;
       this.hIndex = hIndex;
       this.spanIndex = spanIndex;
       this.connectivityIndex = connectivityIndex;
+      this.enforcementIndex = enforcementIndex;
 
       h = Main.H[hIndex];
       span = Main.SPAN[spanIndex];
@@ -797,9 +780,6 @@ public class Computation {
 
       rewiringAVGAtomicPart = rewiringAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
       rewiringSTDAtomicPart = rewiringSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
-
-      sampleEtaAVGAtomicPart = sampleBetaAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
-      sampleEtaSTDAtomicPart = sampleBetaSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
     }
 
     private void run() {

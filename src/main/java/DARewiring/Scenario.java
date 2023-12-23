@@ -2,6 +2,7 @@ package DARewiring;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import jdk.jfr.Description;
 import org.apache.commons.math3.random.MersenneTwister;
 import org.apache.commons.math3.random.RandomGenerator;
@@ -66,7 +67,7 @@ public class Scenario {
 
   double satisfactionRate;
 
-  Scenario(int socialMechanism, double strength, int span, double enforcement, double connectivity) {
+  Scenario(int socialMechanism, double strength, int span, double connectivity, double enforcement) {
     r = new MersenneTwister();
 
     this.socialMechanism = socialMechanism;
@@ -391,7 +392,7 @@ public class Scenario {
         neighborScore++;
       }
     }
-    return neighborScore / (double) degree[focal];
+    return neighborScore / (double) (degree[focal] - 1D); // Fixed 231223. Never used before.
   }
 
   double getNeighborScorePreferentialAttachement(int focal, int target) {

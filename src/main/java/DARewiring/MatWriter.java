@@ -81,9 +81,6 @@ class MatWriter {
     Matrix matrixRewiringAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixRewiringSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
-    Matrix matrixBetaSampledAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
-    Matrix matrixBetaSampledSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
-
     for (int mc = 0; mc < Main.NUM_MECHANISM; mc++) {
       for (int h = 0; h < Main.LENGTH_H; h++) {
         for (int s = 0; s < Main.LENGTH_SPAN; s++) {
@@ -161,9 +158,6 @@ class MatWriter {
 
                 matrixRewiringAVG.setDouble(indices, d.rewiringAVG[mc][h][s][c][e][t]);
                 matrixRewiringSTD.setDouble(indices, d.rewiringSTD[mc][h][s][c][e][t]);
-
-                matrixBetaSampledAVG.setDouble(indices, d.sampleBetaAVG[mc][h][s][c][e][t]);
-                matrixBetaSampledSTD.setDouble(indices, d.sampleBetaSTD[mc][h][s][c][e][t]);
               }
             }
           }
@@ -265,13 +259,10 @@ class MatWriter {
           .addArray("r_effi_nr_std", matrixEfficiencyNRSTD)
           .addArray("r_effi_rr_avg", matrixEfficiencyRRAVG)
           .addArray("r_effi_rr_std", matrixEfficiencyRRSTD)
-
           .addArray("r_sati_avg", matrixSatisfactionAVG)
           .addArray("r_sati_std", matrixSatisfactionSTD)
           .addArray("r_rewi_avg", matrixRewiringAVG)
           .addArray("r_rewi_std", matrixRewiringSTD)
-          .addArray("r_seta_avg", matrixBetaSampledAVG)
-          .addArray("r_seta_std", matrixBetaSampledSTD)
           .addArray("perf_seconds", Mat5.newScalar((System.currentTimeMillis() - Main.TIC) / 1000))
 
           .writeTo(Sinks.newStreamingFile(new File(Main.FILENAME + ".mat")));

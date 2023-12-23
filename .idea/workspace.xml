@@ -5,15 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Add] Connectivity parameter to DAFormation variant">
-      <change afterPath="$PROJECT_DIR$/src/main/java/DARewiring/Computation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DARewiring/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DARewiring/MatWriter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DARewiring/NetworkAnalyzer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DARewiring/ProgressBar.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DARewiring/Scenario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormation/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormation/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DARewiring/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DARewiring/Computation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DARewiring/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DARewiring/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DARewiring/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DARewiring/MatWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DARewiring/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DARewiring/Scenario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +31,12 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="DesignAmidst" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -80,6 +83,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -117,7 +121,7 @@
     &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DARewiring&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Yongha/Dropbox/Research/DesignAmidst&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -184,13 +188,6 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-21.0.1-azul-21.0.1-249ae16d76d6-5a439a21" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -199,14 +196,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Trivial fix">
-      <option name="closed" value="true" />
-      <created>1693275709267</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1693275709267</updated>
     </task>
     <task id="LOCAL-00009" summary="[Add] A new variant: HPDegree">
       <option name="closed" value="true" />
@@ -592,11 +581,29 @@
       <option name="project" value="LOCAL" />
       <updated>1702604925288</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="[Add] DARewiring variant with connectivity parameter">
+      <option name="closed" value="true" />
+      <created>1702704464074</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1702704464074</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Trivial fix" />
     <MESSAGE value="[Fix] Get observation structure and network closure by matrix multiplication algorithm" />
     <MESSAGE value="[Add] Link between nodes in the same level of hierarchy" />
     <MESSAGE value="[Add] Remove outcome 'dissimilarity' and add no rewiring (nr) and random rewiring (rr) counterfactuals" />
@@ -621,7 +628,8 @@
     <MESSAGE value="[Fix] Enforced-Flexible ties to Formal-Informal ties" />
     <MESSAGE value="[Add] Connectivity parameter to DAFormation variant" />
     <MESSAGE value="[Fix] Preferential attachment algorithm. Changed the preference score from absolute to relative val." />
-    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Preferential attachment algorithm. Changed the preference score from absolute to relative val." />
+    <MESSAGE value="[Add] DARewiring variant with connectivity parameter" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Add] DARewiring variant with connectivity parameter" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

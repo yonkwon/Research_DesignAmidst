@@ -1,6 +1,7 @@
 package DARewiring;
 
 import java.io.File;
+import java.util.Arrays;
 
 public class Main {
 
@@ -10,8 +11,8 @@ public class Main {
   static final boolean GET_MAT = true;
   static final boolean LINK_LEVEL = false;
 
-  static final int ITERATION = 10;
-  static final int TIME = 10 + 1;
+  static final int ITERATION = 3_000;
+  static final int TIME = 300 + 1;
 
 //  static final int ITERATION = 1;
 //  static final int TIME = 5 + 1;
@@ -36,8 +37,8 @@ public class Main {
 
   static final double[] CONNECTIVITY = {0, .01, .1};
   static final int LENGTH_CONNECTIVITY = CONNECTIVITY.length;
-  
-  static final double[] ENFORCEMENT = {0, .25};
+
+  static final double[] ENFORCEMENT = {0, .25, .75};
   static final int LENGTH_ENFORCEMENT = ENFORCEMENT.length;
 
   static final double P_LEARNING = .25;
