@@ -1,7 +1,5 @@
 package DARewiring;
-
 import java.io.File;
-import java.util.Arrays;
 
 public class Main {
 
@@ -11,7 +9,7 @@ public class Main {
   static final boolean GET_MAT = true;
   static final boolean LINK_LEVEL = false;
 
-  static final int ITERATION = 3_000;
+  static final int ITERATION = 2_000;
   static final int TIME = 300 + 1;
 
 //  static final int ITERATION = 1;

@@ -2,7 +2,6 @@ package DARewiring;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
 import jdk.jfr.Description;
 import org.apache.commons.math3.random.MersenneTwister;
 import org.apache.commons.math3.random.RandomGenerator;
@@ -12,6 +11,9 @@ public class Scenario {
 
   RandomGenerator r;
   NetworkAnalyzer na;
+
+  boolean isNotConverged = true;
+  boolean isLearningConverged = false;
 
   int socialMechanism;
 
@@ -55,7 +57,7 @@ public class Scenario {
   double[] neighborhoodScore;
   boolean[] satisfied;
 
-  int numRewiring;
+  int numRewiring = 0;
   double performanceAvg;
   double disagreementAvg;
 
@@ -307,20 +309,29 @@ public class Scenario {
   }
 
   void stepForward() {
-    if (isRewiring) {
-      doEvaluateNeighbor();
-      setObservationStructure();
-      doRewiring();
+    if( isNotConverged ){
+      if (isRewiring) {
+        doEvaluateNeighbor();
+        setObservationStructure();
+        doRewiring();
+      }
+      doLearning();
+      setOutcome();
+      isNotConverged = !isLearningConverged && numRewiring != 0;
     }
-    doLearning();
   }
 
-  void stepForward(int numRewiring) {
-    if (isRewiring) {
-      setObservationStructure();
-      doRewiring(numRewiring);
+  void stepForward(int numRewiring, boolean sourceIsNotConverged) {
+    if( isNotConverged && sourceIsNotConverged ){
+      if (isRewiring) {
+        setObservationStructure();
+        doRewiring(numRewiring);
+      }
+      doLearning();
+      setOutcome();
+//      isNotConverged = !isLearningConverged && sourceIsNotConverged;
+      isNotConverged = !isLearningConverged; // sourceIsNotConverged is guaranteed.
     }
-    doLearning();
   }
 
   void setOutcome() {
@@ -670,6 +681,7 @@ public class Scenario {
   }
 
   void doLearning() {
+    isLearningConverged = true;
     boolean[][] beliefOfUpdated = new boolean[Main.N][Main.M];
     for (int focal = 0; focal < Main.N; focal++) {
       int[] majorityOpinion = new int[Main.M];
@@ -681,16 +693,18 @@ public class Scenario {
         }
       }
       for (int m = 0; m < Main.M; m++) {
-        if (r.nextDouble() < Main.P_LEARNING) {
-          if (majorityOpinion[m] > 0) {
-            beliefOfUpdated[focal][m] = true;
-          } else if (majorityOpinion[m] < 0) {
-            beliefOfUpdated[focal][m] = false;
-          } else {
-            beliefOfUpdated[focal][m] = beliefOf[focal][m];
-          }
+        if (majorityOpinion[m] > 0) {
+          beliefOfUpdated[focal][m] = true;
+        } else if (majorityOpinion[m] < 0) {
+          beliefOfUpdated[focal][m] = false;
         } else {
-          beliefOfUpdated[focal][m] = beliefOf[focal][m];
+          continue;
+        }
+        if( beliefOf[focal][m] != beliefOfUpdated[focal][m] ){
+          isLearningConverged = false;
+          if (r.nextDouble() < Main.P_LEARNING) {
+            beliefOf[focal][m] = beliefOfUpdated[focal][m];
+          }
         }
       }
     }
