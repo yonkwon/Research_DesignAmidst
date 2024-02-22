@@ -309,7 +309,7 @@ public class Scenario {
   }
 
   void stepForward() {
-    if( isNotConverged ){
+    if (isNotConverged) {
       if (isRewiring) {
         doEvaluateNeighbor();
         setObservationStructure();
@@ -321,16 +321,15 @@ public class Scenario {
     }
   }
 
-  void stepForward(int numRewiring, boolean sourceIsNotConverged) {
-    if( isNotConverged && sourceIsNotConverged ){
+  void stepForward(int numRewiring) { //240222 Fix: Does not stop updating even if the source is converged
+    if (isNotConverged) {
       if (isRewiring) {
         setObservationStructure();
         doRewiring(numRewiring);
       }
       doLearning();
       setOutcome();
-//      isNotConverged = !isLearningConverged && sourceIsNotConverged;
-      isNotConverged = !isLearningConverged; // sourceIsNotConverged is guaranteed.
+      isNotConverged = !isLearningConverged;
     }
   }
 
@@ -682,34 +681,34 @@ public class Scenario {
 
   void doLearning() {
     isLearningConverged = true;
-    boolean[][] beliefOfUpdated = new boolean[Main.N][Main.M];
+    boolean[][] beliefOfBuffer = new boolean[Main.N][];
     for (int focal = 0; focal < Main.N; focal++) {
-      int[] majorityOpinion = new int[Main.M];
+      int[] majorityOpinionCount = new int[Main.M];
+      beliefOfBuffer[focal] = beliefOf[focal].clone();
       for (int target = 0; target < Main.N; target++) {
         if (network[focal][target] && performance[target] > performance[focal]) {
           for (int m = 0; m < Main.M; m++) {
-            majorityOpinion[m] += beliefOf[target][m] ? 1 : -1;
+            majorityOpinionCount[m] += beliefOf[target][m] ? 1 : -1;
           }
         }
       }
       for (int m = 0; m < Main.M; m++) {
-        if (majorityOpinion[m] > 0) {
-          beliefOfUpdated[focal][m] = true;
-        } else if (majorityOpinion[m] < 0) {
-          beliefOfUpdated[focal][m] = false;
-        } else {
-          continue;
-        }
-        if( beliefOf[focal][m] != beliefOfUpdated[focal][m] ){
-          isLearningConverged = false;
-          if (r.nextDouble() < Main.P_LEARNING) {
-            beliefOf[focal][m] = beliefOfUpdated[focal][m];
-          }
+        if (majorityOpinionCount[m] > 0) {
+          beliefOfBuffer[focal][m] = true;
+        } else if (majorityOpinionCount[m] < 0) {
+          beliefOfBuffer[focal][m] = false;
         }
       }
     }
-    beliefOf = beliefOfUpdated;
     for (int focal = 0; focal < Main.N; focal++) {
+      for (int m = 0; m < Main.M; m++) {
+        if (beliefOf[focal][m] != beliefOfBuffer[focal][m]) {
+          isLearningConverged = false;
+          if (r.nextDouble() < Main.P_LEARNING) {
+            beliefOf[focal][m] = beliefOfBuffer[focal][m];
+          }
+        }
+      }
       setPerformance(focal);
     }
   }

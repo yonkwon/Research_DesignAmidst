@@ -90,16 +90,16 @@ class MatWriter {
                 int[] indices = {mc, h, s, c, e, t};
                 matrixPerformanceAVG.setDouble(indices, d.performanceAVG[mc][h][s][c][e][t]);
                 matrixPerformanceSTD.setDouble(indices, d.performanceSTD[mc][h][s][c][e][t]);
+                matrixPerformanceNRAVG.setDouble(indices, d.performanceNRAVG[mc][h][s][c][e][t]);
+                matrixPerformanceNRSTD.setDouble(indices, d.performanceNRSTD[mc][h][s][c][e][t]);
+                matrixPerformanceRRAVG.setDouble(indices, d.performanceRRAVG[mc][h][s][c][e][t]);
+                matrixPerformanceRRSTD.setDouble(indices, d.performanceRRSTD[mc][h][s][c][e][t]);
                 matrixPerformance12AVG.setDouble(indices, d.performance12AVG[mc][h][s][c][e][t]);
                 matrixPerformance12STD.setDouble(indices, d.performance12STD[mc][h][s][c][e][t]);
                 matrixPerformance23AVG.setDouble(indices, d.performance23AVG[mc][h][s][c][e][t]);
                 matrixPerformance23STD.setDouble(indices, d.performance23STD[mc][h][s][c][e][t]);
                 matrixPerformance13AVG.setDouble(indices, d.performance13AVG[mc][h][s][c][e][t]);
                 matrixPerformance13STD.setDouble(indices, d.performance13STD[mc][h][s][c][e][t]);
-                matrixPerformanceNRAVG.setDouble(indices, d.performanceNRAVG[mc][h][s][c][e][t]);
-                matrixPerformanceNRSTD.setDouble(indices, d.performanceNRSTD[mc][h][s][c][e][t]);
-                matrixPerformanceRRAVG.setDouble(indices, d.performanceRRAVG[mc][h][s][c][e][t]);
-                matrixPerformanceRRSTD.setDouble(indices, d.performanceRRSTD[mc][h][s][c][e][t]);
 
                 matrixDisagreementAVG.setDouble(indices, d.disagreementAVG[mc][h][s][c][e][t]);
                 matrixDisagreementSTD.setDouble(indices, d.disagreementSTD[mc][h][s][c][e][t]);
@@ -197,16 +197,16 @@ class MatWriter {
           .addArray("para_p_learning", Mat5.newScalar(Main.P_LEARNING))
           .addArray("r_perf_avg", matrixPerformanceAVG)
           .addArray("r_perf_std", matrixPerformanceSTD)
+          .addArray("r_perf_nr_avg", matrixPerformanceNRAVG)
+          .addArray("r_perf_nr_std", matrixPerformanceNRSTD)
+          .addArray("r_perf_rr_avg", matrixPerformanceRRAVG)
+          .addArray("r_perf_rr_std", matrixPerformanceRRSTD)
           .addArray("r_perf_12_avg", matrixPerformance12AVG)
           .addArray("r_perf_12_std", matrixPerformance12STD)
           .addArray("r_perf_23_avg", matrixPerformance23AVG)
           .addArray("r_perf_23_std", matrixPerformance23STD)
           .addArray("r_perf_13_avg", matrixPerformance13AVG)
           .addArray("r_perf_13_std", matrixPerformance13STD)
-          .addArray("r_perf_nr_avg", matrixPerformanceNRAVG)
-          .addArray("r_perf_nr_std", matrixPerformanceNRSTD)
-          .addArray("r_perf_rr_avg", matrixPerformanceRRAVG)
-          .addArray("r_perf_rr_std", matrixPerformanceRRSTD)
           .addArray("r_perf_23_avg", matrixPerformance23AVG)
           .addArray("r_perf_23_std", matrixPerformance23STD)
           .addArray("r_perf_13_avg", matrixPerformance13AVG)

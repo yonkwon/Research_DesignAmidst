@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Add] Connectivity parameter to DAFormation variant">
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Misc.] Efficiency propelled by convergence check">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DARewiring/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DARewiring/Computation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DARewiringGrapher.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/DARewiringGrapher.Rmd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DARewiring/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DARewiring/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DARewiring/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DARewiring/MatWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DARewiring/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DARewiring/Scenario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -111,6 +112,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Application.DARewiring.Main (1).executor&quot;: &quot;Run&quot;,
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Build DesignAmidst.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.DesignAmidst [:Main.main()].executor&quot;: &quot;Run&quot;,
@@ -193,19 +195,26 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.DARewiring.Main (1)" />
       <item itemvalue="Application.DAFormation.Main" />
+      <item itemvalue="Application.DARewiring.Main (1)" />
       <item itemvalue="Application.DARewiring.Main" />
       <item itemvalue="Application.Main" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.DARewiring.Main (1)" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.DARewiring.Main" />
+        <item itemvalue="Application.DARewiring.Main (1)" />
         <item itemvalue="Application.DAFormation.Main" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.1-azul-21.0.1-249ae16d76d6-5a439a21" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -215,14 +224,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00009" summary="[Add] A new variant: HPDegree">
-      <option name="closed" value="true" />
-      <created>1693275814562</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1693275814562</updated>
     </task>
     <task id="LOCAL-00010" summary="Trivial fixes">
       <option name="closed" value="true" />
@@ -608,7 +609,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702704464074</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="[Misc.] Efficiency propelled by convergence check">
+      <option name="closed" value="true" />
+      <created>1704716576459</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1704716576460</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -623,7 +632,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Fix] Get observation structure and network closure by matrix multiplication algorithm" />
     <MESSAGE value="[Add] Link between nodes in the same level of hierarchy" />
     <MESSAGE value="[Add] Remove outcome 'dissimilarity' and add no rewiring (nr) and random rewiring (rr) counterfactuals" />
     <MESSAGE value="Trivial fixes" />
@@ -648,7 +656,8 @@
     <MESSAGE value="[Add] Connectivity parameter to DAFormation variant" />
     <MESSAGE value="[Fix] Preferential attachment algorithm. Changed the preference score from absolute to relative val." />
     <MESSAGE value="[Add] DARewiring variant with connectivity parameter" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Add] DARewiring variant with connectivity parameter" />
+    <MESSAGE value="[Misc.] Efficiency propelled by convergence check" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Misc.] Efficiency propelled by convergence check" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -875,7 +875,7 @@ public class Computation {
 
         src.stepForward();
         nr.stepForward();
-        rr.stepForward(src.numRewiring, src.isNotConverged);
+        rr.stepForward(src.numRewiring);
 
         synchronized (this) {
           rewiringAVGAtomicPart[t].addAndGet(src.numRewiring);
