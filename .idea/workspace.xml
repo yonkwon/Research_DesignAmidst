@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Random rewiring scenario does not stop updating even if the source scenario has converged.">
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Add] Outcome var: Cumulative # of Rewiring">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DARewiringGrapher.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/DARewiringGrapher.Rmd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DARewiring/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DARewiring/Computation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DARewiring/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DARewiring/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DARewiring/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DARewiring/MatWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DARewiring/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DARewiring/Scenario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,14 +223,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00011" summary="[Fix] Rewiring based on observation structure">
-      <option name="closed" value="true" />
-      <created>1693279128237</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1693279128237</updated>
     </task>
     <task id="LOCAL-00012" summary="[Add] A variant: HPClosure">
       <option name="closed" value="true" />
@@ -617,7 +608,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708631214514</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="[Add] Outcome var: Cumulative # of Rewiring">
+      <option name="closed" value="true" />
+      <created>1708633458057</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1708633458057</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -632,7 +631,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Add] Remove outcome 'dissimilarity' and add no rewiring (nr) and random rewiring (rr) counterfactuals" />
     <MESSAGE value="Trivial fixes" />
     <MESSAGE value="[Fix] Target search order in doRewiring method" />
     <MESSAGE value="[Add] Alternative hierarchy model" />
@@ -657,7 +655,8 @@
     <MESSAGE value="[Add] DARewiring variant with connectivity parameter" />
     <MESSAGE value="[Misc.] Efficiency propelled by convergence check" />
     <MESSAGE value="[Fix] Random rewiring scenario does not stop updating even if the source scenario has converged." />
-    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Random rewiring scenario does not stop updating even if the source scenario has converged." />
+    <MESSAGE value="[Add] Outcome var: Cumulative # of Rewiring" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Add] Outcome var: Cumulative # of Rewiring" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

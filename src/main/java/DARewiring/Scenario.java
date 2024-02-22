@@ -321,15 +321,16 @@ public class Scenario {
     }
   }
 
-  void stepForward(int numRewiring) { //240222 Fix: Does not stop updating even if the source is converged
-    if (isNotConverged) {
+  void stepForward(int numRewiring, boolean sourceIsNotConverged) {
+    if (isNotConverged && sourceIsNotConverged) {
       if (isRewiring) {
         setObservationStructure();
         doRewiring(numRewiring);
       }
       doLearning();
       setOutcome();
-      isNotConverged = !isLearningConverged;
+//      isNotConverged = !isLearningConverged && sourceIsNotConverged;
+      isNotConverged = !isLearningConverged; // sourceIsNotConverged is guaranteed.
     }
   }
 

@@ -808,6 +808,10 @@ public class Computation {
         synchronized (this) {
           performanceAVGAtomicPart[t].addAndGet(src.performanceAvg);
           performanceSTDAtomicPart[t].addAndGet(pow(src.performanceAvg, 2));
+          performanceNRAVGAtomicPart[t].addAndGet(nr.performanceAvg);
+          performanceNRSTDAtomicPart[t].addAndGet(pow(nr.performanceAvg, 2));
+          performanceRRAVGAtomicPart[t].addAndGet(rr.performanceAvg);
+          performanceRRSTDAtomicPart[t].addAndGet(pow(rr.performanceAvg, 2));
           double performance12 = rr.performanceAvg - nr.performanceAvg;
           performance12AVGAtomicPart[t].addAndGet(performance12);
           performance12STDAtomicPart[t].addAndGet(pow(performance12, 2));
@@ -817,10 +821,6 @@ public class Computation {
           double performance13 = src.performanceAvg - nr.performanceAvg;
           performance13AVGAtomicPart[t].addAndGet(performance13);
           performance13STDAtomicPart[t].addAndGet(pow(performance13, 2));
-          performanceNRAVGAtomicPart[t].addAndGet(nr.performanceAvg);
-          performanceNRSTDAtomicPart[t].addAndGet(pow(nr.performanceAvg, 2));
-          performanceRRAVGAtomicPart[t].addAndGet(rr.performanceAvg);
-          performanceRRSTDAtomicPart[t].addAndGet(pow(rr.performanceAvg, 2));
 
           disagreementAVGAtomicPart[t].addAndGet(src.disagreementAvg);
           disagreementSTDAtomicPart[t].addAndGet(pow(src.disagreementAvg, 2));
