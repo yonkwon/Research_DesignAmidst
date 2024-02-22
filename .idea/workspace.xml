@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Misc.] Efficiency propelled by convergence check">
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Random rewiring scenario does not stop updating even if the source scenario has converged.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DARewiringGrapher.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/DARewiringGrapher.Rmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DARewiring/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DARewiring/Computation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DARewiring/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DARewiring/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DARewiring/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DARewiring/MatWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DARewiring/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DARewiring/Scenario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,14 +224,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Trivial fixes">
-      <option name="closed" value="true" />
-      <created>1693275872462</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1693275872462</updated>
     </task>
     <task id="LOCAL-00011" summary="[Fix] Rewiring based on observation structure">
       <option name="closed" value="true" />
@@ -617,7 +609,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704716576460</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="[Fix] Random rewiring scenario does not stop updating even if the source scenario has converged.">
+      <option name="closed" value="true" />
+      <created>1708631214514</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1708631214514</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -632,7 +632,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Add] Link between nodes in the same level of hierarchy" />
     <MESSAGE value="[Add] Remove outcome 'dissimilarity' and add no rewiring (nr) and random rewiring (rr) counterfactuals" />
     <MESSAGE value="Trivial fixes" />
     <MESSAGE value="[Fix] Target search order in doRewiring method" />
@@ -657,7 +656,8 @@
     <MESSAGE value="[Fix] Preferential attachment algorithm. Changed the preference score from absolute to relative val." />
     <MESSAGE value="[Add] DARewiring variant with connectivity parameter" />
     <MESSAGE value="[Misc.] Efficiency propelled by convergence check" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Misc.] Efficiency propelled by convergence check" />
+    <MESSAGE value="[Fix] Random rewiring scenario does not stop updating even if the source scenario has converged." />
+    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Random rewiring scenario does not stop updating even if the source scenario has converged." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

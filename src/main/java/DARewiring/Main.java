@@ -10,7 +10,7 @@ public class Main {
   static final boolean GET_MAT = true;
   static final boolean LINK_LEVEL = false;
 
-  static final int ITERATION = 1;
+  static final int ITERATION = 100;
   static final int TIME = 100 + 1;
 
 //  static final int ITERATION = 1;
@@ -31,12 +31,12 @@ public class Main {
   static final double[] H = {1};
   static final int LENGTH_H = H.length;
 
-//  static final double[] CONNECTIVITY = {0, .01, .1};
-  static final double[] CONNECTIVITY = {0};
+  static final double[] CONNECTIVITY = {0, .01, .1};
+//  static final double[] CONNECTIVITY = {0};
   static final int LENGTH_CONNECTIVITY = CONNECTIVITY.length;
 
-//  static final double[] ENFORCEMENT = {0, .25, .75, 1};
-  static final double[] ENFORCEMENT = {1};
+  static final double[] ENFORCEMENT = {0, .25, .75, 1};
+//  static final double[] ENFORCEMENT = {1};
   static final int LENGTH_ENFORCEMENT = ENFORCEMENT.length;
 
   static final double P_LEARNING = .25;

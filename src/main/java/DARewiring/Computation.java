@@ -83,6 +83,8 @@ public class Computation {
   AtomicDouble[][][][][][] satisfactionSTDAtomic;
   AtomicDouble[][][][][][] rewiringAVGAtomic;
   AtomicDouble[][][][][][] rewiringSTDAtomic;
+  AtomicDouble[][][][][][] rewiringCumulativeAVGAtomic;
+  AtomicDouble[][][][][][] rewiringCumulativeSTDAtomic;
 
   // Results in double arrays
   double[][][][][][] performanceAVG;
@@ -154,6 +156,8 @@ public class Computation {
   double[][][][][][] satisfactionSTD;
   double[][][][][][] rewiringAVG;
   double[][][][][][] rewiringSTD;
+  double[][][][][][] rewiringCumulativeAVG;
+  double[][][][][][] rewiringCumulativeSTD;
 
   ProgressBar pb;
 
@@ -276,6 +280,8 @@ public class Computation {
     satisfactionSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     rewiringAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     rewiringSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    rewiringCumulativeAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    rewiringCumulativeSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
 
     for (int mc = 0; mc < Main.NUM_MECHANISM; mc++) {
       for (int h = 0; h < Main.LENGTH_H; h++) {
@@ -352,6 +358,8 @@ public class Computation {
                 satisfactionSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
                 rewiringAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
                 rewiringSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                rewiringCumulativeAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                rewiringCumulativeSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
               }
             }
           }
@@ -427,6 +435,8 @@ public class Computation {
     satisfactionSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     rewiringAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     rewiringSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    rewiringCumulativeAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    rewiringCumulativeSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
   }
 
   private void runFullExperiment() {
@@ -598,6 +608,10 @@ public class Computation {
                 rewiringAVG[mc][h][s][c][e][t] = rewiringAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
                 rewiringSTD[mc][h][s][c][e][t] = rewiringSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
                 rewiringSTD[mc][h][s][c][e][t] = pow(rewiringSTD[mc][h][s][c][e][t] - pow(rewiringAVG[mc][h][s][c][e][t], 2), .5);
+                
+                rewiringCumulativeAVG[mc][h][s][c][e][t] = rewiringCumulativeAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                rewiringCumulativeSTD[mc][h][s][c][e][t] = rewiringCumulativeSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                rewiringCumulativeSTD[mc][h][s][c][e][t] = pow(rewiringCumulativeSTD[mc][h][s][c][e][t] - pow(rewiringCumulativeAVG[mc][h][s][c][e][t], 2), .5);
               }
             }
           }
@@ -689,9 +703,9 @@ public class Computation {
 
     AtomicDouble[] rewiringAVGAtomicPart;
     AtomicDouble[] rewiringSTDAtomicPart;
-
-    AtomicDouble[] sampleBetaAVGAtomicPart;
-    AtomicDouble[] sampleBetaSTDAtomicPart;
+    
+    AtomicDouble[] rewiringCumulativeAVGAtomicPart;
+    AtomicDouble[] rewiringCumulativeSTDAtomicPart;
 
     SingleRun(int mcIndex, int hIndex, int spanIndex, int connectivityIndex, int enforcementIndex) {
       this.mcIndex = mcIndex;
@@ -780,12 +794,15 @@ public class Computation {
 
       rewiringAVGAtomicPart = rewiringAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
       rewiringSTDAtomicPart = rewiringSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      rewiringCumulativeAVGAtomicPart = rewiringCumulativeAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      rewiringCumulativeSTDAtomicPart = rewiringCumulativeSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
     }
 
     private void run() {
       Scenario src = new Scenario(mcIndex, h, span, connectivity, enforcement);
       Scenario nr = src.getClone(false, false);
       Scenario rr = src.getClone(true, true);
+      int rewiringCumulative = 0;
 
       for (int t = 0; t < Main.TIME; t++) {
         synchronized (this) {
@@ -878,8 +895,11 @@ public class Computation {
         rr.stepForward(src.numRewiring);
 
         synchronized (this) {
+          rewiringCumulative += src.numRewiring;
           rewiringAVGAtomicPart[t].addAndGet(src.numRewiring);
           rewiringSTDAtomicPart[t].addAndGet(pow(src.numRewiring, 2));
+          rewiringCumulativeAVGAtomicPart[t].addAndGet(rewiringCumulative);
+          rewiringCumulativeSTDAtomicPart[t].addAndGet(pow(rewiringCumulative, 2));
         }
       }
     }

@@ -330,6 +330,11 @@ y_value_rr <- data$r.perf.rr.avg
 # y_value_nr <- data$r.effi.nr.avg
 # y_value_rr <- data$r.effi.rr.avg
 
+y_label <- 'Number of Rewiring'
+y_value_sc <- data$r.rewi.avg
+y_value_nr <- data$r.rewi.avg
+y_value_rr <- data$r.rewi.avg
+
 panel_label <- paste0('Panel ', LETTERS[1:20])
 panel_label <- factor(panel_label, levels = panel_label)
 

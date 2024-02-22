@@ -80,6 +80,8 @@ class MatWriter {
 
     Matrix matrixRewiringAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixRewiringSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixRewiringCumulativeAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixRewiringCumulativeSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
     for (int mc = 0; mc < Main.NUM_MECHANISM; mc++) {
       for (int h = 0; h < Main.LENGTH_H; h++) {
@@ -158,6 +160,9 @@ class MatWriter {
 
                 matrixRewiringAVG.setDouble(indices, d.rewiringAVG[mc][h][s][c][e][t]);
                 matrixRewiringSTD.setDouble(indices, d.rewiringSTD[mc][h][s][c][e][t]);
+                
+                matrixRewiringCumulativeAVG.setDouble(indices, d.rewiringCumulativeAVG[mc][h][s][c][e][t]);
+                matrixRewiringCumulativeSTD.setDouble(indices, d.rewiringCumulativeSTD[mc][h][s][c][e][t]);
               }
             }
           }
@@ -263,6 +268,8 @@ class MatWriter {
           .addArray("r_sati_std", matrixSatisfactionSTD)
           .addArray("r_rewi_avg", matrixRewiringAVG)
           .addArray("r_rewi_std", matrixRewiringSTD)
+          .addArray("r_rewc_avg", matrixRewiringCumulativeAVG)
+          .addArray("r_rewc_std", matrixRewiringCumulativeSTD)
           .addArray("perf_seconds", Mat5.newScalar((System.currentTimeMillis() - Main.TIC) / 1000))
 
           .writeTo(Sinks.newStreamingFile(new File(Main.FILENAME + ".mat")));
