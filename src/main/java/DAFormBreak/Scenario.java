@@ -1,4 +1,4 @@
-package DARewiring;
+package DAFormBreak;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -26,6 +26,8 @@ public class Scenario {
 
   int[] focalIndexArray;
   int[] targetIndexArray;
+  int[] dyadIndexArray;
+  int[][] dyad2DIndexArray;
 
   int observationScope;
 
@@ -57,7 +59,8 @@ public class Scenario {
   double[] neighborhoodScore;
   boolean[] satisfied;
 
-  int numRewiring = 0;
+  int numFormation = 0;
+  int numBreak = 0;
   double performanceAvg;
   double disagreementAvg;
 
@@ -85,6 +88,14 @@ public class Scenario {
       focalIndexArray[n] = n;
     }
     targetIndexArray = focalIndexArray.clone();
+
+    dyadIndexArray = new int[Main.N * Main.N];
+    dyad2DIndexArray = new int[Main.N * Main.N][2];
+    for (int d = 0; d < Main.N * Main.N; d++) {
+      dyadIndexArray[d] = d;
+      dyad2DIndexArray[d][0] = d / Main.N;
+      dyad2DIndexArray[d][1] = d % Main.N;
+    }
 
     this.strength = strength;
     this.span = span;
@@ -121,7 +132,8 @@ public class Scenario {
     clone.differenceSum = this.differenceSum.clone();
     clone.satisfied = this.satisfied.clone();
 
-    clone.numRewiring = this.numRewiring;
+    clone.numFormation = this.numFormation;
+    clone.numBreak = this.numBreak;
     clone.performanceAvg = this.performanceAvg;
     clone.disagreementAvg = this.disagreementAvg;
     clone.satisfactionRate = this.satisfactionRate;
@@ -317,15 +329,15 @@ public class Scenario {
       }
       doLearning();
       setOutcome();
-      isNotConverged = !(isLearningConverged && numRewiring == 0); // We are uncertain if rewiring will happen
+      isNotConverged = !(isLearningConverged && numFormation == 0 && numBreak == 0); // We are uncertain if rewiring will happen
     }
   }
 
-  void stepForward(int numRewiring, boolean sourceIsNotConverged) {
+  void stepForward(int numFormation, int numBreak, boolean sourceIsNotConverged) {
     if (isNotConverged && sourceIsNotConverged) {
       if (isRewiring) {
         setObservationStructure();
-        doRewiring(numRewiring);
+        doRewiring(numFormation, numBreak);
       }
       doLearning();
       setOutcome();
@@ -531,150 +543,144 @@ public class Scenario {
   }
 
   void doRewiring() {
-    numRewiring = 0;
-    boolean[] hasNewTie = new boolean[Main.N];
+    numFormation = 0;
+    numBreak = 0;
     shuffleFisherYates(focalIndexArray);
     for (int focal : focalIndexArray) {
-      if (satisfied[focal] ||
-          hasNewTie[focal] ||
-          degreeFlexible[focal] == 0) {
+      if (satisfied[focal]) {
         continue;
       }
-      //Selection of a neighbor to be cut out
-      int target2Cut = -1;
-      double worstNeighborScore = Double.MAX_VALUE;
-      shuffleFisherYates(targetIndexArray);
-      for (int target : targetIndexArray) {
-        if (networkFlexible[focal][target]) {
-          if (degree[target] == 1) {
+
+      int target2Form = -1;
+      int target2Break = -1;
+
+      // Searching for a tie to form
+      if (degree[focal] <= Main.MAX_DEGREE) {
+        //Selection of a new neighbor to connect
+        shuffleFisherYates(targetIndexArray);
+        for (int target : targetIndexArray) {
+          if (satisfied[target] || // If the target is already satisfied
+              network[focal][target] || // If the target is already a neighbor of the focal
+              !observationStructure[focal][target] || // If the target is outside the observation structure
+              degree[target] >= Main.MAX_DEGREE ||
+              focal == target // If the target is focal herself
+          ) {
             continue;
           }
-          if (neighborScore[focal][target] < worstNeighborScore) {
-            target2Cut = target;
-            worstNeighborScore = neighborScore[focal][target];
-          }
-        }
-      }
-      if (target2Cut == -1) {
-        continue;
-      }
-      //Selection of a new neighbor to connect
-      shuffleFisherYates(targetIndexArray);
-      for (int target2Link : targetIndexArray) {
-        if (satisfied[target2Link] || // If the target is already satisfied
-            hasNewTie[target2Link] || // If the target already has a new tie
-            network[focal][target2Link] || // If the target is already a neighbor of the focal
-            !observationStructure[focal][target2Link] || // If the target is outside the observation structure
-            degree[target2Link] >= Main.MAX_DEGREE ||
-            focal == target2Link // If the target is focal herself
-        ) {
-          continue;
-        }
-        double target2LinkScore = Double.NaN;
-        boolean[][] networkAlt = new boolean[Main.N][];
-        if (isHomophilyOnChar) {
-          target2LinkScore = getNeighborScoreHomophilyOnChar(focal, target2Link);
-        } else if (isHomophilyOnStat) {
-          target2LinkScore = getNeighborScoreHomophilyOnStatus(focal, target2Link);
-        } else if (isNetworkClosure) {
-          target2LinkScore = getNeighborScoreNetworkClosure(focal, target2Link);
-        } else if (isPreferentialAttachment) {
-          target2LinkScore = getNeighborScorePreferentialAttachement(focal, target2Link);
-        }
-        if (target2LinkScore > worstNeighborScore) {
-          //Checking for mutual agreement
-          double focalScore = Double.NaN;
+          double targetScore = Double.NaN;
           if (isHomophilyOnChar) {
-            focalScore = target2LinkScore;
+            targetScore = getNeighborScoreHomophilyOnChar(focal, target);
           } else if (isHomophilyOnStat) {
-            focalScore = target2LinkScore;
+            targetScore = getNeighborScoreHomophilyOnStatus(focal, target);
           } else if (isNetworkClosure) {
-            focalScore = target2LinkScore / (degree[focal] - 1D) * (degree[target2Link] - 1D);
+            targetScore = getNeighborScoreNetworkClosure(focal, target);
           } else if (isPreferentialAttachment) {
-            focalScore = getNeighborScorePreferentialAttachement(target2Link, focal);
+            targetScore = getNeighborScorePreferentialAttachement(focal, target);
           }
-          if (focalScore < neighborhoodScore[target2Link]) {
-            //Potential score of focal is higher than average neighborhoods core
-            continue;
+          if (targetScore > neighborhoodScore[focal]) {
+            //Checking for mutual agreement
+            double focalScore = Double.NaN;
+            if (isHomophilyOnChar) {
+              focalScore = targetScore;
+            } else if (isHomophilyOnStat) {
+              focalScore = targetScore;
+            } else if (isNetworkClosure) {
+              focalScore = targetScore / (degree[focal] - 1D) * (degree[target] - 1D);
+            } else if (isPreferentialAttachment) {
+              focalScore = getNeighborScorePreferentialAttachement(target, focal);
+            }
+            if (focalScore > neighborhoodScore[target]) {
+              //Potential score of focal is higher than average neighborhoods core
+              target2Form = target;
+              break;
+            }
           }
-          // Rewiring tie
-          network[focal][target2Cut] = false;
-          network[target2Cut][focal] = false;
-          networkFlexible[focal][target2Cut] = false;
-          networkFlexible[target2Cut][focal] = false;
-          degree[target2Cut]--;
-          degreeFlexible[target2Cut]--;
-          network[focal][target2Link] = true;
-          network[target2Link][focal] = true;
-          networkFlexible[focal][target2Link] = true;
-          networkFlexible[target2Link][focal] = true;
-          degree[target2Link]++;
-          degreeFlexible[target2Link]++;
-          hasNewTie[focal] = true;
-          hasNewTie[target2Link] = true;
-          numRewiring++;
-          // Reset Neighborhood Score
-          doEvaluateNeighbor();
-          //Occurs at most once for each individual
-          break;
         }
       }
+
+      // Searching for a tie to break
+      if (degreeFlexible[focal] > 0 &&
+          degree[focal] >= Main.MAX_DEGREE
+//          degree[focal] > 1
+      ) {
+        double worstNeighborScore = Double.MAX_VALUE;
+        shuffleFisherYates(targetIndexArray);
+        for (int target : targetIndexArray) {
+          if (networkFlexible[focal][target] &&
+              degree[target] > 1
+          ) {
+            if (degree[target] == 1) {
+              continue;
+            }
+            if (neighborScore[focal][target] < worstNeighborScore) {
+              target2Break = target;
+              worstNeighborScore = neighborScore[focal][target];
+            }
+          }
+        }
+      }
+
+      // Forming tie
+      if (target2Form != -1) {
+        network[focal][target2Form] = true;
+        network[target2Form][focal] = true;
+        networkFlexible[focal][target2Form] = true;
+        networkFlexible[target2Form][focal] = true;
+        degree[focal]++;
+        degreeFlexible[focal]++;
+        degree[target2Form]++;
+        degreeFlexible[target2Form]++;
+      }
+
+      // Breaking tie
+      if (target2Break != -1) {
+        network[focal][target2Break] = false;
+        network[target2Break][focal] = false;
+        networkFlexible[focal][target2Break] = false;
+        networkFlexible[target2Break][focal] = false;
+        degree[focal]--;
+        degreeFlexible[focal]--;
+        degree[target2Break]--;
+        degreeFlexible[target2Break]--;
+      }
+
+      // Reset Neighborhood Score
+      doEvaluateNeighbor();
     }
   }
 
-  void doRewiring(int numRewiring) {
+  void doRewiring(int numFormation, int numBreak) {
     //Random rewiring
-    int numRewiringLeft = numRewiring;
-    boolean[] hasNewTie = new boolean[Main.N];
-    shuffleFisherYates(focalIndexArray);
-    for (int focal : focalIndexArray) {
-      if (numRewiringLeft == 0) {
-        break;
+    int numFormationLeft = numFormation;
+    int numBreakLeft = numBreak;
+    shuffleFisherYates(dyadIndexArray);
+    for (int dyad : dyadIndexArray) {
+      int focal = dyad2DIndexArray[dyad][0];
+      int target = dyad2DIndexArray[dyad][1];
+      if (numBreakLeft > 0 &&
+          networkFlexible[focal][target]) {
+        network[focal][target] = false;
+        network[target][focal] = false;
+        networkFlexible[focal][target] = false;
+        networkFlexible[target][focal] = false;
+        degree[target]--;
+        degreeFlexible[target]--;
+        numBreakLeft--;
+      } else if (
+          numFormationLeft > 0 &&
+              !network[focal][target] &&
+              degree[focal] < Main.MAX_DEGREE &&
+              degree[target] < Main.MAX_DEGREE
+      ) {
+        network[focal][target] = true;
+        network[target][focal] = true;
+        networkFlexible[focal][target] = true;
+        networkFlexible[target][focal] = true;
+        degree[target]++;
+        degreeFlexible[target]++;
+        numFormationLeft--;
       }
-      if (hasNewTie[focal] ||
-          degreeFlexible[focal] == 0) {
-        continue;
-      }
-      int target2Cut = -1;
-      shuffleFisherYates(targetIndexArray);
-      for (int target : targetIndexArray) {
-        if (degree[target] <= 1) {
-          continue;
-        }
-        if (networkFlexible[focal][target]) {
-          target2Cut = target;
-          break;
-        }
-      }
-      if (target2Cut == -1) {
-        continue;
-      }
-      shuffleFisherYates(targetIndexArray);
-      for (int target2Link : targetIndexArray) {
-        if (network[focal][target2Link] || // If the target is already a neighbor of the focal
-            hasNewTie[target2Link] || // If the target already has a new tie
-            !observationStructure[focal][target2Link] || // If the target is outside the observation structure
-            degree[target2Link] >= Main.MAX_DEGREE ||
-            focal == target2Link // If the target is focal herself
-        ) {
-          continue;
-        }
-        hasNewTie[focal] = true;
-        hasNewTie[target2Link] = true;
-        // Rewiring tie
-        networkFlexible[focal][target2Cut] = false;
-        networkFlexible[target2Cut][focal] = false;
-        network[focal][target2Cut] = false;
-        network[target2Cut][focal] = false;
-        degreeFlexible[target2Cut]--;
-        degree[target2Cut]--;
-        networkFlexible[focal][target2Link] = true;
-        networkFlexible[target2Link][focal] = true;
-        network[focal][target2Link] = true;
-        network[target2Link][focal] = true;
-        degreeFlexible[target2Link]++;
-        degree[target2Link]++;
-        numRewiringLeft--;
+      if (numFormationLeft == 0 && numBreakLeft == 0) {
         break;
       }
     }

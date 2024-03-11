@@ -1,4 +1,4 @@
-package DARewiring;
+package DAFormBreak;
 
 import static org.apache.commons.math3.util.FastMath.pow;
 
@@ -892,12 +892,12 @@ public class Computation {
 
         src.stepForward();
         nr.stepForward();
-        rr.stepForward(src.numRewiring, src.isNotConverged);
+        rr.stepForward(src.numFormation, src.numBreak, src.isNotConverged);
 
         synchronized (this) {
-          rewiringCumulative += src.numRewiring;
-          rewiringAVGAtomicPart[t].addAndGet(src.numRewiring);
-          rewiringSTDAtomicPart[t].addAndGet(pow(src.numRewiring, 2));
+          rewiringCumulative += src.numFormation + src.numBreak;
+          rewiringAVGAtomicPart[t].addAndGet( src.numFormation + src.numBreak);
+          rewiringSTDAtomicPart[t].addAndGet(pow( src.numFormation + src.numBreak, 2));
           rewiringCumulativeAVGAtomicPart[t].addAndGet(rewiringCumulative);
           rewiringCumulativeSTDAtomicPart[t].addAndGet(pow(rewiringCumulative, 2));
         }

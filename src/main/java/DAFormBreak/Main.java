@@ -1,16 +1,18 @@
-package DARewiring;
+package DAFormBreak;
 
 import java.io.File;
 
 public class Main {
 
+  static String RUN_ID = "DAFormBreak_BreakWhenMax";
+
   static final long TIC = System.currentTimeMillis();
 
   static final boolean GET_GRAPH = true;
-  static final boolean GET_MAT = false;
+  static final boolean GET_MAT = true;
   static final boolean LINK_LEVEL = false;
 
-  static final int ITERATION = 1000;
+  static final int ITERATION = 500;
   static final int TIME = 201 + 1;
 
 //  static final int ITERATION = 1;
@@ -18,10 +20,10 @@ public class Main {
 
   static final int NUM_MECHANISM = 4; // Homophily on Char, on Status, closure, & p-attachment
   static final int OBSERVATION_SCOPE = 3; // >= 2
-  static final int MAX_DEGREE = 8; // >= 2
+  static final int MAX_DEGREE = 10; // >= 2
 
   static final int N = 100;
-  static final int[] SPAN = {2, 4, 6, 8, 10, 15, 20, N - 1};
+  static final int[] SPAN = {2, 3, 4, 5, 6, 7, 8};
   static final int LENGTH_SPAN = SPAN.length;
 
   static final int M_OF_BUNDLE = 20;
@@ -32,15 +34,15 @@ public class Main {
   static final int LENGTH_H = H.length;
 
   static final double[] CONNECTIVITY = {0, .01, .1};
-  //  static final double[] CONNECTIVITY = {0};
+//  static final double[] CONNECTIVITY = {0};
   static final int LENGTH_CONNECTIVITY = CONNECTIVITY.length;
 
-  //  static final double[] ENFORCEMENT = {0, .25, .75, 1};
-  static final double[] ENFORCEMENT = {0, 1};
-  //  static final double[] ENFORCEMENT = {1};
+//  static final double[] ENFORCEMENT = {0, .25, .75, 1};
+  static final double[] ENFORCEMENT = {0, .5, 1};
+//  static final double[] ENFORCEMENT = {1};
   static final int LENGTH_ENFORCEMENT = ENFORCEMENT.length;
 
-  static final double P_LEARNING = .25;
+  static final double P_LEARNING = .2;
 
   static final double N_DYAD = N * (N - 1D) / 2D;
   static final double M_N = M * N;
@@ -54,7 +56,6 @@ public class Main {
 
   static final int[] RESULT_KEY_VALUE = {NUM_MECHANISM, LENGTH_H, LENGTH_SPAN, LENGTH_CONNECTIVITY, LENGTH_ENFORCEMENT, TIME};
 
-  static String RUN_ID = "DARewiring";
   static String FILENAME;
   static String PATH_CSV;
 

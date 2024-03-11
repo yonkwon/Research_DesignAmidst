@@ -5,9 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Add] Outcome var: Cumulative # of Rewiring">
+      <change afterPath="$PROJECT_DIR$/src/main/History.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Computation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/MatWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/NetworkAnalyzer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/ProgressBar.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Scenario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DARewiringGrapher.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/DARewiringGrapher.Rmd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DARewiring/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DARewiring/Computation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DARewiring/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DARewiring/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DARewiring/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DARewiring/Scenario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -121,7 +129,7 @@
     &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Yongha/Dropbox/Research/DesignAmidst&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DAFormBreak&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -130,17 +138,30 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAFormBreak" />
+      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DARewiring" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAFormation" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DACost" />
-      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAAlternative" />
-      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAAlt" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="DACost" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.DARewiring.Main (1)">
+  <component name="RunManager" selected="Application.DAFormBreak.Main">
+    <configuration name="DAFormBreak.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DAFormBreak.Main" />
+      <module name="DesignAmidst.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="DAFormBreak.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="DAFormation.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DAFormation.Main" />
       <module name="DesignAmidst" />
@@ -194,6 +215,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.DAFormBreak.Main" />
       <item itemvalue="Application.DAFormation.Main" />
       <item itemvalue="Application.DARewiring.Main (1)" />
       <item itemvalue="Application.DARewiring.Main" />
@@ -201,6 +223,7 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DAFormBreak.Main" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.DARewiring.Main" />
         <item itemvalue="Application.DARewiring.Main (1)" />
@@ -223,14 +246,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00012" summary="[Add] A variant: HPClosure">
-      <option name="closed" value="true" />
-      <created>1693279463668</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1693279463668</updated>
     </task>
     <task id="LOCAL-00013" summary="[Add] A variant: HPClosure">
       <option name="closed" value="true" />
@@ -616,7 +631,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708633458057</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="[Fix] Revert Random Rewiring">
+      <option name="closed" value="true" />
+      <created>1708633941698</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1708633941698</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -631,7 +654,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Trivial fixes" />
     <MESSAGE value="[Fix] Target search order in doRewiring method" />
     <MESSAGE value="[Add] Alternative hierarchy model" />
     <MESSAGE value="[Fix] (!) Satisfaction as a function of strength; Like between workers under the same supervision" />
@@ -656,7 +678,8 @@
     <MESSAGE value="[Misc.] Efficiency propelled by convergence check" />
     <MESSAGE value="[Fix] Random rewiring scenario does not stop updating even if the source scenario has converged." />
     <MESSAGE value="[Add] Outcome var: Cumulative # of Rewiring" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Add] Outcome var: Cumulative # of Rewiring" />
+    <MESSAGE value="[Fix] Revert Random Rewiring" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Revert Random Rewiring" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
