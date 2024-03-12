@@ -49,6 +49,8 @@ public class Scenario {
   boolean[][] networkEnforced;
   boolean[][] networkFlexible;
   boolean[][] observationStructure;
+  boolean[][] isBridge;
+  int DFSTimer;
   int[] degree;
   int[] degreeEnforced;
   int[] degreeFlexible;
@@ -622,6 +624,7 @@ public class Scenario {
 
       // Forming tie
       if (target2Form != -1) {
+        numFormation ++;
         network[focal][target2Form] = true;
         network[target2Form][focal] = true;
         networkFlexible[focal][target2Form] = true;
@@ -634,6 +637,7 @@ public class Scenario {
 
       // Breaking tie
       if (target2Break != -1) {
+        numBreak ++;
         network[focal][target2Break] = false;
         network[target2Break][focal] = false;
         networkFlexible[focal][target2Break] = false;
@@ -663,6 +667,8 @@ public class Scenario {
         network[target][focal] = false;
         networkFlexible[focal][target] = false;
         networkFlexible[target][focal] = false;
+        degree[focal]--;
+        degreeFlexible[focal]--;
         degree[target]--;
         degreeFlexible[target]--;
         numBreakLeft--;
@@ -676,6 +682,8 @@ public class Scenario {
         network[target][focal] = true;
         networkFlexible[focal][target] = true;
         networkFlexible[target][focal] = true;
+        degree[focal]++;
+        degreeFlexible[focal]++;
         degree[target]++;
         degreeFlexible[target]++;
         numFormationLeft--;

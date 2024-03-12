@@ -895,11 +895,14 @@ public class Computation {
         rr.stepForward(src.numFormation, src.numBreak, src.isNotConverged);
 
         synchronized (this) {
+
           rewiringCumulative += src.numFormation + src.numBreak;
           rewiringAVGAtomicPart[t].addAndGet( src.numFormation + src.numBreak);
           rewiringSTDAtomicPart[t].addAndGet(pow( src.numFormation + src.numBreak, 2));
           rewiringCumulativeAVGAtomicPart[t].addAndGet(rewiringCumulative);
           rewiringCumulativeSTDAtomicPart[t].addAndGet(pow(rewiringCumulative, 2));
+
+          System.out.println(src.enforcement+ " "+src.numFormation+" "+src.numBreak+" "+ rewiringCumulative);
         }
       }
     }

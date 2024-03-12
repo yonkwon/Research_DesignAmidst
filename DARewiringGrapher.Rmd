@@ -78,7 +78,7 @@ set_fig1_h <- 1
 # set_fig1_span <- 1:data$para.g.span
 set_fig1_span <- 1:(data$para.g.span-1)
 set_fig1_connectivity <- 3
-set_fig1_enforcement <- 1
+set_fig1_enforcement <- 2
 set_fig1_t <- data$para.time
 
 x_label <- 'Span of Control (S)'
