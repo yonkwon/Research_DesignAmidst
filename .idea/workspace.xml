@@ -4,13 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Add] DAFormBreak variant">
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Num Break &amp; Formation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DARewiringGrapher.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/DARewiringGrapher.Rmd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/History.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/History.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Computation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/MatWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Scenario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormation/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormation/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DARewiring/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DARewiring/Computation.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -225,13 +228,6 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-21.0.1-azul-21.0.1-249ae16d76d6-5a439a21" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -240,14 +236,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00014" summary="[Add] A variant: HPClosure">
-      <option name="closed" value="true" />
-      <created>1693515197415</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1693515197415</updated>
     </task>
     <task id="LOCAL-00015" summary="Trivial Fixes">
       <option name="closed" value="true" />
@@ -633,7 +621,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710180282382</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="[Fix] Num Break &amp; Formation">
+      <option name="closed" value="true" />
+      <created>1710209302151</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1710209302151</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -648,7 +644,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Add] Alternative hierarchy model" />
     <MESSAGE value="[Fix] (!) Satisfaction as a function of strength; Like between workers under the same supervision" />
     <MESSAGE value="[Remove] Alternative hierarchy model" />
     <MESSAGE value="[Add] Homophily based on status (hierarchy level)" />
@@ -673,7 +668,8 @@
     <MESSAGE value="[Add] Outcome var: Cumulative # of Rewiring" />
     <MESSAGE value="[Fix] Revert Random Rewiring" />
     <MESSAGE value="[Add] DAFormBreak variant" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Add] DAFormBreak variant" />
+    <MESSAGE value="[Fix] Num Break &amp; Formation" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Num Break &amp; Formation" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

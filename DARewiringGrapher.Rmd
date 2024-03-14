@@ -77,8 +77,8 @@ set_fig1_ylim = c(-.1, .9)
 set_fig1_h <- 1
 # set_fig1_span <- 1:data$para.g.span
 set_fig1_span <- 1:(data$para.g.span-1)
-set_fig1_connectivity <- 3
-set_fig1_enforcement <- 2
+set_fig1_connectivity <- 1
+set_fig1_enforcement <- 5
 set_fig1_t <- data$para.time
 
 x_label <- 'Span of Control (S)'
@@ -97,12 +97,7 @@ y_value_rr <- data$r.perf.rr.avg
 # y_value_sc <- data$r.clus.avg
 # y_value_nr <- data$r.clus.nr.avg
 # y_value_rr <- data$r.clus.rr.avg
-# #
-# y_label <- 'Network Efficiency'
-# y_value_sc <- data$r.effi.avg
-# y_value_nr <- data$r.effi.nr.avg
-# y_value_rr <- data$r.effi.rr.avg
-
+#
 # y_label <- 'Network Efficiency'
 # y_value_sc <- data$r.effi.avg
 # y_value_nr <- data$r.effi.nr.avg
@@ -335,10 +330,10 @@ y_value_rr <- data$r.perf.rr.avg
 # y_value_nr <- data$r.effi.nr.avg
 # y_value_rr <- data$r.effi.rr.avg
 
-# y_label <- 'Number of Rewiring'
-# y_value_sc <- data$r.rewi.avg
-# y_value_nr <- data$r.rewi.avg
-# y_value_rr <- data$r.rewi.avg
+y_label <- 'Number of Rewiring'
+y_value_sc <- data$r.rewi.avg
+y_value_nr <- data$r.rewi.avg
+y_value_rr <- data$r.rewi.avg
 
 panel_label <- paste0('Panel ', LETTERS[1:20])
 panel_label <- factor(panel_label, levels = panel_label)

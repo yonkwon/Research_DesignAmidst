@@ -188,7 +188,7 @@ public class Computation {
                 case 2 -> mcString = "networkClosure";
                 case 3 -> mcString = "overallClustering";
               }
-              String fileName = Main.RUN_ID + "_" + "h" + strength + "_s" + span + "_c" + connectivity + "_" + enforcement + "_" + mcString;
+              String fileName = Main.RUN_ID + "_" + "h" + strength + "_s" + span + "_c" + connectivity + "_e" + enforcement + "_" + mcString;
               Scenario src = new Scenario(mc, strength, span, connectivity, enforcement);
               src.printCSV(Main.PATH_CSV + fileName + "_t0");
               for (int t = 0; t < Main.TIME; t++) {

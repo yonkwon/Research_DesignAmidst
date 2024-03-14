@@ -282,6 +282,16 @@ public class Scenario {
     }
 
     na = new NetworkAnalyzer(network);
+
+    if( Main.OBSERVE_ALL ){
+      observationStructure = new boolean[Main.N][Main.N];
+      for( int focal : focalIndexArray ){
+        for( int target : targetIndexArray ){
+          observationStructure[focal][target] = true;
+        }
+      }
+    }
+
     setObservationStructure();
   }
 
@@ -519,6 +529,9 @@ public class Scenario {
   }
 
   void setObservationStructure() {
+    if( Main.OBSERVE_ALL ){
+      return;
+    }
     //Revised with matrix multiplication - Test its validity
     observationStructure = new boolean[Main.N][];
     boolean[][] networkInDegreeLeft = new boolean[Main.N][];

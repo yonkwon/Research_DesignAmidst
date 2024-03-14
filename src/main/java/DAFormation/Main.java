@@ -10,15 +10,15 @@ public class Main {
   static final boolean GET_MAT = true;
   static final boolean LINK_LEVEL = false;
 
-  static final int ITERATION = 5_000;
+  static final int ITERATION = 1_000;
   static final int TIME = 300 + 1;
 
 //  static final int ITERATION = 1;
 //  static final int TIME = 5 + 1;
 
   static final int NUM_MECHANISM = 4; // Homophily on Char, on Status, closure, & p-attachment
-  static final int OBSERVATION_SCOPE = 3; // >= 2
-  static final int MAX_DEGREE = 10; // >= 2
+  static final int OBSERVATION_SCOPE = 2; // >= 2
+  static final int MAX_DEGREE = 8; // >= 2
 
   static final int N = 100;
   static final int[] SPAN = {2, 5, 8, 11, 14, 17, 20, N-1};
@@ -27,14 +27,14 @@ public class Main {
 //  static final int[] SPAN = {2};
   static final int LENGTH_SPAN = SPAN.length;
 
-  static final int M_OF_BUNDLE = 10;
+  static final int M_OF_BUNDLE = 20;
   static final int M_IN_BUNDLE = 5;
   static final int M = M_OF_BUNDLE * M_IN_BUNDLE;
 
   static final double[] H = {1};
   static final int LENGTH_H = H.length;
 
-  static final double[] CONNECTIVITY = {0, .01, .1};
+  static final double[] CONNECTIVITY = {0};
   static final int LENGTH_CONNECTIVITY = CONNECTIVITY.length;
 
   static final double P_LEARNING = .25;
