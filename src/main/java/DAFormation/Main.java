@@ -18,10 +18,10 @@ public class Main {
 
   static final int NUM_MECHANISM = 4; // Homophily on Char, on Status, closure, & p-attachment
   static final int OBSERVATION_SCOPE = 2; // >= 2
-  static final int MAX_DEGREE = 8; // >= 2
+  static final int MAX_DEGREE = 10; // >= 2
 
   static final int N = 100;
-  static final int[] SPAN = {2, 5, 8, 11, 14, 17, 20, N-1};
+  static final int[] SPAN = {2, 3, 4, 5, 6, 7, 8};
 //  static final int[] SPAN = {2, 20};
 //  static final int N = 20;
 //  static final int[] SPAN = {2};

@@ -34,11 +34,11 @@ public class Main {
   static final double[] H = {1};
   static final int LENGTH_H = H.length;
 
-  static final double[] CONNECTIVITY = {0, .01};
+  static final double[] CONNECTIVITY = {0};
 //  static final double[] CONNECTIVITY = {.1};
   static final int LENGTH_CONNECTIVITY = CONNECTIVITY.length;
 
-  static final double[] ENFORCEMENT = {0, .5, .1};
+  static final double[] ENFORCEMENT = {1};
 //  static final double[] ENFORCEMENT = {0, 1};
 //  static final double[] ENFORCEMENT = {1};
   static final int LENGTH_ENFORCEMENT = ENFORCEMENT.length;
