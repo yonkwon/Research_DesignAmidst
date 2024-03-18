@@ -4,7 +4,7 @@ import java.io.File;
 
 public class Main {
 
-  static String RUN_ID = "DAContHierarchy";
+  static String RUN_ID = "DAContHierarchy_AlwaysBreak";
 
   static final long TIC = System.currentTimeMillis();
 
@@ -24,7 +24,8 @@ public class Main {
   static final int MAX_SPAN = 8; // >= 2
 
   static final int N = 100;
-  static final double[] SPREAD = {0, .25, .5, .75, 1};
+  static final double[] SPREAD = {0, .125, .25, .375, .5, .625, .75, .875, 1};
+//  static final double[] SPREAD = {1};
   static final int LENGTH_SPREAD = SPREAD.length;
 
   static final int M_OF_BUNDLE = 20;
@@ -35,11 +36,11 @@ public class Main {
   static final int LENGTH_H = H.length;
 
   static final double[] CONNECTIVITY = {0};
-//  static final double[] CONNECTIVITY = {.1};
+  //  static final double[] CONNECTIVITY = {.1};
   static final int LENGTH_CONNECTIVITY = CONNECTIVITY.length;
 
   static final double[] ENFORCEMENT = {1};
-//  static final double[] ENFORCEMENT = {0, 1};
+  //  static final double[] ENFORCEMENT = {0, 1};
 //  static final double[] ENFORCEMENT = {1};
   static final int LENGTH_ENFORCEMENT = ENFORCEMENT.length;
 
@@ -77,7 +78,7 @@ public class Main {
   private static void setFileName() {
     FILENAME = RUN_ID +
         "I" + ITERATION +
-        "O" + (OBSERVE_ALL?"Inf":OBSERVATION_SCOPE) +
+        "O" + (OBSERVE_ALL ? "Inf" : OBSERVATION_SCOPE) +
         "MD" + MAX_DEGREE +
         "T" + TIME +
         "N" + N +

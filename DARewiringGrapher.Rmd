@@ -76,9 +76,9 @@ set_fig1_ylim = c(-.1, .9)
 
 set_fig1_h <- 1
 # set_fig1_span <- 1:data$para.g.span
-set_fig1_span <- 1:(data$para.g.span-1)
+set_fig1_span <- 1:(data$para.g.span)
 set_fig1_connectivity <- 1
-set_fig1_enforcement <- 5
+set_fig1_enforcement <- 1
 set_fig1_t <- data$para.time
 
 x_label <- 'Span of Control (S)'
@@ -87,6 +87,11 @@ y_label <- 'Firm Performance'
 y_value_sc <- data$r.perf.avg
 y_value_nr <- data$r.perf.nr.avg
 y_value_rr <- data$r.perf.rr.avg
+
+y_label <- 'Diversity of Belief'
+y_value_sc <- data$r.disa.avg
+y_value_nr <- data$r.disa.nr.avg
+y_value_rr <- data$r.disa.rr.avg
 
 # y_label <- 'Closeness Centralization'
 # y_value_sc <- data$r.cent.avg

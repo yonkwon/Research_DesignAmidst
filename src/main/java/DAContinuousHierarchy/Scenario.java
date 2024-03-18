@@ -55,6 +55,7 @@ public class Scenario {
   int[] degree;
   int[] degreeEnforced;
   int[] degreeFlexible;
+  int[] span;
   double[][] differenceOf;
   double[] differenceSum;
 
@@ -189,7 +190,7 @@ public class Scenario {
 
     boolean[] isPlaced = new boolean[Main.N];
     boolean[] isBottomEnd = new boolean[Main.N];
-    int[] span = new int [Main.N];
+    span = new int [Main.N];
 
     network[0][1] = true;
     network[1][0] = true;
@@ -209,7 +210,6 @@ public class Scenario {
       boolean isPlacedFocal = false;
       for( int target : targetIndexArray ){
         if( isPlaced[target] ) {
-          // Target individual does not exist in the hierarchy yet
           if ( isToSpread &&
               !isBottomEnd[target] &&
               span[target] < Main.MAX_SPAN
@@ -220,6 +220,7 @@ public class Scenario {
             degree[target]++;
             levelOf[focal] = levelOf[target]+1;
             span[target]++;
+            isBottomEnd[target] = false;
             isBottomEnd[focal] = true;
             isPlaced[focal] = true;
             isPlacedFocal = true;
@@ -251,8 +252,9 @@ public class Scenario {
             network[target][focal] = true;
             degree[focal]++;
             degree[target]++;
+            levelOf[focal] = levelOf[target]+1;
             span[target]++;
-            isBottomEnd[focal] = false;
+            isBottomEnd[target] = false;
             isBottomEnd[focal] = true;
             isPlaced[focal] = true;
             isPlacedFocal = true;
@@ -623,8 +625,8 @@ public class Scenario {
 
       // Searching for a tie to break
       if (degreeFlexible[focal] > 0 &&
-          degree[focal] >= Main.MAX_DEGREE
-//          degree[focal] > 1
+//          degree[focal] >= Main.MAX_DEGREE
+          degree[focal] > 1
       ) {
         double worstNeighborScore = Double.MAX_VALUE;
         shuffleFisherYates(targetIndexArray);
@@ -635,7 +637,9 @@ public class Scenario {
             if (degree[target] == 1) {
               continue;
             }
-            if (neighborScore[focal][target] < worstNeighborScore) {
+            if (neighborScore[focal][target] < worstNeighborScore
+                && neighborScore[focal][target] < neighborhoodScore[focal] //@@@@ THIS IS AN IMPORTNAT ASSUMPTION FOR DEGREE[FOCAL]>1
+            ) {
               target2Break = target;
               worstNeighborScore = neighborScore[focal][target];
             }
