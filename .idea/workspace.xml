@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Misc.] Params">
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Add] outcome variables. avg span and max level">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/MatWriter.java" afterDir="false" />
@@ -89,6 +89,9 @@
     &quot;assignee&quot;: &quot;yonkwon&quot;
   }
 }</component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="865935d0-f983-4727-b3f2-de5543a4b2a2" />
+  </component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -109,26 +112,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Application.DARewiring.Main (1).executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build DesignAmidst.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.DesignAmidst [:Main.main()].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DAContinuousHierarchy&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.DARewiring.Main (1).executor": "Run",
+    "Application.Main.executor": "Run",
+    "Gradle.Build DesignAmidst.executor": "Run",
+    "Gradle.DesignAmidst [:Main.main()].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "develop",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DAContinuousHierarchy",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAContinuousHierarchy" />
@@ -239,14 +242,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00019" summary="[Fix] Unsync performance arrays of parallel scenarios">
-      <option name="closed" value="true" />
-      <created>1693714945448</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1693714945448</updated>
     </task>
     <task id="LOCAL-00020" summary="[Fix] Error that the interaction pattern was changing in the opposite direction of network closure">
       <option name="closed" value="true" />
@@ -632,7 +627,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710792745395</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="[Add] outcome variables. avg span and max level">
+      <option name="closed" value="true" />
+      <created>1711729462692</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1711729462692</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -647,7 +650,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Fix] Cost-to-Link model variant, Cut-and-link to rewire" />
     <MESSAGE value="[Fix] A logical error in DACost variant - doRewiring() function ignores MAX_DEGREE param." />
     <MESSAGE value="[Add] Network metrics - centralization, efficiency, etc." />
     <MESSAGE value="[Fix] An error in homophily on status logic - it was working in the opposite direction" />
@@ -672,7 +674,8 @@
     <MESSAGE value="[Add] DAContinuous Hierarchy variant" />
     <MESSAGE value="[Misc.] Params" />
     <MESSAGE value="[Fix] logical error in algorithm for generating hierarchy" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Fix] logical error in algorithm for generating hierarchy" />
+    <MESSAGE value="[Add] outcome variables. avg span and max level" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Add] outcome variables. avg span and max level" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
