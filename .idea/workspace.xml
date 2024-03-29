@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Misc.] Params">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DARewiringGrapher.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/DARewiringGrapher.Rmd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/MatWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/Scenario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -238,14 +239,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00018" summary="[Fix] Global clustering coefficient">
-      <option name="closed" value="true" />
-      <created>1693516458097</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1693516458097</updated>
     </task>
     <task id="LOCAL-00019" summary="[Fix] Unsync performance arrays of parallel scenarios">
       <option name="closed" value="true" />
@@ -631,7 +624,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710612496015</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="[Fix] logical error in algorithm for generating hierarchy">
+      <option name="closed" value="true" />
+      <created>1710792745394</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1710792745395</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -646,7 +647,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Add] Cost-to-Link model variant" />
     <MESSAGE value="[Fix] Cost-to-Link model variant, Cut-and-link to rewire" />
     <MESSAGE value="[Fix] A logical error in DACost variant - doRewiring() function ignores MAX_DEGREE param." />
     <MESSAGE value="[Add] Network metrics - centralization, efficiency, etc." />
@@ -671,7 +671,8 @@
     <MESSAGE value="[Misc.]" />
     <MESSAGE value="[Add] DAContinuous Hierarchy variant" />
     <MESSAGE value="[Misc.] Params" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Misc.] Params" />
+    <MESSAGE value="[Fix] logical error in algorithm for generating hierarchy" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Fix] logical error in algorithm for generating hierarchy" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

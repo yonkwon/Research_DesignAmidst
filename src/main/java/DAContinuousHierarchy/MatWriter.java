@@ -83,11 +83,21 @@ class MatWriter {
     Matrix matrixRewiringCumulativeAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixRewiringCumulativeSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
+    Matrix matrixAverageSpanAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_HIERARCHY);
+    Matrix matrixAverageSpanSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_HIERARCHY);
+    Matrix matrixNumLevelAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_HIERARCHY);
+    Matrix matrixNumLevelSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_HIERARCHY);
+
     for (int mc = 0; mc < Main.NUM_MECHANISM; mc++) {
       for (int h = 0; h < Main.LENGTH_H; h++) {
         for (int s = 0; s < Main.LENGTH_SPREAD; s++) {
           for (int c = 0; c < Main.LENGTH_CONNECTIVITY; c++) {
             for (int e = 0; e < Main.LENGTH_ENFORCEMENT; e++) {
+              int[] indicesHierarchy = {mc, h, s, c, e};
+              matrixAverageSpanAVG.setDouble(indicesHierarchy, d.averageSpanAVG[mc][h][s][c][e]);
+              matrixAverageSpanSTD.setDouble(indicesHierarchy, d.averageSpanSTD[mc][h][s][c][e]);
+              matrixNumLevelAVG.setDouble(indicesHierarchy, d.numLevelAVG[mc][h][s][c][e]);
+              matrixNumLevelSTD.setDouble(indicesHierarchy, d.numLevelSTD[mc][h][s][c][e]);
               for (int t = 0; t < Main.TIME; t++) {
                 int[] indices = {mc, h, s, c, e, t};
                 matrixPerformanceAVG.setDouble(indices, d.performanceAVG[mc][h][s][c][e][t]);
@@ -270,6 +280,12 @@ class MatWriter {
           .addArray("r_rewi_std", matrixRewiringSTD)
           .addArray("r_rewc_avg", matrixRewiringCumulativeAVG)
           .addArray("r_rewc_std", matrixRewiringCumulativeSTD)
+
+          .addArray("r_span_avg", matrixAverageSpanAVG)
+          .addArray("r_span_std", matrixAverageSpanSTD)
+          .addArray("r_levl_avg", matrixNumLevelAVG)
+          .addArray("r_levl_std", matrixNumLevelSTD)
+
           .addArray("perf_seconds", Mat5.newScalar((System.currentTimeMillis() - Main.TIC) / 1000))
 
           .writeTo(Sinks.newStreamingFile(new File(Main.FILENAME + ".mat")));

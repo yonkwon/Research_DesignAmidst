@@ -11,6 +11,7 @@ public class Main {
   static final boolean GET_GRAPH = true;
   static final boolean GET_MAT = true;
   static final boolean OBSERVE_ALL = false;
+  static final boolean FORM_AND_BREAK = false;
 
   static final int ITERATION = 1000;
   static final int TIME = 300 + 1;
@@ -57,6 +58,7 @@ public class Main {
   static final double WEIGHT_ON_BELIEF = 1D - WEIGHT_ON_CHARACTERISTIC;
 
   static final int[] RESULT_KEY_VALUE = {NUM_MECHANISM, LENGTH_H, LENGTH_SPREAD, LENGTH_CONNECTIVITY, LENGTH_ENFORCEMENT, TIME};
+  static final int[] RESULT_KEY_VALUE_HIERARCHY = {NUM_MECHANISM, LENGTH_H, LENGTH_SPREAD, LENGTH_CONNECTIVITY, LENGTH_ENFORCEMENT};
 
   static String FILENAME;
   static String PATH_CSV;

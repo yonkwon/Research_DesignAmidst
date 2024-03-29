@@ -1,5 +1,7 @@
 package DAContinuousHierarchy;
 
+import static com.google.common.primitives.Ints.max;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
@@ -55,7 +57,7 @@ public class Scenario {
   int[] degree;
   int[] degreeEnforced;
   int[] degreeFlexible;
-  int[] span;
+  int[] spanOf;
   double[][] differenceOf;
   double[] differenceSum;
 
@@ -75,6 +77,9 @@ public class Scenario {
   double overallCentralization;
 
   double satisfactionRate;
+
+  double averageSpan;
+  int numLevel;
 
   Scenario(int socialMechanism, double strength, double spread, double connectivity, double enforcement) {
     r = new MersenneTwister();
@@ -190,7 +195,7 @@ public class Scenario {
 
     boolean[] isPlaced = new boolean[Main.N];
     boolean[] isBottomEnd = new boolean[Main.N];
-    span = new int [Main.N];
+    spanOf = new int [Main.N];
 
     network[0][1] = true;
     network[1][0] = true;
@@ -198,11 +203,11 @@ public class Scenario {
     isPlaced[1] = true;
     isBottomEnd[0] = false;
     isBottomEnd[1] = true;
-    span[0] = 1;
+    spanOf[0] = 1;
     degree[0] = 1;
     degree[1] = 1;
-    levelOf[0] = 0;
-    levelOf[1] = 1;
+    levelOf[0] = 1;
+    levelOf[1] = 2;
 
     for( int focal = 2; focal < Main.N; focal ++ ){
       boolean isToSpread =  r.nextDouble() < spread;
@@ -212,14 +217,14 @@ public class Scenario {
         if( isPlaced[target] ) {
           if ( isToSpread &&
               !isBottomEnd[target] &&
-              span[target] < Main.MAX_SPAN
+              spanOf[target] < Main.MAX_SPAN
           ) {
             network[focal][target] = true;
             network[target][focal] = true;
             degree[focal]++;
             degree[target]++;
             levelOf[focal] = levelOf[target]+1;
-            span[target]++;
+            spanOf[target]++;
             isBottomEnd[target] = false;
             isBottomEnd[focal] = true;
             isPlaced[focal] = true;
@@ -234,7 +239,7 @@ public class Scenario {
             degree[focal]++;
             degree[target]++;
             levelOf[focal] = levelOf[target]+1;
-            span[target]++;
+            spanOf[target]++;
             isBottomEnd[target] = false;
             isBottomEnd[focal] = true;
             isPlaced[focal] = true;
@@ -246,14 +251,14 @@ public class Scenario {
       if( !isPlacedFocal ){
         for( int target : targetIndexArray ){
           if( isPlaced[target] &&
-              span[target] < Main.MAX_SPAN
+              spanOf[target] < Main.MAX_SPAN
           ){
             network[focal][target] = true;
             network[target][focal] = true;
             degree[focal]++;
             degree[target]++;
             levelOf[focal] = levelOf[target]+1;
-            span[target]++;
+            spanOf[target]++;
             isBottomEnd[target] = false;
             isBottomEnd[focal] = true;
             isPlaced[focal] = true;
@@ -264,7 +269,7 @@ public class Scenario {
       }
       if( !isPlacedFocal ){
         System.out.println(focal);
-        System.out.println(Arrays.toString(span));
+        System.out.println(Arrays.toString(spanOf));
         System.out.println(Arrays.toString(isBottomEnd));
         System.exit(47285);
       }
@@ -303,6 +308,11 @@ public class Scenario {
     }
 
     setObservationStructure();
+
+    for( int focal : focalIndexArray ){
+      averageSpan += spanOf[focal];
+      numLevel = max(levelOf[focal], numLevel);
+    }
   }
 
   private void initializeEntity() {
