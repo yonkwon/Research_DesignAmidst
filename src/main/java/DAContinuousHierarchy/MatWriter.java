@@ -87,6 +87,8 @@ class MatWriter {
     Matrix matrixAverageSpanSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_HIERARCHY);
     Matrix matrixNumLevelAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_HIERARCHY);
     Matrix matrixNumLevelSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_HIERARCHY);
+    Matrix matrixMaxWidthAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE_HIERARCHY);
+    Matrix matrixMaxWidthSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE_HIERARCHY);
 
     for (int mc = 0; mc < Main.NUM_MECHANISM; mc++) {
       for (int h = 0; h < Main.LENGTH_H; h++) {
@@ -98,6 +100,8 @@ class MatWriter {
               matrixAverageSpanSTD.setDouble(indicesHierarchy, d.averageSpanSTD[mc][h][s][c][e]);
               matrixNumLevelAVG.setDouble(indicesHierarchy, d.numLevelAVG[mc][h][s][c][e]);
               matrixNumLevelSTD.setDouble(indicesHierarchy, d.numLevelSTD[mc][h][s][c][e]);
+              matrixMaxWidthAVG.setDouble(indicesHierarchy, d.maxWidthAVG[mc][h][s][c][e]);
+              matrixMaxWidthSTD.setDouble(indicesHierarchy, d.maxWidthSTD[mc][h][s][c][e]);
               for (int t = 0; t < Main.TIME; t++) {
                 int[] indices = {mc, h, s, c, e, t};
                 matrixPerformanceAVG.setDouble(indices, d.performanceAVG[mc][h][s][c][e][t]);
@@ -285,6 +289,8 @@ class MatWriter {
           .addArray("r_span_std", matrixAverageSpanSTD)
           .addArray("r_levl_avg", matrixNumLevelAVG)
           .addArray("r_levl_std", matrixNumLevelSTD)
+          .addArray("r_mwid_avg", matrixMaxWidthAVG)
+          .addArray("r_mwid_std", matrixMaxWidthSTD)
 
           .addArray("perf_seconds", Mat5.newScalar((System.currentTimeMillis() - Main.TIC) / 1000))
 

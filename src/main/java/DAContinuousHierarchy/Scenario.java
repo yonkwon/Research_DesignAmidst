@@ -80,6 +80,7 @@ public class Scenario {
 
   double averageSpan;
   int numLevel;
+  int maxWidth;
 
   Scenario(int socialMechanism, double strength, double spread, double connectivity, double enforcement) {
     r = new MersenneTwister();
@@ -197,6 +198,9 @@ public class Scenario {
     boolean[] isBottomEnd = new boolean[Main.N];
     spanOf = new int [Main.N];
 
+    numLevel = 0;
+    maxWidth = 0;
+
     network[0][1] = true;
     network[1][0] = true;
     isPlaced[0] = true;
@@ -297,6 +301,7 @@ public class Scenario {
     }
 
     na = new NetworkAnalyzer(network);
+    na.setNetworkMetrics();
 
     if( Main.OBSERVE_ALL ){
       observationStructure = new boolean[Main.N][Main.N];
@@ -309,9 +314,27 @@ public class Scenario {
 
     setObservationStructure();
 
+    int numManager = Main.N;
     for( int focal : focalIndexArray ){
       averageSpan += spanOf[focal];
-      numLevel = max(levelOf[focal], numLevel);
+      if( numLevel < levelOf[focal] ){
+        numLevel = levelOf[focal];
+      }
+      if( isBottomEnd[focal] ){
+        numManager--;
+      }
+    }
+    averageSpan /= (double) numManager;
+    for( int level = 1; level < numLevel; level ++ ){
+      int width = 0;
+      for( int focal : focalIndexArray ){
+        if( levelOf[focal] == level ){
+          width ++;
+        }
+      }
+      if( width > maxWidth ){
+        maxWidth = width;
+      }
     }
   }
 

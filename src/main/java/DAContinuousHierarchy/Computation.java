@@ -86,6 +86,13 @@ public class Computation {
   AtomicDouble[][][][][][] rewiringCumulativeAVGAtomic;
   AtomicDouble[][][][][][] rewiringCumulativeSTDAtomic;
 
+  AtomicDouble[][][][][] averageSpanAVGAtomic;
+  AtomicDouble[][][][][] averageSpanSTDAtomic;
+  AtomicDouble[][][][][] numLevelAVGAtomic;
+  AtomicDouble[][][][][] numLevelSTDAtomic;
+  AtomicDouble[][][][][] maxWidthAVGAtomic;
+  AtomicDouble[][][][][] maxWidthSTDAtomic;
+
   // Results in double arrays
   double[][][][][][] performanceAVG;
   double[][][][][][] performanceSTD;
@@ -158,6 +165,13 @@ public class Computation {
   double[][][][][][] rewiringSTD;
   double[][][][][][] rewiringCumulativeAVG;
   double[][][][][][] rewiringCumulativeSTD;
+
+  double[][][][][] averageSpanAVG;
+  double[][][][][] averageSpanSTD;
+  double[][][][][] numLevelAVG;
+  double[][][][][] numLevelSTD;
+  double[][][][][] maxWidthAVG;
+  double[][][][][] maxWidthSTD;
 
   ProgressBar pb;
 
@@ -283,11 +297,24 @@ public class Computation {
     rewiringCumulativeAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPREAD][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     rewiringCumulativeSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPREAD][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
 
+    averageSpanAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPREAD][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT];
+    averageSpanSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPREAD][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT];
+    numLevelAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPREAD][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT];
+    numLevelSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPREAD][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT];
+    maxWidthAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPREAD][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT];
+    maxWidthSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPREAD][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT];
+
     for (int mc = 0; mc < Main.NUM_MECHANISM; mc++) {
       for (int h = 0; h < Main.LENGTH_H; h++) {
         for (int s = 0; s < Main.LENGTH_SPREAD; s++) {
           for (int c = 0; c < Main.LENGTH_CONNECTIVITY; c++) {
             for (int e = 0; e < Main.LENGTH_ENFORCEMENT; e++) {
+              averageSpanAVGAtomic[mc][h][s][c][e] = new AtomicDouble();
+              averageSpanSTDAtomic[mc][h][s][c][e] = new AtomicDouble();
+              numLevelAVGAtomic[mc][h][s][c][e] = new AtomicDouble();
+              numLevelSTDAtomic[mc][h][s][c][e] = new AtomicDouble();
+              maxWidthAVGAtomic[mc][h][s][c][e] = new AtomicDouble();
+              maxWidthSTDAtomic[mc][h][s][c][e] = new AtomicDouble();
               for (int t = 0; t < Main.TIME; t++) {
                 performanceAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
                 performanceSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
@@ -437,6 +464,13 @@ public class Computation {
     rewiringSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPREAD][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     rewiringCumulativeAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPREAD][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     rewiringCumulativeSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPREAD][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    
+    averageSpanAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPREAD][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT];
+    averageSpanSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPREAD][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT];
+    numLevelAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPREAD][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT];
+    numLevelSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPREAD][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT];
+    maxWidthAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPREAD][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT];
+    maxWidthSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPREAD][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT];
   }
 
   private void runFullExperiment() {
@@ -480,6 +514,17 @@ public class Computation {
         for (int s = 0; s < Main.LENGTH_SPREAD; s++) {
           for (int c = 0; c < Main.LENGTH_CONNECTIVITY; c++) {
             for (int e = 0; e < Main.LENGTH_ENFORCEMENT; e++) {
+              averageSpanAVG[mc][h][s][c][e] = averageSpanAVGAtomic[mc][h][s][c][e].get() / Main.ITERATION;
+              averageSpanSTD[mc][h][s][c][e] = averageSpanSTDAtomic[mc][h][s][c][e].get() / Main.ITERATION;
+              averageSpanSTD[mc][h][s][c][e] = pow(averageSpanSTD[mc][h][s][c][e] - pow(averageSpanAVG[mc][h][s][c][e], 2), .5);
+
+              numLevelAVG[mc][h][s][c][e] = numLevelAVGAtomic[mc][h][s][c][e].get() / Main.ITERATION;
+              numLevelSTD[mc][h][s][c][e] = numLevelSTDAtomic[mc][h][s][c][e].get() / Main.ITERATION;
+              numLevelSTD[mc][h][s][c][e] = pow(numLevelSTD[mc][h][s][c][e] - pow(numLevelAVG[mc][h][s][c][e], 2), .5);
+              
+              maxWidthAVG[mc][h][s][c][e] = maxWidthAVGAtomic[mc][h][s][c][e].get() / Main.ITERATION;
+              maxWidthSTD[mc][h][s][c][e] = maxWidthSTDAtomic[mc][h][s][c][e].get() / Main.ITERATION;
+              maxWidthSTD[mc][h][s][c][e] = pow(maxWidthSTD[mc][h][s][c][e] - pow(maxWidthAVG[mc][h][s][c][e], 2), .5);
               for (int t = 0; t < Main.TIME; t++) {
                 performanceAVG[mc][h][s][c][e][t] = performanceAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
                 performanceSTD[mc][h][s][c][e][t] = performanceSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
@@ -707,6 +752,13 @@ public class Computation {
     AtomicDouble[] rewiringCumulativeAVGAtomicPart;
     AtomicDouble[] rewiringCumulativeSTDAtomicPart;
 
+    AtomicDouble averageSpanAVGAtomicPart;
+    AtomicDouble averageSpanSTDAtomicPart;
+    AtomicDouble numLevelAVGAtomicPart;
+    AtomicDouble numLevelSTDAtomicPart;
+    AtomicDouble maxWidthAVGAtomicPart;
+    AtomicDouble maxWidthSTDAtomicPart;
+
     SingleRun(int mcIndex, int hIndex, int spanIndex, int connectivityIndex, int enforcementIndex) {
       this.mcIndex = mcIndex;
       this.hIndex = hIndex;
@@ -796,6 +848,13 @@ public class Computation {
       rewiringSTDAtomicPart = rewiringSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
       rewiringCumulativeAVGAtomicPart = rewiringCumulativeAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
       rewiringCumulativeSTDAtomicPart = rewiringCumulativeSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+
+      averageSpanAVGAtomicPart = averageSpanAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      averageSpanSTDAtomicPart = averageSpanSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      numLevelAVGAtomicPart = numLevelAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      numLevelSTDAtomicPart = numLevelSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      maxWidthAVGAtomicPart = maxWidthAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      maxWidthSTDAtomicPart = maxWidthSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
     }
 
     private void run() {
@@ -803,7 +862,15 @@ public class Computation {
       Scenario nr = src.getClone(false, false);
       Scenario rr = src.getClone(true, true);
       int rewiringCumulative = 0;
-
+      src.na.setNetworkMetrics();
+      nr.na.setNetworkMetrics();
+      rr.na.setNetworkMetrics();
+      averageSpanAVGAtomicPart.addAndGet(src.averageSpan);
+      averageSpanSTDAtomicPart.addAndGet(pow(src.averageSpan, 2));
+      numLevelAVGAtomicPart.addAndGet(src.numLevel);
+      numLevelSTDAtomicPart.addAndGet(pow(src.numLevel, 2));
+      maxWidthAVGAtomicPart.addAndGet(src.maxWidth);
+      maxWidthSTDAtomicPart.addAndGet(pow(src.maxWidth, 2));
       for (int t = 0; t < Main.TIME; t++) {
         synchronized (this) {
           performanceAVGAtomicPart[t].addAndGet(src.performanceAvg);

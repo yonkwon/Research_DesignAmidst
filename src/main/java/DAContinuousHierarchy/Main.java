@@ -8,7 +8,7 @@ public class Main {
 
   static final long TIC = System.currentTimeMillis();
 
-  static final boolean GET_GRAPH = true;
+  static final boolean GET_GRAPH = false;
   static final boolean GET_MAT = true;
   static final boolean OBSERVE_ALL = false;
   static final boolean FORM_AND_BREAK = false;

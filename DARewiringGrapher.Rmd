@@ -68,6 +68,123 @@ tick_label_size <- 10
 ```
 
 
+
+
+## Figure 1 Compare with three scenarios
+```{r fig1}
+set_fig1_width = 6
+set_fig1_height = 3.5
+set_fig1_ylim = c(-.1, .9)
+
+set_fig1_h <- 1
+set_fig1_span <- 1:data$para.g.span
+set_fig1_connectivity <- 1
+set_fig1_enforcement <- 1
+
+x_label <- bquote('Breadth ('~beta~')')
+
+outcome_label <- c(
+  'Average Span of Control',
+  'Number of Levels',
+  'Communication Efficiency',
+  'Overall Clustering',
+  'Closeness Centralization'
+)
+outcome_label <- factor(
+  outcome_label,
+  levels = outcome_label
+)
+
+df_fig1 <- data.frame()
+df_fig1 <- rbind(
+  data.frame(
+    outcome_label = outcome_label[1],
+    panel = '(A)',
+    span = data$para.a.span[set_fig1_span],
+    outcome = data$r.span.avg[1, 1, set_fig1_span, set_fig1_connectivity, set_fig1_enforcement]
+  )
+  ,
+  data.frame(
+    outcome_label = outcome_label[2],
+    panel = '(B)',
+    span = data$para.a.span[set_fig1_span],
+    outcome = data$r.levl.avg[1, 1, set_fig1_span, set_fig1_connectivity, set_fig1_enforcement]
+  )
+  ,
+  data.frame(
+    outcome_label = outcome_label[3],
+    panel = '(C)',
+    span = data$para.a.span[set_fig1_span],
+    outcome = data$r.effi.avg[1, 1, set_fig1_span, set_fig1_connectivity, set_fig1_enforcement, 1]
+  )
+  ,
+  data.frame(
+    outcome_label = outcome_label[4],
+    panel = '(D)',
+    span = data$para.a.span[set_fig1_span],
+    outcome = data$r.clus.avg[1, 1, set_fig1_span, set_fig1_connectivity, set_fig1_enforcement, 1]
+  )
+  ,
+  data.frame(
+    outcome_label = outcome_label[5],
+    panel = '(E)',
+    span = data$para.a.span[set_fig1_span],
+    outcome = data$r.cent.avg[1, 1, set_fig1_span, set_fig1_connectivity, set_fig1_enforcement, 1]
+  )
+)
+
+axes <- aes(
+  x = span,
+  y = outcome
+)
+
+fig1 <- ggplot(data = df_fig1, mapping = axes) +
+  facet_wrap(. ~ outcome_label, scales = 'free') +
+  geom_line(alpha = .9, size = .5) +
+  geom_point(size = 2) +
+  # scale_shape_manual(values = c(16, 1, 4)) +
+  # scale_linetype_manual(values = c('solid', 'dotted', 'dashed')) +
+  scale_x_continuous(expand = c(0, .02)) +
+  # scale_y_continuous(expand = c(0, .02)) +
+  labs(x = x_label, y = NULL) +
+  scale_color_npg() +
+  theme_bw() +
+  theme(
+    text = element_text(
+      # family = windowsFonts()$serif,
+      size = label_size, color = 'black'
+    ),
+    axis.title = element_text(size = label_size, color = 'black'),
+    axis.text = element_text(size = tick_label_size, color = 'black'),
+    axis.text.x = element_text(color = 'black'),
+    strip.background = element_blank(),
+    strip.placement = 'outside',
+    strip.text = element_text(color = 'black'),
+    panel.spacing = unit(1, 'lines'),
+    legend.title = element_blank(),
+    legend.position = 'bottom'
+  )
+
+fig1
+ggsave(
+  paste0(
+    fig_id, '_',
+    'fig1_',
+    'span', paste0(data$para.a.span[set_fig1_span], collapse = ","),
+    'c', data$para.a.conn[set_fig1_connectivity],
+    'e', data$para.a.enfo[set_fig1_enforcement],
+    '.png'
+  ),
+  plot = fig1,
+  units = 'in',
+  width = set_fig1_width,
+  height = set_fig1_height,
+  dpi = fig_dpi
+)
+```
+
+
+
 ## Figure 1 Compare with three scenarios
 ```{r fig1}
 set_fig1_width = 6
@@ -76,7 +193,7 @@ set_fig1_ylim = c(-.1, .9)
 
 set_fig1_h <- 1
 # set_fig1_span <- 1:data$para.g.span
-set_fig1_span <- 1:(data$para.g.span)
+set_fig1_span <- 1:(data$para.g.span-1)
 set_fig1_connectivity <- 1
 set_fig1_enforcement <- 1
 set_fig1_t <- data$para.time
@@ -87,11 +204,11 @@ y_label <- 'Firm Performance'
 y_value_sc <- data$r.perf.avg
 y_value_nr <- data$r.perf.nr.avg
 y_value_rr <- data$r.perf.rr.avg
-
-y_label <- 'Diversity of Belief'
-y_value_sc <- data$r.disa.avg
-y_value_nr <- data$r.disa.nr.avg
-y_value_rr <- data$r.disa.rr.avg
+# 
+# y_label <- 'Diversity of Belief'
+# y_value_sc <- data$r.disa.avg
+# y_value_nr <- data$r.disa.nr.avg
+# y_value_rr <- data$r.disa.rr.avg
 
 # y_label <- 'Closeness Centralization'
 # y_value_sc <- data$r.cent.avg
