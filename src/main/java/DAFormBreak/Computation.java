@@ -79,6 +79,19 @@ public class Computation {
   AtomicDouble[][][][][][] efficiencyRRAVGAtomic;
   AtomicDouble[][][][][][] efficiencyRRSTDAtomic;
 
+  AtomicDouble[][][][][][] distanceAVGAtomic;
+  AtomicDouble[][][][][][] distanceSTDAtomic;
+  AtomicDouble[][][][][][] distance12AVGAtomic;
+  AtomicDouble[][][][][][] distance12STDAtomic;
+  AtomicDouble[][][][][][] distance23AVGAtomic;
+  AtomicDouble[][][][][][] distance23STDAtomic;
+  AtomicDouble[][][][][][] distance13AVGAtomic;
+  AtomicDouble[][][][][][] distance13STDAtomic;
+  AtomicDouble[][][][][][] distanceNRAVGAtomic;
+  AtomicDouble[][][][][][] distanceNRSTDAtomic;
+  AtomicDouble[][][][][][] distanceRRAVGAtomic;
+  AtomicDouble[][][][][][] distanceRRSTDAtomic;
+
   AtomicDouble[][][][][][] satisfactionAVGAtomic;
   AtomicDouble[][][][][][] satisfactionSTDAtomic;
   AtomicDouble[][][][][][] rewiringAVGAtomic;
@@ -151,6 +164,19 @@ public class Computation {
   double[][][][][][] efficiencyNRSTD;
   double[][][][][][] efficiencyRRAVG;
   double[][][][][][] efficiencyRRSTD;
+
+  double[][][][][][] distanceAVG;
+  double[][][][][][] distanceSTD;
+  double[][][][][][] distance12AVG;
+  double[][][][][][] distance12STD;
+  double[][][][][][] distance23AVG;
+  double[][][][][][] distance23STD;
+  double[][][][][][] distance13AVG;
+  double[][][][][][] distance13STD;
+  double[][][][][][] distanceNRAVG;
+  double[][][][][][] distanceNRSTD;
+  double[][][][][][] distanceRRAVG;
+  double[][][][][][] distanceRRSTD;
 
   double[][][][][][] satisfactionAVG;
   double[][][][][][] satisfactionSTD;
@@ -276,6 +302,19 @@ public class Computation {
     efficiencyRRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     efficiencyRRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
 
+    distanceAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distanceSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distance12AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distance12STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distance23AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distance23STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distance13AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distance13STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distanceNRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distanceNRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distanceRRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distanceRRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+
     satisfactionAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     satisfactionSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     rewiringAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
@@ -354,6 +393,19 @@ public class Computation {
                 efficiencyRRAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
                 efficiencyRRSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
 
+                distanceAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                distanceSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                distance12AVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                distance12STDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                distance23AVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                distance23STDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                distance13AVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                distance13STDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                distanceNRAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                distanceNRSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                distanceRRAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                distanceRRSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+
                 satisfactionAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
                 satisfactionSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
                 rewiringAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
@@ -430,6 +482,19 @@ public class Computation {
     efficiencyNRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     efficiencyRRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     efficiencyRRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+
+    distanceAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distanceSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distance12AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distance12STD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distance23AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distance23STD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distance13AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distance13STD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distanceNRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distanceNRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distanceRRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    distanceRRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
 
     satisfactionAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     satisfactionSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
@@ -600,6 +665,30 @@ public class Computation {
                 efficiencyRRAVG[mc][h][s][c][e][t] = efficiencyRRAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
                 efficiencyRRSTD[mc][h][s][c][e][t] = efficiencyRRSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
                 efficiencyRRSTD[mc][h][s][c][e][t] = pow(efficiencyRRSTD[mc][h][s][c][e][t] - pow(efficiencyRRAVG[mc][h][s][c][e][t], 2), .5);
+                
+                distanceAVG[mc][h][s][c][e][t] = distanceAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                distanceSTD[mc][h][s][c][e][t] = distanceSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                distanceSTD[mc][h][s][c][e][t] = pow(distanceSTD[mc][h][s][c][e][t] - pow(distanceAVG[mc][h][s][c][e][t], 2), .5);
+
+                distance12AVG[mc][h][s][c][e][t] = distance12AVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                distance12STD[mc][h][s][c][e][t] = distance12STDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                distance12STD[mc][h][s][c][e][t] = pow(distance12STD[mc][h][s][c][e][t] - pow(distance12AVG[mc][h][s][c][e][t], 2), .5);
+
+                distance23AVG[mc][h][s][c][e][t] = distance23AVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                distance23STD[mc][h][s][c][e][t] = distance23STDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                distance23STD[mc][h][s][c][e][t] = pow(distance23STD[mc][h][s][c][e][t] - pow(distance23AVG[mc][h][s][c][e][t], 2), .5);
+
+                distance13AVG[mc][h][s][c][e][t] = distance13AVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                distance13STD[mc][h][s][c][e][t] = distance13STDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                distance13STD[mc][h][s][c][e][t] = pow(distance13STD[mc][h][s][c][e][t] - pow(distance13AVG[mc][h][s][c][e][t], 2), .5);
+
+                distanceNRAVG[mc][h][s][c][e][t] = distanceNRAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                distanceNRSTD[mc][h][s][c][e][t] = distanceNRSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                distanceNRSTD[mc][h][s][c][e][t] = pow(distanceNRSTD[mc][h][s][c][e][t] - pow(distanceNRAVG[mc][h][s][c][e][t], 2), .5);
+
+                distanceRRAVG[mc][h][s][c][e][t] = distanceRRAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                distanceRRSTD[mc][h][s][c][e][t] = distanceRRSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                distanceRRSTD[mc][h][s][c][e][t] = pow(distanceRRSTD[mc][h][s][c][e][t] - pow(distanceRRAVG[mc][h][s][c][e][t], 2), .5);
 
                 satisfactionAVG[mc][h][s][c][e][t] = satisfactionAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
                 satisfactionSTD[mc][h][s][c][e][t] = satisfactionSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
@@ -698,6 +787,19 @@ public class Computation {
     AtomicDouble[] efficiencyRRAVGAtomicPart;
     AtomicDouble[] efficiencyRRSTDAtomicPart;
 
+    AtomicDouble[] distanceAVGAtomicPart;
+    AtomicDouble[] distanceSTDAtomicPart;
+    AtomicDouble[] distance12AVGAtomicPart;
+    AtomicDouble[] distance12STDAtomicPart;
+    AtomicDouble[] distance23AVGAtomicPart;
+    AtomicDouble[] distance23STDAtomicPart;
+    AtomicDouble[] distance13AVGAtomicPart;
+    AtomicDouble[] distance13STDAtomicPart;
+    AtomicDouble[] distanceNRAVGAtomicPart;
+    AtomicDouble[] distanceNRSTDAtomicPart;
+    AtomicDouble[] distanceRRAVGAtomicPart;
+    AtomicDouble[] distanceRRSTDAtomicPart;
+    
     AtomicDouble[] satisfactionAVGAtomicPart;
     AtomicDouble[] satisfactionSTDAtomicPart;
 
@@ -788,6 +890,19 @@ public class Computation {
       efficiencyNRSTDAtomicPart = efficiencyNRSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
       efficiencyRRAVGAtomicPart = efficiencyRRAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
       efficiencyRRSTDAtomicPart = efficiencyRRSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+
+      distanceAVGAtomicPart = distanceAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      distanceSTDAtomicPart = distanceSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      distance12AVGAtomicPart = distance12AVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      distance12STDAtomicPart = distance12STDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      distance23AVGAtomicPart = distance23AVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      distance23STDAtomicPart = distance23STDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      distance13AVGAtomicPart = distance13AVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      distance13STDAtomicPart = distance13STDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      distanceNRAVGAtomicPart = distanceNRAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      distanceNRSTDAtomicPart = distanceNRSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      distanceRRAVGAtomicPart = distanceRRAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      distanceRRSTDAtomicPart = distanceRRSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
 
       satisfactionAVGAtomicPart = satisfactionAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
       satisfactionSTDAtomicPart = satisfactionSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
@@ -885,6 +1000,22 @@ public class Computation {
           efficiencyNRSTDAtomicPart[t].addAndGet(pow(nr.networkEfficiency, 2));
           efficiencyRRAVGAtomicPart[t].addAndGet(rr.networkEfficiency);
           efficiencyRRSTDAtomicPart[t].addAndGet(pow(rr.networkEfficiency, 2));
+
+          distanceAVGAtomicPart[t].addAndGet(src.averagePathLength);
+          distanceSTDAtomicPart[t].addAndGet(pow(src.averagePathLength, 2));
+          double distance12 = rr.averagePathLength - nr.averagePathLength;
+          distance12AVGAtomicPart[t].addAndGet(distance12);
+          distance12STDAtomicPart[t].addAndGet(pow(distance12, 2));
+          double distance23 = src.averagePathLength - rr.averagePathLength;
+          distance23AVGAtomicPart[t].addAndGet(distance23);
+          distance23STDAtomicPart[t].addAndGet(pow(distance23, 2));
+          double distance13 = src.averagePathLength - nr.averagePathLength;
+          distance13AVGAtomicPart[t].addAndGet(distance13);
+          distance13STDAtomicPart[t].addAndGet(pow(distance13, 2));
+          distanceNRAVGAtomicPart[t].addAndGet(nr.averagePathLength);
+          distanceNRSTDAtomicPart[t].addAndGet(pow(nr.averagePathLength, 2));
+          distanceRRAVGAtomicPart[t].addAndGet(rr.averagePathLength);
+          distanceRRSTDAtomicPart[t].addAndGet(pow(rr.averagePathLength, 2));
 
           satisfactionAVGAtomicPart[t].addAndGet(src.satisfactionRate);
           satisfactionSTDAtomicPart[t].addAndGet(pow(src.satisfactionRate, 2));

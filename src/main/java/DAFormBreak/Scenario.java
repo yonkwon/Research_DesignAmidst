@@ -73,7 +73,6 @@ public class Scenario {
   double overallCentralization;
 
   double satisfactionRate;
-
   Scenario(int socialMechanism, double strength, int span, double connectivity, double enforcement) {
     r = new MersenneTwister();
 
@@ -290,9 +289,9 @@ public class Scenario {
           observationStructure[focal][target] = true;
         }
       }
+    }else{
+      setObservationStructure();
     }
-
-    setObservationStructure();
   }
 
   private void initializeEntity() {
@@ -627,7 +626,10 @@ public class Scenario {
             if (degree[target] == 1) {
               continue;
             }
-            if (neighborScore[focal][target] < worstNeighborScore) {
+            if (neighborScore[focal][target] < worstNeighborScore
+                &&
+                neighborScore[focal][target] < neighborhoodScore[focal] //@@@@ THIS IS AN IMPORTANT ASSUMPTION FOR DEGREE[FOCAL]>1
+            ) {
               target2Break = target;
               worstNeighborScore = neighborScore[focal][target];
             }
