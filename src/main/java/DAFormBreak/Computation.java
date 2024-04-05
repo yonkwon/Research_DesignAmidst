@@ -92,6 +92,19 @@ public class Computation {
   AtomicDouble[][][][][][] distanceRRAVGAtomic;
   AtomicDouble[][][][][][] distanceRRSTDAtomic;
 
+  AtomicDouble[][][][][][] densityAVGAtomic;
+  AtomicDouble[][][][][][] densitySTDAtomic;
+  AtomicDouble[][][][][][] density12AVGAtomic;
+  AtomicDouble[][][][][][] density12STDAtomic;
+  AtomicDouble[][][][][][] density23AVGAtomic;
+  AtomicDouble[][][][][][] density23STDAtomic;
+  AtomicDouble[][][][][][] density13AVGAtomic;
+  AtomicDouble[][][][][][] density13STDAtomic;
+  AtomicDouble[][][][][][] densityNRAVGAtomic;
+  AtomicDouble[][][][][][] densityNRSTDAtomic;
+  AtomicDouble[][][][][][] densityRRAVGAtomic;
+  AtomicDouble[][][][][][] densityRRSTDAtomic;
+
   AtomicDouble[][][][][][] satisfactionAVGAtomic;
   AtomicDouble[][][][][][] satisfactionSTDAtomic;
   AtomicDouble[][][][][][] rewiringAVGAtomic;
@@ -177,6 +190,19 @@ public class Computation {
   double[][][][][][] distanceNRSTD;
   double[][][][][][] distanceRRAVG;
   double[][][][][][] distanceRRSTD;
+
+  double[][][][][][] densityAVG;
+  double[][][][][][] densitySTD;
+  double[][][][][][] density12AVG;
+  double[][][][][][] density12STD;
+  double[][][][][][] density23AVG;
+  double[][][][][][] density23STD;
+  double[][][][][][] density13AVG;
+  double[][][][][][] density13STD;
+  double[][][][][][] densityNRAVG;
+  double[][][][][][] densityNRSTD;
+  double[][][][][][] densityRRAVG;
+  double[][][][][][] densityRRSTD;
 
   double[][][][][][] satisfactionAVG;
   double[][][][][][] satisfactionSTD;
@@ -315,6 +341,19 @@ public class Computation {
     distanceRRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     distanceRRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
 
+    densityAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    densitySTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    density12AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    density12STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    density23AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    density23STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    density13AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    density13STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    densityNRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    densityNRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    densityRRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    densityRRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+
     satisfactionAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     satisfactionSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     rewiringAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
@@ -406,6 +445,19 @@ public class Computation {
                 distanceRRAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
                 distanceRRSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
 
+                densityAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                densitySTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                density12AVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                density12STDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                density23AVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                density23STDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                density13AVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                density13STDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                densityNRAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                densityNRSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                densityRRAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                densityRRSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+
                 satisfactionAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
                 satisfactionSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
                 rewiringAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
@@ -495,6 +547,19 @@ public class Computation {
     distanceNRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     distanceRRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     distanceRRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    
+    densityAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    densitySTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    density12AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    density12STD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    density23AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    density23STD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    density13AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    density13STD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    densityNRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    densityNRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    densityRRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    densityRRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
 
     satisfactionAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     satisfactionSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
@@ -665,7 +730,7 @@ public class Computation {
                 efficiencyRRAVG[mc][h][s][c][e][t] = efficiencyRRAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
                 efficiencyRRSTD[mc][h][s][c][e][t] = efficiencyRRSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
                 efficiencyRRSTD[mc][h][s][c][e][t] = pow(efficiencyRRSTD[mc][h][s][c][e][t] - pow(efficiencyRRAVG[mc][h][s][c][e][t], 2), .5);
-                
+
                 distanceAVG[mc][h][s][c][e][t] = distanceAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
                 distanceSTD[mc][h][s][c][e][t] = distanceSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
                 distanceSTD[mc][h][s][c][e][t] = pow(distanceSTD[mc][h][s][c][e][t] - pow(distanceAVG[mc][h][s][c][e][t], 2), .5);
@@ -689,6 +754,30 @@ public class Computation {
                 distanceRRAVG[mc][h][s][c][e][t] = distanceRRAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
                 distanceRRSTD[mc][h][s][c][e][t] = distanceRRSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
                 distanceRRSTD[mc][h][s][c][e][t] = pow(distanceRRSTD[mc][h][s][c][e][t] - pow(distanceRRAVG[mc][h][s][c][e][t], 2), .5);
+
+                densityAVG[mc][h][s][c][e][t] = densityAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                densitySTD[mc][h][s][c][e][t] = densitySTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                densitySTD[mc][h][s][c][e][t] = pow(densitySTD[mc][h][s][c][e][t] - pow(densityAVG[mc][h][s][c][e][t], 2), .5);
+
+                density12AVG[mc][h][s][c][e][t] = density12AVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                density12STD[mc][h][s][c][e][t] = density12STDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                density12STD[mc][h][s][c][e][t] = pow(density12STD[mc][h][s][c][e][t] - pow(density12AVG[mc][h][s][c][e][t], 2), .5);
+
+                density23AVG[mc][h][s][c][e][t] = density23AVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                density23STD[mc][h][s][c][e][t] = density23STDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                density23STD[mc][h][s][c][e][t] = pow(density23STD[mc][h][s][c][e][t] - pow(density23AVG[mc][h][s][c][e][t], 2), .5);
+
+                density13AVG[mc][h][s][c][e][t] = density13AVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                density13STD[mc][h][s][c][e][t] = density13STDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                density13STD[mc][h][s][c][e][t] = pow(density13STD[mc][h][s][c][e][t] - pow(density13AVG[mc][h][s][c][e][t], 2), .5);
+
+                densityNRAVG[mc][h][s][c][e][t] = densityNRAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                densityNRSTD[mc][h][s][c][e][t] = densityNRSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                densityNRSTD[mc][h][s][c][e][t] = pow(densityNRSTD[mc][h][s][c][e][t] - pow(densityNRAVG[mc][h][s][c][e][t], 2), .5);
+
+                densityRRAVG[mc][h][s][c][e][t] = densityRRAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                densityRRSTD[mc][h][s][c][e][t] = densityRRSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                densityRRSTD[mc][h][s][c][e][t] = pow(densityRRSTD[mc][h][s][c][e][t] - pow(densityRRAVG[mc][h][s][c][e][t], 2), .5);
 
                 satisfactionAVG[mc][h][s][c][e][t] = satisfactionAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
                 satisfactionSTD[mc][h][s][c][e][t] = satisfactionSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
@@ -799,7 +888,20 @@ public class Computation {
     AtomicDouble[] distanceNRSTDAtomicPart;
     AtomicDouble[] distanceRRAVGAtomicPart;
     AtomicDouble[] distanceRRSTDAtomicPart;
-    
+
+    AtomicDouble[] densityAVGAtomicPart;
+    AtomicDouble[] densitySTDAtomicPart;
+    AtomicDouble[] density12AVGAtomicPart;
+    AtomicDouble[] density12STDAtomicPart;
+    AtomicDouble[] density23AVGAtomicPart;
+    AtomicDouble[] density23STDAtomicPart;
+    AtomicDouble[] density13AVGAtomicPart;
+    AtomicDouble[] density13STDAtomicPart;
+    AtomicDouble[] densityNRAVGAtomicPart;
+    AtomicDouble[] densityNRSTDAtomicPart;
+    AtomicDouble[] densityRRAVGAtomicPart;
+    AtomicDouble[] densityRRSTDAtomicPart;
+
     AtomicDouble[] satisfactionAVGAtomicPart;
     AtomicDouble[] satisfactionSTDAtomicPart;
 
@@ -903,6 +1005,19 @@ public class Computation {
       distanceNRSTDAtomicPart = distanceNRSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
       distanceRRAVGAtomicPart = distanceRRAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
       distanceRRSTDAtomicPart = distanceRRSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+
+      densityAVGAtomicPart = densityAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      densitySTDAtomicPart = densitySTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      density12AVGAtomicPart = density12AVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      density12STDAtomicPart = density12STDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      density23AVGAtomicPart = density23AVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      density23STDAtomicPart = density23STDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      density13AVGAtomicPart = density13AVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      density13STDAtomicPart = density13STDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      densityNRAVGAtomicPart = densityNRAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      densityNRSTDAtomicPart = densityNRSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      densityRRAVGAtomicPart = densityRRAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      densityRRSTDAtomicPart = densityRRSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
 
       satisfactionAVGAtomicPart = satisfactionAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
       satisfactionSTDAtomicPart = satisfactionSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
@@ -1016,6 +1131,22 @@ public class Computation {
           distanceNRSTDAtomicPart[t].addAndGet(pow(nr.averagePathLength, 2));
           distanceRRAVGAtomicPart[t].addAndGet(rr.averagePathLength);
           distanceRRSTDAtomicPart[t].addAndGet(pow(rr.averagePathLength, 2));
+          
+          densityAVGAtomicPart[t].addAndGet(src.averagePathLength);
+          densitySTDAtomicPart[t].addAndGet(pow(src.averagePathLength, 2));
+          double density12 = rr.averagePathLength - nr.averagePathLength;
+          density12AVGAtomicPart[t].addAndGet(density12);
+          density12STDAtomicPart[t].addAndGet(pow(density12, 2));
+          double density23 = src.averagePathLength - rr.averagePathLength;
+          density23AVGAtomicPart[t].addAndGet(density23);
+          density23STDAtomicPart[t].addAndGet(pow(density23, 2));
+          double density13 = src.averagePathLength - nr.averagePathLength;
+          density13AVGAtomicPart[t].addAndGet(density13);
+          density13STDAtomicPart[t].addAndGet(pow(density13, 2));
+          densityNRAVGAtomicPart[t].addAndGet(nr.averagePathLength);
+          densityNRSTDAtomicPart[t].addAndGet(pow(nr.averagePathLength, 2));
+          densityRRAVGAtomicPart[t].addAndGet(rr.averagePathLength);
+          densityRRSTDAtomicPart[t].addAndGet(pow(rr.averagePathLength, 2));
 
           satisfactionAVGAtomicPart[t].addAndGet(src.satisfactionRate);
           satisfactionSTDAtomicPart[t].addAndGet(pow(src.satisfactionRate, 2));

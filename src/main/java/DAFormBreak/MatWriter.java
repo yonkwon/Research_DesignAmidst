@@ -88,6 +88,19 @@ class MatWriter {
     Matrix matrixDistanceRRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixDistanceRRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
+    Matrix matrixDensityAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDensitySTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDensity12AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDensity12STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDensity23AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDensity23STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDensity13AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDensity13STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDensityNRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDensityNRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDensityRRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixDensityRRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+
     Matrix matrixSatisfactionAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixSatisfactionSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
@@ -180,6 +193,20 @@ class MatWriter {
                 matrixDistanceNRSTD.setDouble(indices, d.distanceNRSTD[mc][h][s][c][e][t]);
                 matrixDistanceRRAVG.setDouble(indices, d.distanceRRAVG[mc][h][s][c][e][t]);
                 matrixDistanceRRSTD.setDouble(indices, d.distanceRRSTD[mc][h][s][c][e][t]);
+
+
+                matrixDensityAVG.setDouble(indices, d.densityAVG[mc][h][s][c][e][t]);
+                matrixDensitySTD.setDouble(indices, d.densitySTD[mc][h][s][c][e][t]);
+                matrixDensity12AVG.setDouble(indices, d.density12AVG[mc][h][s][c][e][t]);
+                matrixDensity12STD.setDouble(indices, d.density12STD[mc][h][s][c][e][t]);
+                matrixDensity23AVG.setDouble(indices, d.density23AVG[mc][h][s][c][e][t]);
+                matrixDensity23STD.setDouble(indices, d.density23STD[mc][h][s][c][e][t]);
+                matrixDensity13AVG.setDouble(indices, d.density13AVG[mc][h][s][c][e][t]);
+                matrixDensity13STD.setDouble(indices, d.density13STD[mc][h][s][c][e][t]);
+                matrixDensityNRAVG.setDouble(indices, d.densityNRAVG[mc][h][s][c][e][t]);
+                matrixDensityNRSTD.setDouble(indices, d.densityNRSTD[mc][h][s][c][e][t]);
+                matrixDensityRRAVG.setDouble(indices, d.densityRRAVG[mc][h][s][c][e][t]);
+                matrixDensityRRSTD.setDouble(indices, d.densityRRSTD[mc][h][s][c][e][t]);
 
                 matrixSatisfactionAVG.setDouble(indices, d.satisfactionAVG[mc][h][s][c][e][t]);
                 matrixSatisfactionSTD.setDouble(indices, d.satisfactionSTD[mc][h][s][c][e][t]);
@@ -302,6 +329,18 @@ class MatWriter {
           .addArray("r_dist_nr_std", matrixDistanceNRSTD)
           .addArray("r_dist_rr_avg", matrixDistanceRRAVG)
           .addArray("r_dist_rr_std", matrixDistanceRRSTD)
+          .addArray("r_dens_avg", matrixDensityAVG)
+          .addArray("r_dens_std", matrixDensitySTD)
+          .addArray("r_dens_12_avg", matrixDensity12AVG)
+          .addArray("r_dens_12_std", matrixDensity12STD)
+          .addArray("r_dens_23_avg", matrixDensity23AVG)
+          .addArray("r_dens_23_std", matrixDensity23STD)
+          .addArray("r_dens_13_avg", matrixDensity13AVG)
+          .addArray("r_dens_13_std", matrixDensity13STD)
+          .addArray("r_dens_nr_avg", matrixDensityNRAVG)
+          .addArray("r_dens_nr_std", matrixDensityNRSTD)
+          .addArray("r_dens_rr_avg", matrixDensityRRAVG)
+          .addArray("r_dens_rr_std", matrixDensityRRSTD)
           .addArray("r_sati_avg", matrixSatisfactionAVG)
           .addArray("r_sati_std", matrixSatisfactionSTD)
           .addArray("r_rewi_avg", matrixRewiringAVG)

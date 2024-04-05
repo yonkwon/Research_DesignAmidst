@@ -12,11 +12,16 @@ public class NetworkAnalyzer {
   boolean[][] network2Analyze;
   int[][] shortestDistance;
 
+  double density;
   double diameter;
   double averagePathLength;
   double networkEfficiency;
   double overallClustering;
   double overallClosenessCentralization;
+
+  public double getDensity() {
+    return density;
+  }
 
   public double getDiameter() {
     return diameter;
@@ -87,6 +92,7 @@ public class NetworkAnalyzer {
 
   public void setNetworkMetrics() {
     setShortestDistance();
+    density = 0;
     diameter = Double.MIN_VALUE;
     averagePathLength = 0;
     networkEfficiency = 0;
@@ -98,6 +104,9 @@ public class NetworkAnalyzer {
     for (int i = 0; i < Main.N; i++) {
       for (int j = i; j < Main.N; j++) {
         if (i != j) {
+          if( network2Analyze[i][j] ){
+            density++;
+          }
           double d = shortestDistance[i][j];
           if (d > diameter) {
             diameter = d;
@@ -112,8 +121,6 @@ public class NetworkAnalyzer {
         }
       }
     }
-    averagePathLength /= (double) Main.N_DYAD;
-    networkEfficiency /= (double) Main.N_DYAD;
     for (int i = 0; i < Main.N; i++) {
       overallClosenessCentralization -= closenessCentrality[i];
       if (closenessCentrality[i] > closenessCentralityMax) {
@@ -130,7 +137,9 @@ public class NetworkAnalyzer {
         }
       }
     }
-
+    density /= (double) Main.N_DYAD;
+    averagePathLength /= (double) Main.N_DYAD;
+    networkEfficiency /= (double) Main.N_DYAD;
     overallClosenessCentralization += closenessCentralityMax * (double) Main.N;
     overallClosenessCentralization /= CLOSENESS_CENTRALIZATION_DENOMINATOR;
     overallClustering = (double) overallClusteringNumerator / (double) overallClusteringDenominator;

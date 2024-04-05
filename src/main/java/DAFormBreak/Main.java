@@ -4,27 +4,30 @@ import java.io.File;
 
 public class Main {
 
-  static String RUN_ID = "DAFormBreak_ALWAYSBREAK";
+  static String RUN_ID = "DAFormBreak_MAXINFORM5_ALWAYSFORM";
 
   static final long TIC = System.currentTimeMillis();
 
   static final boolean GET_GRAPH = true;
   static final boolean GET_MAT = true;
   static final boolean LINK_LEVEL = false;
-  static final boolean OBSERVE_ALL = true;
+  static final boolean OBSERVE_ALL = false;
 
   static final int ITERATION = 1000;
-  static final int TIME = 300 + 1;
+  static final int TIME = 800 + 1;
+//  static final int TIME = 1;
 
 //  static final int ITERATION = 1;
 //  static final int TIME = 5 + 1;
 
   static final int NUM_MECHANISM = 4; // Homophily on Char, on Status, closure, & p-attachment
   static final int OBSERVATION_SCOPE = 3; // >= 2
-  static final int MAX_DEGREE = 10; // >= 2
+  static final int MAX_DEGREE = 999; // >= 2
+  static final int MAX_INFORMAL = 5; // >= 1
 
-  static final int N = 150;
-  static final int[] SPAN = {2, 3, 4, 5, 6, 7, 8, 9, N-1};
+  static final int N = 100;
+  static final int[] SPAN = {2, 3, 4, 5, 6, 7, 8};
+//  static final int[] SPAN = {3,4,5,6};
   static final int LENGTH_SPAN = SPAN.length;
 
   static final int M_OF_BUNDLE = 20;
@@ -40,7 +43,6 @@ public class Main {
 
   static final double[] ENFORCEMENT = {1};
 //  static final double[] ENFORCEMENT = {0, 1};
-//  static final double[] ENFORCEMENT = {1};
   static final int LENGTH_ENFORCEMENT = ENFORCEMENT.length;
 
   static final double P_LEARNING = .2;
@@ -80,6 +82,7 @@ public class Main {
         "LL" + (LINK_LEVEL ? "t" : "f") +
         "O" + (OBSERVE_ALL?"Inf":OBSERVATION_SCOPE) +
         "MD" + MAX_DEGREE +
+        "MI" + MAX_INFORMAL +
         "T" + TIME +
         "N" + N +
         "L" + L +
