@@ -101,6 +101,20 @@ class MatWriter {
     Matrix matrixDensityRRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixDensityRRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
+
+    Matrix matrixBetweennessCentralityVarianceAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixBetweennessCentralityVarianceSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixBetweennessCentralityVariance12AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixBetweennessCentralityVariance12STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixBetweennessCentralityVariance23AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixBetweennessCentralityVariance23STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixBetweennessCentralityVariance13AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixBetweennessCentralityVariance13STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixBetweennessCentralityVarianceNRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixBetweennessCentralityVarianceNRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixBetweennessCentralityVarianceRRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixBetweennessCentralityVarianceRRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+
     Matrix matrixSatisfactionAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixSatisfactionSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
@@ -207,6 +221,20 @@ class MatWriter {
                 matrixDensityNRSTD.setDouble(indices, d.densityNRSTD[mc][h][s][c][e][t]);
                 matrixDensityRRAVG.setDouble(indices, d.densityRRAVG[mc][h][s][c][e][t]);
                 matrixDensityRRSTD.setDouble(indices, d.densityRRSTD[mc][h][s][c][e][t]);
+
+
+                matrixBetweennessCentralityVarianceAVG.setDouble(indices, d.betweennessCentralityVarianceAVG[mc][h][s][c][e][t]);
+                matrixBetweennessCentralityVarianceSTD.setDouble(indices, d.betweennessCentralityVarianceSTD[mc][h][s][c][e][t]);
+                matrixBetweennessCentralityVariance12AVG.setDouble(indices, d.betweennessCentralityVariance12AVG[mc][h][s][c][e][t]);
+                matrixBetweennessCentralityVariance12STD.setDouble(indices, d.betweennessCentralityVariance12STD[mc][h][s][c][e][t]);
+                matrixBetweennessCentralityVariance23AVG.setDouble(indices, d.betweennessCentralityVariance23AVG[mc][h][s][c][e][t]);
+                matrixBetweennessCentralityVariance23STD.setDouble(indices, d.betweennessCentralityVariance23STD[mc][h][s][c][e][t]);
+                matrixBetweennessCentralityVariance13AVG.setDouble(indices, d.betweennessCentralityVariance13AVG[mc][h][s][c][e][t]);
+                matrixBetweennessCentralityVariance13STD.setDouble(indices, d.betweennessCentralityVariance13STD[mc][h][s][c][e][t]);
+                matrixBetweennessCentralityVarianceNRAVG.setDouble(indices, d.betweennessCentralityVarianceNRAVG[mc][h][s][c][e][t]);
+                matrixBetweennessCentralityVarianceNRSTD.setDouble(indices, d.betweennessCentralityVarianceNRSTD[mc][h][s][c][e][t]);
+                matrixBetweennessCentralityVarianceRRAVG.setDouble(indices, d.betweennessCentralityVarianceRRAVG[mc][h][s][c][e][t]);
+                matrixBetweennessCentralityVarianceRRSTD.setDouble(indices, d.betweennessCentralityVarianceRRSTD[mc][h][s][c][e][t]);
 
                 matrixSatisfactionAVG.setDouble(indices, d.satisfactionAVG[mc][h][s][c][e][t]);
                 matrixSatisfactionSTD.setDouble(indices, d.satisfactionSTD[mc][h][s][c][e][t]);
@@ -341,6 +369,20 @@ class MatWriter {
           .addArray("r_dens_nr_std", matrixDensityNRSTD)
           .addArray("r_dens_rr_avg", matrixDensityRRAVG)
           .addArray("r_dens_rr_std", matrixDensityRRSTD)
+
+          .addArray("r_bcva_avg", matrixBetweennessCentralityVarianceAVG)
+          .addArray("r_bcva_std", matrixBetweennessCentralityVarianceSTD)
+          .addArray("r_bcva_12_avg", matrixBetweennessCentralityVariance12AVG)
+          .addArray("r_bcva_12_std", matrixBetweennessCentralityVariance12STD)
+          .addArray("r_bcva_23_avg", matrixBetweennessCentralityVariance23AVG)
+          .addArray("r_bcva_23_std", matrixBetweennessCentralityVariance23STD)
+          .addArray("r_bcva_13_avg", matrixBetweennessCentralityVariance13AVG)
+          .addArray("r_bcva_13_std", matrixBetweennessCentralityVariance13STD)
+          .addArray("r_bcva_nr_avg", matrixBetweennessCentralityVarianceNRAVG)
+          .addArray("r_bcva_nr_std", matrixBetweennessCentralityVarianceNRSTD)
+          .addArray("r_bcva_rr_avg", matrixBetweennessCentralityVarianceRRAVG)
+          .addArray("r_bcva_rr_std", matrixBetweennessCentralityVarianceRRSTD)
+          
           .addArray("r_sati_avg", matrixSatisfactionAVG)
           .addArray("r_sati_std", matrixSatisfactionSTD)
           .addArray("r_rewi_avg", matrixRewiringAVG)

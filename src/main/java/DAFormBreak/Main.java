@@ -4,14 +4,14 @@ import java.io.File;
 
 public class Main {
 
-  static String RUN_ID = "DAFormBreak_MAXINFORM5_ALWAYSFORM";
+  static String RUN_ID = "DAFormBreak_MAXINFORM5";
 
   static final long TIC = System.currentTimeMillis();
 
   static final boolean GET_GRAPH = true;
   static final boolean GET_MAT = true;
   static final boolean LINK_LEVEL = false;
-  static final boolean OBSERVE_ALL = false;
+  static final boolean OBSERVE_ALL = true;
 
   static final int ITERATION = 1000;
   static final int TIME = 800 + 1;

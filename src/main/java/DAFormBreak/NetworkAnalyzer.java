@@ -1,5 +1,7 @@
 package DAFormBreak;
 
+import org.apache.commons.math3.util.FastMath;
+
 public class NetworkAnalyzer {
 
   // Pen-and-paper solution:
@@ -18,7 +20,11 @@ public class NetworkAnalyzer {
   double networkEfficiency;
   double overallClustering;
   double overallClosenessCentralization;
+  double betweennessCentralityVariance;
 
+  double[] betweennessCentrality = new double[Main.N];
+  int[][] numIsBetween = new int[Main.N][Main.N]; // Count of shortest paths passing through node
+  int[][] paths = new int[Main.N][Main.N];
   public double getDensity() {
     return density;
   }
@@ -43,6 +49,10 @@ public class NetworkAnalyzer {
     return overallClosenessCentralization;
   }
 
+  public double getBetweennessCentralityVariance() {
+    return betweennessCentralityVariance;
+  }
+
   public NetworkAnalyzer() {
 
   }
@@ -59,10 +69,13 @@ public class NetworkAnalyzer {
     //Code imported from:
     //https://bard.google.com/chat/acb7fceb30ea4ef0
     shortestDistance = new int[Main.N][Main.N];
+    numIsBetween = new int[Main.N][Main.N];
     for (int i = 0; i < Main.N; i++) {
       for (int j = 0; j < Main.N; j++) {
         if (network2Analyze[i][j]) {
           shortestDistance[i][j] = 1;
+          numIsBetween[i][j] = 1; // Direct path is the shortest path
+          numIsBetween[j][i] = 1; // Direct path is the shortest path
         } else {
           shortestDistance[i][j] = Main.N; // Impossible distance
           //Do not try to work with it 0 = INF.
@@ -76,6 +89,14 @@ public class NetworkAnalyzer {
         for (int j = 0; j < Main.N; j++) {
           if (shortestDistance[i][k] + shortestDistance[k][j] < shortestDistance[i][j]) {
             shortestDistance[i][j] = shortestDistance[i][k] + shortestDistance[k][j];
+            numIsBetween[i][j] = numIsBetween[j][i] = numIsBetween[i][k] * numIsBetween[k][j];
+          }else if(
+              i != j &&
+              k != i &&
+              k != j &&
+              shortestDistance[i][k] + shortestDistance[k][j] == shortestDistance[i][j]
+          ){
+            numIsBetween[i][j] = numIsBetween[j][i] = numIsBetween[i][k] * numIsBetween[k][j];
           }
         }
       }
@@ -85,6 +106,13 @@ public class NetworkAnalyzer {
       for (int j = 0; j < Main.N; j++) {
         if (shortestDistance[i][j] == Main.N) {
           shortestDistance[i][j] = 0;
+        }
+        if( i != j ){
+          for (int k = 0; k < Main.N; k++) { // Node through which the path goes
+            if (i != k && j != k && shortestDistance[i][k] + shortestDistance[k][j] == shortestDistance[i][j]) {
+              betweennessCentrality[k] += (double)(numIsBetween[i][k] * numIsBetween[k][j]) / (double)numIsBetween[i][j];
+            }
+          }
         }
       }
     }
@@ -97,6 +125,7 @@ public class NetworkAnalyzer {
     averagePathLength = 0;
     networkEfficiency = 0;
     overallClosenessCentralization = 0;
+    betweennessCentralityVariance = 0;
     double[] closenessCentrality = new double[Main.N];
     double closenessCentralityMax = Double.MIN_VALUE;
     int overallClusteringNumerator = 0;
@@ -137,12 +166,21 @@ public class NetworkAnalyzer {
         }
       }
     }
+
+    double sumBetweennessCentrality = 0;
+    double sumBetweennessCentralityPower = 0;
+    for (int i = 0; i < Main.N; i++) {
+      sumBetweennessCentrality += betweennessCentrality[i];
+      sumBetweennessCentralityPower += FastMath.pow(betweennessCentrality[i],2);
+    }
+
     density /= (double) Main.N_DYAD;
     averagePathLength /= (double) Main.N_DYAD;
     networkEfficiency /= (double) Main.N_DYAD;
     overallClosenessCentralization += closenessCentralityMax * (double) Main.N;
     overallClosenessCentralization /= CLOSENESS_CENTRALIZATION_DENOMINATOR;
     overallClustering = (double) overallClusteringNumerator / (double) overallClusteringDenominator;
+    betweennessCentralityVariance = sumBetweennessCentralityPower/(double)Main.N - FastMath.pow(sumBetweennessCentrality/(double)Main.N ,2);
   }
 
 }

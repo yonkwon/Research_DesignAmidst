@@ -4,13 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] logical error in algorithm for generating hierarchy">
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Add] Density [Fix] Alwaysform logic (test)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DARewiringGrapher.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/DARewiringGrapher.Rmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/Computation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/MatWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/Scenario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Computation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/MatWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/NetworkAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/NetworkAnalyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Scenario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +145,7 @@
       <recent name="DACost" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.DAContinuousHierarchy.Main">
+  <component name="RunManager" selected="Application.DAFormBreak.Main">
     <configuration name="DAContinuousHierarchy.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DAContinuousHierarchy.Main" />
       <module name="DesignAmidst.main" />
@@ -225,6 +228,13 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.1-azul-21.0.1-249ae16d76d6-5a439a21" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -233,30 +243,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00020" summary="[Fix] Error that the interaction pattern was changing in the opposite direction of network closure">
-      <option name="closed" value="true" />
-      <created>1693776817077</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1693776817077</updated>
-    </task>
-    <task id="LOCAL-00021" summary="[Fix] Parameter C(losuure) as rewiring probability">
-      <option name="closed" value="true" />
-      <created>1693801605784</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1693801605784</updated>
-    </task>
-    <task id="LOCAL-00022" summary="[Fix] Parameter C(losuure) as rewiring probability">
-      <option name="closed" value="true" />
-      <created>1693804072746</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1693804072746</updated>
     </task>
     <task id="LOCAL-00023" summary="[Fix] Filename for Beta run &amp; Theta run">
       <option name="closed" value="true" />
@@ -626,7 +612,31 @@
       <option name="project" value="LOCAL" />
       <updated>1711729462692</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="[Fix] network summary statistics">
+      <option name="closed" value="true" />
+      <created>1711738885740</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1711738885740</updated>
+    </task>
+    <task id="LOCAL-00070" summary="[Fix] Enable breaking interactions before reaching maximum degree">
+      <option name="closed" value="true" />
+      <created>1712160458728</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1712160458728</updated>
+    </task>
+    <task id="LOCAL-00071" summary="[Add] Density [Fix] Alwaysform logic (test)">
+      <option name="closed" value="true" />
+      <created>1712346616819</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1712346616819</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -641,9 +651,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Fix] A logical error in DACost variant - doRewiring() function ignores MAX_DEGREE param." />
-    <MESSAGE value="[Add] Network metrics - centralization, efficiency, etc." />
-    <MESSAGE value="[Fix] An error in homophily on status logic - it was working in the opposite direction" />
     <MESSAGE value="[Misc]" />
     <MESSAGE value="[Fix] Mutual agreement logic. Focal individual's score has to be higher and only higher than the target's neighborhood score" />
     <MESSAGE value="[Fix] doEvaluateNeighbor logic. f(score[focal][target]) -&gt; score[target][focal]" />
@@ -666,7 +673,10 @@
     <MESSAGE value="[Misc.] Params" />
     <MESSAGE value="[Fix] logical error in algorithm for generating hierarchy" />
     <MESSAGE value="[Add] outcome variables. avg span and max level" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Add] outcome variables. avg span and max level" />
+    <MESSAGE value="[Fix] network summary statistics" />
+    <MESSAGE value="[Fix] Enable breaking interactions before reaching maximum degree" />
+    <MESSAGE value="[Add] Density [Fix] Alwaysform logic (test)" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Add] Density [Fix] Alwaysform logic (test)" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

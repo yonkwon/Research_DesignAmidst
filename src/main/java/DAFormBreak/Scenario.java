@@ -72,6 +72,7 @@ public class Scenario {
   double networkEfficiency;
   double overallClustering;
   double overallCentralization;
+  double betweennessCentralityVariance;
 
   double satisfactionRate;
   Scenario(int socialMechanism, double strength, int span, double connectivity, double enforcement) {
@@ -360,6 +361,7 @@ public class Scenario {
     networkEfficiency = na.getNetworkEfficiency();
     overallClustering = na.getOverallClustering();
     overallCentralization = na.getOverallClosenessCentralization();
+    betweennessCentralityVariance = na.getBetweennessCentralityVariance();
 
     for (int focal = 0; focal < Main.N; focal++) {
       performanceAvg += performance[focal];
@@ -589,8 +591,8 @@ public class Scenario {
           } else if (isPreferentialAttachment) {
             targetScore = getNeighborScorePreferentialAttachement(focal, target);
           }
-//          if (targetScore > neighborhoodScore[focal]) {
-          if (targetScore >= neighborhoodScore[focal]) { //ALWAYSFORM
+          if (targetScore > neighborhoodScore[focal]) {
+//          if (targetScore >= neighborhoodScore[focal]) { //ALWAYSFORM
             //Checking for mutual agreement
             double focalScore = Double.NaN;
             if (isHomophilyOnChar) {
@@ -602,8 +604,8 @@ public class Scenario {
             } else if (isPreferentialAttachment) {
               focalScore = getNeighborScorePreferentialAttachement(target, focal);
             }
-//            if (focalScore > neighborhoodScore[target]) {
-            if (focalScore >= neighborhoodScore[target]) { //ALWAYSFORM
+            if (focalScore > neighborhoodScore[target]) {
+//            if (focalScore >= neighborhoodScore[target]) { //ALWAYSFORM
               //Potential score of focal is higher than average neighborhoods core
               target2Form = target;
               break;
