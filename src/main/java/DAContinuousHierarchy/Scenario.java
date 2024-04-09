@@ -670,8 +670,10 @@ public class Scenario {
             if (degree[target] == 1) {
               continue;
             }
-            if (neighborScore[focal][target] < worstNeighborScore
-                && neighborScore[focal][target] < neighborhoodScore[focal] //@@@@ THIS IS AN IMPORTNAT ASSUMPTION FOR DEGREE[FOCAL]>1
+            if (
+                neighborScore[focal][target] < worstNeighborScore
+                &&
+                neighborScore[focal][target] < neighborhoodScore[focal] //@@@@ THIS IS AN IMPORTANT ASSUMPTION FOR DEGREE[FOCAL]>1
             ) {
               target2Break = target;
               worstNeighborScore = neighborScore[focal][target];
@@ -732,9 +734,9 @@ public class Scenario {
         numBreakLeft--;
       } else if (
           numFormationLeft > 0 &&
-              !network[focal][target] &&
-              degree[focal] < Main.MAX_DEGREE &&
-              degree[target] < Main.MAX_DEGREE
+          !network[focal][target] &&
+          degree[focal] < Main.MAX_DEGREE &&
+          degree[target] < Main.MAX_DEGREE
       ) {
         network[focal][target] = true;
         network[target][focal] = true;
