@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Add] Density [Fix] Alwaysform logic (test)">
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Misc.]">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DARewiringGrapher.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/DARewiringGrapher.Rmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAContinuousHierarchy/Scenario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Computation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/MatWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/NetworkAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/NetworkAnalyzer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Scenario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -97,7 +91,7 @@
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
         <option name="accountId" value="865935d0-f983-4727-b3f2-de5543a4b2a2" />
-        <option name="url" value="https://github.com/yonkwon/HomophilyAndDesign.git" />
+        <option name="url" value="https://github.com/yonkwon/Research_DesignAmidst.git" />
       </UrlAndAccount>
     </option>
   </component>
@@ -228,13 +222,6 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-21.0.1-azul-21.0.1-249ae16d76d6-5a439a21" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -243,22 +230,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00023" summary="[Fix] Filename for Beta run &amp; Theta run">
-      <option name="closed" value="true" />
-      <created>1693870926696</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1693870926696</updated>
-    </task>
-    <task id="LOCAL-00024" summary="[Fix] Observation structure set BEFORE rewiring">
-      <option name="closed" value="true" />
-      <created>1693871491699</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1693871491699</updated>
     </task>
     <task id="LOCAL-00025" summary="[Fix] Observation structure set BEFORE rewiring">
       <option name="closed" value="true" />
@@ -636,7 +607,23 @@
       <option name="project" value="LOCAL" />
       <updated>1712346616819</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="[Add] BetweennessCentralityVariance">
+      <option name="closed" value="true" />
+      <created>1712629872591</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1712629872591</updated>
+    </task>
+    <task id="LOCAL-00073" summary="[Misc.]">
+      <option name="closed" value="true" />
+      <created>1712629897403</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1712629897403</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -651,7 +638,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Misc]" />
     <MESSAGE value="[Fix] Mutual agreement logic. Focal individual's score has to be higher and only higher than the target's neighborhood score" />
     <MESSAGE value="[Fix] doEvaluateNeighbor logic. f(score[focal][target]) -&gt; score[target][focal]" />
     <MESSAGE value="[Fix] return neighborScore / (double) (degree[focal] - 1D);" />
@@ -668,7 +654,6 @@
     <MESSAGE value="[Fix] Revert Random Rewiring" />
     <MESSAGE value="[Add] DAFormBreak variant" />
     <MESSAGE value="[Fix] Num Break &amp; Formation" />
-    <MESSAGE value="[Misc.]" />
     <MESSAGE value="[Add] DAContinuous Hierarchy variant" />
     <MESSAGE value="[Misc.] Params" />
     <MESSAGE value="[Fix] logical error in algorithm for generating hierarchy" />
@@ -676,7 +661,9 @@
     <MESSAGE value="[Fix] network summary statistics" />
     <MESSAGE value="[Fix] Enable breaking interactions before reaching maximum degree" />
     <MESSAGE value="[Add] Density [Fix] Alwaysform logic (test)" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Add] Density [Fix] Alwaysform logic (test)" />
+    <MESSAGE value="[Add] BetweennessCentralityVariance" />
+    <MESSAGE value="[Misc.]" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Misc.]" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

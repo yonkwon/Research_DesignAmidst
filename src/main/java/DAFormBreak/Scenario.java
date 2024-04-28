@@ -395,20 +395,24 @@ public class Scenario {
   }
 
   double getNeighborScoreNetworkClosure(int focal, int target) {
-    double neighborScore = 0;
+    double numerator = 0;
+    double denominator = network[focal][target]? (degree[focal]-1) : degree[focal];
     for (int i = 0; i < Main.N; i++) {
-      if (focal == i || target == i) {
+      if ( target == i
+//          ||
+//          focal == i
+      ) {
         continue;
       }
       if (network[focal][i] && network[target][i]) {
-        neighborScore++;
+        numerator++;
 //        System.out.println(
 //            focal+ " " + target + " to " + i +
 //            network[focal][i] + " " + network[target][i] + " -> "+ neighborScore
 //        );
       }
     }
-    return neighborScore / (double) (degree[focal] - 1D);
+    return numerator / denominator;
   }
 
   double getNeighborScoreNetworkClosure(int focal, int target, boolean[][] network) {
