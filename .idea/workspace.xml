@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Misc.]">
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Denominator of preference score for network closure now adapts to the interaction between the focal and target individauls">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DARewiringGrapher.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/DARewiringGrapher.Rmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Scenario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,14 +88,12 @@
     &quot;assignee&quot;: &quot;yonkwon&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="865935d0-f983-4727-b3f2-de5543a4b2a2" />
-        <option name="url" value="https://github.com/yonkwon/Research_DesignAmidst.git" />
-      </UrlAndAccount>
-    </option>
-  </component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/yonkwon/Research_DesignAmidst.git&quot;,
+    &quot;accountId&quot;: &quot;970d7b83-83b9-4460-97c5-b8972a2ca692&quot;
+  }
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -207,20 +206,27 @@
     </configuration>
     <list>
       <item itemvalue="Application.DAContinuousHierarchy.Main" />
-      <item itemvalue="Application.DAFormation.Main (1)" />
       <item itemvalue="Application.DAFormBreak.Main" />
+      <item itemvalue="Application.DAFormation.Main (1)" />
       <item itemvalue="Application.DARewiring.Main" />
       <item itemvalue="Application.Main" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.DAContinuousHierarchy.Main" />
-        <item itemvalue="Application.DAFormation.Main (1)" />
-        <item itemvalue="Application.DAFormBreak.Main" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.DARewiring.Main" />
+        <item itemvalue="Application.DAFormation.Main (1)" />
+        <item itemvalue="Application.DAFormBreak.Main" />
+        <item itemvalue="Application.DAContinuousHierarchy.Main" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.1-azul-21.0.1-249ae16d76d6-5a439a21" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -230,14 +236,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00025" summary="[Fix] Observation structure set BEFORE rewiring">
-      <option name="closed" value="true" />
-      <created>1693871507616</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1693871507616</updated>
     </task>
     <task id="LOCAL-00026" summary="Trivial Fixes">
       <option name="closed" value="true" />
@@ -623,7 +621,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712629897403</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="[Fix] Denominator of preference score for network closure now adapts to the interaction between the focal and target individauls">
+      <option name="closed" value="true" />
+      <created>1714344841349</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1714344841350</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -638,7 +644,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Fix] Mutual agreement logic. Focal individual's score has to be higher and only higher than the target's neighborhood score" />
     <MESSAGE value="[Fix] doEvaluateNeighbor logic. f(score[focal][target]) -&gt; score[target][focal]" />
     <MESSAGE value="[Fix] return neighborScore / (double) (degree[focal] - 1D);" />
     <MESSAGE value="[Fix] Observation structure" />
@@ -663,7 +668,8 @@
     <MESSAGE value="[Add] Density [Fix] Alwaysform logic (test)" />
     <MESSAGE value="[Add] BetweennessCentralityVariance" />
     <MESSAGE value="[Misc.]" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Misc.]" />
+    <MESSAGE value="[Fix] Denominator of preference score for network closure now adapts to the interaction between the focal and target individauls" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Denominator of preference score for network closure now adapts to the interaction between the focal and target individauls" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

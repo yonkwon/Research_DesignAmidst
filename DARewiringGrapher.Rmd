@@ -42,10 +42,10 @@ fig_id <- paste0(
 #   'Preferential~Attachment'
 # )
 label_mech <- c(
-  "Homophily\n(Characteristic)",
-  "Homophily\n(Status)",
-  'Network\nClosure',
-  'Preferential\nAttachment'
+  "(A) Homophily\n(Characteristic)",
+  "(B) Homophily\n(Status)",
+  '(C) Network\nClosure',
+  '(D) Preferential\nAttachment'
 )
 label_mech <- factor(
   label_mech, 
@@ -58,9 +58,9 @@ label_mech <- factor(
 #   'No Rewiring'
 # )
 label_scenario <- c(
-  'Social\nDynamics',
-  'Counterfactual\n(Random)',
-  'No Social\nDynamics'
+  '(i) Social Dynamics',
+  '(ii) Counterfactual (Random)',
+  '(iii) No Social Dynamics'
 )
 label_scenario <- factor(
   label_scenario, 
@@ -305,10 +305,10 @@ y_value_rr <- data$r.perf.rr.avg
 # y_value_nr <- data$r.cent.nr.avg
 # y_value_rr <- data$r.cent.rr.avg
 # 
-y_label <- 'Overall Clustering'
-y_value_sc <- data$r.clus.avg
-y_value_nr <- data$r.clus.nr.avg
-y_value_rr <- data$r.clus.rr.avg
+# y_label <- 'Overall Clustering'
+# y_value_sc <- data$r.clus.avg
+# y_value_nr <- data$r.clus.nr.avg
+# y_value_rr <- data$r.clus.rr.avg
 
 # y_label <- 'Communication Efficiency'
 # y_value_sc <- data$r.effi.avg

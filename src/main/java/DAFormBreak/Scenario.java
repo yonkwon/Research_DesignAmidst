@@ -2,6 +2,7 @@ package DAFormBreak;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import jdk.jfr.Description;
 import org.apache.commons.math3.random.MersenneTwister;
 import org.apache.commons.math3.random.RandomGenerator;
@@ -396,36 +397,24 @@ public class Scenario {
 
   double getNeighborScoreNetworkClosure(int focal, int target) {
     double numerator = 0;
-    double denominator = network[focal][target]? (degree[focal]-1) : degree[focal];
+    double denominator = network[focal][target]? degree[focal] : degree[focal]+1; //Fixed 240504
     for (int i = 0; i < Main.N; i++) {
-      if ( target == i
-//          ||
-//          focal == i
-      ) {
-        continue;
-      }
       if (network[focal][i] && network[target][i]) {
         numerator++;
-//        System.out.println(
-//            focal+ " " + target + " to " + i +
-//            network[focal][i] + " " + network[target][i] + " -> "+ neighborScore
-//        );
       }
     }
     return numerator / denominator;
   }
 
   double getNeighborScoreNetworkClosure(int focal, int target, boolean[][] network) {
-    double neighborScore = 0;
+    double numerator = 0;
+    double denominator = network[focal][target]? degree[focal] : degree[focal]+1; //Fixed 240504
     for (int i = 0; i < Main.N; i++) {
-      if (focal == i || target == i) {
-        continue;
-      }
       if (network[focal][i] && network[target][i]) {
-        neighborScore++;
+        numerator++;
       }
     }
-    return neighborScore / (double) (degree[focal] - 1D); // Fixed 231223. Never used before.
+    return numerator / denominator; // Fixed 231223. Never used before.
   }
 
   double getNeighborScorePreferentialAttachement(int focal, int target) {
@@ -477,7 +466,7 @@ public class Scenario {
             continue;
           }
           neighborScore[focal][target] = getNeighborScoreNetworkClosure(focal, target);
-          neighborScore[target][focal] = neighborScore[focal][target] * (degree[focal] - 1D) / (degree[target] - 1D);
+          neighborScore[target][focal] = getNeighborScoreNetworkClosure(target, focal);
           neighborhoodScore[focal] += neighborScore[focal][target];
           neighborhoodScore[target] += neighborScore[target][focal];
         }
@@ -560,13 +549,11 @@ public class Scenario {
     numBreak = 0;
     shuffleFisherYates(focalIndexArray);
     for (int focal : focalIndexArray) {
-      if (satisfied[focal]) {
-        continue;
-      }
-
+//      if (satisfied[focal]) {
+//        continue;
+//      }
       int target2Form = -1;
       int target2Break = -1;
-
       // Searching for a tie to form
       if (
           degree[focal] <= Main.MAX_DEGREE
@@ -604,7 +591,7 @@ public class Scenario {
             } else if (isHomophilyOnStat) {
               focalScore = targetScore;
             } else if (isNetworkClosure) {
-              focalScore = targetScore / (degree[focal] - 1D) * (degree[target] - 1D);
+              focalScore = getNeighborScoreNetworkClosure(target, focal);
             } else if (isPreferentialAttachment) {
               focalScore = getNeighborScorePreferentialAttachement(target, focal);
             }
@@ -617,11 +604,12 @@ public class Scenario {
           }
         }
       }
-
       // Searching for a tie to break
-      if (degreeFlexible[focal] > 0 &&
-//          degree[focal] >= Main.MAX_DEGREE
-          degree[focal] > 1 //@@240403??
+      if (
+//          degreeFlexible[focal] > 0 &&
+////          degree[focal] >= Main.MAX_DEGREE
+//          degree[focal] > 1 //@@240403??
+          degreeFlexible[focal] >= Main.MAX_INFORMAL //@240504
       ) {
         double worstNeighborScore = Double.MAX_VALUE;
         shuffleFisherYates(targetIndexArray);
@@ -642,7 +630,6 @@ public class Scenario {
           }
         }
       }
-
       // Forming tie
       if (target2Form != -1) {
         numFormation ++;
@@ -655,7 +642,6 @@ public class Scenario {
         degree[target2Form]++;
         degreeFlexible[target2Form]++;
       }
-
       // Breaking tie
       if (target2Break != -1) {
         numBreak ++;
@@ -668,7 +654,6 @@ public class Scenario {
         degree[target2Break]--;
         degreeFlexible[target2Break]--;
       }
-
       // Reset Neighborhood Score
       doEvaluateNeighbor();
     }

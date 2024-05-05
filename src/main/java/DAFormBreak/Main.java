@@ -11,10 +11,10 @@ public class Main {
   static final boolean GET_GRAPH = true;
   static final boolean GET_MAT = true;
   static final boolean LINK_LEVEL = false;
-  static final boolean OBSERVE_ALL = true;
+  static final boolean OBSERVE_ALL = false;
 
-  static final int ITERATION = 1000;
-  static final int TIME = 800 + 1;
+  static final int ITERATION = 100;
+  static final int TIME = 200 + 1;
 //  static final int TIME = 1;
 
 //  static final int ITERATION = 1;
@@ -24,10 +24,12 @@ public class Main {
   static final int OBSERVATION_SCOPE = 3; // >= 2
   static final int MAX_DEGREE = 999; // >= 2
   static final int MAX_INFORMAL = 5; // >= 1
+//  static final int MAX_INFORMAL = 999; // >= 1
 
   static final int N = 100;
   static final int[] SPAN = {2, 3, 4, 5, 6, 7, 8};
-//  static final int[] SPAN = {3,4,5,6};
+//  static final int N = 31;
+//  static final int[] SPAN = {2,5};
   static final int LENGTH_SPAN = SPAN.length;
 
   static final int M_OF_BUNDLE = 20;
