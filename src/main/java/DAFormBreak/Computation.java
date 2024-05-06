@@ -6,6 +6,7 @@ import com.google.common.util.concurrent.AtomicDouble;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -1247,42 +1248,37 @@ public class Computation {
           distanceRRAVGAtomicPart[t].addAndGet(rr.averagePathLength);
           distanceRRSTDAtomicPart[t].addAndGet(pow(rr.averagePathLength, 2));
 
-          densityAVGAtomicPart[t].addAndGet(src.averagePathLength);
-          densitySTDAtomicPart[t].addAndGet(pow(src.averagePathLength, 2));
-          double density12 = rr.averagePathLength - nr.averagePathLength;
+          densityAVGAtomicPart[t].addAndGet(src.density);
+          densitySTDAtomicPart[t].addAndGet(pow(src.density, 2));
+          double density12 = rr.density - nr.density;
           density12AVGAtomicPart[t].addAndGet(density12);
           density12STDAtomicPart[t].addAndGet(pow(density12, 2));
-          double density23 = src.averagePathLength - rr.averagePathLength;
+          double density23 = src.density - rr.density;
           density23AVGAtomicPart[t].addAndGet(density23);
           density23STDAtomicPart[t].addAndGet(pow(density23, 2));
-          double density13 = src.averagePathLength - nr.averagePathLength;
+          double density13 = src.density - nr.density;
           density13AVGAtomicPart[t].addAndGet(density13);
           density13STDAtomicPart[t].addAndGet(pow(density13, 2));
-          densityNRAVGAtomicPart[t].addAndGet(nr.averagePathLength);
-          densityNRSTDAtomicPart[t].addAndGet(pow(nr.averagePathLength, 2));
-          densityRRAVGAtomicPart[t].addAndGet(rr.averagePathLength);
-          densityRRSTDAtomicPart[t].addAndGet(pow(rr.averagePathLength, 2));
-
-          betweennessCentralityVarianceAVGAtomicPart[t].addAndGet(src.averagePathLength);
-          betweennessCentralityVarianceSTDAtomicPart[t].addAndGet(pow(src.averagePathLength, 2));
-          double betweennessCentralityVariance12 = rr.averagePathLength - nr.averagePathLength;
+          densityNRAVGAtomicPart[t].addAndGet(nr.density);
+          densityNRSTDAtomicPart[t].addAndGet(pow(nr.density, 2));
+          densityRRAVGAtomicPart[t].addAndGet(rr.density);
+          densityRRSTDAtomicPart[t].addAndGet(pow(rr.density, 2));
+          betweennessCentralityVarianceAVGAtomicPart[t].addAndGet(src.betweennessCentralityVariance);
+          betweennessCentralityVarianceSTDAtomicPart[t].addAndGet(pow(src.betweennessCentralityVariance, 2));
+          double betweennessCentralityVariance12 = rr.betweennessCentralityVariance - nr.betweennessCentralityVariance;
           betweennessCentralityVariance12AVGAtomicPart[t].addAndGet(betweennessCentralityVariance12);
           betweennessCentralityVariance12STDAtomicPart[t].addAndGet(pow(betweennessCentralityVariance12, 2));
-          double betweennessCentralityVariance23 = src.averagePathLength - rr.averagePathLength;
+          double betweennessCentralityVariance23 = src.betweennessCentralityVariance - rr.betweennessCentralityVariance;
           betweennessCentralityVariance23AVGAtomicPart[t].addAndGet(betweennessCentralityVariance23);
           betweennessCentralityVariance23STDAtomicPart[t].addAndGet(pow(betweennessCentralityVariance23, 2));
-          double betweennessCentralityVariance13 = src.averagePathLength - nr.averagePathLength;
+          double betweennessCentralityVariance13 = src.betweennessCentralityVariance - nr.betweennessCentralityVariance;
           betweennessCentralityVariance13AVGAtomicPart[t].addAndGet(betweennessCentralityVariance13);
           betweennessCentralityVariance13STDAtomicPart[t].addAndGet(pow(betweennessCentralityVariance13, 2));
-          betweennessCentralityVarianceNRAVGAtomicPart[t].addAndGet(nr.averagePathLength);
-          betweennessCentralityVarianceNRSTDAtomicPart[t].addAndGet(pow(nr.averagePathLength, 2));
-          betweennessCentralityVarianceRRAVGAtomicPart[t].addAndGet(rr.averagePathLength);
-          betweennessCentralityVarianceRRSTDAtomicPart[t].addAndGet(pow(rr.averagePathLength, 2));
-
-          satisfactionAVGAtomicPart[t].addAndGet(src.satisfactionRate);
-          satisfactionSTDAtomicPart[t].addAndGet(pow(src.satisfactionRate, 2));
+          betweennessCentralityVarianceNRAVGAtomicPart[t].addAndGet(nr.betweennessCentralityVariance);
+          betweennessCentralityVarianceNRSTDAtomicPart[t].addAndGet(pow(nr.betweennessCentralityVariance, 2));
+          betweennessCentralityVarianceRRAVGAtomicPart[t].addAndGet(rr.betweennessCentralityVariance);
+          betweennessCentralityVarianceRRSTDAtomicPart[t].addAndGet(pow(rr.betweennessCentralityVariance, 2));
         }
-
         src.stepForward();
         nr.stepForward();
         rr.stepForward(src.numFormation, src.numBreak, src.isNotConverged);

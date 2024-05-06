@@ -168,10 +168,10 @@ public class NetworkAnalyzer {
     }
 
     double sumBetweennessCentrality = 0;
-    double sumBetweennessCentralityPower = 0;
+    double sumBetweennessCentralitySq = 0;
     for (int i = 0; i < Main.N; i++) {
       sumBetweennessCentrality += betweennessCentrality[i];
-      sumBetweennessCentralityPower += FastMath.pow(betweennessCentrality[i],2);
+      sumBetweennessCentralitySq += FastMath.pow(betweennessCentrality[i],2);
     }
 
     density /= (double) Main.N_DYAD;
@@ -180,7 +180,7 @@ public class NetworkAnalyzer {
     overallClosenessCentralization += closenessCentralityMax * (double) Main.N;
     overallClosenessCentralization /= CLOSENESS_CENTRALIZATION_DENOMINATOR;
     overallClustering = (double) overallClusteringNumerator / (double) overallClusteringDenominator;
-    betweennessCentralityVariance = sumBetweennessCentralityPower/(double)Main.N - FastMath.pow(sumBetweennessCentrality/(double)Main.N ,2);
+    betweennessCentralityVariance = sumBetweennessCentralitySq/(double)Main.N - FastMath.pow(sumBetweennessCentrality/(double)Main.N ,2);
   }
 
 }

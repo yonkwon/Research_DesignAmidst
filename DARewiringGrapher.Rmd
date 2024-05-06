@@ -290,36 +290,47 @@ set_fig2_t <- data$para.time
 
 x_label <- 'Span of Control (S)'
 
-y_label <- 'Organizational Performance'
-y_value_sc <- data$r.perf.avg
-y_value_nr <- data$r.perf.nr.avg
-y_value_rr <- data$r.perf.rr.avg
+# y_label <- 'Organizational Performance'
+# y_value_sc <- data$r.perf.avg
+# y_value_nr <- data$r.perf.nr.avg
+# y_value_rr <- data$r.perf.rr.avg
 
 # y_label <- 'Belief Diversity'
 # y_value_sc <- data$r.disa.avg
 # y_value_nr <- data$r.disa.nr.avg
 # y_value_rr <- data$r.disa.rr.avg
-# #
+
 # y_label <- 'Closeness Centralization'
 # y_value_sc <- data$r.cent.avg
 # y_value_nr <- data$r.cent.nr.avg
 # y_value_rr <- data$r.cent.rr.avg
 # 
 # y_label <- 'Overall Clustering'
+# y_label <- 'Redundancy'
 # y_value_sc <- data$r.clus.avg
 # y_value_nr <- data$r.clus.nr.avg
 # y_value_rr <- data$r.clus.rr.avg
 
-# y_label <- 'Communication Efficiency'
-# y_value_sc <- data$r.effi.avg
-# y_value_nr <- data$r.effi.nr.avg
-# y_value_rr <- data$r.effi.rr.avg
-# 
+y_label <- 'Communication Efficiency'
+y_value_sc <- data$r.effi.avg
+y_value_nr <- data$r.effi.nr.avg
+y_value_rr <- data$r.effi.rr.avg
+
+y_label <- 'Average Distance'
+y_value_sc <- data$r.dist
+y_value_nr <- data$r.dist.nr.avg
+y_value_rr <- data$r.dist.rr.avg
+
 # y_label <- 'Cumulative Dynamics'
 # y_value_sc <- data$r.rewc.avg
 # y_value_nr <- data$r.rewc.avg
 # y_value_rr <- data$r.rewc.avg
-
+# 
+# y_label <- 'Density'
+# y_value_sc <- data$r.dens.avg
+# y_value_nr <- data$r.dens.nr.avg
+# y_value_rr <- data$r.dens.rr.avg
+# 
 # y_label <- 'Modularity'
 # y_value_sc <- data$r.bcva.avg
 # y_value_nr <- data$r.bcva.nr.avg
@@ -690,11 +701,11 @@ y_value_rr <- data$r.perf.rr.avg
 # y_value_sc <- data$r.cent.avg
 # y_value_nr <- data$r.cent.nr.avg
 # y_value_rr <- data$r.cent.rr.avg
-#
-y_label <- 'Overall Clustering'
-y_value_sc <- data$r.clus.avg
-y_value_nr <- data$r.clus.nr.avg
-y_value_rr <- data$r.clus.rr.avg
+# #
+# y_label <- 'Overall Clustering'
+# y_value_sc <- data$r.clus.avg
+# y_value_nr <- data$r.clus.nr.avg
+# y_value_rr <- data$r.clus.rr.avg
 #
 # y_label <- 'Network Efficiency'
 # y_value_sc <- data$r.effi.avg

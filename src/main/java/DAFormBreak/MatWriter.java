@@ -101,7 +101,6 @@ class MatWriter {
     Matrix matrixDensityRRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixDensityRRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
-
     Matrix matrixBetweennessCentralityVarianceAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixBetweennessCentralityVarianceSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixBetweennessCentralityVariance12AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
@@ -208,7 +207,6 @@ class MatWriter {
                 matrixDistanceRRAVG.setDouble(indices, d.distanceRRAVG[mc][h][s][c][e][t]);
                 matrixDistanceRRSTD.setDouble(indices, d.distanceRRSTD[mc][h][s][c][e][t]);
 
-
                 matrixDensityAVG.setDouble(indices, d.densityAVG[mc][h][s][c][e][t]);
                 matrixDensitySTD.setDouble(indices, d.densitySTD[mc][h][s][c][e][t]);
                 matrixDensity12AVG.setDouble(indices, d.density12AVG[mc][h][s][c][e][t]);
@@ -221,7 +219,6 @@ class MatWriter {
                 matrixDensityNRSTD.setDouble(indices, d.densityNRSTD[mc][h][s][c][e][t]);
                 matrixDensityRRAVG.setDouble(indices, d.densityRRAVG[mc][h][s][c][e][t]);
                 matrixDensityRRSTD.setDouble(indices, d.densityRRSTD[mc][h][s][c][e][t]);
-
 
                 matrixBetweennessCentralityVarianceAVG.setDouble(indices, d.betweennessCentralityVarianceAVG[mc][h][s][c][e][t]);
                 matrixBetweennessCentralityVarianceSTD.setDouble(indices, d.betweennessCentralityVarianceSTD[mc][h][s][c][e][t]);

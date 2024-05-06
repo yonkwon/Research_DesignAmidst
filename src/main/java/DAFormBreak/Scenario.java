@@ -60,7 +60,6 @@ public class Scenario {
 
   double[][] neighborScore;
   double[] neighborhoodScore;
-  boolean[] satisfied;
 
   int numFormation = 0;
   int numBreak = 0;
@@ -74,8 +73,6 @@ public class Scenario {
   double overallClustering;
   double overallCentralization;
   double betweennessCentralityVariance;
-
-  double satisfactionRate;
   Scenario(int socialMechanism, double strength, int span, double connectivity, double enforcement) {
     r = new MersenneTwister();
 
@@ -93,12 +90,18 @@ public class Scenario {
     }
     targetIndexArray = focalIndexArray.clone();
 
-    dyadIndexArray = new int[Main.N * Main.N];
-    dyad2DIndexArray = new int[Main.N * Main.N][2];
-    for (int d = 0; d < Main.N * Main.N; d++) {
-      dyadIndexArray[d] = d;
-      dyad2DIndexArray[d][0] = d / Main.N;
-      dyad2DIndexArray[d][1] = d % Main.N;
+
+    dyadIndexArray = new int[Main.N * (Main.N-1) / 2];
+    dyad2DIndexArray = new int[Main.N * (Main.N-1) / 2][2];
+    int d = 0;
+    for( int i = 0; i < Main.N; i ++ ){
+      for( int j = i; j < Main.N; j ++ ){
+        if( i == j ){ continue; }
+        dyadIndexArray[d] = d;
+        dyad2DIndexArray[d][0] = i;
+        dyad2DIndexArray[d][1] = j;
+        d++;
+      }
     }
 
     this.strength = strength;
@@ -134,13 +137,11 @@ public class Scenario {
 
     clone.differenceOf = new double[Main.N][];
     clone.differenceSum = this.differenceSum.clone();
-    clone.satisfied = this.satisfied.clone();
 
     clone.numFormation = this.numFormation;
     clone.numBreak = this.numBreak;
     clone.performanceAvg = this.performanceAvg;
     clone.disagreementAvg = this.disagreementAvg;
-    clone.satisfactionRate = this.satisfactionRate;
 
     for (int focal = 0; focal < Main.N; focal++) {
       clone.beliefOf[focal] = this.beliefOf[focal].clone();
@@ -152,6 +153,8 @@ public class Scenario {
 
       clone.differenceOf[focal] = this.differenceOf[focal].clone();
     }
+
+    clone.setOutcome();
 
     return clone;
   }
@@ -238,8 +241,6 @@ public class Scenario {
     for (int focal = 0; focal < Main.N; focal++) {
       for (int target = focal; target < Main.N; target++) {
         if (!network[focal][target] &&
-            degree[focal] < Main.MAX_DEGREE &&
-            degree[target] < Main.MAX_DEGREE &&
             degreeFlexible[focal] < Main.MAX_INFORMAL &&
             degreeFlexible[target] < Main.MAX_INFORMAL &&
             focal != target) {
@@ -318,7 +319,6 @@ public class Scenario {
 
     differenceOf = new double[Main.N][Main.N];
     differenceSum = new double[Main.N];
-    satisfied = new boolean[Main.N];
 
     setPerformance();
     doEvaluateNeighbor();
@@ -354,7 +354,6 @@ public class Scenario {
   void setOutcome() {
     performanceAvg = 0;
     disagreementAvg = 0;
-    satisfactionRate = 0;
     na.setNetworkMetrics();
     density = na.getDensity();
     diameter = na.getDiameter();
@@ -366,7 +365,6 @@ public class Scenario {
 
     for (int focal = 0; focal < Main.N; focal++) {
       performanceAvg += performance[focal];
-      satisfactionRate += satisfied[focal] ? 1 : 0;
       for (int target = focal; target < Main.N; target++) {
         for (int m = 0; m < Main.M; m++) {
           if (beliefOf[focal][m] != beliefOf[target][m]) {
@@ -378,7 +376,6 @@ public class Scenario {
     }
     performanceAvg /= Main.M_N;
     disagreementAvg /= Main.M_N_DYAD;
-    satisfactionRate /= Main.N;
   }
 
   double getNeighborScoreHomophilyOnChar(int focal, int target) {
@@ -485,11 +482,6 @@ public class Scenario {
         }
       }
     }
-    for (int focal = 0; focal < Main.N; focal++) {
-      neighborhoodScore[focal] /= (double) degree[focal];
-      // Neighborhood score is higher than desired score = strength
-      satisfied[focal] = neighborhoodScore[focal] >= strength;
-    }
   }
 
   @Description("Returns similarity in a fraction [0, 1]")
@@ -554,19 +546,18 @@ public class Scenario {
 //      }
       int target2Form = -1;
       int target2Break = -1;
+      double bestTargetScore = Double.MIN_VALUE;
+      double worstTargetScore = Double.MAX_VALUE;
       // Searching for a tie to form
       if (
-          degree[focal] <= Main.MAX_DEGREE
-          &&
           degreeFlexible[focal] < Main.MAX_INFORMAL
       ) {
         //Selection of a new neighbor to connect
         shuffleFisherYates(targetIndexArray);
         for (int target : targetIndexArray) {
-          if (satisfied[target] || // If the target is already satisfied
+          if (
               network[focal][target] || // If the target is already a neighbor of the focal
               !observationStructure[focal][target] || // If the target is outside the observation structure
-              degree[target] >= Main.MAX_DEGREE ||
               degreeFlexible[target] >= Main.MAX_INFORMAL ||
               focal == target // If the target is focal herself
           ) {
@@ -582,8 +573,7 @@ public class Scenario {
           } else if (isPreferentialAttachment) {
             targetScore = getNeighborScorePreferentialAttachement(focal, target);
           }
-          if (targetScore > neighborhoodScore[focal]) {
-//          if (targetScore >= neighborhoodScore[focal]) { //ALWAYSFORM
+          if (targetScore > bestTargetScore) {
             //Checking for mutual agreement
             double focalScore = Double.NaN;
             if (isHomophilyOnChar) {
@@ -595,11 +585,10 @@ public class Scenario {
             } else if (isPreferentialAttachment) {
               focalScore = getNeighborScorePreferentialAttachement(target, focal);
             }
-            if (focalScore > neighborhoodScore[target]) {
-//            if (focalScore >= neighborhoodScore[target]) { //ALWAYSFORM
+            if (focalScore > 0) {
               //Potential score of focal is higher than average neighborhoods core
               target2Form = target;
-              break;
+              bestTargetScore = targetScore;
             }
           }
         }
@@ -607,11 +596,9 @@ public class Scenario {
       // Searching for a tie to break
       if (
 //          degreeFlexible[focal] > 0 &&
-////          degree[focal] >= Main.MAX_DEGREE
-//          degree[focal] > 1 //@@240403??
+//          degree[focal] > 1 //@@240403
           degreeFlexible[focal] >= Main.MAX_INFORMAL //@240504
       ) {
-        double worstNeighborScore = Double.MAX_VALUE;
         shuffleFisherYates(targetIndexArray);
         for (int target : targetIndexArray) {
           if (networkFlexible[focal][target] &&
@@ -620,12 +607,9 @@ public class Scenario {
             if (degree[target] == 1) {
               continue;
             }
-            if (neighborScore[focal][target] < worstNeighborScore
-                &&
-                neighborScore[focal][target] < neighborhoodScore[focal] //@@@@ THIS IS AN IMPORTANT ASSUMPTION FOR DEGREE[FOCAL]>1
+            if (neighborScore[focal][target] < worstTargetScore
             ) {
               target2Break = target;
-              worstNeighborScore = neighborScore[focal][target];
             }
           }
         }
@@ -653,6 +637,8 @@ public class Scenario {
         degreeFlexible[focal]--;
         degree[target2Break]--;
         degreeFlexible[target2Break]--;
+//        System.out.println("BROKEAN" + numBreak);
+
       }
       // Reset Neighborhood Score
       doEvaluateNeighbor();
@@ -681,8 +667,6 @@ public class Scenario {
       } else if (
           numFormationLeft > 0 &&
               !network[focal][target] &&
-              degree[focal] < Main.MAX_DEGREE &&
-              degree[target] < Main.MAX_DEGREE &&
               degreeFlexible[focal] < Main.MAX_INFORMAL &&
               degreeFlexible[target] < Main.MAX_INFORMAL
       ) {
@@ -699,6 +683,9 @@ public class Scenario {
       if (numFormationLeft == 0 && numBreakLeft == 0) {
         break;
       }
+    }
+    if( numFormationLeft != 0 || numBreakLeft != 0 ){
+      doRewiring(numFormationLeft, numBreakLeft);
     }
   }
 
@@ -849,7 +836,7 @@ public class Scenario {
   }
 
   void shuffleFisherYates(int[] nArray) {
-    for (int i = Main.N - 1; i > 0; i--) {
+    for (int i = nArray.length - 1; i > 0; i--) {
       int j = r.nextInt(i + 1);
       int temp = nArray[i];
       nArray[i] = nArray[j];

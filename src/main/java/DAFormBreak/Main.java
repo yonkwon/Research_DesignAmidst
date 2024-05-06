@@ -4,17 +4,17 @@ import java.io.File;
 
 public class Main {
 
-  static String RUN_ID = "DAFormBreak_MAXINFORM5";
+  static String RUN_ID = "DAFormBreak_HOODSCOREBYSUM";
 
   static final long TIC = System.currentTimeMillis();
 
-  static final boolean GET_GRAPH = true;
+  static final boolean GET_GRAPH = false;
   static final boolean GET_MAT = true;
   static final boolean LINK_LEVEL = false;
   static final boolean OBSERVE_ALL = false;
 
   static final int ITERATION = 100;
-  static final int TIME = 200 + 1;
+  static final int TIME = 800 + 1;
 //  static final int TIME = 1;
 
 //  static final int ITERATION = 1;
@@ -22,7 +22,6 @@ public class Main {
 
   static final int NUM_MECHANISM = 4; // Homophily on Char, on Status, closure, & p-attachment
   static final int OBSERVATION_SCOPE = 3; // >= 2
-  static final int MAX_DEGREE = 999; // >= 2
   static final int MAX_INFORMAL = 5; // >= 1
 //  static final int MAX_INFORMAL = 999; // >= 1
 
@@ -83,7 +82,6 @@ public class Main {
         "I" + ITERATION +
         "LL" + (LINK_LEVEL ? "t" : "f") +
         "O" + (OBSERVE_ALL?"Inf":OBSERVATION_SCOPE) +
-        "MD" + MAX_DEGREE +
         "MI" + MAX_INFORMAL +
         "T" + TIME +
         "N" + N +

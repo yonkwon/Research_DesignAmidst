@@ -803,7 +803,7 @@ public class Scenario {
   }
 
   void shuffleFisherYates(int[] nArray) {
-    for (int i = Main.N - 1; i > 0; i--) {
+    for (int i = nArray.length - 1; i > 0; i--) {
       int j = r.nextInt(i + 1);
       int temp = nArray[i];
       nArray[i] = nArray[j];
