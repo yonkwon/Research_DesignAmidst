@@ -49,6 +49,19 @@ class MatWriter {
     Matrix matrixClusteringRRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixClusteringRRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
+    Matrix matrixClusteringWattsStrogatzAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClusteringWattsStrogatzSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClusteringWattsStrogatz12AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClusteringWattsStrogatz12STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClusteringWattsStrogatz23AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClusteringWattsStrogatz23STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClusteringWattsStrogatz13AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClusteringWattsStrogatz13STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClusteringWattsStrogatzNRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClusteringWattsStrogatzNRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClusteringWattsStrogatzRRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixClusteringWattsStrogatzRRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+
     Matrix matrixCentralizationAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixCentralizationSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixCentralization12AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
@@ -168,6 +181,19 @@ class MatWriter {
                 matrixClusteringRRAVG.setDouble(indices, d.clusteringRRAVG[mc][h][s][c][e][t]);
                 matrixClusteringRRSTD.setDouble(indices, d.clusteringRRSTD[mc][h][s][c][e][t]);
 
+                matrixClusteringWattsStrogatzAVG.setDouble(indices, d.clusteringWattsStrogatzAVG[mc][h][s][c][e][t]);
+                matrixClusteringWattsStrogatzSTD.setDouble(indices, d.clusteringWattsStrogatzSTD[mc][h][s][c][e][t]);
+                matrixClusteringWattsStrogatz12AVG.setDouble(indices, d.clusteringWattsStrogatz12AVG[mc][h][s][c][e][t]);
+                matrixClusteringWattsStrogatz12STD.setDouble(indices, d.clusteringWattsStrogatz12STD[mc][h][s][c][e][t]);
+                matrixClusteringWattsStrogatz23AVG.setDouble(indices, d.clusteringWattsStrogatz23AVG[mc][h][s][c][e][t]);
+                matrixClusteringWattsStrogatz23STD.setDouble(indices, d.clusteringWattsStrogatz23STD[mc][h][s][c][e][t]);
+                matrixClusteringWattsStrogatz13AVG.setDouble(indices, d.clusteringWattsStrogatz13AVG[mc][h][s][c][e][t]);
+                matrixClusteringWattsStrogatz13STD.setDouble(indices, d.clusteringWattsStrogatz13STD[mc][h][s][c][e][t]);
+                matrixClusteringWattsStrogatzNRAVG.setDouble(indices, d.clusteringWattsStrogatzNRAVG[mc][h][s][c][e][t]);
+                matrixClusteringWattsStrogatzNRSTD.setDouble(indices, d.clusteringWattsStrogatzNRSTD[mc][h][s][c][e][t]);
+                matrixClusteringWattsStrogatzRRAVG.setDouble(indices, d.clusteringWattsStrogatzRRAVG[mc][h][s][c][e][t]);
+                matrixClusteringWattsStrogatzRRSTD.setDouble(indices, d.clusteringWattsStrogatzRRSTD[mc][h][s][c][e][t]);
+
                 matrixCentralizationAVG.setDouble(indices, d.centralizationAVG[mc][h][s][c][e][t]);
                 matrixCentralizationSTD.setDouble(indices, d.centralizationSTD[mc][h][s][c][e][t]);
                 matrixCentralization12AVG.setDouble(indices, d.centralization12AVG[mc][h][s][c][e][t]);
@@ -265,6 +291,8 @@ class MatWriter {
           .addArray("para_o", Mat5.newScalar(Main.OBSERVE_ALL?Main.N:Main.OBSERVATION_SCOPE))
           .addArray("para_g_mech", Mat5.newScalar(Main.NUM_MECHANISM))
           .addArray("para_n", Mat5.newScalar(Main.N))
+          .addArray("para_max", Mat5.newScalar(Main.MAX_INFORMAL))
+//          .addArray("para_min", Mat5.newScalar(Main.MIN_INFORMAL))
           .addArray("para_l", Mat5.newScalar(Main.L))
           .addArray("para_m", Mat5.newScalar(Main.M))
           .addArray("para_m_of_bundle", Mat5.newScalar(Main.M_OF_BUNDLE))
@@ -318,6 +346,18 @@ class MatWriter {
           .addArray("r_clus_nr_std", matrixClusteringNRSTD)
           .addArray("r_clus_rr_avg", matrixClusteringRRAVG)
           .addArray("r_clus_rr_std", matrixClusteringRRSTD)
+          .addArray("r_clws_avg", matrixClusteringWattsStrogatzAVG)
+          .addArray("r_clws_std", matrixClusteringWattsStrogatzSTD)
+          .addArray("r_clws_12_avg", matrixClusteringWattsStrogatz12AVG)
+          .addArray("r_clws_12_std", matrixClusteringWattsStrogatz12STD)
+          .addArray("r_clws_23_avg", matrixClusteringWattsStrogatz23AVG)
+          .addArray("r_clws_23_std", matrixClusteringWattsStrogatz23STD)
+          .addArray("r_clws_13_avg", matrixClusteringWattsStrogatz13AVG)
+          .addArray("r_clws_13_std", matrixClusteringWattsStrogatz13STD)
+          .addArray("r_clws_nr_avg", matrixClusteringWattsStrogatzNRAVG)
+          .addArray("r_clws_nr_std", matrixClusteringWattsStrogatzNRSTD)
+          .addArray("r_clws_rr_avg", matrixClusteringWattsStrogatzRRAVG)
+          .addArray("r_clws_rr_std", matrixClusteringWattsStrogatzRRSTD)
           .addArray("r_cent_avg", matrixCentralizationAVG)
           .addArray("r_cent_std", matrixCentralizationSTD)
           .addArray("r_cent_12_avg", matrixCentralization12AVG)

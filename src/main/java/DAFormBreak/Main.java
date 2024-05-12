@@ -4,16 +4,16 @@ import java.io.File;
 
 public class Main {
 
-  static String RUN_ID = "DAFormBreak_HOODSCOREBYSUM";
+  static String RUN_ID = "DAFormBreak_AltClustering";
 
   static final long TIC = System.currentTimeMillis();
 
-  static final boolean GET_GRAPH = false;
+  static final boolean GET_GRAPH = true;
   static final boolean GET_MAT = true;
   static final boolean LINK_LEVEL = false;
   static final boolean OBSERVE_ALL = false;
 
-  static final int ITERATION = 100;
+  static final int ITERATION = 84;
   static final int TIME = 800 + 1;
 //  static final int TIME = 1;
 
@@ -23,23 +23,27 @@ public class Main {
   static final int NUM_MECHANISM = 4; // Homophily on Char, on Status, closure, & p-attachment
   static final int OBSERVATION_SCOPE = 3; // >= 2
   static final int MAX_INFORMAL = 5; // >= 1
+  static final int MIN_INFORMAL = 0; // >= 1
 //  static final int MAX_INFORMAL = 999; // >= 1
 
   static final int N = 100;
   static final int[] SPAN = {2, 3, 4, 5, 6, 7, 8};
+//  static final int[] SPAN = {2, 5, 8};
 //  static final int N = 31;
 //  static final int[] SPAN = {2,5};
   static final int LENGTH_SPAN = SPAN.length;
 
   static final int M_OF_BUNDLE = 20;
   static final int M_IN_BUNDLE = 5;
+//  static final int M_OF_BUNDLE = 100;
+//  static final int M_IN_BUNDLE = 1;
   static final int M = M_OF_BUNDLE * M_IN_BUNDLE;
 
   static final double[] H = {1};
   static final int LENGTH_H = H.length;
 
-  static final double[] CONNECTIVITY = {0};
-//  static final double[] CONNECTIVITY = {.1};
+//  static final double[] CONNECTIVITY = {0};
+  static final double[] CONNECTIVITY = {0, .01, .05, .1, .3, .5, .7, .9};
   static final int LENGTH_CONNECTIVITY = CONNECTIVITY.length;
 
   static final double[] ENFORCEMENT = {1};
@@ -54,7 +58,7 @@ public class Main {
   static final double N_TRIPLET = (double) (N * (N - 1D) * (N - 2D)) / 6D;
 
   //Parameters of Hompohily
-  static final int L = 1; // Fixed param
+  static final int L = 2; // Fixed param
   static final double WEIGHT_ON_CHARACTERISTIC = 1D;
   static final double WEIGHT_ON_BELIEF = 1D - WEIGHT_ON_CHARACTERISTIC;
 
@@ -82,7 +86,8 @@ public class Main {
         "I" + ITERATION +
         "LL" + (LINK_LEVEL ? "t" : "f") +
         "O" + (OBSERVE_ALL?"Inf":OBSERVATION_SCOPE) +
-        "MI" + MAX_INFORMAL +
+        "Max" + MAX_INFORMAL +
+        "Min" + MIN_INFORMAL +
         "T" + TIME +
         "N" + N +
         "L" + L +

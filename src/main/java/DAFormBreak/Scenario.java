@@ -2,8 +2,6 @@ package DAFormBreak;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
-import jdk.jfr.Description;
 import org.apache.commons.math3.random.MersenneTwister;
 import org.apache.commons.math3.random.RandomGenerator;
 import org.apache.commons.math3.util.FastMath;
@@ -60,9 +58,10 @@ public class Scenario {
 
   double[][] neighborScore;
   double[] neighborhoodScore;
-
-  int numFormation = 0;
-  int numBreak = 0;
+  int numFormation;
+  int numBreak;
+  int numFormationLeft;
+  int numBreakLeft;
   double performanceAvg;
   double disagreementAvg;
 
@@ -70,9 +69,12 @@ public class Scenario {
   double density;
   double averagePathLength;
   double networkEfficiency;
-  double overallClustering;
+  double globalClustering;
+  double globalClusteringWattsStrogatz;
   double overallCentralization;
   double betweennessCentralityVariance;
+
+  double satisfactionRate;
   Scenario(int socialMechanism, double strength, int span, double connectivity, double enforcement) {
     r = new MersenneTwister();
 
@@ -90,13 +92,13 @@ public class Scenario {
     }
     targetIndexArray = focalIndexArray.clone();
 
-
-    dyadIndexArray = new int[Main.N * (Main.N-1) / 2];
-    dyad2DIndexArray = new int[Main.N * (Main.N-1) / 2][2];
+    int nDyad = Main.N * (Main.N-1) / 2;
+    dyadIndexArray = new int[nDyad];
+    dyad2DIndexArray = new int[nDyad][2];
     int d = 0;
     for( int i = 0; i < Main.N; i ++ ){
       for( int j = i; j < Main.N; j ++ ){
-        if( i == j ){ continue; }
+        if( i == j ) { continue; }
         dyadIndexArray[d] = d;
         dyad2DIndexArray[d][0] = i;
         dyad2DIndexArray[d][1] = j;
@@ -129,7 +131,6 @@ public class Scenario {
     clone.networkEnforced = new boolean[Main.N][];
     clone.networkFlexible = new boolean[Main.N][];
     clone.network = new boolean[Main.N][];
-    clone.na = new NetworkAnalyzer(clone.network);
 
     clone.degreeEnforced = this.degreeEnforced.clone();
     clone.degreeFlexible = this.degreeFlexible.clone();
@@ -142,6 +143,7 @@ public class Scenario {
     clone.numBreak = this.numBreak;
     clone.performanceAvg = this.performanceAvg;
     clone.disagreementAvg = this.disagreementAvg;
+    clone.satisfactionRate = this.satisfactionRate;
 
     for (int focal = 0; focal < Main.N; focal++) {
       clone.beliefOf[focal] = this.beliefOf[focal].clone();
@@ -153,6 +155,9 @@ public class Scenario {
 
       clone.differenceOf[focal] = this.differenceOf[focal].clone();
     }
+
+    clone.na = new NetworkAnalyzer(clone.network);
+    clone.na.setNetworkMetrics();
 
     clone.setOutcome();
 
@@ -316,10 +321,8 @@ public class Scenario {
 
   private void initializeOutcome() {
     performance = new int[Main.N];
-
     differenceOf = new double[Main.N][Main.N];
     differenceSum = new double[Main.N];
-
     setPerformance();
     doEvaluateNeighbor();
     setOutcome();
@@ -354,13 +357,15 @@ public class Scenario {
   void setOutcome() {
     performanceAvg = 0;
     disagreementAvg = 0;
+    satisfactionRate = 0;
     na.setNetworkMetrics();
     density = na.getDensity();
     diameter = na.getDiameter();
     averagePathLength = na.getAveragePathLength();
     networkEfficiency = na.getNetworkEfficiency();
-    overallClustering = na.getOverallClustering();
-    overallCentralization = na.getOverallClosenessCentralization();
+    globalClustering = na.getGlobalClustering();
+    globalClusteringWattsStrogatz = na.getGlobalClusteringWattsStrogatz();
+    overallCentralization = na.getGlobalClosenessCentralization();
     betweennessCentralityVariance = na.getBetweennessCentralityVariance();
 
     for (int focal = 0; focal < Main.N; focal++) {
@@ -376,6 +381,7 @@ public class Scenario {
     }
     performanceAvg /= Main.M_N;
     disagreementAvg /= Main.M_N_DYAD;
+    satisfactionRate /= Main.N;
   }
 
   double getNeighborScoreHomophilyOnChar(int focal, int target) {
@@ -386,10 +392,12 @@ public class Scenario {
       }
     }
     return neighborScore / (double) Main.L;
+//    return r.nextDouble();
   }
 
   double getNeighborScoreHomophilyOnStatus(int focal, int target) {
     return 1D - FastMath.abs(levelOf[focal] - levelOf[target]) / levelRange;
+//    return r.nextDouble();
   }
 
   double getNeighborScoreNetworkClosure(int focal, int target) {
@@ -401,17 +409,7 @@ public class Scenario {
       }
     }
     return numerator / denominator;
-  }
-
-  double getNeighborScoreNetworkClosure(int focal, int target, boolean[][] network) {
-    double numerator = 0;
-    double denominator = network[focal][target]? degree[focal] : degree[focal]+1; //Fixed 240504
-    for (int i = 0; i < Main.N; i++) {
-      if (network[focal][i] && network[target][i]) {
-        numerator++;
-      }
-    }
-    return numerator / denominator; // Fixed 231223. Never used before.
+//    return r.nextDouble();
   }
 
   double getNeighborScorePreferentialAttachement(int focal, int target) {
@@ -482,29 +480,10 @@ public class Scenario {
         }
       }
     }
-  }
-
-  @Description("Returns similarity in a fraction [0, 1]")
-  double getHomogeneityBetween(int focal, int target) {
-    double homogeneityCharacteristic = 0;
-    double homogeneityBelief = 0;
-    if (Main.WEIGHT_ON_CHARACTERISTIC > 0D) {
-      for (int l = 0; l < Main.L; l++) {
-        if (typeOf[focal][l] == typeOf[target][l]) {
-          homogeneityCharacteristic++;
-        }
-      }
-      homogeneityCharacteristic = Main.WEIGHT_ON_CHARACTERISTIC * homogeneityCharacteristic / (double) Main.L;
+    for (int focal = 0; focal < Main.N; focal++) {
+      neighborhoodScore[focal] /= (double) degree[focal];
+      // Neighborhood score is higher than desired score = strength
     }
-    if (Main.WEIGHT_ON_BELIEF > 0D) {
-      for (int m = 0; m < Main.M; m++) {
-        if (beliefOf[focal][m] == beliefOf[target][m]) {
-          homogeneityBelief++;
-        }
-      }
-      homogeneityBelief /= Main.WEIGHT_ON_BELIEF * homogeneityBelief / (double) Main.M;
-    }
-    return homogeneityCharacteristic + homogeneityBelief;
   }
 
   void setObservationStructure() {
@@ -541,13 +520,8 @@ public class Scenario {
     numBreak = 0;
     shuffleFisherYates(focalIndexArray);
     for (int focal : focalIndexArray) {
-//      if (satisfied[focal]) {
-//        continue;
-//      }
       int target2Form = -1;
       int target2Break = -1;
-      double bestTargetScore = Double.MIN_VALUE;
-      double worstTargetScore = Double.MAX_VALUE;
       // Searching for a tie to form
       if (
           degreeFlexible[focal] < Main.MAX_INFORMAL
@@ -555,61 +529,62 @@ public class Scenario {
         //Selection of a new neighbor to connect
         shuffleFisherYates(targetIndexArray);
         for (int target : targetIndexArray) {
-          if (
-              network[focal][target] || // If the target is already a neighbor of the focal
-              !observationStructure[focal][target] || // If the target is outside the observation structure
-              degreeFlexible[target] >= Main.MAX_INFORMAL ||
-              focal == target // If the target is focal herself
+          if(
+              observationStructure[focal][target] &&
+              !network[focal][target] &&
+              degreeFlexible[target] < Main.MAX_INFORMAL &&
+              focal != target
           ) {
-            continue;
-          }
-          double targetScore = Double.NaN;
-          if (isHomophilyOnChar) {
-            targetScore = getNeighborScoreHomophilyOnChar(focal, target);
-          } else if (isHomophilyOnStat) {
-            targetScore = getNeighborScoreHomophilyOnStatus(focal, target);
-          } else if (isNetworkClosure) {
-            targetScore = getNeighborScoreNetworkClosure(focal, target);
-          } else if (isPreferentialAttachment) {
-            targetScore = getNeighborScorePreferentialAttachement(focal, target);
-          }
-          if (targetScore > bestTargetScore) {
-            //Checking for mutual agreement
-            double focalScore = Double.NaN;
+            double targetScore = Double.NaN;
             if (isHomophilyOnChar) {
-              focalScore = targetScore;
+              targetScore = getNeighborScoreHomophilyOnChar(focal, target);
             } else if (isHomophilyOnStat) {
-              focalScore = targetScore;
+              targetScore = getNeighborScoreHomophilyOnStatus(focal, target);
             } else if (isNetworkClosure) {
-              focalScore = getNeighborScoreNetworkClosure(target, focal);
+              targetScore = getNeighborScoreNetworkClosure(focal, target);
             } else if (isPreferentialAttachment) {
-              focalScore = getNeighborScorePreferentialAttachement(target, focal);
+              targetScore = getNeighborScorePreferentialAttachement(focal, target);
             }
-            if (focalScore > 0) {
-              //Potential score of focal is higher than average neighborhoods core
-              target2Form = target;
-              bestTargetScore = targetScore;
+            if (targetScore > neighborhoodScore[focal]) {
+//          if (targetScore >= neighborhoodScore[focal]) { //ALWAYSFORM
+              //Checking for mutual agreement
+              double focalScore = Double.NaN;
+              if (isHomophilyOnChar) {
+                focalScore = targetScore;
+              } else if (isHomophilyOnStat) {
+                focalScore = targetScore;
+              } else if (isNetworkClosure) {
+                focalScore = getNeighborScoreNetworkClosure(target, focal);
+              } else if (isPreferentialAttachment) {
+                focalScore = getNeighborScorePreferentialAttachement(target, focal);
+              }
+//              if (focalScore > neighborhoodScore[target]) {
+            if (focalScore >= neighborhoodScore[target]) { // this makes a huuuge difference in resulting network pattern
+                //Potential score of focal is higher than average neighborhoods core
+                target2Form = target;
+                break;
+              }
             }
           }
         }
       }
       // Searching for a tie to break
       if (
-//          degreeFlexible[focal] > 0 &&
-//          degree[focal] > 1 //@@240403
-          degreeFlexible[focal] >= Main.MAX_INFORMAL //@240504
+//          degreeFlexible[focal] > Main.MAX_INFORMAL //@240504
+          degreeFlexible[focal] > Main.MIN_INFORMAL //@240508
       ) {
+        double worstNeighborScore = Double.MAX_VALUE;
         shuffleFisherYates(targetIndexArray);
         for (int target : targetIndexArray) {
           if (networkFlexible[focal][target] &&
               degree[target] > 1
           ) {
-            if (degree[target] == 1) {
-              continue;
-            }
-            if (neighborScore[focal][target] < worstTargetScore
+            if (neighborScore[focal][target] < worstNeighborScore
+                &&
+                neighborScore[focal][target] < neighborhoodScore[focal] //@@@@ THIS IS AN IMPORTANT ASSUMPTION FOR DEGREE[FOCAL]>1
             ) {
               target2Break = target;
+              worstNeighborScore = neighborScore[focal][target];
             }
           }
         }
@@ -637,8 +612,6 @@ public class Scenario {
         degreeFlexible[focal]--;
         degree[target2Break]--;
         degreeFlexible[target2Break]--;
-//        System.out.println("BROKEAN" + numBreak);
-
       }
       // Reset Neighborhood Score
       doEvaluateNeighbor();
@@ -646,15 +619,16 @@ public class Scenario {
   }
 
   void doRewiring(int numFormation, int numBreak) {
+    this.numFormationLeft = numFormation;
+    this.numBreakLeft = numBreak;
     //Random rewiring
-    int numFormationLeft = numFormation;
-    int numBreakLeft = numBreak;
     shuffleFisherYates(dyadIndexArray);
     for (int dyad : dyadIndexArray) {
       int focal = dyad2DIndexArray[dyad][0];
       int target = dyad2DIndexArray[dyad][1];
-      if (numBreakLeft > 0 &&
-          networkFlexible[focal][target]) {
+      if (networkFlexible[focal][target] &&
+          numBreakLeft > 0
+          ) {
         network[focal][target] = false;
         network[target][focal] = false;
         networkFlexible[focal][target] = false;
@@ -665,10 +639,11 @@ public class Scenario {
         degreeFlexible[target]--;
         numBreakLeft--;
       } else if (
-          numFormationLeft > 0 &&
-              !network[focal][target] &&
-              degreeFlexible[focal] < Main.MAX_INFORMAL &&
-              degreeFlexible[target] < Main.MAX_INFORMAL
+          !network[focal][target] &&
+//          observationStructure[focal][target] &&
+//          degreeFlexible[focal] < Main.MAX_INFORMAL &&
+//          degreeFlexible[target] < Main.MAX_INFORMAL && //240507
+          numFormationLeft > 0
       ) {
         network[focal][target] = true;
         network[target][focal] = true;
@@ -684,7 +659,7 @@ public class Scenario {
         break;
       }
     }
-    if( numFormationLeft != 0 || numBreakLeft != 0 ){
+    if (numFormationLeft != 0 || numBreakLeft != 0) {
       doRewiring(numFormationLeft, numBreakLeft);
     }
   }

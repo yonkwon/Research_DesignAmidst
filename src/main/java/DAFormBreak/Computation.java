@@ -6,7 +6,6 @@ import com.google.common.util.concurrent.AtomicDouble;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -53,6 +52,19 @@ public class Computation {
   AtomicDouble[][][][][][] clusteringNRSTDAtomic;
   AtomicDouble[][][][][][] clusteringRRAVGAtomic;
   AtomicDouble[][][][][][] clusteringRRSTDAtomic;
+
+  AtomicDouble[][][][][][] clusteringWattsStrogatzAVGAtomic;
+  AtomicDouble[][][][][][] clusteringWattsStrogatzSTDAtomic;
+  AtomicDouble[][][][][][] clusteringWattsStrogatz12AVGAtomic;
+  AtomicDouble[][][][][][] clusteringWattsStrogatz12STDAtomic;
+  AtomicDouble[][][][][][] clusteringWattsStrogatz23AVGAtomic;
+  AtomicDouble[][][][][][] clusteringWattsStrogatz23STDAtomic;
+  AtomicDouble[][][][][][] clusteringWattsStrogatz13AVGAtomic;
+  AtomicDouble[][][][][][] clusteringWattsStrogatz13STDAtomic;
+  AtomicDouble[][][][][][] clusteringWattsStrogatzNRAVGAtomic;
+  AtomicDouble[][][][][][] clusteringWattsStrogatzNRSTDAtomic;
+  AtomicDouble[][][][][][] clusteringWattsStrogatzRRAVGAtomic;
+  AtomicDouble[][][][][][] clusteringWattsStrogatzRRSTDAtomic;
 
   AtomicDouble[][][][][][] centralizationAVGAtomic;
   AtomicDouble[][][][][][] centralizationSTDAtomic;
@@ -166,6 +178,19 @@ public class Computation {
   double[][][][][][] clusteringRRAVG;
   double[][][][][][] clusteringRRSTD;
 
+  double[][][][][][] clusteringWattsStrogatzAVG;
+  double[][][][][][] clusteringWattsStrogatzSTD;
+  double[][][][][][] clusteringWattsStrogatz12AVG;
+  double[][][][][][] clusteringWattsStrogatz12STD;
+  double[][][][][][] clusteringWattsStrogatz23AVG;
+  double[][][][][][] clusteringWattsStrogatz23STD;
+  double[][][][][][] clusteringWattsStrogatz13AVG;
+  double[][][][][][] clusteringWattsStrogatz13STD;
+  double[][][][][][] clusteringWattsStrogatzNRAVG;
+  double[][][][][][] clusteringWattsStrogatzNRSTD;
+  double[][][][][][] clusteringWattsStrogatzRRAVG;
+  double[][][][][][] clusteringWattsStrogatzRRSTD;
+
   double[][][][][][] centralizationAVG;
   double[][][][][][] centralizationSTD;
   double[][][][][][] centralization12AVG;
@@ -269,11 +294,15 @@ public class Computation {
               }
               String fileName = Main.RUN_ID + "_" + "h" + strength + "_s" + span + "_c" + connectivity + "_" + enforcement + "_" + mcString;
               Scenario src = new Scenario(mc, strength, span, connectivity, enforcement);
-              src.printCSV(Main.PATH_CSV + fileName + "_t0");
+              Scenario rr = src.getClone(true, true);
+              src.printCSV(Main.PATH_CSV + "sc_" + fileName + "_t0");
+              rr.printCSV(Main.PATH_CSV + "rr_" + fileName + "_t0");
               for (int t = 0; t < Main.TIME; t++) {
                 src.stepForward();
+                rr.stepForward(src.numFormation, src.numBreak, src.isNotConverged);
               }
-              src.printCSV(Main.PATH_CSV + fileName + "_t" + Main.TIME);
+              src.printCSV(Main.PATH_CSV + "sc_" + fileName + "_t" + Main.TIME);
+              rr.printCSV(Main.PATH_CSV + "rr_" + fileName + "_t" + Main.TIME);
               System.out.println("Network Printed: " + fileName);
             }
           }
@@ -329,6 +358,19 @@ public class Computation {
     clusteringRRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     clusteringRRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
 
+    clusteringWattsStrogatzAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatzSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatz12AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatz12STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatz23AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatz23STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatz13AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatz13STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatzNRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatzNRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatzRRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatzRRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+
     centralizationAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     centralizationSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     centralization12AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
@@ -380,7 +422,7 @@ public class Computation {
     densityNRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     densityRRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     densityRRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
-    
+
     betweennessCentralityVarianceAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     betweennessCentralityVarianceSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     betweennessCentralityVariance12AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
@@ -445,6 +487,19 @@ public class Computation {
                 clusteringNRSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
                 clusteringRRAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
                 clusteringRRSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                
+                clusteringWattsStrogatzAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                clusteringWattsStrogatzSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                clusteringWattsStrogatz12AVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                clusteringWattsStrogatz12STDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                clusteringWattsStrogatz23AVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                clusteringWattsStrogatz23STDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                clusteringWattsStrogatz13AVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                clusteringWattsStrogatz13STDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                clusteringWattsStrogatzNRAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                clusteringWattsStrogatzNRSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                clusteringWattsStrogatzRRAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
+                clusteringWattsStrogatzRRSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
 
                 centralizationAVGAtomic[mc][h][s][c][e][t] = new AtomicDouble();
                 centralizationSTDAtomic[mc][h][s][c][e][t] = new AtomicDouble();
@@ -561,6 +616,19 @@ public class Computation {
     clusteringNRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     clusteringRRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     clusteringRRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+
+    clusteringWattsStrogatzAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatzSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatz12AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatz12STD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatz23AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatz23STD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatz13AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatz13STD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatzNRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatzNRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatzRRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    clusteringWattsStrogatzRRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
 
     centralizationAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
     centralizationSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_H][Main.LENGTH_SPAN][Main.LENGTH_CONNECTIVITY][Main.LENGTH_ENFORCEMENT][Main.TIME];
@@ -748,6 +816,30 @@ public class Computation {
                 clusteringRRAVG[mc][h][s][c][e][t] = clusteringRRAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
                 clusteringRRSTD[mc][h][s][c][e][t] = clusteringRRSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
                 clusteringRRSTD[mc][h][s][c][e][t] = pow(clusteringRRSTD[mc][h][s][c][e][t] - pow(clusteringRRAVG[mc][h][s][c][e][t], 2), .5);
+
+                clusteringWattsStrogatzAVG[mc][h][s][c][e][t] = clusteringWattsStrogatzAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                clusteringWattsStrogatzSTD[mc][h][s][c][e][t] = clusteringWattsStrogatzSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                clusteringWattsStrogatzSTD[mc][h][s][c][e][t] = pow(clusteringWattsStrogatzSTD[mc][h][s][c][e][t] - pow(clusteringWattsStrogatzAVG[mc][h][s][c][e][t], 2), .5);
+
+                clusteringWattsStrogatz12AVG[mc][h][s][c][e][t] = clusteringWattsStrogatz12AVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                clusteringWattsStrogatz12STD[mc][h][s][c][e][t] = clusteringWattsStrogatz12STDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                clusteringWattsStrogatz12STD[mc][h][s][c][e][t] = pow(clusteringWattsStrogatz12STD[mc][h][s][c][e][t] - pow(clusteringWattsStrogatz12AVG[mc][h][s][c][e][t], 2), .5);
+
+                clusteringWattsStrogatz23AVG[mc][h][s][c][e][t] = clusteringWattsStrogatz23AVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                clusteringWattsStrogatz23STD[mc][h][s][c][e][t] = clusteringWattsStrogatz23STDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                clusteringWattsStrogatz23STD[mc][h][s][c][e][t] = pow(clusteringWattsStrogatz23STD[mc][h][s][c][e][t] - pow(clusteringWattsStrogatz23AVG[mc][h][s][c][e][t], 2), .5);
+
+                clusteringWattsStrogatz13AVG[mc][h][s][c][e][t] = clusteringWattsStrogatz13AVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                clusteringWattsStrogatz13STD[mc][h][s][c][e][t] = clusteringWattsStrogatz13STDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                clusteringWattsStrogatz13STD[mc][h][s][c][e][t] = pow(clusteringWattsStrogatz13STD[mc][h][s][c][e][t] - pow(clusteringWattsStrogatz13AVG[mc][h][s][c][e][t], 2), .5);
+
+                clusteringWattsStrogatzNRAVG[mc][h][s][c][e][t] = clusteringWattsStrogatzNRAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                clusteringWattsStrogatzNRSTD[mc][h][s][c][e][t] = clusteringWattsStrogatzNRSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                clusteringWattsStrogatzNRSTD[mc][h][s][c][e][t] = pow(clusteringWattsStrogatzNRSTD[mc][h][s][c][e][t] - pow(clusteringWattsStrogatzNRAVG[mc][h][s][c][e][t], 2), .5);
+
+                clusteringWattsStrogatzRRAVG[mc][h][s][c][e][t] = clusteringWattsStrogatzRRAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                clusteringWattsStrogatzRRSTD[mc][h][s][c][e][t] = clusteringWattsStrogatzRRSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
+                clusteringWattsStrogatzRRSTD[mc][h][s][c][e][t] = pow(clusteringWattsStrogatzRRSTD[mc][h][s][c][e][t] - pow(clusteringWattsStrogatzRRAVG[mc][h][s][c][e][t], 2), .5);
 
                 centralizationAVG[mc][h][s][c][e][t] = centralizationAVGAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
                 centralizationSTD[mc][h][s][c][e][t] = centralizationSTDAtomic[mc][h][s][c][e][t].get() / Main.ITERATION;
@@ -940,6 +1032,19 @@ public class Computation {
     AtomicDouble[] clusteringRRAVGAtomicPart;
     AtomicDouble[] clusteringRRSTDAtomicPart;
 
+    AtomicDouble[] clusteringWattsStrogatzAVGAtomicPart;
+    AtomicDouble[] clusteringWattsStrogatzSTDAtomicPart;
+    AtomicDouble[] clusteringWattsStrogatz12AVGAtomicPart;
+    AtomicDouble[] clusteringWattsStrogatz12STDAtomicPart;
+    AtomicDouble[] clusteringWattsStrogatz23AVGAtomicPart;
+    AtomicDouble[] clusteringWattsStrogatz23STDAtomicPart;
+    AtomicDouble[] clusteringWattsStrogatz13AVGAtomicPart;
+    AtomicDouble[] clusteringWattsStrogatz13STDAtomicPart;
+    AtomicDouble[] clusteringWattsStrogatzNRAVGAtomicPart;
+    AtomicDouble[] clusteringWattsStrogatzNRSTDAtomicPart;
+    AtomicDouble[] clusteringWattsStrogatzRRAVGAtomicPart;
+    AtomicDouble[] clusteringWattsStrogatzRRSTDAtomicPart;
+
     AtomicDouble[] centralizationAVGAtomicPart;
     AtomicDouble[] centralizationSTDAtomicPart;
     AtomicDouble[] centralization12AVGAtomicPart;
@@ -1070,6 +1175,19 @@ public class Computation {
       clusteringRRAVGAtomicPart = clusteringRRAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
       clusteringRRSTDAtomicPart = clusteringRRSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
 
+      clusteringWattsStrogatzAVGAtomicPart = clusteringWattsStrogatzAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      clusteringWattsStrogatzSTDAtomicPart = clusteringWattsStrogatzSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      clusteringWattsStrogatz12AVGAtomicPart = clusteringWattsStrogatz12AVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      clusteringWattsStrogatz12STDAtomicPart = clusteringWattsStrogatz12STDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      clusteringWattsStrogatz23AVGAtomicPart = clusteringWattsStrogatz23AVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      clusteringWattsStrogatz23STDAtomicPart = clusteringWattsStrogatz23STDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      clusteringWattsStrogatz13AVGAtomicPart = clusteringWattsStrogatz13AVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      clusteringWattsStrogatz13STDAtomicPart = clusteringWattsStrogatz13STDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      clusteringWattsStrogatzNRAVGAtomicPart = clusteringWattsStrogatzNRAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      clusteringWattsStrogatzNRSTDAtomicPart = clusteringWattsStrogatzNRSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      clusteringWattsStrogatzRRAVGAtomicPart = clusteringWattsStrogatzRRAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+      clusteringWattsStrogatzRRSTDAtomicPart = clusteringWattsStrogatzRRSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
+
       centralizationAVGAtomicPart = centralizationAVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
       centralizationSTDAtomicPart = centralizationSTDAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
       centralization12AVGAtomicPart = centralization12AVGAtomic[mcIndex][hIndex][spanIndex][connectivityIndex][enforcementIndex];
@@ -1184,21 +1302,37 @@ public class Computation {
           disagreementRRAVGAtomicPart[t].addAndGet(rr.disagreementAvg);
           disagreementRRSTDAtomicPart[t].addAndGet(pow(rr.disagreementAvg, 2));
 
-          clusteringAVGAtomicPart[t].addAndGet(src.overallClustering);
-          clusteringSTDAtomicPart[t].addAndGet(pow(src.overallClustering, 2));
-          double clustering12 = rr.overallClustering - nr.overallClustering;
+          clusteringAVGAtomicPart[t].addAndGet(src.globalClustering);
+          clusteringSTDAtomicPart[t].addAndGet(pow(src.globalClustering, 2));
+          double clustering12 = rr.globalClustering - nr.globalClustering;
           clustering12AVGAtomicPart[t].addAndGet(clustering12);
           clustering12STDAtomicPart[t].addAndGet(pow(clustering12, 2));
-          double clustering23 = src.overallClustering - rr.overallClustering;
+          double clustering23 = src.globalClustering - rr.globalClustering;
           clustering23AVGAtomicPart[t].addAndGet(clustering23);
           clustering23STDAtomicPart[t].addAndGet(pow(clustering23, 2));
-          double clustering13 = src.overallClustering - nr.overallClustering;
+          double clustering13 = src.globalClustering - nr.globalClustering;
           clustering13AVGAtomicPart[t].addAndGet(clustering13);
           clustering13STDAtomicPart[t].addAndGet(pow(clustering13, 2));
-          clusteringNRAVGAtomicPart[t].addAndGet(nr.overallClustering);
-          clusteringNRSTDAtomicPart[t].addAndGet(pow(nr.overallClustering, 2));
-          clusteringRRAVGAtomicPart[t].addAndGet(rr.overallClustering);
-          clusteringRRSTDAtomicPart[t].addAndGet(pow(rr.overallClustering, 2));
+          clusteringNRAVGAtomicPart[t].addAndGet(nr.globalClustering);
+          clusteringNRSTDAtomicPart[t].addAndGet(pow(nr.globalClustering, 2));
+          clusteringRRAVGAtomicPart[t].addAndGet(rr.globalClustering);
+          clusteringRRSTDAtomicPart[t].addAndGet(pow(rr.globalClustering, 2));
+
+          clusteringWattsStrogatzAVGAtomicPart[t].addAndGet(src.globalClusteringWattsStrogatz);
+          clusteringWattsStrogatzSTDAtomicPart[t].addAndGet(pow(src.globalClusteringWattsStrogatz, 2));
+          double clusteringWattsStrogatz12 = rr.globalClusteringWattsStrogatz - nr.globalClusteringWattsStrogatz;
+          clusteringWattsStrogatz12AVGAtomicPart[t].addAndGet(clusteringWattsStrogatz12);
+          clusteringWattsStrogatz12STDAtomicPart[t].addAndGet(pow(clusteringWattsStrogatz12, 2));
+          double clusteringWattsStrogatz23 = src.globalClusteringWattsStrogatz - rr.globalClusteringWattsStrogatz;
+          clusteringWattsStrogatz23AVGAtomicPart[t].addAndGet(clusteringWattsStrogatz23);
+          clusteringWattsStrogatz23STDAtomicPart[t].addAndGet(pow(clusteringWattsStrogatz23, 2));
+          double clusteringWattsStrogatz13 = src.globalClusteringWattsStrogatz - nr.globalClusteringWattsStrogatz;
+          clusteringWattsStrogatz13AVGAtomicPart[t].addAndGet(clusteringWattsStrogatz13);
+          clusteringWattsStrogatz13STDAtomicPart[t].addAndGet(pow(clusteringWattsStrogatz13, 2));
+          clusteringWattsStrogatzNRAVGAtomicPart[t].addAndGet(nr.globalClusteringWattsStrogatz);
+          clusteringWattsStrogatzNRSTDAtomicPart[t].addAndGet(pow(nr.globalClusteringWattsStrogatz, 2));
+          clusteringWattsStrogatzRRAVGAtomicPart[t].addAndGet(rr.globalClusteringWattsStrogatz);
+          clusteringWattsStrogatzRRSTDAtomicPart[t].addAndGet(pow(rr.globalClusteringWattsStrogatz, 2));
 
           centralizationAVGAtomicPart[t].addAndGet(src.overallCentralization);
           centralizationSTDAtomicPart[t].addAndGet(pow(src.overallCentralization, 2));
@@ -1263,6 +1397,23 @@ public class Computation {
           densityNRSTDAtomicPart[t].addAndGet(pow(nr.density, 2));
           densityRRAVGAtomicPart[t].addAndGet(rr.density);
           densityRRSTDAtomicPart[t].addAndGet(pow(rr.density, 2));
+
+
+//          if( density23 != 0 && (src.numFormation + src.numBreak) > 0){
+//            int sumsrc = 0;
+//            int sumrr = 0;
+//            for( int i = 0; i < Main.N; i ++ ){
+//              for( int j = i; j < Main.N; j ++ ){
+//                if( i != j ){
+//                  if( src.network[i][j] ) sumsrc ++;
+//                  if( rr.network[i][j] ) sumrr ++;
+//                }
+//              }
+//            }
+//            System.out.println(mcIndex+" "+span +" "+t + "\t"+ "ordered" + src.numFormation+" & " +src.numBreak+ " -> "+ rr.numFormationLeft+" " +rr.numBreakLeft+ " . . . " + density23 + " back " + sumsrc +" "+ sumrr);
+//          }
+
+
           betweennessCentralityVarianceAVGAtomicPart[t].addAndGet(src.betweennessCentralityVariance);
           betweennessCentralityVarianceSTDAtomicPart[t].addAndGet(pow(src.betweennessCentralityVariance, 2));
           double betweennessCentralityVariance12 = rr.betweennessCentralityVariance - nr.betweennessCentralityVariance;
@@ -1282,7 +1433,6 @@ public class Computation {
         src.stepForward();
         nr.stepForward();
         rr.stepForward(src.numFormation, src.numBreak, src.isNotConverged);
-
         synchronized (this) {
           rewiringCumulative += src.numFormation + src.numBreak;
           rewiringAVGAtomicPart[t].addAndGet( src.numFormation + src.numBreak);

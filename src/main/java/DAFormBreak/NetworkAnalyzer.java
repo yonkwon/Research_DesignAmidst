@@ -18,8 +18,9 @@ public class NetworkAnalyzer {
   double diameter;
   double averagePathLength;
   double networkEfficiency;
-  double overallClustering;
-  double overallClosenessCentralization;
+  double globalClustering;
+  double globalClusteringWattsStrogatz;
+  double globalClosenessCentralization;
   double betweennessCentralityVariance;
 
   double[] betweennessCentrality = new double[Main.N];
@@ -41,12 +42,16 @@ public class NetworkAnalyzer {
     return networkEfficiency;
   }
 
-  public double getOverallClustering() {
-    return overallClustering;
+  public double getGlobalClustering() {
+    return globalClustering;
   }
 
-  public double getOverallClosenessCentralization() {
-    return overallClosenessCentralization;
+  public double getGlobalClusteringWattsStrogatz() {
+    return globalClusteringWattsStrogatz;
+  }
+
+  public double getGlobalClosenessCentralization() {
+    return globalClosenessCentralization;
   }
 
   public double getBetweennessCentralityVariance() {
@@ -124,12 +129,12 @@ public class NetworkAnalyzer {
     diameter = Double.MIN_VALUE;
     averagePathLength = 0;
     networkEfficiency = 0;
-    overallClosenessCentralization = 0;
+    globalClosenessCentralization = 0;
     betweennessCentralityVariance = 0;
     double[] closenessCentrality = new double[Main.N];
     double closenessCentralityMax = Double.MIN_VALUE;
-    int overallClusteringNumerator = 0;
-    int overallClusteringDenominator = 0;
+    int globalClusteringNumerator = 0;
+    int globalClusteringDenominator = 0;
     for (int i = 0; i < Main.N; i++) {
       for (int j = i; j < Main.N; j++) {
         if (i != j) {
@@ -151,20 +156,27 @@ public class NetworkAnalyzer {
       }
     }
     for (int i = 0; i < Main.N; i++) {
-      overallClosenessCentralization -= closenessCentrality[i];
+      globalClosenessCentralization -= closenessCentrality[i];
+      double localClusteringNumerator = 0;
+      double localClusteringDenominator = 0;
       if (closenessCentrality[i] > closenessCentralityMax) {
         closenessCentralityMax = closenessCentrality[i];
       }
       for (int j = i; j < Main.N; j++) {
-        for (int k = j; k < Main.N; k++) {
-          if (network2Analyze[i][j] && network2Analyze[i][k]) {
-            overallClusteringDenominator++;
-            if (network2Analyze[j][k]) {
-              overallClusteringNumerator++;
+        if( network2Analyze[i][j] ) {
+          for (int k = j; k < Main.N; k++) {
+            if (network2Analyze[i][k]) {
+              localClusteringDenominator++;
+              globalClusteringDenominator++;
+              if (network2Analyze[j][k]) {
+                localClusteringNumerator++;
+                globalClusteringNumerator++;
+              }
             }
           }
         }
       }
+      globalClusteringWattsStrogatz += localClusteringNumerator / localClusteringDenominator;
     }
 
     double sumBetweennessCentrality = 0;
@@ -177,9 +189,10 @@ public class NetworkAnalyzer {
     density /= (double) Main.N_DYAD;
     averagePathLength /= (double) Main.N_DYAD;
     networkEfficiency /= (double) Main.N_DYAD;
-    overallClosenessCentralization += closenessCentralityMax * (double) Main.N;
-    overallClosenessCentralization /= CLOSENESS_CENTRALIZATION_DENOMINATOR;
-    overallClustering = (double) overallClusteringNumerator / (double) overallClusteringDenominator;
+    globalClosenessCentralization += closenessCentralityMax * (double) Main.N;
+    globalClosenessCentralization /= CLOSENESS_CENTRALIZATION_DENOMINATOR;
+    globalClustering = (double) globalClusteringNumerator / (double) globalClusteringDenominator;
+    globalClusteringWattsStrogatz /= (double) Main.N;
     betweennessCentralityVariance = sumBetweennessCentralitySq/(double)Main.N - FastMath.pow(sumBetweennessCentrality/(double)Main.N ,2);
   }
 
