@@ -4,13 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Watts Strogatz Clustering Coefficient">
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Visibility param now does not inlcude oneself">
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAMix/Computation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAMix/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAMix/MatWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAMix/NetworkAnalyzer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAMix/ProgressBar.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAMix/Scenario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DARewiringGrapher.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/DARewiringGrapher.Rmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Computation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/MatWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/NetworkAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/NetworkAnalyzer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Scenario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -112,34 +115,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Application.DAFormBreak.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.DARewiring.Main (1).executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build DesignAmidst.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.DesignAmidst [:Main.main()].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop-hoodscorebysum-checkpoint&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DAContinuousHierarchy&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.DAFormBreak.Main.executor": "Run",
+    "Application.DARewiring.Main (1).executor": "Run",
+    "Application.Main.executor": "Run",
+    "Gradle.Build DesignAmidst.executor": "Run",
+    "Gradle.DesignAmidst [:Main.main()].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "develop-hoodscorebysum-checkpoint",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DAMix",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAContinuousHierarchy" />
-      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAFormBreak" />
+      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAMix" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java" />
+      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAFormBreak" />
+      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAContinuousHierarchy" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DARewiring" />
-      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAFormation" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="DACost" />
@@ -243,14 +246,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00028" summary="Trivial fix">
-      <option name="closed" value="true" />
-      <created>1694410553804</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1694410553804</updated>
     </task>
     <task id="LOCAL-00029" summary="Trivial fix">
       <option name="closed" value="true" />
@@ -636,7 +631,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715496617121</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="[Fix] Visibility param now does not inlcude oneself">
+      <option name="closed" value="true" />
+      <created>1715617829133</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1715617829133</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -663,7 +666,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Add] Connectivity parameter to DAFormation variant" />
     <MESSAGE value="[Fix] Preferential attachment algorithm. Changed the preference score from absolute to relative val." />
     <MESSAGE value="[Add] DARewiring variant with connectivity parameter" />
     <MESSAGE value="[Misc.] Efficiency propelled by convergence check" />
@@ -688,7 +690,8 @@
     <MESSAGE value="[Checkpoint] Nice results" />
     <MESSAGE value="[Add] Watts Strogatz Global Clustering Coefficient" />
     <MESSAGE value="[Fix] Watts Strogatz Clustering Coefficient" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Watts Strogatz Clustering Coefficient" />
+    <MESSAGE value="[Fix] Visibility param now does not inlcude oneself" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Visibility param now does not inlcude oneself" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
