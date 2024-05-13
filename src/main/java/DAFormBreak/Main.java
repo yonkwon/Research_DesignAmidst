@@ -11,9 +11,9 @@ public class Main {
   static final boolean GET_GRAPH = true;
   static final boolean GET_MAT = true;
   static final boolean LINK_LEVEL = false;
-  static final boolean OBSERVE_ALL = false;
+  static final boolean OBSERVE_ALL = true;
 
-  static final int ITERATION = 84;
+  static final int ITERATION = 5000;
   static final int TIME = 800 + 1;
 //  static final int TIME = 1;
 
@@ -21,7 +21,8 @@ public class Main {
 //  static final int TIME = 5 + 1;
 
   static final int NUM_MECHANISM = 4; // Homophily on Char, on Status, closure, & p-attachment
-  static final int OBSERVATION_SCOPE = 3; // >= 2
+//  static final int NUM_MECHANISM = 1; // FOR CONNECTIVITY ANALYSIS
+  static final int VISIBILITY = 2; // >= 1
   static final int MAX_INFORMAL = 5; // >= 1
   static final int MIN_INFORMAL = 0; // >= 1
 //  static final int MAX_INFORMAL = 999; // >= 1
@@ -42,8 +43,8 @@ public class Main {
   static final double[] H = {1};
   static final int LENGTH_H = H.length;
 
-//  static final double[] CONNECTIVITY = {0};
-  static final double[] CONNECTIVITY = {0, .01, .05, .1, .3, .5, .7, .9};
+  static final double[] CONNECTIVITY = {0};
+//  static final double[] CONNECTIVITY = {0, .01, .05, .1, .3, .5};
   static final int LENGTH_CONNECTIVITY = CONNECTIVITY.length;
 
   static final double[] ENFORCEMENT = {1};
@@ -85,7 +86,7 @@ public class Main {
     FILENAME = RUN_ID +
         "I" + ITERATION +
         "LL" + (LINK_LEVEL ? "t" : "f") +
-        "O" + (OBSERVE_ALL?"Inf":OBSERVATION_SCOPE) +
+        "V" + (OBSERVE_ALL?"Inf": VISIBILITY) +
         "Max" + MAX_INFORMAL +
         "Min" + MIN_INFORMAL +
         "T" + TIME +

@@ -176,7 +176,7 @@ public class NetworkAnalyzer {
           }
         }
       }
-      globalClusteringWattsStrogatz += localClusteringNumerator / localClusteringDenominator;
+      globalClusteringWattsStrogatz += (localClusteringDenominator == 0)? 0 : localClusteringNumerator / localClusteringDenominator;
     }
 
     double sumBetweennessCentrality = 0;

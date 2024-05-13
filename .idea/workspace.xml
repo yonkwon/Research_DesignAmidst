@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Checkpoint] Nice results">
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Watts Strogatz Clustering Coefficient">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DARewiringGrapher.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/DARewiringGrapher.Rmd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Computation.java" afterDir="false" />
@@ -115,7 +115,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Application.DAFormBreak.Main.executor&quot;: &quot;Coverage&quot;,
+    &quot;Application.DAFormBreak.Main.executor&quot;: &quot;Run&quot;,
     &quot;Application.DARewiring.Main (1).executor&quot;: &quot;Run&quot;,
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Build DesignAmidst.executor&quot;: &quot;Run&quot;,
@@ -243,14 +243,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00027" summary="First Commitment">
-      <option name="closed" value="true" />
-      <created>1694410409772</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1694410409772</updated>
     </task>
     <task id="LOCAL-00028" summary="Trivial fix">
       <option name="closed" value="true" />
@@ -636,7 +628,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714878425752</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="[Add] Watts Strogatz Global Clustering Coefficient">
+      <option name="closed" value="true" />
+      <created>1715496617120</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1715496617121</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -663,8 +663,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Add] DAFormation variant: Forming a new tie instead of rewiring an existing tie" />
-    <MESSAGE value="[Fix] Enforced-Flexible ties to Formal-Informal ties" />
     <MESSAGE value="[Add] Connectivity parameter to DAFormation variant" />
     <MESSAGE value="[Fix] Preferential attachment algorithm. Changed the preference score from absolute to relative val." />
     <MESSAGE value="[Add] DARewiring variant with connectivity parameter" />
@@ -688,7 +686,9 @@
     <MESSAGE value="[Fix] Random rewiring leftover fixed" />
     <MESSAGE value="[Fix] Stabilizing various parts." />
     <MESSAGE value="[Checkpoint] Nice results" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Checkpoint] Nice results" />
+    <MESSAGE value="[Add] Watts Strogatz Global Clustering Coefficient" />
+    <MESSAGE value="[Fix] Watts Strogatz Clustering Coefficient" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Watts Strogatz Clustering Coefficient" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

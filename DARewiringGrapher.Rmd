@@ -193,9 +193,8 @@ x_label <- bquote('Span of Control (S)')
 txt_scale <- .9
 
 outcome_label <- c(
-  '(A) Average Shortest Distance',
-  '(B) Closeness Centralization',
-  '(C) Communication Efficiency'
+  '(A) Average Path Legnth',
+  '(B) Closeness Centralization'
 )
 outcome_label <- factor(
   outcome_label,
@@ -274,6 +273,7 @@ ggsave(
 ```
 
 
+
 ## Figure 2 Span of control * Scenario (Line) * Dynamics (Panel) -> Outcome 
 ```{r fig2}
 set_fig2_width = 6
@@ -290,22 +290,31 @@ set_fig2_t <- data$para.time
 
 x_label <- 'Span of Control (S)'
 
-y_label <- 'Organizational Performance'
-y_value_sc <- data$r.perf.avg
-y_value_nr <- data$r.perf.nr.avg
-y_value_rr <- data$r.perf.rr.avg
+# y_label <- 'Organizational Performance'
+# y_value_sc <- data$r.perf.avg
+# y_value_nr <- data$r.perf.nr.avg
+# y_value_rr <- data$r.perf.rr.avg
 
-# y_label <- 'Belief Diversity'
-# y_value_sc <- data$r.disa.avg
-# y_value_nr <- data$r.disa.nr.avg
-# y_value_rr <- data$r.disa.rr.avg
+# y_label <- 'Clustering Coefficient'
+# y_value_sc <- data$r.clws.avg
+# y_value_nr <- data$r.clws.nr.avg
+# y_value_rr <- data$r.clws.rr.avg
+
+y_label <- 'Average Path Length'
+y_value_sc <- data$r.dist.avg
+y_value_nr <- data$r.dist.nr.avg
+y_value_rr <- data$r.dist.rr.avg
+
+y_label <- 'Belief Diversity'
+y_value_sc <- data$r.disa.avg
+y_value_nr <- data$r.disa.nr.avg
+y_value_rr <- data$r.disa.rr.avg
 # 
 # y_label <- 'Closeness Centralization'
 # y_value_sc <- data$r.cent.avg
 # y_value_nr <- data$r.cent.nr.avg
 # y_value_rr <- data$r.cent.rr.avg
-# 
-# y_label <- 'Overall Clustering'
+
 # y_label <- 'Redundancy'
 # y_value_sc <- data$r.clus.avg
 # y_value_nr <- data$r.clus.nr.avg
@@ -330,7 +339,7 @@ y_value_rr <- data$r.perf.rr.avg
 # y_value_sc <- data$r.dens.avg
 # y_value_nr <- data$r.dens.nr.avg
 # y_value_rr <- data$r.dens.rr.avg
-# # 
+
 # y_label <- 'Modularity'
 # y_value_sc <- data$r.bcva.avg
 # y_value_nr <- data$r.bcva.nr.avg
@@ -391,7 +400,7 @@ fig2 <- ggplot(data = df_fig2, mapping = axes) +
   # geom_text_npc(aes(label = panel_label, npcx='right', npcy='bottom'), size=4, colour='black') +
   geom_line(alpha = .9, size = .5) +
   geom_point(size = 1) +
-  geom_point(aes( x = span_opt, y = y_opt), size = 2, shape=8) +
+  geom_point(aes(x = span_opt, y = y_opt), size = 2, shape=8, show_guide = F) +
   scale_shape_manual(values = c(16, 1, 4)) +
   scale_linetype_manual(values = c('solid', 'dotted', 'dashed')) +
   scale_x_continuous(expand = c(.02, .02)) +
@@ -449,6 +458,7 @@ set_fig2_h <- 1
 set_fig2_span <- 1:data$para.g.span
 # set_fig2_span <- (1:data$para.g.span-1)
 set_fig2_connectivity <- 1:data$para.g.conn
+set_fig2_connectivity <- c(1, 2, 3)
 set_fig2_enforcement <- 1
 set_fig2_t <- data$para.time
 # set_fig2_t <- 5
@@ -460,94 +470,82 @@ y_value_sc <- data$r.perf.avg
 y_value_nr <- data$r.perf.nr.avg
 y_value_rr <- data$r.perf.rr.avg
 
-# y_label <- 'Belief Diversity'
-# y_value_sc <- data$r.disa.avg
-# y_value_nr <- data$r.disa.nr.avg
-# y_value_rr <- data$r.disa.rr.avg
-# 
-# y_label <- 'Closeness Centralization'
-# y_value_sc <- data$r.cent.avg
-# y_value_nr <- data$r.cent.nr.avg
-# y_value_rr <- data$r.cent.rr.avg
-# 
-# y_label <- 'Overall Clustering'
-# y_label <- 'Redundancy'
-# y_value_sc <- data$r.clus.avg
-# y_value_nr <- data$r.clus.nr.avg
-# y_value_rr <- data$r.clus.rr.avg
-# 
-# y_label <- 'Communication Efficiency'
-# y_value_sc <- data$r.effi.avg
-# y_value_nr <- data$r.effi.nr.avg
-# y_value_rr <- data$r.effi.rr.avg
-# 
-# y_label <- 'Average Path Length'
-# y_value_sc <- data$r.dist.avg
-# y_value_nr <- data$r.dist.nr.avg
-# y_value_rr <- data$r.dist.rr.avg
-# 
-# y_label <- 'Cumulative Dynamics'
-# y_value_sc <- data$r.rewc.avg
-# y_value_nr <- data$r.rewc.avg
-# y_value_rr <- data$r.rewc.avg
-# 
-# y_label <- 'Density'
-# y_value_sc <- data$r.dens.avg
-# y_value_nr <- data$r.dens.nr.avg
-# y_value_rr <- data$r.dens.rr.avg
+param1_label <- 'Average Path Length'
+param1_value_sc <- data$r.dist.avg
+param1_value_nr <- data$r.dist.nr.avg
+param1_value_rr <- data$r.dist.rr.avg
 
-# y_label <- 'Modularity'
-# y_value_sc <- data$r.bcva.avg
-# y_value_nr <- data$r.bcva.nr.avg
-# y_value_rr <- data$r.bcva.rr.avg
+# param2_label <- 'Clustering Coefficient'
+# param2_value_sc <- data$r.clus.avg
+# param2_value_nr <- data$r.clus.nr.avg
+# param2_value_rr <- data$r.clus.rr.avg
 
-panel_label <- paste0('Panel ', LETTERS[1:20])
-panel_label <- factor(panel_label, levels = panel_label)
+param2_label <- 'Clustering Coefficient (WS)'
+param2_value_sc <- data$r.clws.avg
+param2_value_nr <- data$r.clws.nr.avg
+param2_value_rr <- data$r.clws.rr.av
 
-conn_label <- paste0('Connectivity ', data$para.a.conn[set_fig2_connectivity])
+conn_label <- paste0('Connectivity ', data$para.a.conn)
+conn_label <- c(
+  # paste0('(A) Bare Hierarchy (C=', data$para.a.conn[set_fig2_connectivity[1]], ')'),
+  # paste0('(B) 1% Added Interaction (C=', data$para.a.conn[set_fig2_connectivity[2]], ')'),
+  # paste0('(C) 5% Added Interaction (C=', data$para.a.conn[set_fig2_connectivity[3]], ')')
+  paste0('(A) Bare Hierarchy'),
+  paste0('(B) 1% Added Interaction'),
+  paste0('(C) 5% Added Interaction')
+)
 conn_label <- factor(conn_label, levels = conn_label)
+
+param_label <- c(
+  '(i) Average Path Length',
+  '(ii) Clustering Coefficient'
+)
+param_label <- factor(param_label, levels = param_label)
 
 df_fig2 <- data.frame()
 panel_index <- 0
-for (mc in 1:data$para.g.mech) {
-  for (co in set_fig2_connectivity) {
-    panel_index = panel_index + 1
-    df_next <- data.frame(
-      panel_label = panel_label[panel_index],
-      mechanism = label_mech[mc],
-      span = data$para.a.span[set_fig2_span],
-      connectivity = conn_label[co],
-      scenario = label_scenario[1],
-      outcome = y_value_nr[mc, set_fig2_h, set_fig2_span, co, set_fig2_enforcement, set_fig2_t],
-      span_opt = data$para.a.span[which.max(y_value_nr[mc, set_fig2_h, set_fig2_span, co, set_fig2_enforcement, set_fig2_t])],
-      y_opt = y_value_nr[mc, set_fig2_h, which.max(y_value_nr[mc, set_fig2_h, set_fig2_span, co, set_fig2_enforcement, set_fig2_t]), co, set_fig2_enforcement, set_fig2_t]
-    )
-    df_fig2 <- rbind(df_fig2, df_next)
-  }
+for (co in set_fig2_connectivity) {
+  outcome1 <- param1_value_nr[1, set_fig2_h, set_fig2_span, co, set_fig2_enforcement, set_fig2_t]
+  outcome2 <- param2_value_nr[1, set_fig2_h, set_fig2_span, co, set_fig2_enforcement, set_fig2_t]
+
+  df_next <- data.frame(
+    param = param_label[1],
+    span = data$para.a.span[set_fig2_span],
+    connectivity = conn_label[co],
+    outcome1 = outcome1,
+    outcome2 = outcome2
+  )
+  df_fig2 <- rbind(df_fig2, df_next)
+  
+  # df_next <- data.frame(
+  #   param = param_label[2],
+  #   span = data$para.a.span[set_fig2_span],
+  #   connectivity = conn_label[co],
+  #   outcome = outcome2
+  # )
+  # df_fig2 <- rbind(df_fig2, df_next)
 }
 
 axes <- aes(
-  x = span,
-  y = outcome,
-  color = connectivity,
-  shape = connectivity,
-  linetype = connectivity
+  x = span
 )
 
+range1 <- range(df_fig2$outcome1)
+range2 <- range(df_fig2$outcome2)
+
+df_fig2$outcome2 <- scales::rescale(df_fig2$outcome2, to = range1)
+
 fig2 <- ggplot(data = df_fig2, mapping = axes) +
-  # facet_grid(.~mechanism, labeller = label_parsed) +
-  facet_grid(. ~ mechanism) +
-  # geom_text_npc(aes(label = panel_label, npcx='right', npcy='bottom'), size=4, colour='black') +
-  geom_line(alpha = .9, size = .5) +
-  geom_point(size = 1) +
-  geom_point(aes( x = span_opt, y = y_opt), size = 2, shape=8) +
-  # scale_shape_manual(values = c(16, 1, 4)) +
-  # scale_linetype_manual(values = c('solid', 'dotted', 'dashed')) +
+  facet_grid(. ~ connectivity) +
+  geom_line(aes(y = outcome1, color = param_label[1], linetype = param_label[1]), alpha = .9, size = .5) +
+  geom_line(aes(y = outcome2, color = param_label[2], linetype = param_label[2]), alpha = .9, size = .5) +
   scale_x_continuous(expand = c(.02, .02)) +
-  scale_y_continuous(expand = c(0, .02)) +
-  labs(x = x_label, y = y_label) +
-  scale_color_aaas() +
-  # scale_color_npg() +
+  scale_y_continuous(
+    name = param_label[1],
+    sec.axis = sec_axis(~scales::rescale(., to = range2), name=param_label[2])
+  ) +
+  labs(x = x_label) +
+  scale_color_futurama() +
   theme_bw() +
   theme(
     text = element_text(
@@ -572,8 +570,8 @@ ggsave(
   paste0(
     fig_id, '_',
     'fig2_', y_label,
-    'span', paste0(data$para.a.span[set_fig2_span], collapse = ","),
-    'c', data$para.a.conn[set_fig2_connectivity],
+    'span', data$para.a.span[set_fig2_span],
+    'conn', paste0(data$para.a.conn[set_fig2_connectivity], collapse = ","),
     'e', data$para.a.enfo[set_fig2_enforcement],
     't', set_fig2_t,
     '.png'
