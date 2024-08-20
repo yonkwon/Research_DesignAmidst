@@ -4,22 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Watts Strogatz Clustering Coefficient">
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Misc.">
       <change afterPath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/Computation.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/Main.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/MatWriter.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/NetworkAnalyzer.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/ProgressBar.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/Scenario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DARewiringGrapher.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/DARewiringGrapher.Rmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Computation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/MatWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Scenario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAMix/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAMix/Computation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAMix/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAMix/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -244,14 +236,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00028" summary="Trivial fix">
-      <option name="closed" value="true" />
-      <created>1694410553804</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1694410553804</updated>
     </task>
     <task id="LOCAL-00029" summary="Trivial fix">
       <option name="closed" value="true" />
@@ -637,7 +621,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715496617121</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="[Fix] Misc.">
+      <option name="closed" value="true" />
+      <created>1724186677936</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1724186677937</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -664,7 +656,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Add] Connectivity parameter to DAFormation variant" />
     <MESSAGE value="[Fix] Preferential attachment algorithm. Changed the preference score from absolute to relative val." />
     <MESSAGE value="[Add] DARewiring variant with connectivity parameter" />
     <MESSAGE value="[Misc.] Efficiency propelled by convergence check" />
@@ -689,7 +680,8 @@
     <MESSAGE value="[Checkpoint] Nice results" />
     <MESSAGE value="[Add] Watts Strogatz Global Clustering Coefficient" />
     <MESSAGE value="[Fix] Watts Strogatz Clustering Coefficient" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Watts Strogatz Clustering Coefficient" />
+    <MESSAGE value="[Fix] Misc." />
+    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Misc." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
