@@ -4,17 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Visibility param now does not inlcude oneself">
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAMix/Computation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAMix/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAMix/MatWriter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAMix/NetworkAnalyzer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAMix/ProgressBar.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAMix/Scenario.java" afterDir="false" />
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Watts Strogatz Clustering Coefficient">
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/Computation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/MatWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/NetworkAnalyzer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/ProgressBar.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/Scenario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DARewiringGrapher.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/DARewiringGrapher.Rmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Computation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/MatWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAFormBreak/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAFormBreak/Scenario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAMix/Computation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAMix/Computation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAMix/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAMix/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,19 +134,19 @@
     "git-widget-placeholder": "develop-hoodscorebysum-checkpoint",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DAMix",
-    "project.structure.last.edited": "Project",
+    "last_opened_file_path": "C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DAPostAOM2024",
+    "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAMix" />
-      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java" />
-      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAFormBreak" />
+      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAPostAOM2024" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAContinuousHierarchy" />
+      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAFormBreak" />
+      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DARewiring" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -149,19 +154,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.DAFormBreak.Main">
-    <configuration name="DAContinuousHierarchy.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DAContinuousHierarchy.Main" />
-      <module name="DesignAmidst.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="DAContinuousHierarchy.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="DAFormBreak.Main" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DAFormBreak.Main" />
       <module name="DesignAmidst.main" />
@@ -181,6 +173,19 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="DAFormation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DAMix.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DAMix.Main" />
+      <module name="DesignAmidst.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="DAMix.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -215,9 +220,9 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.DAContinuousHierarchy.Main" />
       <item itemvalue="Application.DAFormBreak.Main" />
       <item itemvalue="Application.DAFormation.Main (1)" />
+      <item itemvalue="Application.DAMix.Main" />
       <item itemvalue="Application.DARewiring.Main" />
       <item itemvalue="Application.Main" />
     </list>
@@ -226,17 +231,10 @@
         <item itemvalue="Application.DAFormBreak.Main" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.DARewiring.Main" />
+        <item itemvalue="Application.DAMix.Main" />
         <item itemvalue="Application.DAFormation.Main (1)" />
-        <item itemvalue="Application.DAContinuousHierarchy.Main" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-21.0.1-azul-21.0.1-249ae16d76d6-5a439a21" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -246,6 +244,14 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Trivial fix">
+      <option name="closed" value="true" />
+      <created>1694410553804</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1694410553804</updated>
     </task>
     <task id="LOCAL-00029" summary="Trivial fix">
       <option name="closed" value="true" />
@@ -631,15 +637,7 @@
       <option name="project" value="LOCAL" />
       <updated>1715496617121</updated>
     </task>
-    <task id="LOCAL-00077" summary="[Fix] Visibility param now does not inlcude oneself">
-      <option name="closed" value="true" />
-      <created>1715617829133</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1715617829133</updated>
-    </task>
-    <option name="localTasksCounter" value="78" />
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -666,6 +664,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="[Add] Connectivity parameter to DAFormation variant" />
     <MESSAGE value="[Fix] Preferential attachment algorithm. Changed the preference score from absolute to relative val." />
     <MESSAGE value="[Add] DARewiring variant with connectivity parameter" />
     <MESSAGE value="[Misc.] Efficiency propelled by convergence check" />
@@ -690,8 +689,7 @@
     <MESSAGE value="[Checkpoint] Nice results" />
     <MESSAGE value="[Add] Watts Strogatz Global Clustering Coefficient" />
     <MESSAGE value="[Fix] Watts Strogatz Clustering Coefficient" />
-    <MESSAGE value="[Fix] Visibility param now does not inlcude oneself" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Visibility param now does not inlcude oneself" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Watts Strogatz Clustering Coefficient" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -28,7 +28,7 @@ public class Scenario {
   int[] dyadIndexArray;
   int[][] dyad2DIndexArray;
 
-  int observationScope;
+  int visibility;
 
   double strength;      //Strength of social behavior
   int span;          //Span of control
@@ -111,7 +111,7 @@ public class Scenario {
     this.enforcement = enforcement;
     this.connectivity = connectivity;
 
-    this.observationScope = Main.OBSERVATION_SCOPE;
+    this.visibility = Main.VISIBILITY;
 
     isRewiring = true;
     isRandomRewiring = false;
@@ -282,7 +282,7 @@ public class Scenario {
 
     na = new NetworkAnalyzer(network);
 
-    if( Main.OBSERVE_ALL ){
+    if( Main.INFINITE_VISIBILITY ){
       observationStructure = new boolean[Main.N][Main.N];
       for( int focal : focalIndexArray ){
         for( int target : targetIndexArray ){
@@ -487,7 +487,7 @@ public class Scenario {
   }
 
   void setObservationStructure() {
-    if( Main.OBSERVE_ALL ){
+    if( Main.INFINITE_VISIBILITY ){
       return;
     }
     //Revised with matrix multiplication - Test its validity
@@ -498,7 +498,7 @@ public class Scenario {
       networkInDegreeLeft[focal] = network[focal].clone();
       observationStructure[focal] = network[focal].clone();
     }
-    for (int d = 1; d < observationScope; d++) { // Degree
+    for (int d = 0; d < visibility; d++) { // Degree
       networkInDegreeRight = new boolean[Main.N][Main.N];
       for (int row = 0; row < Main.N; row++) {
         for (int col = 0; col < Main.N; col++) {

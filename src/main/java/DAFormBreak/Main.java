@@ -9,11 +9,11 @@ public class Main {
   static final long TIC = System.currentTimeMillis();
 
   static final boolean GET_GRAPH = true;
-  static final boolean GET_MAT = true;
+  static final boolean GET_MAT = false;
   static final boolean LINK_LEVEL = false;
-  static final boolean OBSERVE_ALL = true;
+  static final boolean INFINITE_VISIBILITY = true;
 
-  static final int ITERATION = 5000;
+  static final int ITERATION = 1;
   static final int TIME = 800 + 1;
 //  static final int TIME = 1;
 
@@ -28,8 +28,8 @@ public class Main {
 //  static final int MAX_INFORMAL = 999; // >= 1
 
   static final int N = 100;
-  static final int[] SPAN = {2, 3, 4, 5, 6, 7, 8};
-//  static final int[] SPAN = {2, 5, 8};
+//  static final int[] SPAN = {2, 3, 4, 5, 6, 7, 8};
+  static final int[] SPAN = {2, 5, 8};
 //  static final int N = 31;
 //  static final int[] SPAN = {2,5};
   static final int LENGTH_SPAN = SPAN.length;
@@ -60,8 +60,6 @@ public class Main {
 
   //Parameters of Hompohily
   static final int L = 2; // Fixed param
-  static final double WEIGHT_ON_CHARACTERISTIC = 1D;
-  static final double WEIGHT_ON_BELIEF = 1D - WEIGHT_ON_CHARACTERISTIC;
 
   static final int[] RESULT_KEY_VALUE = {NUM_MECHANISM, LENGTH_H, LENGTH_SPAN, LENGTH_CONNECTIVITY, LENGTH_ENFORCEMENT, TIME};
 
@@ -86,13 +84,12 @@ public class Main {
     FILENAME = RUN_ID +
         "I" + ITERATION +
         "LL" + (LINK_LEVEL ? "t" : "f") +
-        "V" + (OBSERVE_ALL?"Inf": VISIBILITY) +
+        "V" + (INFINITE_VISIBILITY ?"Inf": VISIBILITY) +
         "Max" + MAX_INFORMAL +
         "Min" + MIN_INFORMAL +
         "T" + TIME +
         "N" + N +
         "L" + L +
-        "W" + WEIGHT_ON_CHARACTERISTIC +
         "M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE +
         "H" + LENGTH_H +
         "S" + LENGTH_SPAN +

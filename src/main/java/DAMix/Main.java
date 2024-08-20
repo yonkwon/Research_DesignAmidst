@@ -9,11 +9,11 @@ public class Main {
   static final long TIC = System.currentTimeMillis();
 
   static final boolean GET_GRAPH = true;
-  static final boolean GET_MAT = true;
+  static final boolean GET_MAT = false;
   static final boolean LINK_LEVEL = false;
-  static final boolean OBSERVE_ALL = false;
+  static final boolean OBSERVE_ALL = true;
 
-  static final int ITERATION = 5000;
+  static final int ITERATION = 200;
   static final int TIME = 800 + 1;
 //  static final int TIME = 1;
 

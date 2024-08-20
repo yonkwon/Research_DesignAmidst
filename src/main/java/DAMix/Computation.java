@@ -1258,7 +1258,7 @@ public class Computation {
     }
 
     private void run() {
-      Scenario src = new Scenario(mcIndex, h, span, connectivity, enforcement);
+      Scenario src = new Scenario(h, span, connectivity, enforcement);
       Scenario nr = src.getClone(false, false);
       Scenario rr = src.getClone(true, true);
       int rewiringCumulative = 0;
