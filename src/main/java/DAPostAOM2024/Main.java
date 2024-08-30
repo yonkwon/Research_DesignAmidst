@@ -13,8 +13,9 @@ public class Main {
   static final boolean LINK_LEVEL = false;
   static final boolean INFINITE_VISIBILITY = true;
 
-  static final int ITERATION = 1;
-  static final int TIME = 800 + 1;
+//  static final int ITERATION = 10_000;
+  static final int ITERATION = 999;
+  static final int TIME = 600 + 1;
 
   static final int NUM_MECHANISM = 5; // Homophily on Char, on Status, closure, & p-attachment
   static final int VISIBILITY = 2; // >= 1
@@ -23,7 +24,8 @@ public class Main {
 //  static final int MAX_INFORMAL = 999; // >= 1
 
   static final int N = 100;
-  static final int[] SPAN = {2, 3, 4, 5, 6, 7, 8};
+//  static final int[] SPAN = {2, 3, 4, 5, 6, 7, 8};
+  static final int[] SPAN = {2, 5, 8};
   static final int LENGTH_SPAN = SPAN.length;
 
   static final int M_OF_BUNDLE = 20;

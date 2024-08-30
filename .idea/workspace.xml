@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Fix] Misc.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/Computation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/MatWriter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/NetworkAnalyzer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/ProgressBar.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/Scenario.java" afterDir="false" />
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Add] A new variant with homophily/heterophily on knowledge">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DARewiringGrapher.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/DARewiringGrapher.Rmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,27 +109,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Application.DAFormBreak.Main.executor": "Run",
-    "Application.DARewiring.Main (1).executor": "Run",
-    "Application.Main.executor": "Run",
-    "Gradle.Build DesignAmidst.executor": "Run",
-    "Gradle.DesignAmidst [:Main.main()].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "develop-hoodscorebysum-checkpoint",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DAPostAOM2024",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Application.DAFormBreak.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DAPostAOM2024.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DARewiring.Main (1).executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build DesignAmidst.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.DesignAmidst [:Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Upgrade Gradle wrapper.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop-hoodscorebysum-checkpoint&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DAPostAOM2024&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAPostAOM2024" />
@@ -145,7 +144,7 @@
       <recent name="DACost" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.DAFormBreak.Main">
+  <component name="RunManager" selected="Application.DAPostAOM2024.Main">
     <configuration name="DAFormBreak.Main" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DAFormBreak.Main" />
       <module name="DesignAmidst.main" />
@@ -159,12 +158,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DAFormation.Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DAFormation.Main" />
+    <configuration name="DAMix.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DAMix.Main" />
       <module name="DesignAmidst.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="DAFormation.*" />
+          <option name="PATTERN" value="DAMix.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -172,12 +171,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DAMix.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DAMix.Main" />
+    <configuration name="DAPostAOM2024.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DAPostAOM2024.Main" />
       <module name="DesignAmidst.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="DAMix.*" />
+          <option name="PATTERN" value="DAPostAOM2024.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -212,19 +211,19 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.DAPostAOM2024.Main" />
       <item itemvalue="Application.DAFormBreak.Main" />
-      <item itemvalue="Application.DAFormation.Main (1)" />
       <item itemvalue="Application.DAMix.Main" />
       <item itemvalue="Application.DARewiring.Main" />
       <item itemvalue="Application.Main" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DAPostAOM2024.Main" />
         <item itemvalue="Application.DAFormBreak.Main" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.DARewiring.Main" />
         <item itemvalue="Application.DAMix.Main" />
-        <item itemvalue="Application.DAFormation.Main (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -236,14 +235,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00029" summary="Trivial fix">
-      <option name="closed" value="true" />
-      <created>1694410562499</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1694410562499</updated>
     </task>
     <task id="LOCAL-00030" summary="Trivial fix">
       <option name="closed" value="true" />
@@ -629,7 +620,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724186677937</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="[Add] A new variant with homophily/heterophily on knowledge">
+      <option name="closed" value="true" />
+      <created>1724186992040</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1724186992040</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -656,7 +655,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Fix] Preferential attachment algorithm. Changed the preference score from absolute to relative val." />
     <MESSAGE value="[Add] DARewiring variant with connectivity parameter" />
     <MESSAGE value="[Misc.] Efficiency propelled by convergence check" />
     <MESSAGE value="[Fix] Random rewiring scenario does not stop updating even if the source scenario has converged." />
@@ -681,7 +679,8 @@
     <MESSAGE value="[Add] Watts Strogatz Global Clustering Coefficient" />
     <MESSAGE value="[Fix] Watts Strogatz Clustering Coefficient" />
     <MESSAGE value="[Fix] Misc." />
-    <option name="LAST_COMMIT_MESSAGE" value="[Fix] Misc." />
+    <MESSAGE value="[Add] A new variant with homophily/heterophily on knowledge" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Add] A new variant with homophily/heterophily on knowledge" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
