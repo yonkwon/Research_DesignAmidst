@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Add] A new variant with homophily/heterophily on knowledge">
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Misc.]">
+      <change afterPath="$PROJECT_DIR$/src/main/java/DANetworkClosure/Computation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DANetworkClosure/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DANetworkClosure/MatWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DANetworkClosure/NetworkAnalyzer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DANetworkClosure/ProgressBar.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DANetworkClosure/Scenario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DARewiringGrapher.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/DARewiringGrapher.Rmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAPostAOM2024/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +128,7 @@
     &quot;git-widget-placeholder&quot;: &quot;develop-hoodscorebysum-checkpoint&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DAPostAOM2024&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DANetworkClosure&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -134,17 +137,17 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DANetworkClosure" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAPostAOM2024" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAContinuousHierarchy" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAFormBreak" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java" />
-      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DARewiring" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="DACost" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.DAPostAOM2024.Main">
+  <component name="RunManager" selected="Application.DANetworkClosure.Main">
     <configuration name="DAFormBreak.Main" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DAFormBreak.Main" />
       <module name="DesignAmidst.main" />
@@ -158,12 +161,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DAMix.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DAMix.Main" />
+    <configuration name="DANetworkClosure.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DANetworkClosure.Main" />
       <module name="DesignAmidst.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="DAMix.*" />
+          <option name="PATTERN" value="DANetworkClosure.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -211,19 +214,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.DAPostAOM2024.Main" />
       <item itemvalue="Application.DAFormBreak.Main" />
-      <item itemvalue="Application.DAMix.Main" />
+      <item itemvalue="Application.DANetworkClosure.Main" />
+      <item itemvalue="Application.DAPostAOM2024.Main" />
       <item itemvalue="Application.DARewiring.Main" />
       <item itemvalue="Application.Main" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.DAPostAOM2024.Main" />
-        <item itemvalue="Application.DAFormBreak.Main" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.DARewiring.Main" />
-        <item itemvalue="Application.DAMix.Main" />
+        <item itemvalue="Application.DAPostAOM2024.Main" />
+        <item itemvalue="Application.DANetworkClosure.Main" />
+        <item itemvalue="Application.DAFormBreak.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -235,14 +238,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00030" summary="Trivial fix">
-      <option name="closed" value="true" />
-      <created>1694445674598</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1694445674598</updated>
     </task>
     <task id="LOCAL-00031" summary="[Fix] Get observation structure and network closure by matrix multiplication algorithm">
       <option name="closed" value="true" />
@@ -628,7 +623,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724186992040</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="[Misc.]">
+      <option name="closed" value="true" />
+      <created>1725053262261</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1725053262262</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -670,7 +673,6 @@
     <MESSAGE value="[Fix] Enable breaking interactions before reaching maximum degree" />
     <MESSAGE value="[Add] Density [Fix] Alwaysform logic (test)" />
     <MESSAGE value="[Add] BetweennessCentralityVariance" />
-    <MESSAGE value="[Misc.]" />
     <MESSAGE value="[Fix] Denominator of preference score for network closure now adapts to the interaction between the focal and target individauls" />
     <MESSAGE value="[Fix] Network closure fixed; Satisfaction check removed from rewiring algorithm" />
     <MESSAGE value="[Fix] Random rewiring leftover fixed" />
@@ -680,7 +682,8 @@
     <MESSAGE value="[Fix] Watts Strogatz Clustering Coefficient" />
     <MESSAGE value="[Fix] Misc." />
     <MESSAGE value="[Add] A new variant with homophily/heterophily on knowledge" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Add] A new variant with homophily/heterophily on knowledge" />
+    <MESSAGE value="[Misc.]" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Misc.]" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
