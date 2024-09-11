@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Misc.]">
-      <change afterPath="$PROJECT_DIR$/src/main/java/DANetworkClosure/Computation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DANetworkClosure/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DANetworkClosure/MatWriter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DANetworkClosure/NetworkAnalyzer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DANetworkClosure/ProgressBar.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DANetworkClosure/Scenario.java" afterDir="false" />
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Add.] Variant with positional rewiring w/ probabilistic individual choice">
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAPositionalRewiring/Computation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAPositionalRewiring/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAPositionalRewiring/MatWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAPositionalRewiring/NetworkAnalyzer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAPositionalRewiring/ProgressBar.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAPositionalRewiring/Scenario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -128,8 +128,8 @@
     &quot;git-widget-placeholder&quot;: &quot;develop-hoodscorebysum-checkpoint&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DANetworkClosure&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Yongha/Dropbox/Research/DesignAmidst/src/main/java/DAPositionalRewiring&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Facets&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
@@ -137,23 +137,23 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAPositionalRewiring" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DANetworkClosure" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAPostAOM2024" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAContinuousHierarchy" />
       <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAFormBreak" />
-      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="DACost" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.DANetworkClosure.Main">
-    <configuration name="DAFormBreak.Main" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DAFormBreak.Main" />
+  <component name="RunManager" selected="Application.DAPositionalRewiring.Main">
+    <configuration name="DANetworkClosure.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DANetworkClosure.Main" />
       <module name="DesignAmidst.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="DAFormBreak.*" />
+          <option name="PATTERN" value="DANetworkClosure.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -161,12 +161,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DANetworkClosure.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DANetworkClosure.Main" />
+    <configuration name="DAPositionalRewiring.Main" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DAPositionalRewiring.Main" />
       <module name="DesignAmidst.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="DANetworkClosure.*" />
+          <option name="PATTERN" value="DAPositionalRewiring.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -214,7 +214,7 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.DAFormBreak.Main" />
+      <item itemvalue="Application.DAPositionalRewiring.Main" />
       <item itemvalue="Application.DANetworkClosure.Main" />
       <item itemvalue="Application.DAPostAOM2024.Main" />
       <item itemvalue="Application.DARewiring.Main" />
@@ -222,11 +222,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DAPositionalRewiring.Main" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.DARewiring.Main" />
         <item itemvalue="Application.DAPostAOM2024.Main" />
         <item itemvalue="Application.DANetworkClosure.Main" />
-        <item itemvalue="Application.DAFormBreak.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -238,14 +238,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00031" summary="[Fix] Get observation structure and network closure by matrix multiplication algorithm">
-      <option name="closed" value="true" />
-      <created>1694468571434</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1694468571434</updated>
     </task>
     <task id="LOCAL-00032" summary="[Add] Link between nodes in the same level of hierarchy">
       <option name="closed" value="true" />
@@ -631,7 +623,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725053262262</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="[Add.] Variant with network closure with varying degrees">
+      <option name="closed" value="true" />
+      <created>1725503823542</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1725503823542</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -658,8 +658,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Add] DARewiring variant with connectivity parameter" />
-    <MESSAGE value="[Misc.] Efficiency propelled by convergence check" />
     <MESSAGE value="[Fix] Random rewiring scenario does not stop updating even if the source scenario has converged." />
     <MESSAGE value="[Add] Outcome var: Cumulative # of Rewiring" />
     <MESSAGE value="[Fix] Revert Random Rewiring" />
@@ -683,7 +681,9 @@
     <MESSAGE value="[Fix] Misc." />
     <MESSAGE value="[Add] A new variant with homophily/heterophily on knowledge" />
     <MESSAGE value="[Misc.]" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Misc.]" />
+    <MESSAGE value="[Add.] Variant with network closure with varying degrees" />
+    <MESSAGE value="[Add.] Variant with positional rewiring w/ probabilistic individual choice" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Add.] Variant with positional rewiring w/ probabilistic individual choice" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
