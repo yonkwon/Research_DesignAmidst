@@ -47,8 +47,7 @@ public class Scenario {
 
   double[][] preferenceScore;
   double[] preferenceScoreAvg;
-  double[][] rewiringWeight;
-  double[] rewiringWeight2D;
+
   double performanceAvg;
   double performanceMax;
   double performanceMin;
@@ -241,28 +240,39 @@ public class Scenario {
       }
     }
 
-    int numFormationLeft = Main.INFORMAL_INITIAL_NUM;
-    shuffleFisherYates(dyadIndexArray);
-    for (; numFormationLeft > 0; ) {
-      for (int dyad : dyadIndexArray) {
-        int focal = dyad2DIndexArray[dyad][0];
-        int target = dyad2DIndexArray[dyad][1];
-        if (!network[focal][target] &&
-            (degreeInformal[focal] < Main.MAX_INFORMAL || degreeInformal[target] < Main.MAX_INFORMAL) &&
-            numFormationLeft > 0
-        ) {
-          network[focal][target] = true;
-          network[target][focal] = true;
-          networkInformal[focal][target] = true;
-          networkInformal[target][focal] = true;
-          degree[focal]++;
-          degreeInformal[focal]++;
-          degree[target]++;
-          degreeInformal[target]++;
-          numFormationLeft--;
-        }
-        if (numFormationLeft == 0) {
-          break;
+    int numAdditionLeft = (int) (Main.N_DYAD_INT * Main.LINK_ADD);
+    if (numAdditionLeft > 0) {
+      shuffleFisherYates(dyadIndexArray);
+      for (; numAdditionLeft > 0; ) {
+        for (int dyad : dyadIndexArray) {
+          int focal = dyad2DIndexArray[dyad][0];
+          int target = dyad2DIndexArray[dyad][1];
+          if (!network[focal][target] &&
+              (degreeInformal[focal] < Main.MAX_INFORMAL || degreeInformal[target] < Main.MAX_INFORMAL) &&
+              numAdditionLeft > 0
+          ) {
+            if (r.nextDouble() < enforcement) { // This choice has little effect on the result
+              //Enforced
+              networkFormal[focal][target] = true;
+              networkFormal[target][focal] = true;
+              degreeFormal[focal]++;
+              degreeFormal[target]++;
+            } else {
+              //Flexible
+              networkInformal[focal][target] = true;
+              networkInformal[target][focal] = true;
+              degreeInformal[focal]++;
+              degreeInformal[target]++;
+            }
+            degree[focal]++;
+            degreeFormal[focal]++;
+            degree[target]++;
+            degreeFormal[target]++;
+            numAdditionLeft--;
+          }
+          if (numAdditionLeft == 0) {
+            break;
+          }
         }
       }
     }
@@ -301,7 +311,7 @@ public class Scenario {
   }
 
   void stepForward(int numFormation, int numBreak) {
-    if( Main.DO_POST_REWIRING ){
+    if (Main.DO_POST_REWIRING) {
       if (isRewiring) {
         if (!isRandomRewiring) {
           doRewiring(numFormation, numBreak);
@@ -315,7 +325,7 @@ public class Scenario {
   }
 
   void stepForward(int tieTurnover) {
-    if( Main.DO_POST_REWIRING ) {
+    if (Main.DO_POST_REWIRING) {
       if (isRewiring) {
         if (!isRandomRewiring) {
           doRewiring(tieTurnover, tieTurnover);
@@ -410,52 +420,13 @@ public class Scenario {
     }
   }
 
-  void setRewiringWeight() {
-    rewiringWeight = new double[Main.N][Main.N];
-    rewiringWeight2D = new double[Main.N_DYAD_INT];
-    double maxWeightBreak = Double.MIN_VALUE;
-    int index2d = 0;
-    for (int focal = 0; focal < Main.N; focal++) {
-      for (int target = focal; target < Main.N; target++) {
-        if (networkFormal[focal][target] || focal == target) {
-          continue;
-        }
-        if (network[focal][target]) {
-          rewiringWeight[focal][target] = preferenceScore[focal][target];
-          rewiringWeight[target][focal] = rewiringWeight[focal][target];
-          if (rewiringWeight[focal][target] > maxWeightBreak) {
-            maxWeightBreak = rewiringWeight[focal][target];
-          }
-        } else {
-          rewiringWeight[focal][target] = preferenceScore[focal][target] * preferenceScore[target][focal];
-          rewiringWeight[target][focal] = rewiringWeight[focal][target];
-        }
-      }
-    }
-    for (int focal = 0; focal < Main.N; focal++) {
-      for (int target = focal; target < Main.N; target++) {
-        if (networkFormal[focal][target] || focal == target) {
-          continue;
-        }
-        if (network[focal][target]) {
-          rewiringWeight[focal][target] = maxWeightBreak - rewiringWeight[focal][target];
-        } else {
-//          rewiringWeight[focal][target] /= denominatorFormation;
-        }
-        rewiringWeight[target][focal] = rewiringWeight[focal][target];
-        rewiringWeight2D[index2d] = rewiringWeight[focal][target];
-        index2d++;
-      }
-    }
-  }
-
   void doRewiring(int numFormation, int numBreak) {
     if (isRandomRewiring) {
       doRandomRewiring(numFormation, numBreak);
     } else {
       setPreferenceScore();
-      setRewiringWeight();
       doTieBreak(numBreak);
+      setPreferenceScore();
       doTieFormation(numFormation);
     }
   }
@@ -463,7 +434,7 @@ public class Scenario {
   // Use Algorithm A-ExpJ
   // https://en.wikipedia.org/wiki/Reservoir_sampling#Algorithm_A-ExpJ
   void doTieFormation(int numFormation) {
-    if( numFormation <= 0 ){
+    if (numFormation <= 0) {
       return;
     }
     int[] degreeInformalNext = degreeInformal.clone();
@@ -477,17 +448,18 @@ public class Scenario {
       int focal = dyad2DIndexArray[dyad][0];
       int target = dyad2DIndexArray[dyad][1];
       if (network[focal][target] ||
-          networkFormal[focal][target] ||
-          focal == target ||
+//          networkFormal[focal][target] ||
+//          focal == target ||
           degreeInformalNext[focal] >= Main.MAX_INFORMAL ||
           degreeInformalNext[target] >= Main.MAX_INFORMAL
       ) {
         continue;
       }
-      double weight = rewiringWeight[focal][target];
+      double weight = preferenceScore[focal][target] * preferenceScore[target][focal];
+//      double weight = FastMath.min(preferenceScore[focal][target], preferenceScore[target][focal]);
       if (weight == 0) {
-//        weight = Double.MIN_VALUE;
-        continue;
+        weight = Double.MIN_VALUE;
+//        continue;
       }
       tieSelected[numDyadSelected] = dyad;
       keySelected[numDyadSelected] = FastMath.pow(r.nextDouble(), 1D / weight);
@@ -511,9 +483,11 @@ public class Scenario {
           degreeInformalNext[target] > Main.MAX_INFORMAL) {
         continue;
       }
-      double weight = rewiringWeight[focal][target];
+      double weight = preferenceScore[focal][target] * preferenceScore[target][focal];
+//      double weight = FastMath.min(preferenceScore[focal][target], preferenceScore[target][focal]);
       if (weight == 0) {
-        continue;
+        weight = Double.MIN_VALUE;
+//        continue;
       }
       x = x - weight;
       if (x <= 0) {
@@ -552,23 +526,46 @@ public class Scenario {
   }
 
   void doTieBreak(int numBreak) {
-    if( numBreak <= 0 ){
+    if (numBreak <= 0) {
       return;
     }
     int[] tieSelected = new int[numBreak];
     double[] keySelected = new double[numBreak];
-    int minIndex = -34;
+    int minIndex = -23;
     double minKey = Double.MAX_VALUE;
     int dyad = 0;
     int numDyadSelected = 0;
+    double[] weightOfDyad = new double[Main.N_DYAD_INT];
+    double maxWeightOfDyad = Double.MIN_VALUE;
+    for( int d : dyadIndexArray ){
+      int focal = dyad2DIndexArray[d][0];
+      int target = dyad2DIndexArray[d][1];
+      if (!network[focal][target] ||
+          networkFormal[focal][target] ||
+          focal == target) {
+        continue;
+      }
+      weightOfDyad[d] = preferenceScore[focal][target] + preferenceScore[target][focal];
+//      weightOfDyad[d] = FastMath.min(preferenceScore[focal][target], preferenceScore[target][focal]);
+      if( weightOfDyad[d] > maxWeightOfDyad ){
+        maxWeightOfDyad = weightOfDyad[d];
+      }
+    }
     for (; numDyadSelected < numBreak; dyad++) {
       int focal = dyad2DIndexArray[dyad][0];
       int target = dyad2DIndexArray[dyad][1];
-      if (!network[focal][target] || networkFormal[focal][target] || focal == target) {
+      if (!network[focal][target] ||
+          networkFormal[focal][target] ||
+          focal == target) {
         continue;
       }
+      double weight = maxWeightOfDyad - weightOfDyad[dyad];
+      if (weight == 0) {
+        weight = Double.MIN_VALUE;
+//        continue;
+      }
       tieSelected[numDyadSelected] = dyad;
-      keySelected[numDyadSelected] = FastMath.pow(r.nextDouble(), 1D / rewiringWeight[focal][target]);
+      keySelected[numDyadSelected] = FastMath.pow(r.nextDouble(), 1D / weight);
       if (keySelected[numDyadSelected] < minKey) {
         minIndex = numDyadSelected;
         minKey = keySelected[numDyadSelected];
@@ -580,22 +577,24 @@ public class Scenario {
     for (; dyad < Main.N_DYAD_INT; dyad++) {
       int focal = dyad2DIndexArray[dyad][0];
       int target = dyad2DIndexArray[dyad][1];
-      if (!network[focal][target] || networkFormal[focal][target] || focal == target) {
+      if (!network[focal][target] ||
+          networkFormal[focal][target] ||
+          focal == target) {
         continue;
       }
-      double weight = rewiringWeight[focal][target];
-      x = x - weight;
+      double weight = maxWeightOfDyad - weightOfDyad[dyad];
       if (weight == 0) {
-//        weight = Double.MIN_VALUE;
-        continue;
+        weight = Double.MIN_VALUE;
+//        continue;
       }
+      x = x - weight;
       if (x <= 0) {
         double t = FastMath.pow(minKey, weight);
         double key = FastMath.pow((t + r.nextDouble() * (1D - t)), (1D / weight));
         tieSelected[minIndex] = dyad;
         keySelected[minIndex] = key;
         minKey = Double.MAX_VALUE;
-        minIndex = -71;
+        minIndex = -13;
         for (int i = 0; i < numBreak; i++) {
           if (keySelected[i] < minKey) {
             minIndex = i;
@@ -625,7 +624,7 @@ public class Scenario {
     int numBreakLeft = numBreak;
     //Random rewiring
     shuffleFisherYates(dyadIndexArray);
-    for(;;) {
+    for (; ; ) {
       for (int dyad : dyadIndexArray) {
         int focal = dyad2DIndexArray[dyad][0];
         int target = dyad2DIndexArray[dyad][1];
@@ -662,7 +661,7 @@ public class Scenario {
       }
       if (numFormationLeft == 0 && numBreakLeft == 0) {
         break;
-      }else{
+      } else {
         System.out.println("\tRandom Rewiring Reiterated");
       }
     }

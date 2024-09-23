@@ -279,15 +279,17 @@ public class Computation {
           src.doRewiring(Main.INFORMAL_INITIAL_NUM, 0);
           rr.doRewiring(Main.INFORMAL_INITIAL_NUM, 0);
           src.printCSV(Main.PATH_CSV + "sc_" + fileName + "_t0");
-//              rr.printCSV(Main.PATH_CSV + "rr_" + fileName + "_t0");
-//              nr.printCSV(Main.PATH_CSV + "nr_" + fileName + "_t0");
-          for (int t = 0; t < Main.TIME; t++) {
-            src.stepForward(Main.INFORMAL_TURNOVER_NUM);
-            rr.stepForward(Main.INFORMAL_TURNOVER_NUM);
+          rr.printCSV(Main.PATH_CSV + "rr_" + fileName + "_t0");
+          nr.printCSV(Main.PATH_CSV + "nr_" + fileName + "_t0");
+          if( Main.DO_POST_REWIRING ){
+            for (int t = 0; t < Main.TIME; t++) {
+              src.stepForward(Main.INFORMAL_TURNOVER_NUM);
+              rr.stepForward(Main.INFORMAL_TURNOVER_NUM);
+            }
+            src.printCSV(Main.PATH_CSV + "sc_" + fileName + "_t" + Main.TIME);
+            rr.printCSV(Main.PATH_CSV + "rr_" + fileName + "_t" + Main.TIME);
+            nr.printCSV(Main.PATH_CSV + "nr_" + fileName + "_t" + Main.TIME);
           }
-          src.printCSV(Main.PATH_CSV + "sc_" + fileName + "_t" + Main.TIME);
-//          rr.printCSV(Main.PATH_CSV + "rr_" + fileName + "_t" + Main.TIME);
-//          nr.printCSV(Main.PATH_CSV + "nr_" + fileName + "_t" + Main.TIME);
           System.out.println("Network Printed: " + fileName);
         }
       }

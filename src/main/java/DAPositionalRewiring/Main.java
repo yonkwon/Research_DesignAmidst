@@ -12,9 +12,9 @@ public class Main {
   static final boolean GET_MAT = true;
   static final boolean LINK_LEVEL = false;
   static final double LINK_ADD = .00;
-  static final boolean DO_POST_REWIRING = true;
+  static final boolean DO_POST_REWIRING = false;
 
-//  static final int ITERATION = 10_000;
+  //  static final int ITERATION = 10_000;
   static final int ITERATION = 1000;
   static final int TIME = 600 + 1;
 
@@ -22,16 +22,16 @@ public class Main {
 
   static final int N = 100;
   static final int[] SPAN = {2, 3, 4, 5, 6, 7, 8};
-//  static final int[] SPAN = {2, 5, 8};
+  //  static final int[] SPAN = {2, 5, 8};
   static final int LENGTH_SPAN = SPAN.length;
 
   static final int N_DYAD_INT = N * (N - 1) / 2;
   static final double N_DYAD = N * (N - 1D) / 2D;
-  static final double INFORMAL_INITIAL_PROP = .05; // >= INFORMAL_TURNOVER
-  static final double INFORMAL_TURNOVER_PROP = .02;
+  static final double INFORMAL_INITIAL_PROP = .01; // >= INFORMAL_TURNOVER
+  static double INFORMAL_TURNOVER_PROP = .00;
   static final int INFORMAL_INITIAL_NUM = (int) (N_DYAD_INT * INFORMAL_INITIAL_PROP); // >= INFORMAL_TURNOVER
-  static final int INFORMAL_TURNOVER_NUM = (int) (N_DYAD_INT * INFORMAL_TURNOVER_PROP);
-  static final int MAX_INFORMAL = 15;
+  static int INFORMAL_TURNOVER_NUM = (int) (N_DYAD_INT * INFORMAL_TURNOVER_PROP);
+  static final int MAX_INFORMAL = 5;
 
   static final int M_OF_BUNDLE = 20;
   static final int M_IN_BUNDLE = 5;
@@ -40,7 +40,7 @@ public class Main {
   static final double M_N_DYAD = M * N_DYAD;
 
   static final double[] ENFORCEMENT = {1};
-//  static final double[] ENFORCEMENT = {0, 1};
+  //  static final double[] ENFORCEMENT = {0, 1};
   static final int LENGTH_ENFORCEMENT = ENFORCEMENT.length;
   static final double P_LEARNING = .2;
 
@@ -51,6 +51,10 @@ public class Main {
   static String PATH_CSV;
 
   public static void main(String[] args) {
+    if( !DO_POST_REWIRING ){
+      INFORMAL_TURNOVER_PROP = 0;
+      INFORMAL_TURNOVER_NUM = 0;
+    }
     setFileName();
     System.out.println("Target File: " + FILENAME);
     Computation c = new Computation();
@@ -69,8 +73,11 @@ public class Main {
         "I" + ITERATION +
         "_LL" + (LINK_LEVEL ? "t" : "f") +
         "_LA" + LINK_ADD +
-        "_PL" +
-        (DO_POST_REWIRING? "t("+INFORMAL_INITIAL_PROP+"&"+INFORMAL_TURNOVER_PROP+")" : "f") +
+        "_IM" + MAX_INFORMAL +
+        (DO_POST_REWIRING ?
+            "_PL" + "(i" + INFORMAL_INITIAL_PROP + "&t" + INFORMAL_TURNOVER_PROP + ")" :
+            "_PL" + "(i" + INFORMAL_INITIAL_PROP + "&t0)"
+        ) +
         "_T" + TIME +
         "_N" + N +
         "_M" + M_OF_BUNDLE + "X" + M_IN_BUNDLE +
