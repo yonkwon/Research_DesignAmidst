@@ -1,5 +1,6 @@
 package DASequential;
 
+import static org.apache.commons.math3.util.FastMath.log;
 import static org.apache.commons.math3.util.FastMath.pow;
 
 import com.google.common.util.concurrent.AtomicDouble;
@@ -118,6 +119,45 @@ public class Computation {
   AtomicDouble[][][][] densityRRAVGAtomic;
   AtomicDouble[][][][] densityRRSTDAtomic;
 
+  AtomicDouble[][][][] sigmaAVGAtomic;
+  AtomicDouble[][][][] sigmaSTDAtomic;
+  AtomicDouble[][][][] sigma12AVGAtomic;
+  AtomicDouble[][][][] sigma12STDAtomic;
+  AtomicDouble[][][][] sigma23AVGAtomic;
+  AtomicDouble[][][][] sigma23STDAtomic;
+  AtomicDouble[][][][] sigma13AVGAtomic;
+  AtomicDouble[][][][] sigma13STDAtomic;
+  AtomicDouble[][][][] sigmaNRAVGAtomic;
+  AtomicDouble[][][][] sigmaNRSTDAtomic;
+  AtomicDouble[][][][] sigmaRRAVGAtomic;
+  AtomicDouble[][][][] sigmaRRSTDAtomic;
+
+  AtomicDouble[][][][] omegaAVGAtomic;
+  AtomicDouble[][][][] omegaSTDAtomic;
+  AtomicDouble[][][][] omega12AVGAtomic;
+  AtomicDouble[][][][] omega12STDAtomic;
+  AtomicDouble[][][][] omega23AVGAtomic;
+  AtomicDouble[][][][] omega23STDAtomic;
+  AtomicDouble[][][][] omega13AVGAtomic;
+  AtomicDouble[][][][] omega13STDAtomic;
+  AtomicDouble[][][][] omegaNRAVGAtomic;
+  AtomicDouble[][][][] omegaNRSTDAtomic;
+  AtomicDouble[][][][] omegaRRAVGAtomic;
+  AtomicDouble[][][][] omegaRRSTDAtomic;
+
+  AtomicDouble[][][][] shortestPathVarianceAVGAtomic;
+  AtomicDouble[][][][] shortestPathVarianceSTDAtomic;
+  AtomicDouble[][][][] shortestPathVariance12AVGAtomic;
+  AtomicDouble[][][][] shortestPathVariance12STDAtomic;
+  AtomicDouble[][][][] shortestPathVariance23AVGAtomic;
+  AtomicDouble[][][][] shortestPathVariance23STDAtomic;
+  AtomicDouble[][][][] shortestPathVariance13AVGAtomic;
+  AtomicDouble[][][][] shortestPathVariance13STDAtomic;
+  AtomicDouble[][][][] shortestPathVarianceNRAVGAtomic;
+  AtomicDouble[][][][] shortestPathVarianceNRSTDAtomic;
+  AtomicDouble[][][][] shortestPathVarianceRRAVGAtomic;
+  AtomicDouble[][][][] shortestPathVarianceRRSTDAtomic;
+  
   AtomicDouble[][][][] betweennessCentralityVarianceAVGAtomic;
   AtomicDouble[][][][] betweennessCentralityVarianceSTDAtomic;
   AtomicDouble[][][][] betweennessCentralityVariance12AVGAtomic;
@@ -236,6 +276,45 @@ public class Computation {
   double[][][][] densityRRAVG;
   double[][][][] densityRRSTD;
 
+  double[][][][] sigmaAVG;
+  double[][][][] sigmaSTD;
+  double[][][][] sigma12AVG;
+  double[][][][] sigma12STD;
+  double[][][][] sigma23AVG;
+  double[][][][] sigma23STD;
+  double[][][][] sigma13AVG;
+  double[][][][] sigma13STD;
+  double[][][][] sigmaNRAVG;
+  double[][][][] sigmaNRSTD;
+  double[][][][] sigmaRRAVG;
+  double[][][][] sigmaRRSTD;
+
+  double[][][][] omegaAVG;
+  double[][][][] omegaSTD;
+  double[][][][] omega12AVG;
+  double[][][][] omega12STD;
+  double[][][][] omega23AVG;
+  double[][][][] omega23STD;
+  double[][][][] omega13AVG;
+  double[][][][] omega13STD;
+  double[][][][] omegaNRAVG;
+  double[][][][] omegaNRSTD;
+  double[][][][] omegaRRAVG;
+  double[][][][] omegaRRSTD;
+
+  double[][][][] shortestPathVarianceAVG;
+  double[][][][] shortestPathVarianceSTD;
+  double[][][][] shortestPathVariance12AVG;
+  double[][][][] shortestPathVariance12STD;
+  double[][][][] shortestPathVariance23AVG;
+  double[][][][] shortestPathVariance23STD;
+  double[][][][] shortestPathVariance13AVG;
+  double[][][][] shortestPathVariance13STD;
+  double[][][][] shortestPathVarianceNRAVG;
+  double[][][][] shortestPathVarianceNRSTD;
+  double[][][][] shortestPathVarianceRRAVG;
+  double[][][][] shortestPathVarianceRRSTD;
+  
   double[][][][] betweennessCentralityVarianceAVG;
   double[][][][] betweennessCentralityVarianceSTD;
   double[][][][] betweennessCentralityVariance12AVG;
@@ -251,8 +330,56 @@ public class Computation {
 
   ProgressBar pb;
 
+  double averagePathLengthRandom, averagePathLengthLattice;
+  double clusteringCoefficientRandom, clusteringCoefficientLattice;
+  double averagePathLengthRandomNR, clusteringCoefficientRandomNR;
+  double swiDenominator;
+
   Computation() {
     workStealingPool = Executors.newWorkStealingPool();
+    setBaselineNetworkMetric();
+  }
+
+  private void setBaselineNetworkMetric() {
+    double nInteraction = (double) (Main.INFORMAL_INITIAL_NUM + Main.N - 1);
+    double p = nInteraction / (double) Main.N_DYAD;
+    double pNR = (Main.N - 1D) / (double) Main.N_DYAD;
+    double EulerConstant = 0.57721566490153286060651209008240243;
+    boolean[][] lattice = new boolean[Main.N][Main.N];
+    NetworkAnalyzer na;
+    int nNeighborFloor = (int) (nInteraction / Main.N);
+    int remainingNeighbor = (int) nInteraction - (nNeighborFloor * Main.N);
+    int remainingNeighborInterval = (int) ((double) Main.N / (double) remainingNeighbor);
+    //https://math.stackexchange.com/questions/501216/what-is-the-equation-for-the-average-path-length-in-a-random-graph
+    //https://chih-ling-hsu.github.io/2020/05/15/Gnp#:~:text=Clustering%20coefficient%20of%20a%20random,with%20the%20graph%20size%20n.
+    averagePathLengthRandom = log(Main.N) / log(p * (Main.N - 1D));
+    averagePathLengthRandomNR = log(Main.N) / log(pNR * (Main.N - 1D));
+    //https://math.stackexchange.com/questions/2641947/expected-global-clustering-coefficient-for-erd%C5%91s-r%C3%A9nyi-graph
+    clusteringCoefficientRandom = p;
+    clusteringCoefficientRandomNR = pNR;
+    for (int i = 0; i < nNeighborFloor; i++) {
+      for (int n = 0; n < Main.N; n++) {
+        int target = (n + i + 1) % Main.N;
+        lattice[n][target] = true;
+        lattice[target][n] = true;
+      }
+    }
+    if (remainingNeighborInterval > 0) {
+      for (int n = 0; n < Main.N; n += remainingNeighborInterval) {
+        int target = (n + nNeighborFloor + 1) % Main.N;
+        lattice[n][target] = true;
+        lattice[target][n] = true;
+      }
+    }
+    na = new NetworkAnalyzer(lattice);
+    na.setNetworkMetrics();
+    averagePathLengthLattice = na.getAveragePathLength();
+    clusteringCoefficientLattice = na.getGlobalClusteringWattsStrogatz();
+    swiDenominator = (averagePathLengthRandom - averagePathLengthLattice) * (clusteringCoefficientLattice - clusteringCoefficientRandom);
+//    System.out.println("Check: setBaselineNetworkMetric()");
+//    System.out.println("nInteraction: " + nInteraction + "\tp: " + p+"\t"+na.density);
+//    System.out.println("avgpathlength" + "\trandom" + averagePathLengthRandom + "\tlattice" + averagePathLengthLattice);
+//    System.out.println("clusteringcof" + "\trandom" + clusteringCoefficientRandom + "\tlattice" + clusteringCoefficientLattice);
   }
 
   public void printNetwork() {
@@ -281,7 +408,7 @@ public class Computation {
           src.printCSV(Main.PATH_CSV + "sc_" + fileName + "_t0");
           rr.printCSV(Main.PATH_CSV + "rr_" + fileName + "_t0");
           nr.printCSV(Main.PATH_CSV + "nr_" + fileName + "_t0");
-          if( Main.DO_POST_REWIRING ){
+          if (Main.DO_POST_REWIRING) {
             for (int t = 0; t < Main.TIME; t++) {
               src.stepForward(Main.INFORMAL_TURNOVER_NUM);
               rr.stepForward(Main.INFORMAL_TURNOVER_NUM);
@@ -408,6 +535,45 @@ public class Computation {
     densityRRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
     densityRRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
 
+    sigmaAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigmaSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigma12AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigma12STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigma23AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigma23STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigma13AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigma13STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigmaNRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigmaNRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigmaRRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigmaRRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+
+    omegaAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omegaSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omega12AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omega12STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omega23AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omega23STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omega13AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omega13STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omegaNRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omegaNRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omegaRRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omegaRRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+
+    shortestPathVarianceAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVarianceSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVariance12AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVariance12STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVariance23AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVariance23STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVariance13AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVariance13STDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVarianceNRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVarianceNRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVarianceRRAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVarianceRRSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+
     betweennessCentralityVarianceAVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
     betweennessCentralityVarianceSTDAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
     betweennessCentralityVariance12AVGAtomic = new AtomicDouble[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
@@ -529,6 +695,45 @@ public class Computation {
             densityRRAVGAtomic[mc][s][e][t] = new AtomicDouble();
             densityRRSTDAtomic[mc][s][e][t] = new AtomicDouble();
 
+            sigmaAVGAtomic[mc][s][e][t] = new AtomicDouble();
+            sigmaSTDAtomic[mc][s][e][t] = new AtomicDouble();
+            sigma12AVGAtomic[mc][s][e][t] = new AtomicDouble();
+            sigma12STDAtomic[mc][s][e][t] = new AtomicDouble();
+            sigma23AVGAtomic[mc][s][e][t] = new AtomicDouble();
+            sigma23STDAtomic[mc][s][e][t] = new AtomicDouble();
+            sigma13AVGAtomic[mc][s][e][t] = new AtomicDouble();
+            sigma13STDAtomic[mc][s][e][t] = new AtomicDouble();
+            sigmaNRAVGAtomic[mc][s][e][t] = new AtomicDouble();
+            sigmaNRSTDAtomic[mc][s][e][t] = new AtomicDouble();
+            sigmaRRAVGAtomic[mc][s][e][t] = new AtomicDouble();
+            sigmaRRSTDAtomic[mc][s][e][t] = new AtomicDouble();
+
+            omegaAVGAtomic[mc][s][e][t] = new AtomicDouble();
+            omegaSTDAtomic[mc][s][e][t] = new AtomicDouble();
+            omega12AVGAtomic[mc][s][e][t] = new AtomicDouble();
+            omega12STDAtomic[mc][s][e][t] = new AtomicDouble();
+            omega23AVGAtomic[mc][s][e][t] = new AtomicDouble();
+            omega23STDAtomic[mc][s][e][t] = new AtomicDouble();
+            omega13AVGAtomic[mc][s][e][t] = new AtomicDouble();
+            omega13STDAtomic[mc][s][e][t] = new AtomicDouble();
+            omegaNRAVGAtomic[mc][s][e][t] = new AtomicDouble();
+            omegaNRSTDAtomic[mc][s][e][t] = new AtomicDouble();
+            omegaRRAVGAtomic[mc][s][e][t] = new AtomicDouble();
+            omegaRRSTDAtomic[mc][s][e][t] = new AtomicDouble();
+
+            shortestPathVarianceAVGAtomic[mc][s][e][t] = new AtomicDouble();
+            shortestPathVarianceSTDAtomic[mc][s][e][t] = new AtomicDouble();
+            shortestPathVariance12AVGAtomic[mc][s][e][t] = new AtomicDouble();
+            shortestPathVariance12STDAtomic[mc][s][e][t] = new AtomicDouble();
+            shortestPathVariance23AVGAtomic[mc][s][e][t] = new AtomicDouble();
+            shortestPathVariance23STDAtomic[mc][s][e][t] = new AtomicDouble();
+            shortestPathVariance13AVGAtomic[mc][s][e][t] = new AtomicDouble();
+            shortestPathVariance13STDAtomic[mc][s][e][t] = new AtomicDouble();
+            shortestPathVarianceNRAVGAtomic[mc][s][e][t] = new AtomicDouble();
+            shortestPathVarianceNRSTDAtomic[mc][s][e][t] = new AtomicDouble();
+            shortestPathVarianceRRAVGAtomic[mc][s][e][t] = new AtomicDouble();
+            shortestPathVarianceRRSTDAtomic[mc][s][e][t] = new AtomicDouble();
+            
             betweennessCentralityVarianceAVGAtomic[mc][s][e][t] = new AtomicDouble();
             betweennessCentralityVarianceSTDAtomic[mc][s][e][t] = new AtomicDouble();
             betweennessCentralityVariance12AVGAtomic[mc][s][e][t] = new AtomicDouble();
@@ -649,6 +854,45 @@ public class Computation {
     densityRRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
     densityRRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
 
+    sigmaAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigmaSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigma12AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigma12STD = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigma23AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigma23STD = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigma13AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigma13STD = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigmaNRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigmaNRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigmaRRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    sigmaRRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+
+    omegaAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omegaSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omega12AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omega12STD = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omega23AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omega23STD = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omega13AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omega13STD = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omegaNRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omegaNRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omegaRRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    omegaRRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+
+    shortestPathVarianceAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVarianceSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVariance12AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVariance12STD = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVariance23AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVariance23STD = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVariance13AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVariance13STD = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVarianceNRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVarianceNRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVarianceRRAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+    shortestPathVarianceRRSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
+
     betweennessCentralityVarianceAVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
     betweennessCentralityVarianceSTD = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
     betweennessCentralityVariance12AVG = new double[Main.NUM_MECHANISM][Main.LENGTH_SPAN][Main.LENGTH_ENFORCEMENT][Main.TIME];
@@ -701,219 +945,471 @@ public class Computation {
           for (int t = 0; t < Main.TIME; t++) {
             performanceAVG[mc][s][e][t] = performanceAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
             performanceSTD[mc][s][e][t] = performanceSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            performanceSTD[mc][s][e][t] = pow(performanceSTD[mc][s][e][t] - pow(performanceAVG[mc][s][e][t], 2), .5);
+            performanceSTD[mc][s][e][t] = pow(
+                performanceSTD[mc][s][e][t] - pow(performanceAVG[mc][s][e][t], 2), .5);
 
-            performance12AVG[mc][s][e][t] = performance12AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            performance12STD[mc][s][e][t] = performance12STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            performance12STD[mc][s][e][t] = pow(performance12STD[mc][s][e][t] - pow(performance12AVG[mc][s][e][t], 2), .5);
+            performance12AVG[mc][s][e][t] =
+                performance12AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            performance12STD[mc][s][e][t] =
+                performance12STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            performance12STD[mc][s][e][t] = pow(
+                performance12STD[mc][s][e][t] - pow(performance12AVG[mc][s][e][t], 2), .5);
 
-            performance23AVG[mc][s][e][t] = performance23AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            performance23STD[mc][s][e][t] = performance23STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            performance23STD[mc][s][e][t] = pow(performance23STD[mc][s][e][t] - pow(performance23AVG[mc][s][e][t], 2), .5);
+            performance23AVG[mc][s][e][t] =
+                performance23AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            performance23STD[mc][s][e][t] =
+                performance23STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            performance23STD[mc][s][e][t] = pow(
+                performance23STD[mc][s][e][t] - pow(performance23AVG[mc][s][e][t], 2), .5);
 
-            performance13AVG[mc][s][e][t] = performance13AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            performance13STD[mc][s][e][t] = performance13STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            performance13STD[mc][s][e][t] = pow(performance13STD[mc][s][e][t] - pow(performance13AVG[mc][s][e][t], 2), .5);
+            performance13AVG[mc][s][e][t] =
+                performance13AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            performance13STD[mc][s][e][t] =
+                performance13STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            performance13STD[mc][s][e][t] = pow(
+                performance13STD[mc][s][e][t] - pow(performance13AVG[mc][s][e][t], 2), .5);
 
-            performanceNRAVG[mc][s][e][t] = performanceNRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            performanceNRSTD[mc][s][e][t] = performanceNRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            performanceNRSTD[mc][s][e][t] = pow(performanceNRSTD[mc][s][e][t] - pow(performanceNRAVG[mc][s][e][t], 2), .5);
+            performanceNRAVG[mc][s][e][t] =
+                performanceNRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            performanceNRSTD[mc][s][e][t] =
+                performanceNRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            performanceNRSTD[mc][s][e][t] = pow(
+                performanceNRSTD[mc][s][e][t] - pow(performanceNRAVG[mc][s][e][t], 2), .5);
 
-            performanceRRAVG[mc][s][e][t] = performanceRRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            performanceRRSTD[mc][s][e][t] = performanceRRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            performanceRRSTD[mc][s][e][t] = pow(performanceRRSTD[mc][s][e][t] - pow(performanceRRAVG[mc][s][e][t], 2), .5);
+            performanceRRAVG[mc][s][e][t] =
+                performanceRRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            performanceRRSTD[mc][s][e][t] =
+                performanceRRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            performanceRRSTD[mc][s][e][t] = pow(
+                performanceRRSTD[mc][s][e][t] - pow(performanceRRAVG[mc][s][e][t], 2), .5);
 
-            disagreementAVG[mc][s][e][t] = disagreementAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            disagreementSTD[mc][s][e][t] = disagreementSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            disagreementSTD[mc][s][e][t] = pow(disagreementSTD[mc][s][e][t] - pow(disagreementAVG[mc][s][e][t], 2), .5);
+            disagreementAVG[mc][s][e][t] =
+                disagreementAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            disagreementSTD[mc][s][e][t] =
+                disagreementSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            disagreementSTD[mc][s][e][t] = pow(
+                disagreementSTD[mc][s][e][t] - pow(disagreementAVG[mc][s][e][t], 2), .5);
 
-            disagreement12AVG[mc][s][e][t] = disagreement12AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            disagreement12STD[mc][s][e][t] = disagreement12STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            disagreement12STD[mc][s][e][t] = pow(disagreement12STD[mc][s][e][t] - pow(disagreement12AVG[mc][s][e][t], 2), .5);
+            disagreement12AVG[mc][s][e][t] =
+                disagreement12AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            disagreement12STD[mc][s][e][t] =
+                disagreement12STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            disagreement12STD[mc][s][e][t] = pow(
+                disagreement12STD[mc][s][e][t] - pow(disagreement12AVG[mc][s][e][t], 2), .5);
 
-            disagreement23AVG[mc][s][e][t] = disagreement23AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            disagreement23STD[mc][s][e][t] = disagreement23STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            disagreement23STD[mc][s][e][t] = pow(disagreement23STD[mc][s][e][t] - pow(disagreement23AVG[mc][s][e][t], 2), .5);
+            disagreement23AVG[mc][s][e][t] =
+                disagreement23AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            disagreement23STD[mc][s][e][t] =
+                disagreement23STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            disagreement23STD[mc][s][e][t] = pow(
+                disagreement23STD[mc][s][e][t] - pow(disagreement23AVG[mc][s][e][t], 2), .5);
 
-            disagreement13AVG[mc][s][e][t] = disagreement13AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            disagreement13STD[mc][s][e][t] = disagreement13STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            disagreement13STD[mc][s][e][t] = pow(disagreement13STD[mc][s][e][t] - pow(disagreement13AVG[mc][s][e][t], 2), .5);
+            disagreement13AVG[mc][s][e][t] =
+                disagreement13AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            disagreement13STD[mc][s][e][t] =
+                disagreement13STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            disagreement13STD[mc][s][e][t] = pow(
+                disagreement13STD[mc][s][e][t] - pow(disagreement13AVG[mc][s][e][t], 2), .5);
 
-            disagreementNRAVG[mc][s][e][t] = disagreementNRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            disagreementNRSTD[mc][s][e][t] = disagreementNRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            disagreementNRSTD[mc][s][e][t] = pow(disagreementNRSTD[mc][s][e][t] - pow(disagreementNRAVG[mc][s][e][t], 2), .5);
+            disagreementNRAVG[mc][s][e][t] =
+                disagreementNRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            disagreementNRSTD[mc][s][e][t] =
+                disagreementNRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            disagreementNRSTD[mc][s][e][t] = pow(
+                disagreementNRSTD[mc][s][e][t] - pow(disagreementNRAVG[mc][s][e][t], 2), .5);
 
-            disagreementRRAVG[mc][s][e][t] = disagreementRRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            disagreementRRSTD[mc][s][e][t] = disagreementRRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            disagreementRRSTD[mc][s][e][t] = pow(disagreementRRSTD[mc][s][e][t] - pow(disagreementRRAVG[mc][s][e][t], 2), .5);
+            disagreementRRAVG[mc][s][e][t] =
+                disagreementRRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            disagreementRRSTD[mc][s][e][t] =
+                disagreementRRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            disagreementRRSTD[mc][s][e][t] = pow(
+                disagreementRRSTD[mc][s][e][t] - pow(disagreementRRAVG[mc][s][e][t], 2), .5);
 
             clusteringAVG[mc][s][e][t] = clusteringAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
             clusteringSTD[mc][s][e][t] = clusteringSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clusteringSTD[mc][s][e][t] = pow(clusteringSTD[mc][s][e][t] - pow(clusteringAVG[mc][s][e][t], 2), .5);
+            clusteringSTD[mc][s][e][t] = pow(
+                clusteringSTD[mc][s][e][t] - pow(clusteringAVG[mc][s][e][t], 2), .5);
 
-            clustering12AVG[mc][s][e][t] = clustering12AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clustering12STD[mc][s][e][t] = clustering12STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clustering12STD[mc][s][e][t] = pow(clustering12STD[mc][s][e][t] - pow(clustering12AVG[mc][s][e][t], 2), .5);
+            clustering12AVG[mc][s][e][t] =
+                clustering12AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clustering12STD[mc][s][e][t] =
+                clustering12STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clustering12STD[mc][s][e][t] = pow(
+                clustering12STD[mc][s][e][t] - pow(clustering12AVG[mc][s][e][t], 2), .5);
 
-            clustering23AVG[mc][s][e][t] = clustering23AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clustering23STD[mc][s][e][t] = clustering23STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clustering23STD[mc][s][e][t] = pow(clustering23STD[mc][s][e][t] - pow(clustering23AVG[mc][s][e][t], 2), .5);
+            clustering23AVG[mc][s][e][t] =
+                clustering23AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clustering23STD[mc][s][e][t] =
+                clustering23STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clustering23STD[mc][s][e][t] = pow(
+                clustering23STD[mc][s][e][t] - pow(clustering23AVG[mc][s][e][t], 2), .5);
 
-            clustering13AVG[mc][s][e][t] = clustering13AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clustering13STD[mc][s][e][t] = clustering13STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clustering13STD[mc][s][e][t] = pow(clustering13STD[mc][s][e][t] - pow(clustering13AVG[mc][s][e][t], 2), .5);
+            clustering13AVG[mc][s][e][t] =
+                clustering13AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clustering13STD[mc][s][e][t] =
+                clustering13STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clustering13STD[mc][s][e][t] = pow(
+                clustering13STD[mc][s][e][t] - pow(clustering13AVG[mc][s][e][t], 2), .5);
 
-            clusteringNRAVG[mc][s][e][t] = clusteringNRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clusteringNRSTD[mc][s][e][t] = clusteringNRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clusteringNRSTD[mc][s][e][t] = pow(clusteringNRSTD[mc][s][e][t] - pow(clusteringNRAVG[mc][s][e][t], 2), .5);
+            clusteringNRAVG[mc][s][e][t] =
+                clusteringNRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clusteringNRSTD[mc][s][e][t] =
+                clusteringNRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clusteringNRSTD[mc][s][e][t] = pow(
+                clusteringNRSTD[mc][s][e][t] - pow(clusteringNRAVG[mc][s][e][t], 2), .5);
 
-            clusteringRRAVG[mc][s][e][t] = clusteringRRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clusteringRRSTD[mc][s][e][t] = clusteringRRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clusteringRRSTD[mc][s][e][t] = pow(clusteringRRSTD[mc][s][e][t] - pow(clusteringRRAVG[mc][s][e][t], 2), .5);
+            clusteringRRAVG[mc][s][e][t] =
+                clusteringRRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clusteringRRSTD[mc][s][e][t] =
+                clusteringRRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clusteringRRSTD[mc][s][e][t] = pow(
+                clusteringRRSTD[mc][s][e][t] - pow(clusteringRRAVG[mc][s][e][t], 2), .5);
 
-            clusteringWattsStrogatzAVG[mc][s][e][t] = clusteringWattsStrogatzAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clusteringWattsStrogatzSTD[mc][s][e][t] = clusteringWattsStrogatzSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clusteringWattsStrogatzSTD[mc][s][e][t] = pow(clusteringWattsStrogatzSTD[mc][s][e][t] - pow(clusteringWattsStrogatzAVG[mc][s][e][t], 2), .5);
+            clusteringWattsStrogatzAVG[mc][s][e][t] =
+                clusteringWattsStrogatzAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clusteringWattsStrogatzSTD[mc][s][e][t] =
+                clusteringWattsStrogatzSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clusteringWattsStrogatzSTD[mc][s][e][t] = pow(
+                clusteringWattsStrogatzSTD[mc][s][e][t] - pow(
+                    clusteringWattsStrogatzAVG[mc][s][e][t], 2), .5);
 
-            clusteringWattsStrogatz12AVG[mc][s][e][t] = clusteringWattsStrogatz12AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clusteringWattsStrogatz12STD[mc][s][e][t] = clusteringWattsStrogatz12STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clusteringWattsStrogatz12STD[mc][s][e][t] = pow(clusteringWattsStrogatz12STD[mc][s][e][t] - pow(clusteringWattsStrogatz12AVG[mc][s][e][t], 2), .5);
+            clusteringWattsStrogatz12AVG[mc][s][e][t] =
+                clusteringWattsStrogatz12AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clusteringWattsStrogatz12STD[mc][s][e][t] =
+                clusteringWattsStrogatz12STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clusteringWattsStrogatz12STD[mc][s][e][t] = pow(
+                clusteringWattsStrogatz12STD[mc][s][e][t] - pow(
+                    clusteringWattsStrogatz12AVG[mc][s][e][t], 2), .5);
 
-            clusteringWattsStrogatz23AVG[mc][s][e][t] = clusteringWattsStrogatz23AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clusteringWattsStrogatz23STD[mc][s][e][t] = clusteringWattsStrogatz23STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clusteringWattsStrogatz23STD[mc][s][e][t] = pow(clusteringWattsStrogatz23STD[mc][s][e][t] - pow(clusteringWattsStrogatz23AVG[mc][s][e][t], 2), .5);
+            clusteringWattsStrogatz23AVG[mc][s][e][t] =
+                clusteringWattsStrogatz23AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clusteringWattsStrogatz23STD[mc][s][e][t] =
+                clusteringWattsStrogatz23STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clusteringWattsStrogatz23STD[mc][s][e][t] = pow(
+                clusteringWattsStrogatz23STD[mc][s][e][t] - pow(
+                    clusteringWattsStrogatz23AVG[mc][s][e][t], 2), .5);
 
-            clusteringWattsStrogatz13AVG[mc][s][e][t] = clusteringWattsStrogatz13AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clusteringWattsStrogatz13STD[mc][s][e][t] = clusteringWattsStrogatz13STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clusteringWattsStrogatz13STD[mc][s][e][t] = pow(clusteringWattsStrogatz13STD[mc][s][e][t] - pow(clusteringWattsStrogatz13AVG[mc][s][e][t], 2), .5);
+            clusteringWattsStrogatz13AVG[mc][s][e][t] =
+                clusteringWattsStrogatz13AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clusteringWattsStrogatz13STD[mc][s][e][t] =
+                clusteringWattsStrogatz13STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clusteringWattsStrogatz13STD[mc][s][e][t] = pow(
+                clusteringWattsStrogatz13STD[mc][s][e][t] - pow(
+                    clusteringWattsStrogatz13AVG[mc][s][e][t], 2), .5);
 
-            clusteringWattsStrogatzNRAVG[mc][s][e][t] = clusteringWattsStrogatzNRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clusteringWattsStrogatzNRSTD[mc][s][e][t] = clusteringWattsStrogatzNRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clusteringWattsStrogatzNRSTD[mc][s][e][t] = pow(clusteringWattsStrogatzNRSTD[mc][s][e][t] - pow(clusteringWattsStrogatzNRAVG[mc][s][e][t], 2), .5);
+            clusteringWattsStrogatzNRAVG[mc][s][e][t] =
+                clusteringWattsStrogatzNRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clusteringWattsStrogatzNRSTD[mc][s][e][t] =
+                clusteringWattsStrogatzNRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clusteringWattsStrogatzNRSTD[mc][s][e][t] = pow(
+                clusteringWattsStrogatzNRSTD[mc][s][e][t] - pow(
+                    clusteringWattsStrogatzNRAVG[mc][s][e][t], 2), .5);
 
-            clusteringWattsStrogatzRRAVG[mc][s][e][t] = clusteringWattsStrogatzRRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clusteringWattsStrogatzRRSTD[mc][s][e][t] = clusteringWattsStrogatzRRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            clusteringWattsStrogatzRRSTD[mc][s][e][t] = pow(clusteringWattsStrogatzRRSTD[mc][s][e][t] - pow(clusteringWattsStrogatzRRAVG[mc][s][e][t], 2), .5);
+            clusteringWattsStrogatzRRAVG[mc][s][e][t] =
+                clusteringWattsStrogatzRRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clusteringWattsStrogatzRRSTD[mc][s][e][t] =
+                clusteringWattsStrogatzRRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            clusteringWattsStrogatzRRSTD[mc][s][e][t] = pow(
+                clusteringWattsStrogatzRRSTD[mc][s][e][t] - pow(
+                    clusteringWattsStrogatzRRAVG[mc][s][e][t], 2), .5);
 
-            centralizationAVG[mc][s][e][t] = centralizationAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            centralizationSTD[mc][s][e][t] = centralizationSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            centralizationSTD[mc][s][e][t] = pow(centralizationSTD[mc][s][e][t] - pow(centralizationAVG[mc][s][e][t], 2), .5);
+            centralizationAVG[mc][s][e][t] =
+                centralizationAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            centralizationSTD[mc][s][e][t] =
+                centralizationSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            centralizationSTD[mc][s][e][t] = pow(
+                centralizationSTD[mc][s][e][t] - pow(centralizationAVG[mc][s][e][t], 2), .5);
 
-            centralization12AVG[mc][s][e][t] = centralization12AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            centralization12STD[mc][s][e][t] = centralization12STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            centralization12STD[mc][s][e][t] = pow(centralization12STD[mc][s][e][t] - pow(centralization12AVG[mc][s][e][t], 2), .5);
+            centralization12AVG[mc][s][e][t] =
+                centralization12AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            centralization12STD[mc][s][e][t] =
+                centralization12STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            centralization12STD[mc][s][e][t] = pow(
+                centralization12STD[mc][s][e][t] - pow(centralization12AVG[mc][s][e][t], 2), .5);
 
-            centralization23AVG[mc][s][e][t] = centralization23AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            centralization23STD[mc][s][e][t] = centralization23STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            centralization23STD[mc][s][e][t] = pow(centralization23STD[mc][s][e][t] - pow(centralization23AVG[mc][s][e][t], 2), .5);
+            centralization23AVG[mc][s][e][t] =
+                centralization23AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            centralization23STD[mc][s][e][t] =
+                centralization23STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            centralization23STD[mc][s][e][t] = pow(
+                centralization23STD[mc][s][e][t] - pow(centralization23AVG[mc][s][e][t], 2), .5);
 
-            centralization13AVG[mc][s][e][t] = centralization13AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            centralization13STD[mc][s][e][t] = centralization13STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            centralization13STD[mc][s][e][t] = pow(centralization13STD[mc][s][e][t] - pow(centralization13AVG[mc][s][e][t], 2), .5);
+            centralization13AVG[mc][s][e][t] =
+                centralization13AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            centralization13STD[mc][s][e][t] =
+                centralization13STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            centralization13STD[mc][s][e][t] = pow(
+                centralization13STD[mc][s][e][t] - pow(centralization13AVG[mc][s][e][t], 2), .5);
 
-            centralizationNRAVG[mc][s][e][t] = centralizationNRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            centralizationNRSTD[mc][s][e][t] = centralizationNRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            centralizationNRSTD[mc][s][e][t] = pow(centralizationNRSTD[mc][s][e][t] - pow(centralizationNRAVG[mc][s][e][t], 2), .5);
+            centralizationNRAVG[mc][s][e][t] =
+                centralizationNRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            centralizationNRSTD[mc][s][e][t] =
+                centralizationNRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            centralizationNRSTD[mc][s][e][t] = pow(
+                centralizationNRSTD[mc][s][e][t] - pow(centralizationNRAVG[mc][s][e][t], 2), .5);
 
-            centralizationRRAVG[mc][s][e][t] = centralizationRRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            centralizationRRSTD[mc][s][e][t] = centralizationRRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            centralizationRRSTD[mc][s][e][t] = pow(centralizationRRSTD[mc][s][e][t] - pow(centralizationRRAVG[mc][s][e][t], 2), .5);
+            centralizationRRAVG[mc][s][e][t] =
+                centralizationRRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            centralizationRRSTD[mc][s][e][t] =
+                centralizationRRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            centralizationRRSTD[mc][s][e][t] = pow(
+                centralizationRRSTD[mc][s][e][t] - pow(centralizationRRAVG[mc][s][e][t], 2), .5);
 
             efficiencyAVG[mc][s][e][t] = efficiencyAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
             efficiencySTD[mc][s][e][t] = efficiencySTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            efficiencySTD[mc][s][e][t] = pow(efficiencySTD[mc][s][e][t] - pow(efficiencyAVG[mc][s][e][t], 2), .5);
+            efficiencySTD[mc][s][e][t] = pow(
+                efficiencySTD[mc][s][e][t] - pow(efficiencyAVG[mc][s][e][t], 2), .5);
 
-            efficiency12AVG[mc][s][e][t] = efficiency12AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            efficiency12STD[mc][s][e][t] = efficiency12STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            efficiency12STD[mc][s][e][t] = pow(efficiency12STD[mc][s][e][t] - pow(efficiency12AVG[mc][s][e][t], 2), .5);
+            efficiency12AVG[mc][s][e][t] =
+                efficiency12AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            efficiency12STD[mc][s][e][t] =
+                efficiency12STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            efficiency12STD[mc][s][e][t] = pow(
+                efficiency12STD[mc][s][e][t] - pow(efficiency12AVG[mc][s][e][t], 2), .5);
 
-            efficiency23AVG[mc][s][e][t] = efficiency23AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            efficiency23STD[mc][s][e][t] = efficiency23STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            efficiency23STD[mc][s][e][t] = pow(efficiency23STD[mc][s][e][t] - pow(efficiency23AVG[mc][s][e][t], 2), .5);
+            efficiency23AVG[mc][s][e][t] =
+                efficiency23AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            efficiency23STD[mc][s][e][t] =
+                efficiency23STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            efficiency23STD[mc][s][e][t] = pow(
+                efficiency23STD[mc][s][e][t] - pow(efficiency23AVG[mc][s][e][t], 2), .5);
 
-            efficiency13AVG[mc][s][e][t] = efficiency13AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            efficiency13STD[mc][s][e][t] = efficiency13STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            efficiency13STD[mc][s][e][t] = pow(efficiency13STD[mc][s][e][t] - pow(efficiency13AVG[mc][s][e][t], 2), .5);
+            efficiency13AVG[mc][s][e][t] =
+                efficiency13AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            efficiency13STD[mc][s][e][t] =
+                efficiency13STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            efficiency13STD[mc][s][e][t] = pow(
+                efficiency13STD[mc][s][e][t] - pow(efficiency13AVG[mc][s][e][t], 2), .5);
 
-            efficiencyNRAVG[mc][s][e][t] = efficiencyNRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            efficiencyNRSTD[mc][s][e][t] = efficiencyNRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            efficiencyNRSTD[mc][s][e][t] = pow(efficiencyNRSTD[mc][s][e][t] - pow(efficiencyNRAVG[mc][s][e][t], 2), .5);
+            efficiencyNRAVG[mc][s][e][t] =
+                efficiencyNRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            efficiencyNRSTD[mc][s][e][t] =
+                efficiencyNRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            efficiencyNRSTD[mc][s][e][t] = pow(
+                efficiencyNRSTD[mc][s][e][t] - pow(efficiencyNRAVG[mc][s][e][t], 2), .5);
 
-            efficiencyRRAVG[mc][s][e][t] = efficiencyRRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            efficiencyRRSTD[mc][s][e][t] = efficiencyRRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            efficiencyRRSTD[mc][s][e][t] = pow(efficiencyRRSTD[mc][s][e][t] - pow(efficiencyRRAVG[mc][s][e][t], 2), .5);
+            efficiencyRRAVG[mc][s][e][t] =
+                efficiencyRRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            efficiencyRRSTD[mc][s][e][t] =
+                efficiencyRRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            efficiencyRRSTD[mc][s][e][t] = pow(
+                efficiencyRRSTD[mc][s][e][t] - pow(efficiencyRRAVG[mc][s][e][t], 2), .5);
 
             distanceAVG[mc][s][e][t] = distanceAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
             distanceSTD[mc][s][e][t] = distanceSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            distanceSTD[mc][s][e][t] = pow(distanceSTD[mc][s][e][t] - pow(distanceAVG[mc][s][e][t], 2), .5);
+            distanceSTD[mc][s][e][t] = pow(
+                distanceSTD[mc][s][e][t] - pow(distanceAVG[mc][s][e][t], 2), .5);
 
             distance12AVG[mc][s][e][t] = distance12AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
             distance12STD[mc][s][e][t] = distance12STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            distance12STD[mc][s][e][t] = pow(distance12STD[mc][s][e][t] - pow(distance12AVG[mc][s][e][t], 2), .5);
+            distance12STD[mc][s][e][t] = pow(
+                distance12STD[mc][s][e][t] - pow(distance12AVG[mc][s][e][t], 2), .5);
 
             distance23AVG[mc][s][e][t] = distance23AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
             distance23STD[mc][s][e][t] = distance23STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            distance23STD[mc][s][e][t] = pow(distance23STD[mc][s][e][t] - pow(distance23AVG[mc][s][e][t], 2), .5);
+            distance23STD[mc][s][e][t] = pow(
+                distance23STD[mc][s][e][t] - pow(distance23AVG[mc][s][e][t], 2), .5);
 
             distance13AVG[mc][s][e][t] = distance13AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
             distance13STD[mc][s][e][t] = distance13STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            distance13STD[mc][s][e][t] = pow(distance13STD[mc][s][e][t] - pow(distance13AVG[mc][s][e][t], 2), .5);
+            distance13STD[mc][s][e][t] = pow(
+                distance13STD[mc][s][e][t] - pow(distance13AVG[mc][s][e][t], 2), .5);
 
             distanceNRAVG[mc][s][e][t] = distanceNRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
             distanceNRSTD[mc][s][e][t] = distanceNRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            distanceNRSTD[mc][s][e][t] = pow(distanceNRSTD[mc][s][e][t] - pow(distanceNRAVG[mc][s][e][t], 2), .5);
+            distanceNRSTD[mc][s][e][t] = pow(
+                distanceNRSTD[mc][s][e][t] - pow(distanceNRAVG[mc][s][e][t], 2), .5);
 
             distanceRRAVG[mc][s][e][t] = distanceRRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
             distanceRRSTD[mc][s][e][t] = distanceRRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            distanceRRSTD[mc][s][e][t] = pow(distanceRRSTD[mc][s][e][t] - pow(distanceRRAVG[mc][s][e][t], 2), .5);
+            distanceRRSTD[mc][s][e][t] = pow(
+                distanceRRSTD[mc][s][e][t] - pow(distanceRRAVG[mc][s][e][t], 2), .5);
 
             densityAVG[mc][s][e][t] = densityAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
             densitySTD[mc][s][e][t] = densitySTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            densitySTD[mc][s][e][t] = pow(densitySTD[mc][s][e][t] - pow(densityAVG[mc][s][e][t], 2), .5);
+            densitySTD[mc][s][e][t] = pow(densitySTD[mc][s][e][t] - pow(densityAVG[mc][s][e][t], 2),
+                .5);
 
             density12AVG[mc][s][e][t] = density12AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
             density12STD[mc][s][e][t] = density12STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            density12STD[mc][s][e][t] = pow(density12STD[mc][s][e][t] - pow(density12AVG[mc][s][e][t], 2), .5);
+            density12STD[mc][s][e][t] = pow(
+                density12STD[mc][s][e][t] - pow(density12AVG[mc][s][e][t], 2), .5);
 
             density23AVG[mc][s][e][t] = density23AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
             density23STD[mc][s][e][t] = density23STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            density23STD[mc][s][e][t] = pow(density23STD[mc][s][e][t] - pow(density23AVG[mc][s][e][t], 2), .5);
+            density23STD[mc][s][e][t] = pow(
+                density23STD[mc][s][e][t] - pow(density23AVG[mc][s][e][t], 2), .5);
 
             density13AVG[mc][s][e][t] = density13AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
             density13STD[mc][s][e][t] = density13STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            density13STD[mc][s][e][t] = pow(density13STD[mc][s][e][t] - pow(density13AVG[mc][s][e][t], 2), .5);
+            density13STD[mc][s][e][t] = pow(
+                density13STD[mc][s][e][t] - pow(density13AVG[mc][s][e][t], 2), .5);
 
             densityNRAVG[mc][s][e][t] = densityNRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
             densityNRSTD[mc][s][e][t] = densityNRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            densityNRSTD[mc][s][e][t] = pow(densityNRSTD[mc][s][e][t] - pow(densityNRAVG[mc][s][e][t], 2), .5);
+            densityNRSTD[mc][s][e][t] = pow(
+                densityNRSTD[mc][s][e][t] - pow(densityNRAVG[mc][s][e][t], 2), .5);
 
             densityRRAVG[mc][s][e][t] = densityRRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
             densityRRSTD[mc][s][e][t] = densityRRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            densityRRSTD[mc][s][e][t] = pow(densityRRSTD[mc][s][e][t] - pow(densityRRAVG[mc][s][e][t], 2), .5);
+            densityRRSTD[mc][s][e][t] = pow(
+                densityRRSTD[mc][s][e][t] - pow(densityRRAVG[mc][s][e][t], 2), .5);
 
-            betweennessCentralityVarianceAVG[mc][s][e][t] = betweennessCentralityVarianceAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            betweennessCentralityVarianceSTD[mc][s][e][t] = betweennessCentralityVarianceSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            betweennessCentralityVarianceSTD[mc][s][e][t] = pow(betweennessCentralityVarianceSTD[mc][s][e][t] - pow(betweennessCentralityVarianceAVG[mc][s][e][t], 2), .5);
+            sigmaAVG[mc][s][e][t] = sigmaAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            sigmaSTD[mc][s][e][t] = sigmaSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            sigmaSTD[mc][s][e][t] = pow(sigmaSTD[mc][s][e][t] - pow(sigmaAVG[mc][s][e][t], 2),
+                .5);
 
-            betweennessCentralityVariance12AVG[mc][s][e][t] = betweennessCentralityVariance12AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            betweennessCentralityVariance12STD[mc][s][e][t] = betweennessCentralityVariance12STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            betweennessCentralityVariance12STD[mc][s][e][t] = pow(betweennessCentralityVariance12STD[mc][s][e][t] - pow(betweennessCentralityVariance12AVG[mc][s][e][t], 2), .5);
+            sigma12AVG[mc][s][e][t] = sigma12AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            sigma12STD[mc][s][e][t] = sigma12STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            sigma12STD[mc][s][e][t] = pow(
+                sigma12STD[mc][s][e][t] - pow(sigma12AVG[mc][s][e][t], 2), .5);
 
-            betweennessCentralityVariance23AVG[mc][s][e][t] = betweennessCentralityVariance23AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            betweennessCentralityVariance23STD[mc][s][e][t] = betweennessCentralityVariance23STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            betweennessCentralityVariance23STD[mc][s][e][t] = pow(betweennessCentralityVariance23STD[mc][s][e][t] - pow(betweennessCentralityVariance23AVG[mc][s][e][t], 2), .5);
+            sigma23AVG[mc][s][e][t] = sigma23AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            sigma23STD[mc][s][e][t] = sigma23STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            sigma23STD[mc][s][e][t] = pow(
+                sigma23STD[mc][s][e][t] - pow(sigma23AVG[mc][s][e][t], 2), .5);
 
-            betweennessCentralityVariance13AVG[mc][s][e][t] = betweennessCentralityVariance13AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            betweennessCentralityVariance13STD[mc][s][e][t] = betweennessCentralityVariance13STDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            betweennessCentralityVariance13STD[mc][s][e][t] = pow(betweennessCentralityVariance13STD[mc][s][e][t] - pow(betweennessCentralityVariance13AVG[mc][s][e][t], 2), .5);
+            sigma13AVG[mc][s][e][t] = sigma13AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            sigma13STD[mc][s][e][t] = sigma13STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            sigma13STD[mc][s][e][t] = pow(
+                sigma13STD[mc][s][e][t] - pow(sigma13AVG[mc][s][e][t], 2), .5);
 
-            betweennessCentralityVarianceNRAVG[mc][s][e][t] = betweennessCentralityVarianceNRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            betweennessCentralityVarianceNRSTD[mc][s][e][t] = betweennessCentralityVarianceNRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            betweennessCentralityVarianceNRSTD[mc][s][e][t] = pow(betweennessCentralityVarianceNRSTD[mc][s][e][t] - pow(betweennessCentralityVarianceNRAVG[mc][s][e][t], 2), .5);
+            sigmaNRAVG[mc][s][e][t] = sigmaNRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            sigmaNRSTD[mc][s][e][t] = sigmaNRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            sigmaNRSTD[mc][s][e][t] = pow(
+                sigmaNRSTD[mc][s][e][t] - pow(sigmaNRAVG[mc][s][e][t], 2), .5);
 
-            betweennessCentralityVarianceRRAVG[mc][s][e][t] = betweennessCentralityVarianceRRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
-            betweennessCentralityVarianceRRSTD[mc][s][e][t] = betweennessCentralityVarianceRRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
-            betweennessCentralityVarianceRRSTD[mc][s][e][t] = pow(betweennessCentralityVarianceRRSTD[mc][s][e][t] - pow(betweennessCentralityVarianceRRAVG[mc][s][e][t], 2), .5);
+            sigmaRRAVG[mc][s][e][t] = sigmaRRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            sigmaRRSTD[mc][s][e][t] = sigmaRRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            sigmaRRSTD[mc][s][e][t] = pow(
+                sigmaRRSTD[mc][s][e][t] - pow(sigmaRRAVG[mc][s][e][t], 2), .5);
+
+            omegaAVG[mc][s][e][t] = omegaAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            omegaSTD[mc][s][e][t] = omegaSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            omegaSTD[mc][s][e][t] = pow(omegaSTD[mc][s][e][t] - pow(omegaAVG[mc][s][e][t], 2),
+                .5);
+
+            omega12AVG[mc][s][e][t] = omega12AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            omega12STD[mc][s][e][t] = omega12STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            omega12STD[mc][s][e][t] = pow(
+                omega12STD[mc][s][e][t] - pow(omega12AVG[mc][s][e][t], 2), .5);
+
+            omega23AVG[mc][s][e][t] = omega23AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            omega23STD[mc][s][e][t] = omega23STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            omega23STD[mc][s][e][t] = pow(
+                omega23STD[mc][s][e][t] - pow(omega23AVG[mc][s][e][t], 2), .5);
+
+            omega13AVG[mc][s][e][t] = omega13AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            omega13STD[mc][s][e][t] = omega13STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            omega13STD[mc][s][e][t] = pow(
+                omega13STD[mc][s][e][t] - pow(omega13AVG[mc][s][e][t], 2), .5);
+
+            omegaNRAVG[mc][s][e][t] = omegaNRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            omegaNRSTD[mc][s][e][t] = omegaNRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            omegaNRSTD[mc][s][e][t] = pow(
+                omegaNRSTD[mc][s][e][t] - pow(omegaNRAVG[mc][s][e][t], 2), .5);
+
+            omegaRRAVG[mc][s][e][t] = omegaRRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            omegaRRSTD[mc][s][e][t] = omegaRRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            omegaRRSTD[mc][s][e][t] = pow(
+                omegaRRSTD[mc][s][e][t] - pow(omegaRRAVG[mc][s][e][t], 2), .5);
+
+            shortestPathVarianceAVG[mc][s][e][t] =
+                shortestPathVarianceAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            shortestPathVarianceSTD[mc][s][e][t] =
+                shortestPathVarianceSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            shortestPathVarianceSTD[mc][s][e][t] = pow(
+                shortestPathVarianceSTD[mc][s][e][t] - pow(
+                    shortestPathVarianceAVG[mc][s][e][t], 2), .5);
+
+            shortestPathVariance12AVG[mc][s][e][t] =
+                shortestPathVariance12AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            shortestPathVariance12STD[mc][s][e][t] =
+                shortestPathVariance12STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            shortestPathVariance12STD[mc][s][e][t] = pow(
+                shortestPathVariance12STD[mc][s][e][t] - pow(
+                    shortestPathVariance12AVG[mc][s][e][t], 2), .5);
+
+            shortestPathVariance23AVG[mc][s][e][t] =
+                shortestPathVariance23AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            shortestPathVariance23STD[mc][s][e][t] =
+                shortestPathVariance23STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            shortestPathVariance23STD[mc][s][e][t] = pow(
+                shortestPathVariance23STD[mc][s][e][t] - pow(
+                    shortestPathVariance23AVG[mc][s][e][t], 2), .5);
+
+            shortestPathVariance13AVG[mc][s][e][t] =
+                shortestPathVariance13AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            shortestPathVariance13STD[mc][s][e][t] =
+                shortestPathVariance13STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            shortestPathVariance13STD[mc][s][e][t] = pow(
+                shortestPathVariance13STD[mc][s][e][t] - pow(
+                    shortestPathVariance13AVG[mc][s][e][t], 2), .5);
+
+            shortestPathVarianceNRAVG[mc][s][e][t] =
+                shortestPathVarianceNRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            shortestPathVarianceNRSTD[mc][s][e][t] =
+                shortestPathVarianceNRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            shortestPathVarianceNRSTD[mc][s][e][t] = pow(
+                shortestPathVarianceNRSTD[mc][s][e][t] - pow(
+                    shortestPathVarianceNRAVG[mc][s][e][t], 2), .5);
+
+            shortestPathVarianceRRAVG[mc][s][e][t] =
+                shortestPathVarianceRRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            shortestPathVarianceRRSTD[mc][s][e][t] =
+                shortestPathVarianceRRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            shortestPathVarianceRRSTD[mc][s][e][t] = pow(
+                shortestPathVarianceRRSTD[mc][s][e][t] - pow(
+                    shortestPathVarianceRRAVG[mc][s][e][t], 2), .5);
+            
+            betweennessCentralityVarianceAVG[mc][s][e][t] =
+                betweennessCentralityVarianceAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            betweennessCentralityVarianceSTD[mc][s][e][t] =
+                betweennessCentralityVarianceSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            betweennessCentralityVarianceSTD[mc][s][e][t] = pow(
+                betweennessCentralityVarianceSTD[mc][s][e][t] - pow(
+                    betweennessCentralityVarianceAVG[mc][s][e][t], 2), .5);
+
+            betweennessCentralityVariance12AVG[mc][s][e][t] =
+                betweennessCentralityVariance12AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            betweennessCentralityVariance12STD[mc][s][e][t] =
+                betweennessCentralityVariance12STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            betweennessCentralityVariance12STD[mc][s][e][t] = pow(
+                betweennessCentralityVariance12STD[mc][s][e][t] - pow(
+                    betweennessCentralityVariance12AVG[mc][s][e][t], 2), .5);
+
+            betweennessCentralityVariance23AVG[mc][s][e][t] =
+                betweennessCentralityVariance23AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            betweennessCentralityVariance23STD[mc][s][e][t] =
+                betweennessCentralityVariance23STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            betweennessCentralityVariance23STD[mc][s][e][t] = pow(
+                betweennessCentralityVariance23STD[mc][s][e][t] - pow(
+                    betweennessCentralityVariance23AVG[mc][s][e][t], 2), .5);
+
+            betweennessCentralityVariance13AVG[mc][s][e][t] =
+                betweennessCentralityVariance13AVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            betweennessCentralityVariance13STD[mc][s][e][t] =
+                betweennessCentralityVariance13STDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            betweennessCentralityVariance13STD[mc][s][e][t] = pow(
+                betweennessCentralityVariance13STD[mc][s][e][t] - pow(
+                    betweennessCentralityVariance13AVG[mc][s][e][t], 2), .5);
+
+            betweennessCentralityVarianceNRAVG[mc][s][e][t] =
+                betweennessCentralityVarianceNRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            betweennessCentralityVarianceNRSTD[mc][s][e][t] =
+                betweennessCentralityVarianceNRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            betweennessCentralityVarianceNRSTD[mc][s][e][t] = pow(
+                betweennessCentralityVarianceNRSTD[mc][s][e][t] - pow(
+                    betweennessCentralityVarianceNRAVG[mc][s][e][t], 2), .5);
+
+            betweennessCentralityVarianceRRAVG[mc][s][e][t] =
+                betweennessCentralityVarianceRRAVGAtomic[mc][s][e][t].get() / Main.ITERATION;
+            betweennessCentralityVarianceRRSTD[mc][s][e][t] =
+                betweennessCentralityVarianceRRSTDAtomic[mc][s][e][t].get() / Main.ITERATION;
+            betweennessCentralityVarianceRRSTD[mc][s][e][t] = pow(
+                betweennessCentralityVarianceRRSTD[mc][s][e][t] - pow(
+                    betweennessCentralityVarianceRRAVG[mc][s][e][t], 2), .5);
           }
         }
       }
@@ -1032,6 +1528,45 @@ public class Computation {
     AtomicDouble[] densityNRSTDAtomicPart;
     AtomicDouble[] densityRRAVGAtomicPart;
     AtomicDouble[] densityRRSTDAtomicPart;
+    
+    AtomicDouble[] sigmaAVGAtomicPart;
+    AtomicDouble[] sigmaSTDAtomicPart;
+    AtomicDouble[] sigma12AVGAtomicPart;
+    AtomicDouble[] sigma12STDAtomicPart;
+    AtomicDouble[] sigma23AVGAtomicPart;
+    AtomicDouble[] sigma23STDAtomicPart;
+    AtomicDouble[] sigma13AVGAtomicPart;
+    AtomicDouble[] sigma13STDAtomicPart;
+    AtomicDouble[] sigmaNRAVGAtomicPart;
+    AtomicDouble[] sigmaNRSTDAtomicPart;
+    AtomicDouble[] sigmaRRAVGAtomicPart;
+    AtomicDouble[] sigmaRRSTDAtomicPart;
+
+    AtomicDouble[] omegaAVGAtomicPart;
+    AtomicDouble[] omegaSTDAtomicPart;
+    AtomicDouble[] omega12AVGAtomicPart;
+    AtomicDouble[] omega12STDAtomicPart;
+    AtomicDouble[] omega23AVGAtomicPart;
+    AtomicDouble[] omega23STDAtomicPart;
+    AtomicDouble[] omega13AVGAtomicPart;
+    AtomicDouble[] omega13STDAtomicPart;
+    AtomicDouble[] omegaNRAVGAtomicPart;
+    AtomicDouble[] omegaNRSTDAtomicPart;
+    AtomicDouble[] omegaRRAVGAtomicPart;
+    AtomicDouble[] omegaRRSTDAtomicPart;
+
+    AtomicDouble[] shortestPathVarianceAVGAtomicPart;
+    AtomicDouble[] shortestPathVarianceSTDAtomicPart;
+    AtomicDouble[] shortestPathVariance12AVGAtomicPart;
+    AtomicDouble[] shortestPathVariance12STDAtomicPart;
+    AtomicDouble[] shortestPathVariance23AVGAtomicPart;
+    AtomicDouble[] shortestPathVariance23STDAtomicPart;
+    AtomicDouble[] shortestPathVariance13AVGAtomicPart;
+    AtomicDouble[] shortestPathVariance13STDAtomicPart;
+    AtomicDouble[] shortestPathVarianceNRAVGAtomicPart;
+    AtomicDouble[] shortestPathVarianceNRSTDAtomicPart;
+    AtomicDouble[] shortestPathVarianceRRAVGAtomicPart;
+    AtomicDouble[] shortestPathVarianceRRSTDAtomicPart;
 
     AtomicDouble[] betweennessCentralityVarianceAVGAtomicPart;
     AtomicDouble[] betweennessCentralityVarianceSTDAtomicPart;
@@ -1163,6 +1698,45 @@ public class Computation {
       densityRRAVGAtomicPart = densityRRAVGAtomic[mcIndex][spanIndex][enforcementIndex];
       densityRRSTDAtomicPart = densityRRSTDAtomic[mcIndex][spanIndex][enforcementIndex];
 
+      sigmaAVGAtomicPart = sigmaAVGAtomic[mcIndex][spanIndex][enforcementIndex];
+      sigmaSTDAtomicPart = sigmaSTDAtomic[mcIndex][spanIndex][enforcementIndex];
+      sigma12AVGAtomicPart = sigma12AVGAtomic[mcIndex][spanIndex][enforcementIndex];
+      sigma12STDAtomicPart = sigma12STDAtomic[mcIndex][spanIndex][enforcementIndex];
+      sigma23AVGAtomicPart = sigma23AVGAtomic[mcIndex][spanIndex][enforcementIndex];
+      sigma23STDAtomicPart = sigma23STDAtomic[mcIndex][spanIndex][enforcementIndex];
+      sigma13AVGAtomicPart = sigma13AVGAtomic[mcIndex][spanIndex][enforcementIndex];
+      sigma13STDAtomicPart = sigma13STDAtomic[mcIndex][spanIndex][enforcementIndex];
+      sigmaNRAVGAtomicPart = sigmaNRAVGAtomic[mcIndex][spanIndex][enforcementIndex];
+      sigmaNRSTDAtomicPart = sigmaNRSTDAtomic[mcIndex][spanIndex][enforcementIndex];
+      sigmaRRAVGAtomicPart = sigmaRRAVGAtomic[mcIndex][spanIndex][enforcementIndex];
+      sigmaRRSTDAtomicPart = sigmaRRSTDAtomic[mcIndex][spanIndex][enforcementIndex];
+
+      omegaAVGAtomicPart = omegaAVGAtomic[mcIndex][spanIndex][enforcementIndex];
+      omegaSTDAtomicPart = omegaSTDAtomic[mcIndex][spanIndex][enforcementIndex];
+      omega12AVGAtomicPart = omega12AVGAtomic[mcIndex][spanIndex][enforcementIndex];
+      omega12STDAtomicPart = omega12STDAtomic[mcIndex][spanIndex][enforcementIndex];
+      omega23AVGAtomicPart = omega23AVGAtomic[mcIndex][spanIndex][enforcementIndex];
+      omega23STDAtomicPart = omega23STDAtomic[mcIndex][spanIndex][enforcementIndex];
+      omega13AVGAtomicPart = omega13AVGAtomic[mcIndex][spanIndex][enforcementIndex];
+      omega13STDAtomicPart = omega13STDAtomic[mcIndex][spanIndex][enforcementIndex];
+      omegaNRAVGAtomicPart = omegaNRAVGAtomic[mcIndex][spanIndex][enforcementIndex];
+      omegaNRSTDAtomicPart = omegaNRSTDAtomic[mcIndex][spanIndex][enforcementIndex];
+      omegaRRAVGAtomicPart = omegaRRAVGAtomic[mcIndex][spanIndex][enforcementIndex];
+      omegaRRSTDAtomicPart = omegaRRSTDAtomic[mcIndex][spanIndex][enforcementIndex];
+
+      shortestPathVarianceAVGAtomicPart = shortestPathVarianceAVGAtomic[mcIndex][spanIndex][enforcementIndex];
+      shortestPathVarianceSTDAtomicPart = shortestPathVarianceSTDAtomic[mcIndex][spanIndex][enforcementIndex];
+      shortestPathVariance12AVGAtomicPart = shortestPathVariance12AVGAtomic[mcIndex][spanIndex][enforcementIndex];
+      shortestPathVariance12STDAtomicPart = shortestPathVariance12STDAtomic[mcIndex][spanIndex][enforcementIndex];
+      shortestPathVariance23AVGAtomicPart = shortestPathVariance23AVGAtomic[mcIndex][spanIndex][enforcementIndex];
+      shortestPathVariance23STDAtomicPart = shortestPathVariance23STDAtomic[mcIndex][spanIndex][enforcementIndex];
+      shortestPathVariance13AVGAtomicPart = shortestPathVariance13AVGAtomic[mcIndex][spanIndex][enforcementIndex];
+      shortestPathVariance13STDAtomicPart = shortestPathVariance13STDAtomic[mcIndex][spanIndex][enforcementIndex];
+      shortestPathVarianceNRAVGAtomicPart = shortestPathVarianceNRAVGAtomic[mcIndex][spanIndex][enforcementIndex];
+      shortestPathVarianceNRSTDAtomicPart = shortestPathVarianceNRSTDAtomic[mcIndex][spanIndex][enforcementIndex];
+      shortestPathVarianceRRAVGAtomicPart = shortestPathVarianceRRAVGAtomic[mcIndex][spanIndex][enforcementIndex];
+      shortestPathVarianceRRSTDAtomicPart = shortestPathVarianceRRSTDAtomic[mcIndex][spanIndex][enforcementIndex];
+
       betweennessCentralityVarianceAVGAtomicPart = betweennessCentralityVarianceAVGAtomic[mcIndex][spanIndex][enforcementIndex];
       betweennessCentralityVarianceSTDAtomicPart = betweennessCentralityVarianceSTDAtomic[mcIndex][spanIndex][enforcementIndex];
       betweennessCentralityVariance12AVGAtomicPart = betweennessCentralityVariance12AVGAtomic[mcIndex][spanIndex][enforcementIndex];
@@ -1234,20 +1808,26 @@ public class Computation {
           clusteringRRSTDAtomicPart[t].addAndGet(pow(rr.globalClustering, 2));
 
           clusteringWattsStrogatzAVGAtomicPart[t].addAndGet(src.globalClusteringWattsStrogatz);
-          clusteringWattsStrogatzSTDAtomicPart[t].addAndGet(pow(src.globalClusteringWattsStrogatz, 2));
-          double clusteringWattsStrogatz12 = rr.globalClusteringWattsStrogatz - nr.globalClusteringWattsStrogatz;
+          clusteringWattsStrogatzSTDAtomicPart[t].addAndGet(
+              pow(src.globalClusteringWattsStrogatz, 2));
+          double clusteringWattsStrogatz12 =
+              rr.globalClusteringWattsStrogatz - nr.globalClusteringWattsStrogatz;
           clusteringWattsStrogatz12AVGAtomicPart[t].addAndGet(clusteringWattsStrogatz12);
           clusteringWattsStrogatz12STDAtomicPart[t].addAndGet(pow(clusteringWattsStrogatz12, 2));
-          double clusteringWattsStrogatz23 = src.globalClusteringWattsStrogatz - rr.globalClusteringWattsStrogatz;
+          double clusteringWattsStrogatz23 =
+              src.globalClusteringWattsStrogatz - rr.globalClusteringWattsStrogatz;
           clusteringWattsStrogatz23AVGAtomicPart[t].addAndGet(clusteringWattsStrogatz23);
           clusteringWattsStrogatz23STDAtomicPart[t].addAndGet(pow(clusteringWattsStrogatz23, 2));
-          double clusteringWattsStrogatz13 = src.globalClusteringWattsStrogatz - nr.globalClusteringWattsStrogatz;
+          double clusteringWattsStrogatz13 =
+              src.globalClusteringWattsStrogatz - nr.globalClusteringWattsStrogatz;
           clusteringWattsStrogatz13AVGAtomicPart[t].addAndGet(clusteringWattsStrogatz13);
           clusteringWattsStrogatz13STDAtomicPart[t].addAndGet(pow(clusteringWattsStrogatz13, 2));
           clusteringWattsStrogatzNRAVGAtomicPart[t].addAndGet(nr.globalClusteringWattsStrogatz);
-          clusteringWattsStrogatzNRSTDAtomicPart[t].addAndGet(pow(nr.globalClusteringWattsStrogatz, 2));
+          clusteringWattsStrogatzNRSTDAtomicPart[t].addAndGet(
+              pow(nr.globalClusteringWattsStrogatz, 2));
           clusteringWattsStrogatzRRAVGAtomicPart[t].addAndGet(rr.globalClusteringWattsStrogatz);
-          clusteringWattsStrogatzRRSTDAtomicPart[t].addAndGet(pow(rr.globalClusteringWattsStrogatz, 2));
+          clusteringWattsStrogatzRRSTDAtomicPart[t].addAndGet(
+              pow(rr.globalClusteringWattsStrogatz, 2));
 
           centralizationAVGAtomicPart[t].addAndGet(src.overallCentralization);
           centralizationSTDAtomicPart[t].addAndGet(pow(src.overallCentralization, 2));
@@ -1313,27 +1893,142 @@ public class Computation {
           densityRRAVGAtomicPart[t].addAndGet(rr.density);
           densityRRSTDAtomicPart[t].addAndGet(pow(rr.density, 2));
 
-          betweennessCentralityVarianceAVGAtomicPart[t].addAndGet(src.betweennessCentralityVariance);
-          betweennessCentralityVarianceSTDAtomicPart[t].addAndGet(pow(src.betweennessCentralityVariance, 2));
-          double betweennessCentralityVariance12 = rr.betweennessCentralityVariance - nr.betweennessCentralityVariance;
-          betweennessCentralityVariance12AVGAtomicPart[t].addAndGet(betweennessCentralityVariance12);
-          betweennessCentralityVariance12STDAtomicPart[t].addAndGet(pow(betweennessCentralityVariance12, 2));
-          double betweennessCentralityVariance23 = src.betweennessCentralityVariance - rr.betweennessCentralityVariance;
-          betweennessCentralityVariance23AVGAtomicPart[t].addAndGet(betweennessCentralityVariance23);
-          betweennessCentralityVariance23STDAtomicPart[t].addAndGet(pow(betweennessCentralityVariance23, 2));
-          double betweennessCentralityVariance13 = src.betweennessCentralityVariance - nr.betweennessCentralityVariance;
-          betweennessCentralityVariance13AVGAtomicPart[t].addAndGet(betweennessCentralityVariance13);
-          betweennessCentralityVariance13STDAtomicPart[t].addAndGet(pow(betweennessCentralityVariance13, 2));
-          betweennessCentralityVarianceNRAVGAtomicPart[t].addAndGet(nr.betweennessCentralityVariance);
-          betweennessCentralityVarianceNRSTDAtomicPart[t].addAndGet(pow(nr.betweennessCentralityVariance, 2));
-          betweennessCentralityVarianceRRAVGAtomicPart[t].addAndGet(rr.betweennessCentralityVariance);
-          betweennessCentralityVarianceRRSTDAtomicPart[t].addAndGet(pow(rr.betweennessCentralityVariance, 2));
+          double sigmaSC = transform2Sigma(src.averagePathLength, src.globalClusteringWattsStrogatz);
+          double sigmaRR = transform2Sigma(rr.averagePathLength, rr.globalClusteringWattsStrogatz);
+          double sigmaNR = transform2SigmaNR(nr.averagePathLength, nr.globalClusteringWattsStrogatz);
+//          double sigmaSC = transform2Sigma(src.averagePathLength, src.globalClustering);
+//          double sigmaRR = transform2Sigma(rr.averagePathLength, rr.globalClustering);
+//          double sigmaNR = transform2SigmaNR(nr.averagePathLength, nr.globalClustering);
+          sigmaAVGAtomicPart[t].addAndGet(sigmaSC);
+          sigmaSTDAtomicPart[t].addAndGet(pow(sigmaSC, 2));
+          sigmaRRAVGAtomicPart[t].addAndGet(sigmaRR);
+          sigmaRRSTDAtomicPart[t].addAndGet(pow(sigmaRR, 2));
+          sigmaNRAVGAtomicPart[t].addAndGet(sigmaNR);
+          sigmaNRSTDAtomicPart[t].addAndGet(pow(sigmaNR, 2));
+          double sigma12 = sigmaRR - sigmaNR;
+          sigma12AVGAtomicPart[t].addAndGet(sigma12);
+          sigma12STDAtomicPart[t].addAndGet(pow(sigma12, 2));
+          double sigma23 = sigmaSC - sigmaRR;
+          sigma23AVGAtomicPart[t].addAndGet(sigma23);
+          sigma23STDAtomicPart[t].addAndGet(pow(sigma23, 2));
+          double sigma13 = sigmaSC - sigmaNR;
+          sigma13AVGAtomicPart[t].addAndGet(sigma13);
+          sigma13STDAtomicPart[t].addAndGet(pow(sigma13, 2));
+
+          double omegaSC = transform2Omega(src.averagePathLength, src.globalClusteringWattsStrogatz);
+          double omegaRR = transform2Omega(rr.averagePathLength, rr.globalClusteringWattsStrogatz);
+          double omegaNR = transform2OmegaNR(nr.averagePathLength, nr.globalClusteringWattsStrogatz);
+//          double omegaSC = transform2Omega(src.averagePathLength, src.globalClustering);
+//          double omegaRR = transform2Omega(rr.averagePathLength, rr.globalClustering);
+//          double omegaNR = transform2OmegaNR(nr.averagePathLength, nr.globalClustering);
+          omegaAVGAtomicPart[t].addAndGet(omegaSC);
+          omegaSTDAtomicPart[t].addAndGet(pow(omegaSC, 2));
+          omegaRRAVGAtomicPart[t].addAndGet(omegaRR);
+          omegaRRSTDAtomicPart[t].addAndGet(pow(omegaRR, 2));
+          omegaNRAVGAtomicPart[t].addAndGet(omegaNR);
+          omegaNRSTDAtomicPart[t].addAndGet(pow(omegaNR, 2));
+          double omega12 = omegaRR - omegaNR;
+          omega12AVGAtomicPart[t].addAndGet(omega12);
+          omega12STDAtomicPart[t].addAndGet(pow(omega12, 2));
+          double omega23 = omegaSC - omegaRR;
+          omega23AVGAtomicPart[t].addAndGet(omega23);
+          omega23STDAtomicPart[t].addAndGet(pow(omega23, 2));
+          double omega13 = omegaSC - omegaNR;
+          omega13AVGAtomicPart[t].addAndGet(omega13);
+          omega13STDAtomicPart[t].addAndGet(pow(omega13, 2));
+
+          shortestPathVarianceAVGAtomicPart[t].addAndGet(
+              src.shortestPathVariance);
+          shortestPathVarianceSTDAtomicPart[t].addAndGet(
+              pow(src.shortestPathVariance, 2));
+          double shortestPathVariance12 =
+              rr.shortestPathVariance - nr.shortestPathVariance;
+          shortestPathVariance12AVGAtomicPart[t].addAndGet(
+              shortestPathVariance12);
+          shortestPathVariance12STDAtomicPart[t].addAndGet(
+              pow(shortestPathVariance12, 2));
+          double shortestPathVariance23 =
+              src.shortestPathVariance - rr.shortestPathVariance;
+          shortestPathVariance23AVGAtomicPart[t].addAndGet(
+              shortestPathVariance23);
+          shortestPathVariance23STDAtomicPart[t].addAndGet(
+              pow(shortestPathVariance23, 2));
+          double shortestPathVariance13 =
+              src.shortestPathVariance - nr.shortestPathVariance;
+          shortestPathVariance13AVGAtomicPart[t].addAndGet(
+              shortestPathVariance13);
+          shortestPathVariance13STDAtomicPart[t].addAndGet(
+              pow(shortestPathVariance13, 2));
+          shortestPathVarianceNRAVGAtomicPart[t].addAndGet(
+              nr.shortestPathVariance);
+          shortestPathVarianceNRSTDAtomicPart[t].addAndGet(
+              pow(nr.shortestPathVariance, 2));
+          shortestPathVarianceRRAVGAtomicPart[t].addAndGet(
+              rr.shortestPathVariance);
+          shortestPathVarianceRRSTDAtomicPart[t].addAndGet(
+              pow(rr.shortestPathVariance, 2));
+
+          betweennessCentralityVarianceAVGAtomicPart[t].addAndGet(
+              src.betweennessCentralityVariance);
+          betweennessCentralityVarianceSTDAtomicPart[t].addAndGet(
+              pow(src.betweennessCentralityVariance, 2));
+          double betweennessCentralityVariance12 =
+              rr.betweennessCentralityVariance - nr.betweennessCentralityVariance;
+          betweennessCentralityVariance12AVGAtomicPart[t].addAndGet(
+              betweennessCentralityVariance12);
+          betweennessCentralityVariance12STDAtomicPart[t].addAndGet(
+              pow(betweennessCentralityVariance12, 2));
+          double betweennessCentralityVariance23 =
+              src.betweennessCentralityVariance - rr.betweennessCentralityVariance;
+          betweennessCentralityVariance23AVGAtomicPart[t].addAndGet(
+              betweennessCentralityVariance23);
+          betweennessCentralityVariance23STDAtomicPart[t].addAndGet(
+              pow(betweennessCentralityVariance23, 2));
+          double betweennessCentralityVariance13 =
+              src.betweennessCentralityVariance - nr.betweennessCentralityVariance;
+          betweennessCentralityVariance13AVGAtomicPart[t].addAndGet(
+              betweennessCentralityVariance13);
+          betweennessCentralityVariance13STDAtomicPart[t].addAndGet(
+              pow(betweennessCentralityVariance13, 2));
+          betweennessCentralityVarianceNRAVGAtomicPart[t].addAndGet(
+              nr.betweennessCentralityVariance);
+          betweennessCentralityVarianceNRSTDAtomicPart[t].addAndGet(
+              pow(nr.betweennessCentralityVariance, 2));
+          betweennessCentralityVarianceRRAVGAtomicPart[t].addAndGet(
+              rr.betweennessCentralityVariance);
+          betweennessCentralityVarianceRRSTDAtomicPart[t].addAndGet(
+              pow(rr.betweennessCentralityVariance, 2));
         }
         src.stepForward(Main.INFORMAL_TURNOVER_NUM);
         rr.stepForward(Main.INFORMAL_TURNOVER_NUM);
         nr.stepForward();
       }
     }
+
+    private double transform2Sigma(double averagePathLength, double clusteringCoefficient) {
+      // https://en.wikipedia.org/wiki/Small-world_network
+      return (clusteringCoefficient / clusteringCoefficientRandom) / (averagePathLength / averagePathLengthRandom);
+    }
+
+    private double transform2Omega(double averagePathLength, double clusteringCoefficient) {
+      // https://en.wikipedia.org/wiki/Small-world_network (Omega)
+      return (averagePathLengthRandom / averagePathLength) - (clusteringCoefficient / clusteringCoefficientLattice);
+//      https://en.wikipedia.org/wiki/Small-world_network (SWI)
+//      return (averagePathLength - averagePathLengthLattice) * (clusteringCoefficient - clusteringCoefficientRandom) / swiDenominator;
+    }
+
+    private double transform2SigmaNR(double averagePathLength, double clusteringCoefficient) {
+      // https://en.wikipedia.org/wiki/Small-world_network
+      return (clusteringCoefficient / clusteringCoefficientRandomNR) / (averagePathLength / averagePathLengthRandomNR);
+    }
+
+    private double transform2OmegaNR(double averagePathLength, double clusteringCoefficient) {
+      // https://en.wikipedia.org/wiki/Small-world_network (Omega)
+      return (averagePathLengthRandomNR / averagePathLength); // We drop the minus part since CC of NR is guaranteed to be 0.
+//      https://en.wikipedia.org/wiki/Small-world_network (SWI)
+//      return (averagePathLength - averagePathLengthLattice) * (clusteringCoefficient - clusteringCoefficientRandom) / swiDenominator;
+    }
+
 
   }
 

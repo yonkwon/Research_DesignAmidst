@@ -114,6 +114,45 @@ class MatWriter {
     Matrix matrixDensityRRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixDensityRRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
 
+    Matrix matrixSigmaAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixSigmaSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixSigma12AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixSigma12STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixSigma23AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixSigma23STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixSigma13AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixSigma13STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixSigmaNRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixSigmaNRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixSigmaRRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixSigmaRRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+
+    Matrix matrixOmegaAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixOmegaSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixOmega12AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixOmega12STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixOmega23AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixOmega23STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixOmega13AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixOmega13STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixOmegaNRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixOmegaNRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixOmegaRRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixOmegaRRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+
+    Matrix matrixShortestPathVarianceAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixShortestPathVarianceSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixShortestPathVariance12AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixShortestPathVariance12STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixShortestPathVariance23AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixShortestPathVariance23STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixShortestPathVariance13AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixShortestPathVariance13STD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixShortestPathVarianceNRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixShortestPathVarianceNRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixShortestPathVarianceRRAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+    Matrix matrixShortestPathVarianceRRSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
+
     Matrix matrixBetweennessCentralityVarianceAVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixBetweennessCentralityVarianceSTD = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
     Matrix matrixBetweennessCentralityVariance12AVG = Mat5.newMatrix(Main.RESULT_KEY_VALUE);
@@ -244,6 +283,45 @@ class MatWriter {
             matrixDensityRRAVG.setDouble(indices, d.densityRRAVG[mc][s][e][t]);
             matrixDensityRRSTD.setDouble(indices, d.densityRRSTD[mc][s][e][t]);
 
+            matrixSigmaAVG.setDouble(indices, d.sigmaAVG[mc][s][e][t]);
+            matrixSigmaSTD.setDouble(indices, d.sigmaSTD[mc][s][e][t]);
+            matrixSigma12AVG.setDouble(indices, d.sigma12AVG[mc][s][e][t]);
+            matrixSigma12STD.setDouble(indices, d.sigma12STD[mc][s][e][t]);
+            matrixSigma23AVG.setDouble(indices, d.sigma23AVG[mc][s][e][t]);
+            matrixSigma23STD.setDouble(indices, d.sigma23STD[mc][s][e][t]);
+            matrixSigma13AVG.setDouble(indices, d.sigma13AVG[mc][s][e][t]);
+            matrixSigma13STD.setDouble(indices, d.sigma13STD[mc][s][e][t]);
+            matrixSigmaNRAVG.setDouble(indices, d.sigmaNRAVG[mc][s][e][t]);
+            matrixSigmaNRSTD.setDouble(indices, d.sigmaNRSTD[mc][s][e][t]);
+            matrixSigmaRRAVG.setDouble(indices, d.sigmaRRAVG[mc][s][e][t]);
+            matrixSigmaRRSTD.setDouble(indices, d.sigmaRRSTD[mc][s][e][t]);
+
+            matrixOmegaAVG.setDouble(indices, d.omegaAVG[mc][s][e][t]);
+            matrixOmegaSTD.setDouble(indices, d.omegaSTD[mc][s][e][t]);
+            matrixOmega12AVG.setDouble(indices, d.omega12AVG[mc][s][e][t]);
+            matrixOmega12STD.setDouble(indices, d.omega12STD[mc][s][e][t]);
+            matrixOmega23AVG.setDouble(indices, d.omega23AVG[mc][s][e][t]);
+            matrixOmega23STD.setDouble(indices, d.omega23STD[mc][s][e][t]);
+            matrixOmega13AVG.setDouble(indices, d.omega13AVG[mc][s][e][t]);
+            matrixOmega13STD.setDouble(indices, d.omega13STD[mc][s][e][t]);
+            matrixOmegaNRAVG.setDouble(indices, d.omegaNRAVG[mc][s][e][t]);
+            matrixOmegaNRSTD.setDouble(indices, d.omegaNRSTD[mc][s][e][t]);
+            matrixOmegaRRAVG.setDouble(indices, d.omegaRRAVG[mc][s][e][t]);
+            matrixOmegaRRSTD.setDouble(indices, d.omegaRRSTD[mc][s][e][t]);
+
+            matrixShortestPathVarianceAVG.setDouble(indices, d.shortestPathVarianceAVG[mc][s][e][t]);
+            matrixShortestPathVarianceSTD.setDouble(indices, d.shortestPathVarianceSTD[mc][s][e][t]);
+            matrixShortestPathVariance12AVG.setDouble(indices, d.shortestPathVariance12AVG[mc][s][e][t]);
+            matrixShortestPathVariance12STD.setDouble(indices, d.shortestPathVariance12STD[mc][s][e][t]);
+            matrixShortestPathVariance23AVG.setDouble(indices, d.shortestPathVariance23AVG[mc][s][e][t]);
+            matrixShortestPathVariance23STD.setDouble(indices, d.shortestPathVariance23STD[mc][s][e][t]);
+            matrixShortestPathVariance13AVG.setDouble(indices, d.shortestPathVariance13AVG[mc][s][e][t]);
+            matrixShortestPathVariance13STD.setDouble(indices, d.shortestPathVariance13STD[mc][s][e][t]);
+            matrixShortestPathVarianceNRAVG.setDouble(indices, d.shortestPathVarianceNRAVG[mc][s][e][t]);
+            matrixShortestPathVarianceNRSTD.setDouble(indices, d.shortestPathVarianceNRSTD[mc][s][e][t]);
+            matrixShortestPathVarianceRRAVG.setDouble(indices, d.shortestPathVarianceRRAVG[mc][s][e][t]);
+            matrixShortestPathVarianceRRSTD.setDouble(indices, d.shortestPathVarianceRRSTD[mc][s][e][t]);
+
             matrixBetweennessCentralityVarianceAVG.setDouble(indices, d.betweennessCentralityVarianceAVG[mc][s][e][t]);
             matrixBetweennessCentralityVarianceSTD.setDouble(indices, d.betweennessCentralityVarianceSTD[mc][s][e][t]);
             matrixBetweennessCentralityVariance12AVG.setDouble(indices, d.betweennessCentralityVariance12AVG[mc][s][e][t]);
@@ -260,12 +338,10 @@ class MatWriter {
         }
       }
     }
-
     Matrix matrixArraySpan = Mat5.newMatrix(new int[]{1, Main.LENGTH_SPAN});
     IntStream.range(0, Main.LENGTH_SPAN).forEach(i -> matrixArraySpan.setDouble(new int[]{0, i}, Main.SPAN[i]));
     Matrix matrixArrayEnforcement = Mat5.newMatrix(new int[]{1, Main.LENGTH_ENFORCEMENT});
     IntStream.range(0, Main.LENGTH_ENFORCEMENT).forEach(i -> matrixArrayEnforcement.setDouble(new int[]{0, i}, Main.ENFORCEMENT[i]));
-
     try {
       Mat5.newMatFile()
           .addArray("para_iteration", Mat5.newScalar(Main.ITERATION))
@@ -386,7 +462,46 @@ class MatWriter {
           .addArray("r_dens_nr_std", matrixDensityNRSTD)
           .addArray("r_dens_rr_avg", matrixDensityRRAVG)
           .addArray("r_dens_rr_std", matrixDensityRRSTD)
+          
+          .addArray("r_sigm_avg", matrixSigmaAVG)
+          .addArray("r_sigm_std", matrixSigmaSTD)
+          .addArray("r_sigm_12_avg", matrixSigma12AVG)
+          .addArray("r_sigm_12_std", matrixSigma12STD)
+          .addArray("r_sigm_23_avg", matrixSigma23AVG)
+          .addArray("r_sigm_23_std", matrixSigma23STD)
+          .addArray("r_sigm_13_avg", matrixSigma13AVG)
+          .addArray("r_sigm_13_std", matrixSigma13STD)
+          .addArray("r_sigm_nr_avg", matrixSigmaNRAVG)
+          .addArray("r_sigm_nr_std", matrixSigmaNRSTD)
+          .addArray("r_sigm_rr_avg", matrixSigmaRRAVG)
+          .addArray("r_sigm_rr_std", matrixSigmaRRSTD)
 
+          .addArray("r_omeg_avg", matrixOmegaAVG)
+          .addArray("r_omeg_std", matrixOmegaSTD)
+          .addArray("r_omeg_12_avg", matrixOmega12AVG)
+          .addArray("r_omeg_12_std", matrixOmega12STD)
+          .addArray("r_omeg_23_avg", matrixOmega23AVG)
+          .addArray("r_omeg_23_std", matrixOmega23STD)
+          .addArray("r_omeg_13_avg", matrixOmega13AVG)
+          .addArray("r_omeg_13_std", matrixOmega13STD)
+          .addArray("r_omeg_nr_avg", matrixOmegaNRAVG)
+          .addArray("r_omeg_nr_std", matrixOmegaNRSTD)
+          .addArray("r_omeg_rr_avg", matrixOmegaRRAVG)
+          .addArray("r_omeg_rr_std", matrixOmegaRRSTD)
+
+          .addArray("r_spva_avg", matrixShortestPathVarianceAVG)
+          .addArray("r_spva_std", matrixShortestPathVarianceSTD)
+          .addArray("r_spva_12_avg", matrixShortestPathVariance12AVG)
+          .addArray("r_spva_12_std", matrixShortestPathVariance12STD)
+          .addArray("r_spva_23_avg", matrixShortestPathVariance23AVG)
+          .addArray("r_spva_23_std", matrixShortestPathVariance23STD)
+          .addArray("r_spva_13_avg", matrixShortestPathVariance13AVG)
+          .addArray("r_spva_13_std", matrixShortestPathVariance13STD)
+          .addArray("r_spva_nr_avg", matrixShortestPathVarianceNRAVG)
+          .addArray("r_spva_nr_std", matrixShortestPathVarianceNRSTD)
+          .addArray("r_spva_rr_avg", matrixShortestPathVarianceRRAVG)
+          .addArray("r_spva_rr_std", matrixShortestPathVarianceRRSTD)
+          
           .addArray("r_bcva_avg", matrixBetweennessCentralityVarianceAVG)
           .addArray("r_bcva_std", matrixBetweennessCentralityVarianceSTD)
           .addArray("r_bcva_12_avg", matrixBetweennessCentralityVariance12AVG)

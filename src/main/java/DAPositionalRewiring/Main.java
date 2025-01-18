@@ -12,7 +12,7 @@ public class Main {
   static final boolean GET_MAT = true;
   static final boolean LINK_LEVEL = false;
   static final double LINK_ADD = .00;
-  static final boolean DO_POST_REWIRING = false;
+  static final boolean DO_POST_REWIRING = true;
 
   //  static final int ITERATION = 10_000;
   static final int ITERATION = 1000;
@@ -27,8 +27,8 @@ public class Main {
 
   static final int N_DYAD_INT = N * (N - 1) / 2;
   static final double N_DYAD = N * (N - 1D) / 2D;
-  static final double INFORMAL_INITIAL_PROP = .01; // >= INFORMAL_TURNOVER
-  static double INFORMAL_TURNOVER_PROP = .00;
+  static final double INFORMAL_INITIAL_PROP = .5; // >= INFORMAL_TURNOVER
+  static double INFORMAL_TURNOVER_PROP = .2;
   static final int INFORMAL_INITIAL_NUM = (int) (N_DYAD_INT * INFORMAL_INITIAL_PROP); // >= INFORMAL_TURNOVER
   static int INFORMAL_TURNOVER_NUM = (int) (N_DYAD_INT * INFORMAL_TURNOVER_PROP);
   static final int MAX_INFORMAL = 5;
