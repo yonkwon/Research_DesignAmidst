@@ -4,29 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="Trivial Fixes">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Misc.] Catchup with previous updates">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPBaseline/Computation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPBaseline/Decomposition.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPBaseline/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPBaseline/MatWriter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPBaseline/ProgressBar.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPBaseline/Scenario.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPClosure/Computation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPClosure/Decomposition.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPClosure/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPClosure/MatWriter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPClosure/ProgressBar.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPClosure/Scenario.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPDegree/Computation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPDegree/Decomposition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DABase/Computation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPDegree/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DABase/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPDegree/MatWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DABase/MatWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPDegree/ProgressBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DABase/ProgressBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HPDegree/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DABase/Scenario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,22 +20,73 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="DesignAmidst" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Rebase.Settings">
+    <option name="NEW_BASE" value="develop-hoodscorebysum" />
+  </component>
   <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="master" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="develop" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Yon Kwon &lt;yonkwon90@gmail.com&gt;" />
+        <option value="Yon &lt;yonkwon90@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="develop-hoodscorebysum" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -64,16 +94,17 @@
     &quot;assignee&quot;: &quot;yonkwon&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="865935d0-f983-4727-b3f2-de5543a4b2a2" />
-        <option name="url" value="https://github.com/yonkwon/HomophilyAndDesign.git" />
-      </UrlAndAccount>
-    </option>
-  </component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/yonkwon/Research_DesignAmidst.git",
+    "accountId": "03107f63-6dda-4a62-85a7-ef7230c13c2a"
+  }
+}]]></component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -87,32 +118,49 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.DAFormBreak.Main.executor": "Run",
+    "Application.DAPostAOM2024.Main.executor": "Run",
+    "Application.DARewiring.Main (1).executor": "Run",
+    "Application.DASequential.Main.executor": "Run with VisualVM",
+    "Application.Main.executor": "Run",
+    "Gradle.Build DesignAmidst.executor": "Run",
+    "Gradle.DesignAmidst [:DASequential.Main.main()].executor": "Run",
+    "Gradle.DesignAmidst [:DATurbulenceTurnover.Main.main()].executor": "Run",
+    "Gradle.DesignAmidst [:Main.main()].executor": "Run",
+    "Gradle.Upgrade Gradle wrapper.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "develop-hoodscorebysum-checkpoint",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Yongha/Dropbox/Research/Homophily",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Yon/Dropbox/Research/DesignAmidst/src/main/java/DATurbulenceTurnover",
     "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.sourceCode"
+    "settings.editor.selected.configurable": "terminal"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Yongha\Dropbox\Research\HomophilyAndDesign\src\main\java\HPClosure" />
-      <recent name="C:\Users\Yongha\Dropbox\Research\HomophilyAndDesign\src\main\java\HPDegree" />
-      <recent name="C:\Users\Yongha\Dropbox\Research\HomophilyAndDesign\src\main\java\HPBaseline" />
+      <recent name="C:\Users\Yon\Dropbox\Research\DesignAmidst\src\main\java\DATurbulenceTurnover" />
+      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DASequential" />
+      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAPositionalRewiring" />
+      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DANetworkClosure" />
+      <recent name="C:\Users\Yongha\Dropbox\Research\DesignAmidst\src\main\java\DAPostAOM2024" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="DACost" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration name="DABase.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DABase.Main" />
-      <module name="HomophilyAndDesign.main" />
+  <component name="RunManager" selected="Application.DATurbulenceTurnover.Main">
+    <configuration name="DAPostAOM2024.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DAPostAOM2024.Main" />
+      <module name="DesignAmidst.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="DABase.*" />
+          <option name="PATTERN" value="DAPostAOM2024.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -120,12 +168,38 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HPBaseline.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="HPBaseline.Main" />
-      <module name="HomophilyAndDesign.main" />
+    <configuration name="DARewiring.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DARewiring.Main" />
+      <module name="DesignAmidst" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="HPBaseline.*" />
+          <option name="PATTERN" value="DARewiring.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DASequential.Main" type="Application" factoryName="Application" singleton="false" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="DASequential.Main" />
+      <module name="DesignAmidst.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="DASequential.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DATurbulenceTurnover.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DATurbulenceTurnover.Main" />
+      <module name="DesignAmidst.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="DATurbulenceTurnover.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -134,11 +208,11 @@
       </method>
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="HPClosure.Main" />
-      <module name="HomophilyAndDesign.main" />
+      <option name="MAIN_CLASS_NAME" value="DACost.Main" />
+      <module name="DesignAmidst" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="HPClosure.*" />
+          <option name="PATTERN" value="DACost.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -146,11 +220,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.DATurbulenceTurnover.Main" />
+      <item itemvalue="Application.DAPostAOM2024.Main" />
+      <item itemvalue="Application.DARewiring.Main" />
+      <item itemvalue="Application.DASequential.Main" />
+      <item itemvalue="Application.Main" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.HPBaseline.Main" />
-        <item itemvalue="Application.DABase.Main" />
+        <item itemvalue="Application.DATurbulenceTurnover.Main" />
+        <item itemvalue="Application.DASequential.Main" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.DARewiring.Main" />
+        <item itemvalue="Application.DAPostAOM2024.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -163,235 +246,484 @@
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
     </task>
-    <task id="LOCAL-00001" summary="[Fix] Remove environmental turbulence">
+    <task id="LOCAL-00036" summary="[Add] Alternative hierarchy model">
       <option name="closed" value="true" />
-      <created>1693269739390</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
+      <created>1694737209595</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
       <option name="project" value="LOCAL" />
-      <updated>1693269739390</updated>
+      <updated>1694737209595</updated>
     </task>
-    <task id="LOCAL-00002" summary="[Fix] Remove environmental turbulence &amp; Code reformat">
+    <task id="LOCAL-00037" summary="[Fix] (!) Satisfaction as a function of strength; Like between workers under the same supervision">
       <option name="closed" value="true" />
-      <created>1693270399121</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
+      <created>1694763161397</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
       <option name="project" value="LOCAL" />
-      <updated>1693270399121</updated>
+      <updated>1694763161397</updated>
     </task>
-    <task id="LOCAL-00003" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/HPBaseline/Computation.java&#10;#&#9;src/main/java/HPBaseline/Decomposition.java&#10;#&#9;src/main/java/HPBaseline/Main.java&#10;#&#9;src/main/java/HPBaseline/MatWriter.java&#10;#&#9;src/main/java/HPBaseline/Scenario.java">
+    <task id="LOCAL-00038" summary="[Remove] Alternative hierarchy model">
       <option name="closed" value="true" />
-      <created>1693270606242</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
+      <created>1695263158995</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
       <option name="project" value="LOCAL" />
-      <updated>1693270606242</updated>
+      <updated>1695263158995</updated>
     </task>
-    <task id="LOCAL-00004" summary="Trivial fix">
+    <task id="LOCAL-00039" summary="[Add] Homophily based on status (hierarchy level)">
       <option name="closed" value="true" />
-      <created>1693270676432</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
+      <created>1696109032349</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
       <option name="project" value="LOCAL" />
-      <updated>1693270676432</updated>
+      <updated>1696109032349</updated>
     </task>
-    <task id="LOCAL-00005" summary="Trivial fix">
+    <task id="LOCAL-00040" summary="[Add] Cost-to-Link model variant">
       <option name="closed" value="true" />
-      <created>1693271070839</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
+      <created>1696130758234</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
       <option name="project" value="LOCAL" />
-      <updated>1693271070840</updated>
+      <updated>1696130758234</updated>
     </task>
-    <task id="LOCAL-00006" summary="Trivial fix">
+    <task id="LOCAL-00041" summary="[Fix] Cost-to-Link model variant, Cut-and-link to rewire">
       <option name="closed" value="true" />
-      <created>1693271337028</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
+      <created>1696163814944</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
       <option name="project" value="LOCAL" />
-      <updated>1693271337028</updated>
+      <updated>1696163814944</updated>
     </task>
-    <task id="LOCAL-00007" summary="Trivial fix">
+    <task id="LOCAL-00042" summary="[Fix] A logical error in DACost variant - doRewiring() function ignores MAX_DEGREE param.">
       <option name="closed" value="true" />
-      <created>1693271443079</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
+      <created>1696219209221</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
       <option name="project" value="LOCAL" />
-      <updated>1693271443079</updated>
+      <updated>1696219209221</updated>
     </task>
-    <task id="LOCAL-00008" summary="Trivial fix">
+    <task id="LOCAL-00043" summary="[Add] Network metrics - centralization, efficiency, etc.">
       <option name="closed" value="true" />
-      <created>1693275709267</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
+      <created>1697252940652</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
       <option name="project" value="LOCAL" />
-      <updated>1693275709267</updated>
+      <updated>1697252940652</updated>
     </task>
-    <task id="LOCAL-00009" summary="[Add] A new variant: HPDegree">
+    <task id="LOCAL-00044" summary="[Add] Network metrics - centralization, efficiency, etc.">
       <option name="closed" value="true" />
-      <created>1693275814562</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
+      <created>1697255439509</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
       <option name="project" value="LOCAL" />
-      <updated>1693275814562</updated>
+      <updated>1697255439509</updated>
     </task>
-    <task id="LOCAL-00010" summary="Trivial fixes">
+    <task id="LOCAL-00045" summary="[Fix] An error in homophily on status logic - it was working in the opposite direction">
       <option name="closed" value="true" />
-      <created>1693275872462</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
+      <created>1697516792574</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
       <option name="project" value="LOCAL" />
-      <updated>1693275872462</updated>
+      <updated>1697516792574</updated>
     </task>
-    <task id="LOCAL-00011" summary="[Fix] Rewiring based on observation structure">
+    <task id="LOCAL-00046" summary="[Misc]">
       <option name="closed" value="true" />
-      <created>1693279128237</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
+      <created>1697527177369</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
       <option name="project" value="LOCAL" />
-      <updated>1693279128237</updated>
+      <updated>1697527177369</updated>
     </task>
-    <task id="LOCAL-00012" summary="[Add] A variant: HPClosure">
+    <task id="LOCAL-00047" summary="[Fix] Mutual agreement logic. Focal individual's score has to be higher and only higher than the target's neighborhood score">
       <option name="closed" value="true" />
-      <created>1693279463668</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
+      <created>1697528315545</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
       <option name="project" value="LOCAL" />
-      <updated>1693279463668</updated>
+      <updated>1697528315545</updated>
     </task>
-    <task id="LOCAL-00013" summary="[Add] A variant: HPClosure">
+    <task id="LOCAL-00048" summary="[Fix] doEvaluateNeighbor logic. f(score[focal][target]) -&gt; score[target][focal]">
       <option name="closed" value="true" />
-      <created>1693515186944</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
+      <created>1697579613210</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
       <option name="project" value="LOCAL" />
-      <updated>1693515186944</updated>
+      <updated>1697579613210</updated>
     </task>
-    <task id="LOCAL-00014" summary="[Add] A variant: HPClosure">
+    <task id="LOCAL-00049" summary="[Fix] doEvaluateNeighbor logic. f(score[focal][target]) -&gt; score[target][focal]">
       <option name="closed" value="true" />
-      <created>1693515197415</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
+      <created>1697579635528</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
       <option name="project" value="LOCAL" />
-      <updated>1693515197415</updated>
+      <updated>1697579635528</updated>
     </task>
-    <task id="LOCAL-00015" summary="Trivial Fixes">
+    <task id="LOCAL-00050" summary="[Fix] return neighborScore / (double) (degree[focal] - 1D);">
       <option name="closed" value="true" />
-      <created>1693515636156</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
+      <created>1697580332698</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
       <option name="project" value="LOCAL" />
-      <updated>1693515636156</updated>
+      <updated>1697580332699</updated>
     </task>
-    <task id="LOCAL-00016" summary="Trivial Fixes">
+    <task id="LOCAL-00051" summary="[Fix] Observation structure">
       <option name="closed" value="true" />
-      <created>1693515707399</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
+      <created>1697591506789</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
       <option name="project" value="LOCAL" />
-      <updated>1693515707399</updated>
+      <updated>1697591506790</updated>
     </task>
-    <task id="LOCAL-00017" summary="Trivial Fixes">
+    <task id="LOCAL-00052" summary="[Fix]  Errors in Network analyzer shortest path algorithm">
       <option name="closed" value="true" />
-      <created>1693515885882</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
+      <created>1698869282783</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
       <option name="project" value="LOCAL" />
-      <updated>1693515885882</updated>
+      <updated>1698869282783</updated>
     </task>
-    <task id="LOCAL-00018" summary="[Fix] Global clustering coefficient">
+    <task id="LOCAL-00053" summary="[Add] DAFormation variant: Forming a new tie instead of rewiring an existing tie">
       <option name="closed" value="true" />
-      <created>1693516458097</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
+      <created>1700185027319</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
       <option name="project" value="LOCAL" />
-      <updated>1693516458097</updated>
+      <updated>1700185027319</updated>
     </task>
-    <task id="LOCAL-00019" summary="[Fix] Unsync performance arrays of parallel scenarios">
+    <task id="LOCAL-00054" summary="[Fix] Enforced-Flexible ties to Formal-Informal ties">
       <option name="closed" value="true" />
-      <created>1693714945448</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
+      <created>1700457540217</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
       <option name="project" value="LOCAL" />
-      <updated>1693714945448</updated>
+      <updated>1700457540217</updated>
     </task>
-    <task id="LOCAL-00020" summary="[Fix] Error that the interaction pattern was changing in the opposite direction of network closure">
+    <task id="LOCAL-00055" summary="[Add] Connectivity parameter to DAFormation variant">
       <option name="closed" value="true" />
-      <created>1693776817077</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
+      <created>1700968866478</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
       <option name="project" value="LOCAL" />
-      <updated>1693776817077</updated>
+      <updated>1700968866478</updated>
     </task>
-    <task id="LOCAL-00021" summary="[Fix] Parameter C(losuure) as rewiring probability">
+    <task id="LOCAL-00056" summary="[Fix] Preferential attachment algorithm. Changed the preference score from absolute to relative val.">
       <option name="closed" value="true" />
-      <created>1693801605784</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
+      <created>1702604925288</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
       <option name="project" value="LOCAL" />
-      <updated>1693801605784</updated>
+      <updated>1702604925288</updated>
     </task>
-    <task id="LOCAL-00022" summary="[Fix] Parameter C(losuure) as rewiring probability">
+    <task id="LOCAL-00057" summary="[Add] DARewiring variant with connectivity parameter">
       <option name="closed" value="true" />
-      <created>1693804072746</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
+      <created>1702704464074</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
       <option name="project" value="LOCAL" />
-      <updated>1693804072746</updated>
+      <updated>1702704464074</updated>
     </task>
-    <task id="LOCAL-00023" summary="[Fix] Filename for Beta run &amp; Theta run">
+    <task id="LOCAL-00058" summary="[Misc.] Efficiency propelled by convergence check">
       <option name="closed" value="true" />
-      <created>1693870926696</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
+      <created>1704716576459</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
       <option name="project" value="LOCAL" />
-      <updated>1693870926696</updated>
+      <updated>1704716576460</updated>
     </task>
-    <task id="LOCAL-00024" summary="[Fix] Observation structure set BEFORE rewiring">
+    <task id="LOCAL-00059" summary="[Fix] Random rewiring scenario does not stop updating even if the source scenario has converged.">
       <option name="closed" value="true" />
-      <created>1693871491699</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
+      <created>1708631214514</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
       <option name="project" value="LOCAL" />
-      <updated>1693871491699</updated>
+      <updated>1708631214514</updated>
     </task>
-    <task id="LOCAL-00025" summary="[Fix] Observation structure set BEFORE rewiring">
+    <task id="LOCAL-00060" summary="[Add] Outcome var: Cumulative # of Rewiring">
       <option name="closed" value="true" />
-      <created>1693871507616</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
+      <created>1708633458057</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
       <option name="project" value="LOCAL" />
-      <updated>1693871507616</updated>
+      <updated>1708633458057</updated>
     </task>
-    <task id="LOCAL-00026" summary="Trivial Fixes">
+    <task id="LOCAL-00061" summary="[Fix] Revert Random Rewiring">
       <option name="closed" value="true" />
-      <created>1693934405980</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
+      <created>1708633941698</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
       <option name="project" value="LOCAL" />
-      <updated>1693934405980</updated>
+      <updated>1708633941698</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00062" summary="[Add] DAFormBreak variant">
+      <option name="closed" value="true" />
+      <created>1710180282382</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1710180282382</updated>
+    </task>
+    <task id="LOCAL-00063" summary="[Fix] Num Break &amp; Formation">
+      <option name="closed" value="true" />
+      <created>1710209302151</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1710209302151</updated>
+    </task>
+    <task id="LOCAL-00064" summary="[Misc.]">
+      <option name="closed" value="true" />
+      <created>1710427134396</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1710427134396</updated>
+    </task>
+    <task id="LOCAL-00065" summary="[Add] DAContinuous Hierarchy variant">
+      <option name="closed" value="true" />
+      <created>1710612480883</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1710612480883</updated>
+    </task>
+    <task id="LOCAL-00066" summary="[Misc.] Params">
+      <option name="closed" value="true" />
+      <created>1710612496015</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1710612496015</updated>
+    </task>
+    <task id="LOCAL-00067" summary="[Fix] logical error in algorithm for generating hierarchy">
+      <option name="closed" value="true" />
+      <created>1710792745394</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1710792745395</updated>
+    </task>
+    <task id="LOCAL-00068" summary="[Add] outcome variables. avg span and max level">
+      <option name="closed" value="true" />
+      <created>1711729462692</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1711729462692</updated>
+    </task>
+    <task id="LOCAL-00069" summary="[Fix] network summary statistics">
+      <option name="closed" value="true" />
+      <created>1711738885740</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1711738885740</updated>
+    </task>
+    <task id="LOCAL-00070" summary="[Fix] Enable breaking interactions before reaching maximum degree">
+      <option name="closed" value="true" />
+      <created>1712160458728</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1712160458728</updated>
+    </task>
+    <task id="LOCAL-00071" summary="[Add] Density [Fix] Alwaysform logic (test)">
+      <option name="closed" value="true" />
+      <created>1712346616819</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1712346616819</updated>
+    </task>
+    <task id="LOCAL-00072" summary="[Add] BetweennessCentralityVariance">
+      <option name="closed" value="true" />
+      <created>1712629872591</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1712629872591</updated>
+    </task>
+    <task id="LOCAL-00073" summary="[Misc.]">
+      <option name="closed" value="true" />
+      <created>1712629897403</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1712629897403</updated>
+    </task>
+    <task id="LOCAL-00074" summary="[Fix] Denominator of preference score for network closure now adapts to the interaction between the focal and target individauls">
+      <option name="closed" value="true" />
+      <created>1714344841349</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1714344841350</updated>
+    </task>
+    <task id="LOCAL-00075" summary="[Fix] Network closure fixed; Satisfaction check removed from rewiring algorithm">
+      <option name="closed" value="true" />
+      <created>1714878425752</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1714878425752</updated>
+    </task>
+    <task id="LOCAL-00076" summary="[Add] Watts Strogatz Global Clustering Coefficient">
+      <option name="closed" value="true" />
+      <created>1715496617120</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1715496617121</updated>
+    </task>
+    <task id="LOCAL-00077" summary="[Fix] Misc.">
+      <option name="closed" value="true" />
+      <created>1724186677936</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1724186677937</updated>
+    </task>
+    <task id="LOCAL-00078" summary="[Add] A new variant with homophily/heterophily on knowledge">
+      <option name="closed" value="true" />
+      <created>1724186992040</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1724186992040</updated>
+    </task>
+    <task id="LOCAL-00079" summary="[Misc.]">
+      <option name="closed" value="true" />
+      <created>1725053262261</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1725053262262</updated>
+    </task>
+    <task id="LOCAL-00080" summary="[Add.] Variant with network closure with varying degrees">
+      <option name="closed" value="true" />
+      <created>1725503823542</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1725503823542</updated>
+    </task>
+    <task id="LOCAL-00081" summary="[Add.] Variant with positional rewiring w/ probabilistic individual choice">
+      <option name="closed" value="true" />
+      <created>1726032752200</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1726032752201</updated>
+    </task>
+    <task id="LOCAL-00082" summary="[Misc]">
+      <option name="closed" value="true" />
+      <created>1727058382308</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1727058382308</updated>
+    </task>
+    <task id="LOCAL-00083" summary="[Add] A variant in which interactions are formed and dissolved sequentially">
+      <option name="closed" value="true" />
+      <created>1727058440352</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1727058440352</updated>
+    </task>
+    <task id="LOCAL-00084" summary="[Misc.] Catchup with previous updates">
+      <option name="closed" value="true" />
+      <created>1737172330711</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1737172330711</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="90bacbc2-9b50-42da-b00b-6268723dc61e" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="User">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="Yon Kwon" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="90bacbc2-9b50-42da-b00b-6268723dc61e">
+          <value>
+            <State />
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="user">
+                    <value>
+                      <list>
+                        <option value="Yon Kwon" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[Fix] Code reformat" />
-    <MESSAGE value="[Fix] Remove environmental turbulence" />
-    <MESSAGE value="[Fix] Remove environmental turbulence &amp; Code reformat" />
-    <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/HPBaseline/Computation.java&#10;#&#9;src/main/java/HPBaseline/Decomposition.java&#10;#&#9;src/main/java/HPBaseline/Main.java&#10;#&#9;src/main/java/HPBaseline/MatWriter.java&#10;#&#9;src/main/java/HPBaseline/Scenario.java" />
-    <MESSAGE value="Merge remote-tracking branch 'origin/master'" />
-    <MESSAGE value="Trivial fix" />
-    <MESSAGE value="[Add] A new variant: HPDegree" />
-    <MESSAGE value="Trivial fixes" />
-    <MESSAGE value="[Fix] Rewiring based on observation structure" />
-    <MESSAGE value="[Add] A variant: HPClosure" />
-    <MESSAGE value="[Fix] Global clustering coefficient" />
-    <MESSAGE value="[Fix] Unsync performance arrays of parallel scenarios" />
-    <MESSAGE value="[Fix] Error that the interaction pattern was changing in the opposite direction of network closure" />
-    <MESSAGE value="[Fix] Parameter C(losuure) as rewiring probability" />
-    <MESSAGE value="[Fix] Filename for Beta run &amp; Theta run" />
-    <MESSAGE value="[Fix] Observation structure set BEFORE rewiring" />
-    <MESSAGE value="Trivial Fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Trivial Fixes" />
+    <MESSAGE value="[Fix] Num Break &amp; Formation" />
+    <MESSAGE value="[Add] DAContinuous Hierarchy variant" />
+    <MESSAGE value="[Misc.] Params" />
+    <MESSAGE value="[Fix] logical error in algorithm for generating hierarchy" />
+    <MESSAGE value="[Add] outcome variables. avg span and max level" />
+    <MESSAGE value="[Fix] network summary statistics" />
+    <MESSAGE value="[Fix] Enable breaking interactions before reaching maximum degree" />
+    <MESSAGE value="[Add] Density [Fix] Alwaysform logic (test)" />
+    <MESSAGE value="[Add] BetweennessCentralityVariance" />
+    <MESSAGE value="[Fix] Denominator of preference score for network closure now adapts to the interaction between the focal and target individauls" />
+    <MESSAGE value="[Fix] Network closure fixed; Satisfaction check removed from rewiring algorithm" />
+    <MESSAGE value="[Fix] Random rewiring leftover fixed" />
+    <MESSAGE value="[Fix] Stabilizing various parts." />
+    <MESSAGE value="[Checkpoint] Nice results" />
+    <MESSAGE value="[Add] Watts Strogatz Global Clustering Coefficient" />
+    <MESSAGE value="[Fix] Watts Strogatz Clustering Coefficient" />
+    <MESSAGE value="[Fix] Misc." />
+    <MESSAGE value="[Add] A new variant with homophily/heterophily on knowledge" />
+    <MESSAGE value="[Misc.]" />
+    <MESSAGE value="[Add.] Variant with network closure with varying degrees" />
+    <MESSAGE value="[Add.] Variant with positional rewiring w/ probabilistic individual choice" />
+    <MESSAGE value="[Fix] Fix several errors" />
+    <MESSAGE value="[Misc]" />
+    <MESSAGE value="[Add] A variant in which interactions are formed and dissolved sequentially" />
+    <MESSAGE value="[Misc.] Catchup with previous updates" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Misc.] Catchup with previous updates" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/DesignAmidst$DAFormBreak_Main.ic" NAME="DAFormBreak.Main Coverage Results" MODIFIED="1715066053898" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>DAFormBreak.*</FILTER>
+    </SUITE>
   </component>
 </project>

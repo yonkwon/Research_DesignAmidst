@@ -1,0 +1,767 @@
+package DASequential;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import org.apache.commons.math3.random.MersenneTwister;
+import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.util.FastMath;
+
+public class Scenario {
+
+  RandomGenerator r;
+  NetworkAnalyzer na;
+
+  int socialMechanism;
+
+  boolean isRewiring;
+  boolean isNetworkClosure;
+  boolean isPreferentialAttachment;
+  boolean isRandomRewiring;
+
+  int[] focalIndexArray;
+  int[] targetIndexArray;
+  int[] dyadIndexArray;
+  int[][] dyad2DIndexArray;
+
+  int span;          //Span of control
+  double enforcement;   //E
+
+  boolean[] reality;
+  int[] realityBundleID;
+  boolean[][] beliefOf;
+
+  int[] performance;
+
+  int[] levelOf;
+  double levelRange;
+  boolean[][] network;
+  boolean[][] networkFormal;
+  boolean[][] networkInformal;
+  boolean[][] networkLimited;
+  int[] degree;
+  int[] degreeFormal;
+  int[] degreeInformal;
+  double[][] differenceOf;
+  double[] differenceSum;
+
+  double[][] preferenceScore;
+  double[] preferenceScoreAvg;
+
+  double performanceAvg;
+  double performanceMax;
+  double performanceMin;
+  double performanceRange;
+  double disagreementAvg;
+
+  double diameter;
+  double density;
+  double averagePathLength;
+  double networkEfficiency;
+  double globalClustering;
+  double globalClusteringWattsStrogatz;
+  double overallCentralization;
+  double shortestPathVariance;
+  double betweennessCentralityVariance;
+
+  double satisfactionRate;
+
+  Scenario(int socialMechanism, int span, double enforcement) {
+    r = new MersenneTwister();
+
+    this.socialMechanism = socialMechanism;
+    switch (socialMechanism) {
+      case 0 -> isNetworkClosure = true;
+      case 1 -> isPreferentialAttachment = true;
+    }
+
+    focalIndexArray = new int[Main.N];
+    for (int n = 0; n < Main.N; n++) {
+      focalIndexArray[n] = n;
+    }
+    targetIndexArray = focalIndexArray.clone();
+
+    int nDyad = Main.N * (Main.N - 1) / 2;
+    dyadIndexArray = new int[nDyad];
+    dyad2DIndexArray = new int[nDyad][2];
+    int d = 0;
+    for (int i = 0; i < Main.N; i++) {
+      for (int j = i; j < Main.N; j++) {
+        if (i == j) {
+          continue;
+        }
+        dyadIndexArray[d] = d;
+        dyad2DIndexArray[d][0] = i;
+        dyad2DIndexArray[d][1] = j;
+        d++;
+      }
+    }
+
+    this.span = span;
+    this.enforcement = enforcement;
+
+    isRewiring = true;
+    isRandomRewiring = false;
+
+    initialize();
+  }
+
+  public Scenario getClone() {
+    Scenario clone = new Scenario(this.socialMechanism, this.span, this.enforcement);
+
+    clone.reality = this.reality.clone();
+    clone.realityBundleID = this.realityBundleID.clone();
+    clone.beliefOf = new boolean[Main.N][];
+    clone.performance = this.performance.clone();
+
+    clone.networkFormal = new boolean[Main.N][];
+    clone.networkInformal = new boolean[Main.N][];
+    clone.network = new boolean[Main.N][];
+
+    clone.degreeFormal = this.degreeFormal.clone();
+    clone.degreeInformal = this.degreeInformal.clone();
+    clone.degree = this.degree.clone();
+
+    clone.differenceOf = new double[Main.N][];
+    clone.differenceSum = this.differenceSum.clone();
+
+    clone.performanceAvg = this.performanceAvg;
+    clone.disagreementAvg = this.disagreementAvg;
+    clone.satisfactionRate = this.satisfactionRate;
+
+    for (int focal = 0; focal < Main.N; focal++) {
+      clone.beliefOf[focal] = this.beliefOf[focal].clone();
+
+      clone.networkFormal[focal] = this.networkFormal[focal].clone();
+      clone.networkInformal[focal] = this.networkInformal[focal].clone();
+      clone.network[focal] = this.network[focal].clone();
+
+      clone.differenceOf[focal] = this.differenceOf[focal].clone();
+    }
+
+    clone.na = new NetworkAnalyzer(clone.network);
+
+    clone.setOutcome();
+
+    return clone;
+  }
+
+  public Scenario getClone(boolean isRewiring, boolean isRandomRewiring) {
+    Scenario clone = getClone();
+    clone.setNetworkParams(isRewiring, isRandomRewiring);
+    return clone;
+  }
+
+  void setNetworkParams(boolean isRewiring, boolean isRandomRewiring) {
+    this.isRewiring = isRewiring;
+    this.isRandomRewiring = isRandomRewiring;
+  }
+
+  private void initialize() {
+    initializeNetwork();
+    initializeEntity(); //TypeOf depends on the network (membership)
+    initializeOutcome();
+  }
+
+  private void initializeNetwork() {
+    network = new boolean[Main.N][Main.N];
+    networkFormal = new boolean[Main.N][Main.N];
+    networkInformal = new boolean[Main.N][Main.N];
+    networkLimited = new boolean[Main.N][Main.N];
+    levelOf = new int[Main.N];
+
+    degreeFormal = new int[Main.N];
+    degreeInformal = new int[Main.N];
+    degree = new int[Main.N];
+
+    int levelNow = 1;
+    int upperStart = 0;
+    int upperEnd = 1;
+    int lowerStart = upperEnd;
+    int lowerEnd = lowerStart + span;
+    levelOf[0] = 1;
+    //@ 230910 This code is generated by ChatGPT - Check validity
+    for (; ; ) {
+      levelNow++;
+      // For all nodes at the current depth, assign subordinates
+      for (int upper = upperStart; upper < upperEnd; upper++) {
+        for (int lower = lowerStart; lower < lowerEnd; lower++) {
+          network[upper][lower] = true;
+          network[lower][upper] = true;
+          degree[upper]++;
+          degree[lower]++;
+          levelOf[lower] = levelNow;
+        }
+        if (Main.LINK_LEVEL) {
+          int lowerNum = lowerEnd - lowerStart;
+          if (lowerStart == lowerEnd) {
+            continue;
+          }
+          for (int i = 0; i < lowerNum; i++) {
+            int focal = lowerStart + i;
+            int target = lowerStart + (i + 1) % lowerNum;
+            if (focal == target) {
+              break;
+            }
+            network[focal][target] = true;
+            network[target][focal] = true;
+            degree[focal]++;
+            degree[target]++;
+          }
+        }
+        lowerStart = lowerEnd;
+        lowerEnd = FastMath.min(lowerStart + span, Main.N);
+      }
+      if (lowerStart == Main.N) {
+        break;
+      }
+      upperStart = upperEnd;
+      upperEnd = upperStart + (int) FastMath.pow(span, levelNow - 1);
+    }
+    levelRange = levelNow - levelOf[0];
+
+    //Tie Enforcement
+    for (int focal = 0; focal < Main.N; focal++) {
+      for (int target = focal; target < Main.N; target++) {
+        if (network[focal][target]) {
+          if (r.nextDouble() < enforcement) { // This choice has little effect on the result
+            //Enforced
+            networkFormal[focal][target] = true;
+            networkFormal[target][focal] = true;
+            degreeFormal[focal]++;
+            degreeFormal[target]++;
+          } else {
+            //Flexible
+            networkInformal[focal][target] = true;
+            networkInformal[target][focal] = true;
+            degreeInformal[focal]++;
+            degreeInformal[target]++;
+          }
+        }
+      }
+    }
+
+    int numAdditionLeft = (int) (Main.N_DYAD_INT * Main.LINK_ADD);
+    if (numAdditionLeft > 0) {
+      shuffleFisherYates(dyadIndexArray);
+      for (; numAdditionLeft > 0; ) {
+        for (int dyad : dyadIndexArray) {
+          int focal = dyad2DIndexArray[dyad][0];
+          int target = dyad2DIndexArray[dyad][1];
+          if (!network[focal][target] &&
+              (degreeInformal[focal] < Main.INFORMAL_MAX_NUM
+                  || degreeInformal[target] < Main.INFORMAL_MAX_NUM) &&
+              numAdditionLeft > 0
+          ) {
+            if (r.nextDouble() < enforcement) { // This choice has little effect on the result
+              //Enforced
+              networkFormal[focal][target] = true;
+              networkFormal[target][focal] = true;
+              degreeFormal[focal]++;
+              degreeFormal[target]++;
+            } else {
+              //Flexible
+              networkInformal[focal][target] = true;
+              networkInformal[target][focal] = true;
+              degreeInformal[focal]++;
+              degreeInformal[target]++;
+            }
+            degree[focal]++;
+            degreeFormal[focal]++;
+            degree[target]++;
+            degreeFormal[target]++;
+            numAdditionLeft--;
+          }
+          if (numAdditionLeft == 0) {
+            break;
+          }
+        }
+      }
+    }
+
+    if (Main.LIMIT_LEVEL) {
+      for (int focal : focalIndexArray) {
+        networkLimited[focal][focal] = true;
+        for (int target = focal; target < Main.N; target++) {
+          if (FastMath.abs(levelOf[focal] - levelOf[target]) > 1) {
+            networkLimited[focal][focal] = true;
+          }
+        }
+      }
+    }
+
+    na = new NetworkAnalyzer(network);
+  }
+
+  private void initializeEntity() {
+    reality = new boolean[Main.M];
+    realityBundleID = new int[Main.M];
+    beliefOf = new boolean[Main.N][Main.M];
+
+    for (int bundle = 0; bundle < Main.M_OF_BUNDLE; bundle++) {
+      int baseIndex = bundle * Main.M_IN_BUNDLE;
+      int endIndex = (bundle + 1) * Main.M_IN_BUNDLE;
+      for (int m = baseIndex; m < endIndex; m++) {
+        reality[m] = r.nextBoolean();
+        realityBundleID[m] = bundle;
+      }
+    }
+
+    for (int focal = 0; focal < Main.N; focal++) {
+      for (int m = 0; m < Main.M; m++) {
+        beliefOf[focal][m] = r.nextBoolean();
+      }
+    }
+  }
+
+  private void initializeOutcome() {
+    performance = new int[Main.N];
+    performanceMax = Double.MIN_VALUE;
+    performanceMin = Double.MAX_VALUE;
+    differenceOf = new double[Main.N][Main.N];
+    differenceSum = new double[Main.N];
+    setPerformance();
+    setOutcome();
+  }
+
+  void stepForward(int numFormation, int numBreak) {
+    if (Main.DO_POST_REWIRING) {
+      if (isRewiring) {
+        if (!isRandomRewiring) {
+          doRewiring(numFormation, numBreak);
+        } else {
+          doRandomRewiring(numFormation, numBreak);
+        }
+      }
+    }
+    doLearning();
+    setOutcome();
+  }
+
+  void stepForward(int tieTurnover) {
+    if (Main.DO_POST_REWIRING) {
+      if (isRewiring) {
+        if (!isRandomRewiring) {
+          doRewiring(tieTurnover, tieTurnover);
+        } else {
+          doRandomRewiring(tieTurnover, tieTurnover);
+        }
+      }
+    }
+    doLearning();
+    setOutcome();
+  }
+
+  void stepForward() {
+    doLearning();
+    setOutcome();
+  }
+
+  void setOutcome() {
+    performanceAvg = 0;
+    disagreementAvg = 0;
+    satisfactionRate = 0;
+    na.setNetworkMetrics();
+    density = na.getDensity();
+    diameter = na.getDiameter();
+    averagePathLength = na.getAveragePathLength();
+    networkEfficiency = na.getNetworkEfficiency();
+    globalClustering = na.getGlobalClustering();
+    globalClusteringWattsStrogatz = na.getGlobalClusteringWattsStrogatz();
+    overallCentralization = na.getGlobalClosenessCentralization();
+    shortestPathVariance = na.getshortestPathVariance();
+    betweennessCentralityVariance = na.getBetweennessCentralityVariance();
+
+    for (int focal = 0; focal < Main.N; focal++) {
+      performanceAvg += performance[focal];
+      for (int target = focal; target < Main.N; target++) {
+        for (int m = 0; m < Main.M; m++) {
+          if (beliefOf[focal][m] != beliefOf[target][m]) {
+            disagreementAvg++;
+          }
+        }
+      }
+    }
+    performanceAvg /= Main.M_N;
+    disagreementAvg /= Main.M_N_DYAD;
+    satisfactionRate /= Main.N;
+  }
+
+  void setPreferenceScore() {
+    preferenceScore = new double[Main.N][Main.N];
+    preferenceScoreAvg = new double[Main.N];
+
+    if (isNetworkClosure) {
+      setPreferenceScoreRawNetworkClosure();
+    } else if (isPreferentialAttachment) {
+      setPreferenceScoreRawPreferentialAttachment();
+    }
+  }
+
+  void setPreferenceScoreRawNetworkClosure() {
+    for (int focal : focalIndexArray) {
+      for (int target = focal; target < Main.N; target++) {
+        for (int i = 0; i < Main.N; i++) {
+          if (network[focal][i] && network[target][i]) {
+            preferenceScore[focal][target]++;
+            preferenceScore[target][focal]++;
+          }
+        }
+      }
+    }
+    for (int focal : focalIndexArray) {
+      preferenceScore[focal][focal] = 0;
+      for (int target : targetIndexArray) {
+        preferenceScore[focal][target] /=
+            network[focal][target] ? degree[focal] : degree[focal] + 1;
+        preferenceScoreAvg[focal] += preferenceScore[focal][target];
+      }
+      preferenceScoreAvg[focal] /= degree[focal];
+    }
+  }
+
+  void setPreferenceScoreRawPreferentialAttachment() {
+    for (int focal : focalIndexArray) {
+      for (int target = focal; target < Main.N; target++) {
+        preferenceScore[focal][target] = degree[target];
+        preferenceScore[target][focal] = degree[focal];
+      }
+    }
+    for (int focal : focalIndexArray) {
+      preferenceScore[focal][focal] = 0;
+      for (int target : targetIndexArray) {
+        preferenceScoreAvg[focal] += preferenceScore[focal][target];
+      }
+      preferenceScoreAvg[focal] /= degree[focal];
+    }
+  }
+
+  double getRewiringWeight(int focal, int target) {
+    double rewiringWeight = 0;
+    if (isNetworkClosure) {
+      rewiringWeight = getRewiringWeightNetworkClosure(focal, target);
+    } else if (isPreferentialAttachment) {
+      rewiringWeight = getRewiringWeightPreferentialAttachment(focal, target);
+    }
+    return rewiringWeight;
+  }
+
+  double getRewiringWeightNetworkClosure(int focal, int target) {
+    double preferenceScore = 1D; // To avoid weight of 0
+    double denominator;
+    for (int shared : targetIndexArray) {
+      if (network[focal][shared] && network[target][shared]) {
+        preferenceScore++;
+      }
+    }
+    //Choose larger degree as a denominator, since we are choosing min(pref focal to target, pref target to focal)
+    denominator = FastMath.max(degree[focal], degree[target]) + (network[focal][target] ? 0 : 1D);
+    return preferenceScore / denominator;
+  }
+
+  double getRewiringWeightPreferentialAttachment(int focal, int target) {
+    return FastMath.min(degree[focal], degree[target]);
+  }
+
+  void doRewiring(int numFormation, int numBreak) {
+    if (isRandomRewiring) {
+      doRandomRewiring(numFormation, numBreak);
+    } else {
+      doTieBreak(numBreak);
+      doTieFormation(numFormation);
+    }
+  }
+
+  void doTieBreak(int numBreak) {
+    while (numBreak > 0) {
+      double[] probability = new double[Main.N_DYAD_INT];
+      double dyad2CutWeightMax = Double.MIN_VALUE;
+      for (int d : dyadIndexArray) {
+        int focal = dyad2DIndexArray[d][0];
+        int target = dyad2DIndexArray[d][1];
+        if (networkInformal[focal][target]) {
+          probability[d] = getRewiringWeight(focal, target);
+          if (probability[d] > dyad2CutWeightMax) {
+            dyad2CutWeightMax = probability[d];
+          }
+        }
+      }
+      double probabilityDenominator = 0;
+      for (int d : dyadIndexArray) {
+        if (probability[d] != 0) {
+          probability[d] = dyad2CutWeightMax - probability[d];
+          probabilityDenominator += probability[d];
+        }
+      }
+      if (probabilityDenominator == 0) {
+        shuffleFisherYates(dyadIndexArray);
+        for (int d : dyadIndexArray) {
+          probability[d] = 1D;
+        }
+        probabilityDenominator = 1D;
+      }
+      double marker = r.nextDouble();
+      double probabilityCum = 0;
+      for (int d : dyadIndexArray) {
+        if (probability[d] != 0) {
+          probabilityCum += probability[d] / probabilityDenominator;
+          if (probabilityCum >= marker) {
+            int focal = dyad2DIndexArray[d][0];
+            int target = dyad2DIndexArray[d][1];
+            network[focal][target] = false;
+            network[target][focal] = false;
+            networkInformal[focal][target] = false;
+            networkInformal[target][focal] = false;
+            degree[focal]--;
+            degreeInformal[focal]--;
+            degree[target]--;
+            degreeInformal[target]--;
+            numBreak--;
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  void doTieFormation(int numFormation) {
+    while (numFormation > 0) {
+      double[] probability = new double[Main.N_DYAD_INT];
+      double probabilityDenominator = 0;
+      for (int d : dyadIndexArray) {
+        int focal = dyad2DIndexArray[d][0];
+        int target = dyad2DIndexArray[d][1];
+        if (!network[focal][target] &&
+            focal != target &&
+            !networkLimited[focal][target]
+        ) {
+          probability[d] = getRewiringWeight(focal, target);
+          probabilityDenominator += probability[d];
+        }
+      }
+      if (probabilityDenominator == 0) {
+        shuffleFisherYates(dyadIndexArray);
+        for (int d : dyadIndexArray) {
+          probability[d] = 1D;
+        }
+        probabilityDenominator = 1D;
+      }
+      double marker = r.nextDouble();
+      double probabilityCum = 0;
+      for (int d : dyadIndexArray) {
+        if (probability[d] != 0) {
+          probabilityCum += probability[d] / probabilityDenominator;
+          if (probabilityCum >= marker) {
+            int focal = dyad2DIndexArray[d][0];
+            int target = dyad2DIndexArray[d][1];
+            network[focal][target] = true;
+            network[target][focal] = true;
+            networkInformal[focal][target] = true;
+            networkInformal[target][focal] = true;
+            degree[focal]++;
+            degreeInformal[focal]++;
+            degree[target]++;
+            degreeInformal[target]++;
+            numFormation--;
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  void doRandomRewiring(int numFormation, int numBreak) {
+    int numFormationLeft = numFormation;
+    int numBreakLeft = numBreak;
+    //Random rewiring
+    shuffleFisherYates(dyadIndexArray);
+    for (; ; ) {
+      for (int dyad : dyadIndexArray) {
+        int focal = dyad2DIndexArray[dyad][0];
+        int target = dyad2DIndexArray[dyad][1];
+        if (networkInformal[focal][target] &&
+            numBreakLeft > 0
+        ) {
+          network[focal][target] = false;
+          network[target][focal] = false;
+          networkInformal[focal][target] = false;
+          networkInformal[target][focal] = false;
+          degree[focal]--;
+          degreeInformal[focal]--;
+          degree[target]--;
+          degreeInformal[target]--;
+          numBreakLeft--;
+        } else if (numFormationLeft > 0 &&
+            !network[focal][target] &&
+            focal != target &&
+            (degreeInformal[focal] < Main.INFORMAL_MAX_NUM
+                || degreeInformal[target] < Main.INFORMAL_MAX_NUM) &&
+            !networkLimited[focal][target]
+        ) {
+          network[focal][target] = true;
+          network[target][focal] = true;
+          networkInformal[focal][target] = true;
+          networkInformal[target][focal] = true;
+          degree[focal]++;
+          degreeInformal[focal]++;
+          degree[target]++;
+          degreeInformal[target]++;
+          numFormationLeft--;
+        }
+        if (numFormationLeft == 0 && numBreakLeft == 0) {
+          break;
+        }
+      }
+      if (numFormationLeft == 0 && numBreakLeft == 0) {
+        break;
+      } else {
+        System.out.println("\tRandom Rewiring Reiterated");
+      }
+    }
+  }
+
+  void doLearning() {
+    boolean[][] beliefOfBuffer = new boolean[Main.N][];
+    for (int focal = 0; focal < Main.N; focal++) {
+      int[] majorityOpinionCount = new int[Main.M];
+      beliefOfBuffer[focal] = beliefOf[focal].clone();
+      for (int target = 0; target < Main.N; target++) {
+        if (network[focal][target] && performance[target] > performance[focal]) {
+          for (int m = 0; m < Main.M; m++) {
+            majorityOpinionCount[m] += beliefOf[target][m] ? 1 : -1;
+          }
+        }
+      }
+      for (int m = 0; m < Main.M; m++) {
+        if (majorityOpinionCount[m] > 0) {
+          beliefOfBuffer[focal][m] = true;
+        } else if (majorityOpinionCount[m] < 0) {
+          beliefOfBuffer[focal][m] = false;
+        }
+      }
+    }
+    for (int focal = 0; focal < Main.N; focal++) {
+      for (int m = 0; m < Main.M; m++) {
+        if (beliefOf[focal][m] != beliefOfBuffer[focal][m]) {
+          if (r.nextDouble() < Main.P_LEARNING) {
+            beliefOf[focal][m] = beliefOfBuffer[focal][m];
+          }
+        }
+      }
+      setPerformance(focal);
+    }
+  }
+
+  int getPerformance(int focal) {
+    int performanceNow = 0;
+    boolean[] beliefOfFocal = beliefOf[focal];
+    for (int bundle = 0; bundle < Main.M_OF_BUNDLE; bundle ++) {
+      boolean matchAll = true;
+      int start = bundle * Main.M_IN_BUNDLE;
+      int end = start + Main.M_IN_BUNDLE;
+      for (int m = start; m < end; m++) {
+        if (beliefOfFocal[m] != reality[m]) {
+          matchAll = false;
+          break;
+        }
+      }
+      if (matchAll) {
+        performanceNow += Main.M_IN_BUNDLE;
+      }
+    }
+    return performanceNow;
+  }
+
+  int getPerformanceS1(int focal) {
+    int performanceNow = 0;
+    for( int m = 0; m < Main.M; m ++ ){
+      if( beliefOf[focal][m] == reality[m] ){
+        performanceNow ++;
+      }
+    }
+    return performanceNow;
+  }
+
+  void setPerformance(int focal) {
+    if( Main.M_IN_BUNDLE == 1 ){
+      performance[focal] = getPerformanceS1(focal);
+    }else{
+      performance[focal] = getPerformance(focal);
+    }
+    if (performance[focal] > performanceMax) {
+      performanceMax = performance[focal];
+      performanceRange = performanceMax - performanceMin;
+    }
+    if (performance[focal] < performanceMin) {
+      performanceMin = performance[focal];
+      performanceRange = performanceMax - performanceMin;
+    }
+  }
+
+  void setPerformance() {
+    for (int focal = 0; focal < Main.N; focal++) {
+      setPerformance(focal);
+    }
+  }
+
+  void printCSV(String fileName) {
+    try {
+      FileWriter csvWriter;
+      csvWriter = new FileWriter(fileName + ".csv");
+      csvWriter.append("SOURCE");
+      csvWriter.append(",");
+      csvWriter.append("TARGET");
+      csvWriter.append(",");
+      csvWriter.append("TIE_ENFORCED");
+      csvWriter.append("\n");
+
+      //Edge
+      for (int focal = 0; focal < Main.N; focal++) {
+        for (int target = focal; target < Main.N; target++) {
+          if (focal == target) {
+            continue;
+          }
+          if (network[focal][target]) {
+//            csvWriter.append("SOURCE");
+            csvWriter.append(Integer.toString(focal));
+            csvWriter.append(",");
+
+//            csvWriter.append("TARGET");
+            csvWriter.append(Integer.toString(target));
+            csvWriter.append(",");
+
+//            csvWriter.append("TIE_ENFORCED");
+            csvWriter.append(Boolean.toString(networkFormal[focal][target]));
+            csvWriter.append("\n");
+          }
+        }
+      }
+
+      //Individual
+      for (int focal = 0; focal < Main.N; focal++) {
+//        csvWriter.append("SOURCE");
+        csvWriter.append(Integer.toString(focal));
+        csvWriter.append(",");
+
+//        csvWriter.append("TARGET");
+        csvWriter.append(",");
+
+//        csvWriter.append("TIE_ENFORCED");
+        csvWriter.append("\n");
+      }
+
+      csvWriter.flush();
+      csvWriter.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  void shuffleFisherYates(int[] nArray) {
+    for (int i = nArray.length - 1; i > 0; i--) {
+      int j = r.nextInt(i + 1);
+      int temp = nArray[i];
+      nArray[i] = nArray[j];
+      nArray[j] = temp;
+    }
+  }
+}

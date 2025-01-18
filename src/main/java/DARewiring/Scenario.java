@@ -1,4 +1,4 @@
-package DABase;
+package DARewiring;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,6 +10,10 @@ import org.apache.commons.math3.util.FastMath;
 public class Scenario {
 
   RandomGenerator r;
+  NetworkAnalyzer na;
+
+  boolean isNotConverged = true;
+  boolean isLearningConverged = false;
 
   int socialMechanism;
 
@@ -28,6 +32,7 @@ public class Scenario {
   double strength;      //Strength of social behavior
   int span;          //Span of control
   double enforcement;   //E
+  double connectivity;
 
   boolean[] reality;
   int[] realityBundleID;
@@ -37,7 +42,7 @@ public class Scenario {
   int[] performance;
 
   int[] levelOf;
-  double levelMax;
+  double levelRange;
   boolean[][] network;
   boolean[][] networkEnforced;
   boolean[][] networkFlexible;
@@ -52,13 +57,19 @@ public class Scenario {
   double[] neighborhoodScore;
   boolean[] satisfied;
 
-  int numRewiring;
+  int numRewiring = 0;
   double performanceAvg;
   double disagreementAvg;
-  double clusteringCoefficient;
+
+  double diameter;
+  double averagePathLength;
+  double networkEfficiency;
+  double overallClustering;
+  double overallCentralization;
+
   double satisfactionRate;
 
-  Scenario(int socialMechanism, double strength, int span, double enforcement) {
+  Scenario(int socialMechanism, double strength, int span, double connectivity, double enforcement) {
     r = new MersenneTwister();
 
     this.socialMechanism = socialMechanism;
@@ -78,6 +89,7 @@ public class Scenario {
     this.strength = strength;
     this.span = span;
     this.enforcement = enforcement;
+    this.connectivity = connectivity;
 
     this.observationScope = Main.OBSERVATION_SCOPE;
 
@@ -88,7 +100,7 @@ public class Scenario {
   }
 
   public Scenario getClone() {
-    Scenario clone = new Scenario(this.socialMechanism, this.strength, this.span, this.enforcement);
+    Scenario clone = new Scenario(this.socialMechanism, this.strength, this.span, this.enforcement, this.connectivity);
 
     clone.reality = this.reality.clone();
     clone.realityBundleID = this.realityBundleID.clone();
@@ -99,6 +111,7 @@ public class Scenario {
     clone.networkEnforced = new boolean[Main.N][];
     clone.networkFlexible = new boolean[Main.N][];
     clone.network = new boolean[Main.N][];
+    clone.na = new NetworkAnalyzer(clone.network);
 
     clone.degreeEnforced = this.degreeEnforced.clone();
     clone.degreeFlexible = this.degreeFlexible.clone();
@@ -150,9 +163,9 @@ public class Scenario {
   }
 
   private void initializeNetwork() {
+    network = new boolean[Main.N][Main.N];
     networkEnforced = new boolean[Main.N][Main.N];
     networkFlexible = new boolean[Main.N][Main.N];
-    network = new boolean[Main.N][Main.N];
     levelOf = new int[Main.N];
 
     degreeEnforced = new int[Main.N];
@@ -201,7 +214,7 @@ public class Scenario {
 
     int levelStart = 0;
     int levelEnd = 1;
-    int levelNow = 0;
+    int levelNow = 1;
     for (; ; ) {
       for (int i = levelStart; i < levelEnd; i++) {
         levelOf[i] = levelNow;
@@ -209,21 +222,29 @@ public class Scenario {
       levelStart = levelEnd;
       levelEnd = FastMath.min(Main.N, levelEnd + (int) FastMath.pow(span, levelNow));
       if (levelStart == Main.N) {
-        levelMax = levelNow;
+        levelRange = levelNow;
         break;
       }
       levelNow++;
     }
+    levelRange -= levelOf[0];
 
-    //Print the graph for visualization
-//    System.out.println("Network Visualization: Span " + span);
-//    for (int i = 0; i < Main.N; i++) {
-//      System.out.print(i + " lv. " + levelOf[i] + " dg. " + degree[i] + ":\t");
-//      for (int j = 0; j < Main.N; j++) {
-//        System.out.print(network[i][j] ? "1 " : "0 ");
-//      }
-//      System.out.println();
-//    }
+    //Additional Connection
+    for (int focal = 0; focal < Main.N; focal++) {
+      for (int target = focal; target < Main.N; target++) {
+        if (!network[focal][target] &&
+            degree[focal] < Main.MAX_DEGREE &&
+            degree[target] < Main.MAX_DEGREE &&
+            focal != target) {
+          if (r.nextDouble() < connectivity) {
+            network[focal][target] = true;
+            network[target][focal] = true;
+            degree[focal]++;
+            degree[target]++;
+          }
+        }
+      }
+    }
 
     //Tie Enforcement
     for (int focal = 0; focal < Main.N; focal++) {
@@ -246,6 +267,7 @@ public class Scenario {
       }
     }
 
+    na = new NetworkAnalyzer(network);
     setObservationStructure();
   }
 
@@ -287,27 +309,42 @@ public class Scenario {
   }
 
   void stepForward() {
-    if (isRewiring) {
-      doEvaluateNeighbor();
-      setObservationStructure();
-      doRewiring();
+    if (isNotConverged) {
+      if (isRewiring) {
+        doEvaluateNeighbor();
+        setObservationStructure();
+        doRewiring();
+      }
+      doLearning();
+      setOutcome();
+      isNotConverged = !(isLearningConverged && numRewiring == 0); // We are uncertain if rewiring will happen
     }
-    doLearning();
   }
 
-  void stepForward(int numRewiring) {
-    if (isRewiring) {
-      setObservationStructure();
-      doRewiring(numRewiring);
+  void stepForward(int numRewiring, boolean sourceIsNotConverged) {
+    if (isNotConverged && sourceIsNotConverged) {
+      if (isRewiring) {
+        setObservationStructure();
+        doRewiring(numRewiring);
+      }
+      doLearning();
+      setOutcome();
+      isNotConverged = !isLearningConverged && sourceIsNotConverged;
+//      isNotConverged = !isLearningConverged || sourceIsNotConverged; // sourceIsNotConverged is guaranteed.
     }
-    doLearning();
   }
 
   void setOutcome() {
     performanceAvg = 0;
     disagreementAvg = 0;
     satisfactionRate = 0;
-    clusteringCoefficient = 0;
+    na.setNetworkMetrics();
+    diameter = na.getDiameter();
+    averagePathLength = na.getAveragePathLength();
+    networkEfficiency = na.getNetworkEfficiency();
+    overallClustering = na.getOverallClustering();
+    overallCentralization = na.getOverallClosenessCentralization();
+
     for (int focal = 0; focal < Main.N; focal++) {
       performanceAvg += performance[focal];
       satisfactionRate += satisfied[focal] ? 1 : 0;
@@ -320,25 +357,9 @@ public class Scenario {
 
       }
     }
-    // Global Clustering Coefficient
-    // https://en.wikipedia.org/wiki/Clustering_coefficient#Global_clustering_coefficient
-    for (int ind1 : focalIndexArray) {
-      for (int ind2 : targetIndexArray) {
-        if (network[ind1][ind2]) {
-          for (int ind3 = 0; ind3 < Main.N; ind3++) {
-            if (network[ind1][ind3] && network[ind2][ind3]
-            ) {
-              //ind 1, 2, 3 are different and form a closed triplet
-              clusteringCoefficient++;
-            }
-          }
-        }
-      }
-    }
     performanceAvg /= Main.M_N;
     disagreementAvg /= Main.M_N_DYAD;
     satisfactionRate /= Main.N;
-    clusteringCoefficient /= Main.N_TRIPLET;
   }
 
   double getNeighborScoreHomophilyOnChar(int focal, int target) {
@@ -352,7 +373,7 @@ public class Scenario {
   }
 
   double getNeighborScoreHomophilyOnStatus(int focal, int target) {
-    return 1D - FastMath.abs(levelOf[focal] - levelOf[target]) / levelMax;
+    return 1D - FastMath.abs(levelOf[focal] - levelOf[target]) / levelRange;
   }
 
   double getNeighborScoreNetworkClosure(int focal, int target) {
@@ -361,8 +382,12 @@ public class Scenario {
       if (focal == i || target == i) {
         continue;
       }
-      if (network[focal][i] && network[i][target]) {
+      if (network[focal][i] && network[target][i]) {
         neighborScore++;
+//        System.out.println(
+//            focal+ " " + target + " to " + i +
+//            network[focal][i] + " " + network[target][i] + " -> "+ neighborScore
+//        );
       }
     }
     return neighborScore / (double) (degree[focal] - 1D);
@@ -374,11 +399,11 @@ public class Scenario {
       if (focal == i || target == i) {
         continue;
       }
-      if (network[focal][i] && network[i][target]) {
+      if (network[focal][i] && network[target][i]) {
         neighborScore++;
       }
     }
-    return neighborScore / (double) (degree[focal] - 1D);
+    return neighborScore / (double) (degree[focal] - 1D); // Fixed 231223. Never used before.
   }
 
   double getNeighborScorePreferentialAttachement(int focal, int target) {
@@ -388,7 +413,7 @@ public class Scenario {
       if (observationStructure[focal][observable]) {
         if (degree[observable] > degreeMax) {
           degreeMax = degree[observable];
-        }else if (degree[observable] < degreeMin) {
+        } else if (degree[observable] < degreeMin) {
           degreeMin = degree[observable];
         }
       }
@@ -430,7 +455,7 @@ public class Scenario {
             continue;
           }
           neighborScore[focal][target] = getNeighborScoreNetworkClosure(focal, target);
-          neighborScore[target][focal] = neighborScore[focal][target] * (degree[focal] - 1) / (degree[target] - 1);
+          neighborScore[target][focal] = neighborScore[focal][target] * (degree[focal] - 1D) / (degree[target] - 1D);
           neighborhoodScore[focal] += neighborScore[focal][target];
           neighborhoodScore[target] += neighborScore[target][focal];
         }
@@ -493,7 +518,7 @@ public class Scenario {
       for (int row = 0; row < Main.N; row++) {
         for (int col = 0; col < Main.N; col++) {
           for (int i = 0; i < Main.N; i++) {
-            if( networkInDegreeLeft[row][i] && network[i][col] ){
+            if (networkInDegreeLeft[row][i] && network[i][col]) {
               networkInDegreeRight[row][col] = true;
               observationStructure[row][col] = true;
               break;
@@ -540,6 +565,7 @@ public class Scenario {
             hasNewTie[target2Link] || // If the target already has a new tie
             network[focal][target2Link] || // If the target is already a neighbor of the focal
             !observationStructure[focal][target2Link] || // If the target is outside the observation structure
+            degree[target2Link] >= Main.MAX_DEGREE ||
             focal == target2Link // If the target is focal herself
         ) {
           continue;
@@ -612,7 +638,7 @@ public class Scenario {
       int target2Cut = -1;
       shuffleFisherYates(targetIndexArray);
       for (int target : targetIndexArray) {
-        if (degree[target] == 1) {
+        if (degree[target] <= 1) {
           continue;
         }
         if (networkFlexible[focal][target]) {
@@ -626,10 +652,9 @@ public class Scenario {
       shuffleFisherYates(targetIndexArray);
       for (int target2Link : targetIndexArray) {
         if (network[focal][target2Link] || // If the target is already a neighbor of the focal
-            //@@@ WE MAY NEED TO REVISIT THE THEORETICAL VALIDITY OF THESE
             hasNewTie[target2Link] || // If the target already has a new tie
             !observationStructure[focal][target2Link] || // If the target is outside the observation structure
-            //@@@
+            degree[target2Link] >= Main.MAX_DEGREE ||
             focal == target2Link // If the target is focal herself
         ) {
           continue;
@@ -656,32 +681,35 @@ public class Scenario {
   }
 
   void doLearning() {
-    boolean[][] beliefOfUpdated = new boolean[Main.N][Main.M];
+    isLearningConverged = true;
+    boolean[][] beliefOfBuffer = new boolean[Main.N][];
     for (int focal = 0; focal < Main.N; focal++) {
-      int[] majorityOpinion = new int[Main.M];
+      int[] majorityOpinionCount = new int[Main.M];
+      beliefOfBuffer[focal] = beliefOf[focal].clone();
       for (int target = 0; target < Main.N; target++) {
         if (network[focal][target] && performance[target] > performance[focal]) {
           for (int m = 0; m < Main.M; m++) {
-            majorityOpinion[m] += beliefOf[target][m] ? 1 : -1;
+            majorityOpinionCount[m] += beliefOf[target][m] ? 1 : -1;
           }
         }
       }
       for (int m = 0; m < Main.M; m++) {
-        if (r.nextDouble() < Main.P_LEARNING) {
-          if (majorityOpinion[m] > 0) {
-            beliefOfUpdated[focal][m] = true;
-          } else if (majorityOpinion[m] < 0) {
-            beliefOfUpdated[focal][m] = false;
-          } else {
-            beliefOfUpdated[focal][m] = beliefOf[focal][m];
-          }
-        } else {
-          beliefOfUpdated[focal][m] = beliefOf[focal][m];
+        if (majorityOpinionCount[m] > 0) {
+          beliefOfBuffer[focal][m] = true;
+        } else if (majorityOpinionCount[m] < 0) {
+          beliefOfBuffer[focal][m] = false;
         }
       }
     }
-    beliefOf = beliefOfUpdated;
     for (int focal = 0; focal < Main.N; focal++) {
+      for (int m = 0; m < Main.M; m++) {
+        if (beliefOf[focal][m] != beliefOfBuffer[focal][m]) {
+          isLearningConverged = false;
+          if (r.nextDouble() < Main.P_LEARNING) {
+            beliefOf[focal][m] = beliefOfBuffer[focal][m];
+          }
+        }
+      }
       setPerformance(focal);
     }
   }
@@ -799,7 +827,7 @@ public class Scenario {
   }
 
   void shuffleFisherYates(int[] nArray) {
-    for (int i = nArray.length - 1; i > 0; i--) {
+    for (int i = Main.N - 1; i > 0; i--) {
       int j = r.nextInt(i + 1);
       int temp = nArray[i];
       nArray[i] = nArray[j];

@@ -1,4 +1,4 @@
-package DABase;
+package DACost;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,6 +10,7 @@ import org.apache.commons.math3.util.FastMath;
 public class Scenario {
 
   RandomGenerator r;
+  NetworkAnalyzer na;
 
   int socialMechanism;
 
@@ -37,7 +38,7 @@ public class Scenario {
   int[] performance;
 
   int[] levelOf;
-  double levelMax;
+  double levelRange;
   boolean[][] network;
   boolean[][] networkEnforced;
   boolean[][] networkFlexible;
@@ -55,7 +56,13 @@ public class Scenario {
   int numRewiring;
   double performanceAvg;
   double disagreementAvg;
-  double clusteringCoefficient;
+
+  double diameter;
+  double averagePathLength;
+  double networkEfficiency;
+  double overallClustering;
+  double overallCentralization;
+
   double satisfactionRate;
 
   Scenario(int socialMechanism, double strength, int span, double enforcement) {
@@ -99,6 +106,7 @@ public class Scenario {
     clone.networkEnforced = new boolean[Main.N][];
     clone.networkFlexible = new boolean[Main.N][];
     clone.network = new boolean[Main.N][];
+    clone.na = new NetworkAnalyzer(clone.network);
 
     clone.degreeEnforced = this.degreeEnforced.clone();
     clone.degreeFlexible = this.degreeFlexible.clone();
@@ -201,7 +209,7 @@ public class Scenario {
 
     int levelStart = 0;
     int levelEnd = 1;
-    int levelNow = 0;
+    int levelNow = 1;
     for (; ; ) {
       for (int i = levelStart; i < levelEnd; i++) {
         levelOf[i] = levelNow;
@@ -209,11 +217,12 @@ public class Scenario {
       levelStart = levelEnd;
       levelEnd = FastMath.min(Main.N, levelEnd + (int) FastMath.pow(span, levelNow));
       if (levelStart == Main.N) {
-        levelMax = levelNow;
+        levelRange = levelNow;
         break;
       }
       levelNow++;
     }
+    levelRange -= levelOf[0];
 
     //Print the graph for visualization
 //    System.out.println("Network Visualization: Span " + span);
@@ -246,6 +255,7 @@ public class Scenario {
       }
     }
 
+    na = new NetworkAnalyzer(network);
     setObservationStructure();
   }
 
@@ -307,7 +317,13 @@ public class Scenario {
     performanceAvg = 0;
     disagreementAvg = 0;
     satisfactionRate = 0;
-    clusteringCoefficient = 0;
+    na.setNetworkMetrics();
+    diameter = na.getDiameter();
+    averagePathLength = na.getAveragePathLength();
+    networkEfficiency = na.getNetworkEfficiency();
+    overallClustering = na.getOverallClustering();
+    overallCentralization = na.getOverallClosenessCentralization();
+
     for (int focal = 0; focal < Main.N; focal++) {
       performanceAvg += performance[focal];
       satisfactionRate += satisfied[focal] ? 1 : 0;
@@ -320,25 +336,9 @@ public class Scenario {
 
       }
     }
-    // Global Clustering Coefficient
-    // https://en.wikipedia.org/wiki/Clustering_coefficient#Global_clustering_coefficient
-    for (int ind1 : focalIndexArray) {
-      for (int ind2 : targetIndexArray) {
-        if (network[ind1][ind2]) {
-          for (int ind3 = 0; ind3 < Main.N; ind3++) {
-            if (network[ind1][ind3] && network[ind2][ind3]
-            ) {
-              //ind 1, 2, 3 are different and form a closed triplet
-              clusteringCoefficient++;
-            }
-          }
-        }
-      }
-    }
     performanceAvg /= Main.M_N;
     disagreementAvg /= Main.M_N_DYAD;
     satisfactionRate /= Main.N;
-    clusteringCoefficient /= Main.N_TRIPLET;
   }
 
   double getNeighborScoreHomophilyOnChar(int focal, int target) {
@@ -352,7 +352,7 @@ public class Scenario {
   }
 
   double getNeighborScoreHomophilyOnStatus(int focal, int target) {
-    return 1D - FastMath.abs(levelOf[focal] - levelOf[target]) / levelMax;
+    return 1D - FastMath.abs(levelOf[focal] - levelOf[target]) / levelRange;
   }
 
   double getNeighborScoreNetworkClosure(int focal, int target) {
@@ -361,8 +361,12 @@ public class Scenario {
       if (focal == i || target == i) {
         continue;
       }
-      if (network[focal][i] && network[i][target]) {
+      if (network[focal][i] && network[target][i]) {
         neighborScore++;
+//        System.out.println(
+//            focal+ " " + target + " to " + i +
+//            network[focal][i] + " " + network[target][i] + " -> "+ neighborScore
+//        );
       }
     }
     return neighborScore / (double) (degree[focal] - 1D);
@@ -374,11 +378,11 @@ public class Scenario {
       if (focal == i || target == i) {
         continue;
       }
-      if (network[focal][i] && network[i][target]) {
+      if (network[focal][i] && network[target][i]) {
         neighborScore++;
       }
     }
-    return neighborScore / (double) (degree[focal] - 1D);
+    return neighborScore / (double) degree[focal];
   }
 
   double getNeighborScorePreferentialAttachement(int focal, int target) {
@@ -430,7 +434,7 @@ public class Scenario {
             continue;
           }
           neighborScore[focal][target] = getNeighborScoreNetworkClosure(focal, target);
-          neighborScore[target][focal] = neighborScore[focal][target] * (degree[focal] - 1) / (degree[target] - 1);
+          neighborScore[target][focal] = neighborScore[focal][target] * (degree[focal] - 1D) / (degree[target] - 1D);
           neighborhoodScore[focal] += neighborScore[focal][target];
           neighborhoodScore[target] += neighborScore[target][focal];
         }
@@ -540,6 +544,7 @@ public class Scenario {
             hasNewTie[target2Link] || // If the target already has a new tie
             network[focal][target2Link] || // If the target is already a neighbor of the focal
             !observationStructure[focal][target2Link] || // If the target is outside the observation structure
+            degree[target2Link] >= Main.MAX_DEGREE ||
             focal == target2Link // If the target is focal herself
         ) {
           continue;
@@ -626,10 +631,9 @@ public class Scenario {
       shuffleFisherYates(targetIndexArray);
       for (int target2Link : targetIndexArray) {
         if (network[focal][target2Link] || // If the target is already a neighbor of the focal
-            //@@@ WE MAY NEED TO REVISIT THE THEORETICAL VALIDITY OF THESE
             hasNewTie[target2Link] || // If the target already has a new tie
             !observationStructure[focal][target2Link] || // If the target is outside the observation structure
-            //@@@
+            degree[target2Link] >= Main.MAX_DEGREE ||
             focal == target2Link // If the target is focal herself
         ) {
           continue;
