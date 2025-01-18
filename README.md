@@ -1,4 +1,2 @@
-# Design Amidst Social Behavior
-Model and analysis for the "homophily paper" (Kwon, Posen, & Piezunka (working)). This repository is a fork from the old model repo.
-
-* DABaseline: A baseline model
+# Flat Design Amidst Social Dynamics 
+Model and analysis for the "flat design paper" (Kwon, Posen, & Piezunka (working)).

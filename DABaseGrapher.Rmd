@@ -1,0 +1,263 @@
+---
+title: "DABase Grapher"
+author: "Yon Kwon"
+date: "09/14/2023"
+output: html_document
+---
+
+# Grapher for "Design Amidst (Social Behavior)" model
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+library(R.matlab)
+library(tidyverse) # tibble (dataframe)
+library(ggplot2) # Plot
+library(tidyr) # gather()
+library(scales) # pretty_breaks()
+library(viridis)
+library(ggpp) # Label text position
+library(ggsci)
+```
+
+## Data Import
+```{r data_file, eval=FALSE, include=FALSE}{r clear}
+rm(list=ls()) # Cleaning R environment
+setwd(dirname(rstudioapi::getSourceEditorContext()$path)) # Set SRC DIR as WD
+file <- file.choose()
+gc()
+data <- readMat(file)
+fig_id <- paste0(
+  basename(file)
+)
+
+label_mech <- c(
+  'Homophily',
+  'Network~Closure',
+  'Clustering'
+)
+label_mech <- factor(
+  label_mech, 
+  levels = label_mech
+)
+
+label_scenario <- c(
+  'Rewiring~(Baseline)',
+  'No~Rewiring',
+  'Random~Rewiring'
+)
+label_scenario <- factor(
+  label_scenario, 
+  levels = label_scenario
+)
+
+fig_dpi <- 600
+label_size <- 12
+tick_label_size <- 10
+```
+
+## Figure 1 Compare with three scenarios
+```{r fig1}
+set_fig1_width = 6
+set_fig1_height = 3
+set_fig1_ylim = c(-.1, .9)
+
+set_fig1_h <- 1
+set_fig1_span <- data$para.a.span
+# set_fig1_span <- (as.vector(data$para.n) - 1)/ (set_fig1_span+1)
+
+set_fig1_e <- 1
+set_fig1_t <- data$para.time
+
+x_label <-expression(Span~of~Control~(italic(sigma)))
+
+y_label <- 'Firm Performance'
+y_value_sc <- data$r.perf.avg
+y_value_nr <- data$r.perf.nr.avg
+y_value_rr <- data$r.perf.rr.avg
+
+panel_label <- paste0('Panel ', LETTERS[1:20])
+panel_label <- factor(panel_label, levels=panel_label)
+
+df_fig1 <- data.frame()
+panel_index <- 0
+for( mc in 1:data$para.g.mech ){
+  panel_index = panel_index+1
+  df_next <- data.frame(
+    panel_label = panel_label[panel_index],
+    mechanism = label_mech[mc],
+    span = t(set_fig1_span),
+    scenario = label_scenario[1],
+    outcome = y_value_sc[mc, set_fig1_h, , set_fig1_e, set_fig1_t]
+  )
+  df_fig1 <- rbind(df_fig1, df_next)
+  df_next <- data.frame(
+    panel_label = panel_label[panel_index],
+    mechanism = label_mech[mc],
+    span = t(set_fig1_span),
+    scenario = label_scenario[2],
+    outcome = y_value_nr[mc, set_fig1_h, , set_fig1_e, set_fig1_t]
+  )
+  df_fig1 <- rbind(df_fig1, df_next)
+  df_next <- data.frame(
+    panel_label = panel_label[panel_index],
+    mechanism = label_mech[mc],
+    span = t(set_fig1_span),
+    scenario = label_scenario[3],
+    outcome = y_value_rr[mc, set_fig1_h, , set_fig1_e, set_fig1_t]
+  )
+  df_fig1 <- rbind(df_fig1, df_next)
+}
+
+axes <- aes(
+  x = span,
+  y = outcome,
+  color = scenario,
+  linetype = scenario
+)
+
+fig1 <- ggplot(data = df_fig1, mapping = axes) +
+  facet_grid(.~mechanism, labeller = label_parsed) +
+  # geom_text_npc(aes(label = panel_label, npcx='right', npcy='bottom'), size=4, colour='black') +
+  geom_line(alpha = .9, size = .5) +
+  scale_x_continuous(expand=c(0,.02)) +
+  scale_y_continuous(expand=c(0,.02)) +
+  labs(x = x_label, y = y_label) +
+  scale_color_npg(labels = parse_format()) +
+  scale_linetype_manual(values = c('solid', 'dotted', 'dashed'), labels = parse_format()) +
+  theme_bw()+
+  theme(
+    text=element_text(
+      # family = windowsFonts()$serif,
+      size=label_size, color='black'
+    ),
+    axis.title=element_text(size=label_size, color='black'),
+    axis.text=element_text(size=tick_label_size, color='black'),
+    axis.text.x = element_text(color = 'black'),
+    strip.background = element_blank(),
+    strip.placement = 'outside',
+    strip.text = element_text(color = 'black'),
+    panel.spacing = unit(1, 'lines'),
+    legend.title = element_blank(),
+    legend.position = 'bottom'
+  )
+
+fig1
+ggsave(
+  paste0(fig_id, '_',
+         'fig1_',
+         y_label,
+         'span', paste0(data$para.a.span[set_fig1_span], collapse = ","),
+         'e', paste0(data$para.a.e[set_fig1_e], collapse = ","),
+         't', set_fig1_t,
+         '.png'
+         ),
+  plot = fig1,
+  units = 'in', 
+  width = set_fig1_width,
+  height = set_fig1_height,
+  dpi = fig_dpi
+)
+```
+
+
+## Figure 2 Optimal Structure
+```{r fig2}
+set_fig2_width = 6
+set_fig2_height = 3
+set_fig2_ylim = c(-.1, .9)
+
+set_fig2_h <- 1
+set_fig2_span <- data$para.a.span
+set_fig2_span <- (as.vector(data$para.n) - set_fig2_span - 1)/set_fig2_span
+
+set_fig2_e <- 2
+set_fig2_t <- data$para.time
+set_fig2_t <- 200
+
+x_label <-'Rewiring Mechanism'
+y_label <- 'Optimal Span of Control'
+y_value_sc <- data$r.perf.avg
+y_value_nr <- data$r.perf.nr.avg
+y_value_rr <- data$r.perf.rr.avg
+
+panel_label <- paste0('Panel ', LETTERS[1:20])
+panel_label <- factor(panel_label, levels=panel_label)
+
+df_fig2 <- data.frame()
+panel_index <- 0
+for( mc in 1:data$para.g.mech ){
+  panel_index = panel_index+1
+  df_next <- data.frame(
+    panel_label = panel_label[panel_index],
+    mechanism = label_mech[mc],
+    scenario = label_scenario[1],
+    outcome = which.max(y_value_sc[mc, set_fig2_h, , set_fig2_e, set_fig2_t])
+  )
+  df_fig2 <- rbind(df_fig2, df_next)
+  df_next <- data.frame(
+    panel_label = panel_label[panel_index],
+    mechanism = label_mech[mc],
+    scenario = label_scenario[2],
+    outcome = which.max(y_value_nr[mc, set_fig2_h, , set_fig2_e, set_fig2_t])
+  )
+  df_fig2 <- rbind(df_fig2, df_next)
+  df_next <- data.frame(
+    panel_label = panel_label[panel_index],
+    mechanism = label_mech[mc],
+    scenario = label_scenario[3],
+    outcome = which.max(y_value_rr[mc, set_fig2_h, , set_fig2_e, set_fig2_t])
+  )
+  df_fig2 <- rbind(df_fig2, df_next)
+}
+
+axes <- aes(
+  fill = scenario,
+  x = mechanism,
+  y = outcome
+)
+
+fig2 <- ggplot(data = df_fig2, mapping = axes) +
+  # facet_grid(.~mechanism, labeller = label_parsed) +
+  # geom_text_npc(aes(label = panel_label, npcx='right', npcy='bottom'), size=4, colour='black') +
+  geom_bar(alpha = .9, position = 'dodge', stat = 'identity', color = NA) +
+  scale_y_continuous(expand=c(0,0)) +
+  labs(x = x_label, y = y_label) +
+  scale_fill_npg(labels = parse_format()) +
+  theme_bw()+
+  theme(
+    text=element_text(
+      # family = windowsFonts()$serif,
+      size=label_size, color='black'
+    ),
+    axis.title=element_text(size=label_size, color='black'),
+    axis.text=element_text(size=tick_label_size, color='black'),
+    axis.text.x = element_text(color = 'black'),
+    strip.background = element_blank(),
+    strip.placement = 'outside',
+    strip.text = element_text(color = 'black'),
+    panel.spacing = unit(1, 'lines'),
+    legend.title = element_blank(),
+    legend.position = 'bottom'
+  )
+
+fig2
+ggsave(
+  paste0(fig_id, '_',
+         'fig2_',
+         y_label,
+         'span', paste0(data$para.a.span[set_fig2_span], collapse = ","),
+         'e', paste0(data$para.a.e[set_fig2_e], collapse = ","),
+         't', set_fig2_t,
+         '.png'
+         ),
+  plot = fig2,
+  units = 'in', 
+  width = set_fig2_width,
+  height = set_fig2_height,
+  dpi = fig_dpi
+)
+```

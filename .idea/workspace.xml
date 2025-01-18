@@ -5,7 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Misc.] Catchup with previous updates">
+      <change afterPath="$PROJECT_DIR$/DABaseGrapher.Rmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DAConnectedCavemen.R" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DACostGrapher.Rmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DAFormationGrapher.Rmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DANet.R" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DANtClGrapher.qmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DAPositionGrapher.qmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DAPostAOMGrapher.qmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DATurbulenceTurnoverGrapher.qmd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +92,7 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="develop-hoodscorebysum" />
+        <entry key="$PROJECT_DIR$" value="develop-hoodscorebysum-checkpoint" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -94,12 +104,12 @@
     &quot;assignee&quot;: &quot;yonkwon&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/yonkwon/Research_DesignAmidst.git",
-    "accountId": "03107f63-6dda-4a62-85a7-ef7230c13c2a"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/yonkwon/Research_DesignAmidst.git&quot;,
+    &quot;accountId&quot;: &quot;03107f63-6dda-4a62-85a7-ef7230c13c2a&quot;
   }
-}]]></component>
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -114,6 +124,8 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+    <option name="sortByType" value="true" />
+    <option name="sortKey" value="BY_TYPE" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
@@ -132,7 +144,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "develop-hoodscorebysum-checkpoint",
+    "git-widget-placeholder": "develop",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Yon/Dropbox/Research/DesignAmidst/src/main/java/DATurbulenceTurnover",
@@ -245,14 +257,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693267058707</updated>
-    </task>
-    <task id="LOCAL-00036" summary="[Add] Alternative hierarchy model">
-      <option name="closed" value="true" />
-      <created>1694737209595</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1694737209595</updated>
     </task>
     <task id="LOCAL-00037" summary="[Fix] (!) Satisfaction as a function of strength; Like between workers under the same supervision">
       <option name="closed" value="true" />
@@ -638,7 +642,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737172330711</updated>
     </task>
-    <option name="localTasksCounter" value="85" />
+    <task id="LOCAL-00085" summary="[Misc.] Catchup with previous updates">
+      <option name="closed" value="true" />
+      <created>1737172687134</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1737172687134</updated>
+    </task>
+    <option name="localTasksCounter" value="86" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -649,6 +661,22 @@
     </option>
     <option name="RECENT_FILTERS">
       <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/develop" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/master" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
         <entry key="User">
           <value>
             <list>
@@ -674,6 +702,13 @@
             <State>
               <option name="FILTERS">
                 <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/develop" />
+                      </list>
+                    </value>
+                  </entry>
                   <entry key="user">
                     <value>
                       <list>

@@ -1,0 +1,497 @@
+---
+title: "DANtClGrapher"
+format: pdf
+editor: visual
+---
+
+# Setup & Data Import
+
+```{r clean echo:false}
+# rm(list=ls()) # Cleaning R environment
+```
+
+```{r setup}
+library(R.matlab)
+library(tidyverse) # tibble (dataframe)
+library(ggplot2) # Plot
+library(tidyr) # gather()
+library(scales) # pretty_breaks()
+library(viridis)
+library(ggpp) # Label text position
+library(ggsci)
+library(ggh4x) # facet nested
+
+fig_dpi <- 600
+label_size <- 10
+tick_label_size <- 8
+
+label_scenario <- c(
+  'No Social Dynamics (Baseline)',
+  'Social Dynamics',
+  'Counterfactual (Random)'
+)
+label_scenario <- factor(
+  label_scenario, 
+  levels = label_scenario
+)
+
+label_scenario_iii <- c(
+  '(i) No Social Dynamics (Baseline)',
+  '(ii) Social Dynamics',
+  '(iii) Counterfactual (Random)'
+)
+label_scenario_iii <- factor(
+  label_scenario_iii, 
+  levels = label_scenario_iii
+)
+```
+
+You can add options to executable code like this
+
+```{r import echo:false}
+setwd(dirname(rstudioapi::getSourceEditorContext()$path)) # Set SRC DIR as WD
+file <- file.choose()
+
+gc()
+data <- readMat(file)
+fig_id <- paste0(
+  basename(file)
+)
+```
+
+## Line Plots
+
+## Main Figure. Relationship Between Span of Control and Organizational Learning Effectiveness
+
+```{r fig}
+# label_size <- 12
+# tick_label_size <- 10
+
+# set_fig_width = 9
+# set_fig_height = 3.5
+set_fig_width = 6.5
+set_fig_height = 3
+# set_fig_ylim = c(.1, .7)
+
+set_fig_d <- 1:data$para.g.mech
+set_fig_span <- 1:data$para.g.span
+# set_fig_span <- (1:data$para.g.span-1)
+set_fig_d <- 1:data$para.g.dgre
+
+set_fig_connectivity <- 1
+set_fig_enforcement <- 1
+set_fig_t <- data$para.time
+# set_fig_t <- 25
+
+x_label <- expression('Span of Control (S) $\256$')
+x_label <- expression(
+  'Tall' ~ symbol('\254') ~ phantom(500) ~ 'Span of Control' ~ phantom(500) ~ symbol('\256') ~ 'Flat'
+  )
+
+label_d <- paste0('(', LETTERS[1:length(set_fig_d)], ') D=', data$para.a.dgre[set_fig_d])
+label_d <- factor(label_d, levels = label_d)
+
+y_label <- 'Organizational Performance'
+y_label <- 'Org. Learning Effectiveness'
+y_value_sc <- data$r.perf.avg
+y_value_nr <- data$r.perf.nr.avg
+y_value_rr <- data$r.perf.rr.avg
+
+# y_label <- 'Clustering Coefficient'
+# y_value_sc <- data$r.clws.avg
+# y_value_nr <- data$r.clws.nr.avg
+# y_value_rr <- data$r.clws.rr.avg
+# 
+# y_label <- 'Average Path Length'
+# y_value_sc <- data$r.dist.avg
+# y_value_nr <- data$r.dist.nr.avg
+# y_value_rr <- data$r.dist.rr.avg
+
+# y_label <- 'Belief Diversity'
+# y_value_sc <- data$r.disa.avg
+# y_value_nr <- data$r.disa.nr.avg
+# y_value_rr <- data$r.disa.rr.avg
+# 
+# y_label <- 'Closeness Centralization'
+# y_value_sc <- data$r.cent.avg
+# y_value_nr <- data$r.cent.nr.avg
+# y_value_rr <- data$r.cent.rr.avg
+
+# y_label <- 'Redundancy'
+# y_value_sc <- data$r.clus.avg
+# y_value_nr <- data$r.clus.nr.avg
+# y_value_rr <- data$r.clus.rr.avg
+# 
+# y_label <- 'Communication Efficiency'
+# y_value_sc <- data$r.effi.avg
+# y_value_nr <- data$r.effi.nr.avg
+# y_value_rr <- data$r.effi.rr.avg
+# 
+# y_label <- 'Average Distance'
+# y_value_sc <- data$r.dist.avg
+# y_value_nr <- data$r.dist.nr.avg
+# y_value_rr <- data$r.dist.rr.avg
+# 
+# y_label <- 'Cumulative Dynamics'
+# y_value_sc <- data$r.rewc.avg
+# y_value_nr <- data$r.rewc.avg
+# y_value_rr <- data$r.rewc.avg
+
+y_label <- 'Density'
+y_value_sc <- data$r.dens.avg
+y_value_nr <- data$r.dens.nr.avg
+y_value_rr <- data$r.dens.rr.avg
+
+# y_label <- 'Modularity'
+# y_value_sc <- data$r.bcva.avg
+# y_value_nr <- data$r.bcva.nr.avg
+# y_value_rr <- data$r.bcva.rr.avg
+
+df_fig <- data.frame()
+panel_index <- 0
+for (d in set_fig_d) {
+  df_next <- data.frame(
+    mechanism = label_d[d],
+    span = data$para.a.span[set_fig_span],
+    scenario = label_scenario_iii[1],
+    outcome = y_value_nr[d, set_fig_span, set_fig_connectivity, set_fig_enforcement, set_fig_t],
+    span_opt = data$para.a.span[which.max(y_value_nr[d, set_fig_span, set_fig_connectivity, set_fig_enforcement, set_fig_t])],
+    y_opt = y_value_nr[d, which.max(y_value_nr[d, set_fig_span, set_fig_connectivity, set_fig_enforcement, set_fig_t]), set_fig_connectivity, set_fig_enforcement, set_fig_t]
+  )
+  df_fig <- rbind(df_fig, df_next)
+  
+  df_next <- data.frame(
+    mechanism = label_d[d],
+    span = data$para.a.span[set_fig_span],
+    scenario = label_scenario_iii[2],
+    outcome = y_value_sc[d, set_fig_span, set_fig_connectivity, set_fig_enforcement, set_fig_t],
+    span_opt = data$para.a.span[which.max(y_value_sc[d, set_fig_span, set_fig_connectivity, set_fig_enforcement, set_fig_t])],
+    y_opt = y_value_sc[d, which.max(y_value_sc[d, set_fig_span, set_fig_connectivity, set_fig_enforcement, set_fig_t]), set_fig_connectivity, set_fig_enforcement, set_fig_t]
+  )
+  df_fig <- rbind(df_fig, df_next)
+  
+  df_next <- data.frame(
+    mechanism = label_d[d],
+    span = data$para.a.span[set_fig_span],
+    scenario = label_scenario_iii[3],
+    outcome = y_value_rr[d, set_fig_span, set_fig_connectivity, set_fig_enforcement, set_fig_t],
+    span_opt = data$para.a.span[which.max(y_value_rr[d, set_fig_span, set_fig_connectivity, set_fig_enforcement, set_fig_t])],
+    y_opt = y_value_rr[d, which.max(y_value_rr[d, set_fig_span, set_fig_connectivity, set_fig_enforcement, set_fig_t]), set_fig_connectivity, set_fig_enforcement, set_fig_t]
+  )
+  df_fig <- rbind(df_fig, df_next)
+}
+
+axes <- aes(
+  x = span,
+  y = outcome,
+  color = scenario,
+  shape = scenario,
+  linetype = scenario
+)
+
+# df_fig[df_fig$scenario == label_scenario[1],]$outcome = NA
+# df_fig[df_fig$scenario == label_scenario[1],]$y_opt = NA
+# df_fig[df_fig$scenario == label_scenario[2],]$outcome = NA
+# df_fig[df_fig$scenario == label_scenario[2],]$y_opt = NA
+
+fig <- ggplot(data = df_fig, mapping = axes) +
+  facet_grid(. ~ mechanism) +
+  geom_line(alpha = .9, size = .5) +
+  geom_point(size = 1) +
+  geom_point(aes(x = span_opt, y = y_opt), size = 2, shape=8, show_guide = F) +
+  scale_color_manual( breaks = label_scenario_iii, values = c("#282728", "#C5050C", "#00B050") ) +
+  scale_shape_manual(breaks = label_scenario_iii, values = c(4, 1, 16)) +
+  scale_linetype_manual(breaks = label_scenario_iii, values = c('dashed', 'solid', 'dotted')) +
+  scale_x_continuous(expand = c(.02, .02)) +
+  scale_y_continuous(expand = c(0, .02)) +
+  labs(x = x_label, y = y_label) +
+  theme_bw() +
+  theme(
+    text = element_text(
+      size = label_size, color = 'black'
+    ),
+    axis.title = element_text(size = label_size, color = 'black'),
+    axis.text = element_text(size = tick_label_size, color = 'black'),
+    axis.text.x = element_text(
+      color = 'black'),
+    strip.background = element_blank(),
+    strip.placement = 'outside',
+    strip.text = element_text(color = 'black'),
+    panel.spacing = unit(1, 'lines'),
+    legend.title = element_blank(),
+    legend.position = 'bottom'
+  )
+
+fig
+ggsave(
+  paste0(
+    fig_id, '_',
+    'fig_', y_label,
+    'span', paste0(data$para.a.span[set_fig_span], collapse = ","),
+    'c', data$para.a.conn[set_fig_connectivity],
+    'e', data$para.a.enfo[set_fig_enforcement],
+    't', set_fig_t,
+    '.png'
+  ),
+  plot = fig,
+  units = 'in',
+  width = set_fig_width,
+  height = set_fig_height,
+  dpi = fig_dpi
+)
+```
+
+## Figure 3. Relationship Between Span of Control and Organizational Performance Over Time
+
+```{r fig3}
+set_fig3_width = 6.5
+set_fig3_height = 3
+set_fig3_ylim = c(-.1, .9)
+
+set_fig3_span <- c(1, data$para.g.span)
+set_fig3_connectivity <- 1
+set_fig3_enforcement <- 1
+set_fig3_t_end <- data$para.time
+
+set_fig3_t <- 1:set_fig3_t_end
+x_label <- expression(Time~Period~(italic(t)))
+
+y_label <- 'Organizational Performance'
+y_value_sc <- data$r.perf.avg
+y_value_nr <- data$r.perf.nr.avg
+y_value_rr <- data$r.perf.rr.avg
+
+# y_label <- 'Belief Diversity'
+# y_value_sc <- data$r.disa.avg
+# y_value_nr <- data$r.disa.nr.avg
+# y_value_rr <- data$r.disa.rr.avg
+
+# y_label <- 'Closeness Centralization'
+# y_value_sc <- data$r.cent.avg
+# y_value_nr <- data$r.cent.nr.avg
+# y_value_rr <- data$r.cent.rr.avg
+#
+# y_label <- 'Overall Clustering'
+# y_value_sc <- data$r.clus.avg
+# y_value_nr <- data$r.clus.nr.avg
+# y_value_rr <- data$r.clus.rr.avg
+
+# y_label <- 'Communication Efficiency'
+# y_value_sc <- data$r.effi.avg
+# y_value_nr <- data$r.effi.nr.avg
+# y_value_rr <- data$r.effi.rr.avg
+
+# y_label <- 'Number of Rewiring'
+# y_value_sc <- data$r.rewi.avg
+# y_value_nr <- data$r.rewi.avg
+# y_value_rr <- data$r.rewi.avg
+
+label_span <- c(
+  paste0('S=', data$para.a.span[set_fig3_span[1]], ' (Tall)'),
+  paste0('S=', data$para.a.span[set_fig3_span[2]], ' (Flat)')
+)
+label_span <- factor(label_span, levels = label_span)
+
+label_combined <- c(
+  paste0( '(i) ', label_span[1], '; ', label_scenario[1] ),
+  paste0( '(ii) ', label_span[1],'; ', label_scenario[2] ),
+  paste0( '(iii) ', label_span[2],'; ', label_scenario[1] ),
+  paste0( '(iv) ', label_span[2],'; ', label_scenario[2] )
+)
+label_combined <- factor(label_combined, levels = label_combined)
+
+df_fig3 <- data.frame()
+for (d in 1:data$para.g.mech) {
+  for( s in 1:2 ){
+    df_next <- data.frame(
+      label = label_combined[s*2-1],
+      mechanism = label_d[d],
+      span = label_span[s],
+      scenario = label_scenario[1],
+      time = set_fig3_t,
+      outcome = y_value_sc[d, set_fig3_span[s], set_fig3_connectivity, set_fig3_enforcement, set_fig3_t]
+    )
+    df_fig3 <- rbind(df_fig3, df_next)
+
+    df_next <- data.frame(
+      label = label_combined[s*2],
+      mechanism = label_d[d],
+      span = label_span[s],
+      scenario = label_scenario[3],
+      time = set_fig3_t,
+      outcome = y_value_nr[d, set_fig3_span[s], set_fig3_connectivity, set_fig3_enforcement, set_fig3_t]
+    )
+    df_fig3 <- rbind(df_fig3, df_next)
+  }
+}
+
+axes <- aes(
+  x = time,
+  y = outcome,
+  color = label,
+  shape = label,
+  linetype = label
+)
+
+df_fig3$time <- df_fig3$time-1
+df_fig3_point <- df_fig3[df_fig3$time %% 100 == 0,]
+
+fig3 <- ggplot(data = df_fig3, mapping = axes) +
+  # facet_grid(.~mechanism, labeller = label_parsed) +
+  facet_nested(. ~ mechanism) +
+  # geom_text_npc(aes(label = panel_label, npcx='right', npcy='bottom'), size=4, colour='black') +
+  geom_line(alpha = .9, size = .5) +
+  geom_point(data = df_fig3_point, size = 1) +
+  scale_color_manual(values = c('#585252', '#585252', '#E81727', '#E81727')) +
+  scale_shape_manual(values = c(2, 2, 6, 6)) +
+  scale_linetype_manual(values = c('solid', 'dashed', 'solid', 'dashed')) +
+  scale_x_continuous(expand = c(0, .02)) +
+  scale_y_continuous(expand = c(0, .02)) +
+  labs(x = x_label, y = y_label) +
+  guides(color = guide_legend(nrow = 2, byrow = T)) +
+  theme_bw() +
+  theme(
+    text = element_text(# family = windowsFonts()$serif,
+    size = label_size, color = 'black'),
+    axis.title = element_text(size = label_size, color = 'black'),
+    axis.text = element_text(size = tick_label_size, color = 'black'),
+    axis.text.x = element_text(size = tick_label_size*.9, color = 'black'),
+    strip.background = element_blank(),
+    strip.placement = 'outside',
+    strip.text = element_text(color = 'black'),
+    panel.spacing = unit(1, 'lines'),
+    legend.title = element_blank(),
+    legend.position = 'bottom'
+  )
+
+fig3
+ggsave(
+  paste0(
+    fig_id,
+    '_',
+    'fig3_',
+    y_label,
+    't',
+    set_fig3_t_end,
+    '.png'
+  ),
+  plot = fig3,
+  units = 'in',
+  width = set_fig3_width,
+  height = set_fig3_height,
+  dpi = fig_dpi
+)
+```
+
+Demonstration of Small worldness (Outcome panels)
+
+```{r fig5}
+set_fig5_width = 6
+set_fig5_height = 3
+set_fig5_ylim = c(-.1, .9)
+txt_scale <- .9
+
+set_fig5_h <- 1
+set_fig5_span <- 1:data$para.g.span
+set_fig5_connectivity <- 1
+set_fig5_enforcement <- 1
+set_fig5_t <- data$para.time
+# set_fig5_t <- 5
+
+x_label <- 'Span of Control (S)'
+
+param1_label <- 'Average Path Length'
+param1_value <- data$r.dist.avg
+
+param2_label <- 'Clustering Coefficient'
+param2_value <- data$r.clws.avg
+
+label_d <- paste0('(', tolower(as.roman(1:length(set_fig_d))), ') D=', data$para.a.dgre[set_fig_d])
+label_d <- factor(label_d, levels = label_d)
+
+param_label <- c(
+  '(A) Average Path Length',
+  '(B) Clustering Coefficient'
+)
+param_label <- factor(param_label, levels = param_label)
+
+df_fig5 <- data.frame()
+panel_index <- 0
+for (d in set_fig_d) {
+  outcome1 <- param1_value[d, set_fig5_span, set_fig5_connectivity, set_fig5_enforcement, set_fig5_t]
+  outcome2 <- param2_value[d, set_fig5_span, set_fig5_connectivity, set_fig5_enforcement, set_fig5_t]
+
+  df_next <- data.frame(
+    degree = label_d[d],
+    param = param_label[1],
+    span = data$para.a.span[set_fig5_span],
+    outcome = outcome1
+  )
+  df_fig5 <- rbind(df_fig5, df_next)
+  
+  df_next <- data.frame(
+    degree = label_d[d],
+    param = param_label[2],
+    span = data$para.a.span[set_fig5_span],
+    outcome = outcome2
+  )
+  df_fig5 <- rbind(df_fig5, df_next)
+}
+
+axes <- aes(
+  x = span,
+  y = outcome,
+  color = degree,
+  linetype = degree
+)
+
+range1 <- range(df_fig5$outcome1)
+range2 <- range(df_fig5$outcome2)
+
+df_fig5$outcome2 <- scales::rescale(df_fig5$outcome2, to = range1)
+
+fig5 <- ggplot(data = df_fig5, mapping = axes) +
+  # facet_grid(. ~ param, scales = 'free_y', independent='y') +
+  ggh4x::facet_grid2(. ~ param, scales = "free_y", independent = "y") +
+  geom_line(alpha = .9, size = .5) +
+  # scale_color_manual(breaks = label_d, values = c("#282728", "#76161a", "#C5050C")) +
+  geom_point(aes(shape=degree), size = 2) +
+  # scale_shape_manual(breaks = label_d, values = c(48,49,53)) +
+  labs(x = x_label, y='') +
+  scale_x_continuous(expand = c(.02, .02)) +
+  theme_bw() +
+  theme(
+    text = element_text(
+      size = label_size, color = 'black'
+    ),
+    axis.title = element_text(size = label_size*txt_scale, color = 'black'),
+    axis.text = element_text(size = tick_label_size*txt_scale, color = 'black'),
+    axis.text.x = element_text(
+      # angle = 90, vjust = 0.5, hjust=1,
+      color = 'black'),
+    strip.background = element_blank(),
+    strip.placement = 'outside',
+    strip.text = element_text(size= label_size*txt_scale, color = 'black'),
+    panel.spacing = unit(1, 'lines'),
+    legend.title = element_blank(),
+    legend.position = 'bottom'
+  )
+
+fig5
+ggsave(
+  paste0(
+    fig_id, '_',
+    'fig5_',
+    'span', paste0(data$para.a.span[set_fig5_span]),
+    'c', data$para.a.conn[set_fig5_connectivity],
+    'e', data$para.a.enfo[set_fig5_enforcement],
+    't', set_fig5_t,
+    '.png'
+  ),
+  plot = fig5,
+  units = 'in',
+  width = set_fig5_width,
+  height = set_fig5_height,
+  dpi = fig_dpi
+)
+```
