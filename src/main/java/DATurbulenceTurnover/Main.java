@@ -4,7 +4,7 @@ import java.io.File;
 
 public class Main {
 
-  static String RUN_ID = "DATT";
+  static String RUN_ID = "DATT_MaxInformalFix";
 
   static final long TIC = System.currentTimeMillis();
 
@@ -15,7 +15,7 @@ public class Main {
   static final boolean DO_POST_REWIRING = true;
   static final boolean LIMIT_LEVEL = false;
 
-  static final int ITERATION = 10000;
+  static final int ITERATION = 1000;
 
   static final int TIME = 500 + 1;
 
@@ -41,7 +41,8 @@ public class Main {
   static final int N_DYAD_INT = N * (N - 1) / 2;
   static final double M_N_DYAD = M * N_DYAD;
 
-  static final double[] ENFORCEMENT = {0, .5, .8, 1};
+  static final double[] ENFORCEMENT = {1};
+//  static final double[] ENFORCEMENT = {0, .5, .8, 1};
   static final int LENGTH_ENFORCEMENT = ENFORCEMENT.length;
 
   static final double[] TURNOVER_RATE = {0};

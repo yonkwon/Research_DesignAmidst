@@ -5,17 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8f2f981d-d813-4f16-8c60-3a107b9672c7" name="Changes" comment="[Misc.] Catchup with previous updates">
-      <change afterPath="$PROJECT_DIR$/DABaseGrapher.Rmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DAConnectedCavemen.R" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DACostGrapher.Rmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DAFormationGrapher.Rmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DANet.R" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DANtClGrapher.qmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DAPositionGrapher.qmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DAPostAOMGrapher.qmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DATurbulenceTurnoverGrapher.qmd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DATurbulenceTurnover/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DATurbulenceTurnover/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DATurbulenceTurnover/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DATurbulenceTurnover/Scenario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,11 +84,10 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="develop-hoodscorebysum-checkpoint" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -127,33 +118,33 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Application.DAFormBreak.Main.executor": "Run",
-    "Application.DAPostAOM2024.Main.executor": "Run",
-    "Application.DARewiring.Main (1).executor": "Run",
-    "Application.DASequential.Main.executor": "Run with VisualVM",
-    "Application.Main.executor": "Run",
-    "Gradle.Build DesignAmidst.executor": "Run",
-    "Gradle.DesignAmidst [:DASequential.Main.main()].executor": "Run",
-    "Gradle.DesignAmidst [:DATurbulenceTurnover.Main.main()].executor": "Run",
-    "Gradle.DesignAmidst [:Main.main()].executor": "Run",
-    "Gradle.Upgrade Gradle wrapper.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "develop",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Yon/Dropbox/Research/DesignAmidst/src/main/java/DATurbulenceTurnover",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "terminal"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Application.DAFormBreak.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DAPostAOM2024.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DARewiring.Main (1).executor&quot;: &quot;Run&quot;,
+    &quot;Application.DASequential.Main.executor&quot;: &quot;Run with VisualVM&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build DesignAmidst.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.DesignAmidst [:DASequential.Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.DesignAmidst [:DATurbulenceTurnover.Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.DesignAmidst [:Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Upgrade Gradle wrapper.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Yon/Dropbox/Research/Tzogos2&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Yon\Dropbox\Research\DesignAmidst\src\main\java\DATurbulenceTurnover" />

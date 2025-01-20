@@ -57,9 +57,6 @@ public class Scenario {
   int[] degreeFormal;
   int[] degreeInformal;
 
-  double[][] differenceOf;
-  double[] differenceSum;
-
   double[][] preferenceScore;
   double[] preferenceScoreAvg;
 
@@ -148,13 +145,6 @@ public class Scenario {
     clone.degreeFormal = this.degreeFormal.clone();
     clone.degreeInformal = this.degreeInformal.clone();
     clone.degree = this.degree.clone();
-
-    // Clone differenceOf
-    clone.differenceOf = new double[Main.N][];
-    for (int focal = 0; focal < Main.N; focal++) {
-      clone.differenceOf[focal] = this.differenceOf[focal].clone();
-    }
-    clone.differenceSum = this.differenceSum.clone();
 
     clone.performanceAvg = this.performanceAvg;
 
@@ -348,8 +338,6 @@ public class Scenario {
 
   private void initializeOutcome() {
     performance = new int[Main.N];
-    differenceOf = new double[Main.N][Main.N];
-    differenceSum = new double[Main.N];
     setPerformance();
     setOutcome();
   }
@@ -550,7 +538,9 @@ public class Scenario {
       for (int d : dyadIndexArray) {
         int focal = dyad2DIndexArray[d][0];
         int target = dyad2DIndexArray[d][1];
-        if (!network[focal].get(target) && focal != target && !networkLimited[focal].get(target)) {
+        if (!network[focal].get(target) && focal != target && !networkLimited[focal].get(target)
+            && degreeInformal[focal] < Main.INFORMAL_MAX_NUM && degreeInformal[target] < Main.INFORMAL_MAX_NUM // 20250119
+        ) {
           probability[d] = getRewiringWeight(focal, target);
           probabilityDenominator += probability[d];
         }
